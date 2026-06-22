@@ -1,0 +1,1149 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CoinPro Lineage Galaxy</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #08090d;
+      --panel: rgba(16, 20, 27, .88);
+      --panel-strong: rgba(11, 14, 20, .95);
+      --line: rgba(226, 232, 240, .13);
+      --text: #eef4f8;
+      --muted: #9ba8b7;
+      --raw: #6ee7b7;
+      --dv: #8ab4ff;
+      --cd: #f5c16c;
+      --aws: #c084fc;
+      --cat: #67e8f9;
+      --job: #fb923c;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(145deg, #06080d 0%, #101018 52%, #08070c 100%);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .13;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.2'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+    }
+
+    .shell {
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 14px;
+      padding: clamp(14px, 2vw, 28px);
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      color: #aeb9c8;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 12px 0 8px;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: .98;
+      font-weight: 720;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(13px, 1.2vw, 16px);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(90px, 1fr));
+      gap: 8px;
+      min-width: min(430px, 42vw);
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      background: rgba(255,255,255,.035);
+    }
+
+    .metric b {
+      display: block;
+      font: 800 17px/1.1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .metric span {
+      color: #9aa6b5;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .workspace {
+      min-height: 0;
+      border: 1px solid rgba(226, 232, 240, .12);
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(18, 23, 32, .9), rgba(9, 11, 17, .95));
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .42);
+    }
+
+    .main-area {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 38vw);
+      overflow: hidden;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(10, 12, 18, .66);
+    }
+
+    button, input { font: inherit; }
+
+    .tab, .icon-btn {
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 8px;
+      color: #dbe6f0;
+      background: rgba(255,255,255,.04);
+      padding: 7px 10px;
+      cursor: pointer;
+      transition: background .16s ease, border-color .16s ease, transform .16s ease;
+    }
+
+    .tab:hover, .icon-btn:hover {
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.18);
+      transform: translateY(-1px);
+    }
+
+    .tab {
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .tab.active {
+      color: #fff;
+      background: rgba(138, 180, 255, .24);
+      border-color: rgba(138, 180, 255, .42);
+    }
+
+    .spacer { flex: 1; }
+
+    .search {
+      width: min(290px, 34vw);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 8px;
+      color: var(--text);
+      background: rgba(4, 7, 12, .72);
+      padding: 8px 11px;
+      outline: none;
+    }
+
+    .search:focus { border-color: rgba(110, 231, 183, .55); }
+    .search::placeholder { color: #6e7a89; }
+
+    .stage {
+      position: relative;
+      min-height: 0;
+      overflow: hidden;
+      background: linear-gradient(180deg, #080b13 0%, #070910 72%, #05060a 100%);
+    }
+
+    .lineage-panel {
+      min-width: 0;
+      min-height: 0;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      border-left: 1px solid var(--line);
+      background: rgba(7, 9, 14, .78);
+    }
+
+    .lineage-head {
+      display: grid;
+      gap: 5px;
+      padding: 14px 15px 12px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.025);
+    }
+
+    .lineage-kicker {
+      color: #8fa1b5;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .lineage-title {
+      color: #eef4f8;
+      font-size: 14px;
+      font-weight: 800;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .lineage-path {
+      color: #95a4b6;
+      font: 650 11px/1.35 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .lineage-body {
+      min-height: 0;
+      overflow: auto;
+      padding: 14px 15px 18px;
+    }
+
+    .lineage-empty {
+      margin: 0;
+      color: #8d9aac;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .markdown-view {
+      color: #d7e2ee;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .markdown-view h1,
+    .markdown-view h2,
+    .markdown-view h3 {
+      margin: 20px 0 8px;
+      color: #f5f9ff;
+      line-height: 1.2;
+    }
+
+    .markdown-view h1 {
+      margin-top: 0;
+      font-size: 19px;
+    }
+
+    .markdown-view h2 {
+      padding-top: 10px;
+      border-top: 1px solid rgba(226, 232, 240, .12);
+      font-size: 15px;
+    }
+
+    .markdown-view h3 {
+      font-size: 13px;
+      color: #e8eef7;
+    }
+
+    .markdown-view p {
+      margin: 8px 0;
+    }
+
+    .markdown-view ul {
+      margin: 8px 0 12px;
+      padding-left: 20px;
+    }
+
+    .markdown-view li {
+      margin: 4px 0;
+    }
+
+    .markdown-view code {
+      color: #f6d58f;
+      background: rgba(255,255,255,.065);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 4px;
+      padding: 1px 4px;
+      font: 650 12px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .markdown-view pre {
+      margin: 10px 0 14px;
+      overflow: auto;
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 8px;
+      background: rgba(2, 5, 10, .72);
+      padding: 10px 11px;
+    }
+
+    .markdown-view pre code {
+      display: block;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #dbeafe;
+      white-space: pre;
+    }
+
+    .markdown-view table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 14px;
+      font-size: 12px;
+    }
+
+    .markdown-view th,
+    .markdown-view td {
+      border: 1px solid rgba(226, 232, 240, .13);
+      padding: 6px 7px;
+      vertical-align: top;
+    }
+
+    .markdown-view th {
+      color: #f2f7ff;
+      background: rgba(255,255,255,.06);
+      text-align: left;
+    }
+
+    .markdown-view strong {
+      color: #f8fbff;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: grab;
+    }
+
+    canvas.dragging { cursor: grabbing; }
+
+    .hud {
+      position: absolute;
+      left: 16px;
+      top: 14px;
+      pointer-events: none;
+      text-shadow: 0 2px 12px rgba(0,0,0,.78);
+    }
+
+    .hud strong {
+      display: block;
+      color: #f5f8fb;
+      font: 850 12px/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      letter-spacing: .08em;
+    }
+
+    .hud span {
+      display: block;
+      margin-top: 4px;
+      color: #a7b2c0;
+      font: 650 11px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .legend {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      display: grid;
+      gap: 6px;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 8px;
+      background: rgba(6, 8, 13, .72);
+      backdrop-filter: blur(12px);
+      pointer-events: none;
+      min-width: 150px;
+    }
+
+    .legend-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #b8c3d1;
+      font-size: 11px;
+    }
+
+    .swatch {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      box-shadow: 0 0 12px currentColor;
+    }
+
+    .help {
+      position: absolute;
+      left: 16px;
+      bottom: 14px;
+      color: #8692a2;
+      font-size: 11px;
+      pointer-events: none;
+    }
+
+    .tooltip {
+      position: absolute;
+      display: none;
+      max-width: 320px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: rgba(8, 11, 17, .94);
+      border: 1px solid rgba(255,255,255,.13);
+      box-shadow: 0 18px 48px rgba(0,0,0,.42);
+      pointer-events: none;
+      backdrop-filter: blur(16px);
+    }
+
+    .tooltip b { display: block; font-size: 12px; }
+    .tooltip small { display: block; margin-top: 5px; color: #a8b3c1; line-height: 1.35; }
+
+    .detailbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+      min-height: 54px;
+      padding: 10px 14px;
+      border-top: 1px solid var(--line);
+      background: rgba(8, 10, 15, .82);
+      color: #b5c0ce;
+      font: 650 11px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .detail-main {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .detail-extra {
+      color: #d9e3ed;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 820px) {
+      body { overflow: auto; }
+      .shell { min-height: 100%; height: auto; }
+      .topbar { grid-template-columns: 1fr; align-items: start; }
+      .metrics { min-width: 0; width: 100%; }
+      .workspace { height: 72vh; min-height: 560px; }
+      .main-area { grid-template-columns: 1fr; grid-template-rows: minmax(360px, 1fr) 320px; }
+      .lineage-panel { border-left: 0; border-top: 1px solid var(--line); }
+      .toolbar { overflow-x: auto; }
+      .search { min-width: 190px; }
+      .legend { display: none; }
+      .detailbar { grid-template-columns: 1fr; gap: 4px; }
+      .detail-extra { white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <section>
+        <div class="eyebrow">CoinPro lineage knowledge graph</div>
+        <h1>Lineage Galaxy</h1>
+        <p class="subtitle">Grafo interactivo de relaciones entre objetos Data Vault, Crystal/CD, raw y replicas; los jobs se activan bajo demanda.</p>
+      </section>
+      <aside class="metrics" aria-label="Metricas del grafo">
+        <div class="metric"><b id="metricNodes">30</b><span>Nodos</span></div>
+        <div class="metric"><b id="metricLinks">63</b><span>Relaciones</span></div>
+        <div class="metric"><b id="metricFields">943</b><span>Campos</span></div>
+      </aside>
+    </header>
+
+    <section class="workspace" aria-label="CoinPro Lineage Galaxy">
+      <div class="toolbar">
+        <button class="tab active" type="button" data-layer="All">All</button>
+        <button class="tab" type="button" data-layer="Raw">Raw</button>
+        <button class="tab" type="button" data-layer="Data Vault">Data Vault</button>
+        <button class="tab" type="button" data-layer="Crystal/CD">Crystal/CD</button>
+        <button class="tab" type="button" data-layer="Replica AWS">Replica AWS</button>
+        <button class="tab" type="button" data-layer="Proceso/Job">Jobs</button>
+        <div class="spacer"></div>
+        <input id="search" class="search" type="search" placeholder="Buscar objeto, capa o relacion" aria-label="Buscar objeto" />
+        <button id="resetBtn" class="icon-btn" type="button">Reset</button>
+        <button id="pauseBtn" class="icon-btn" type="button">Pause</button>
+      </div>
+
+      <div class="main-area">
+        <div id="stage" class="stage">
+          <canvas id="galaxy" aria-label="Grafo de conocimiento de linaje CoinPro"></canvas>
+          <div class="hud">
+            <strong>COINPRO LINEAGE GALAXY</strong>
+            <span id="hudStats">30 nodes · 63 relations · 943 field links</span>
+            <span>size = relationship volume · color = data layer</span>
+          </div>
+          <div class="legend" aria-hidden="true">
+            <div class="legend-row"><span class="swatch" style="color: var(--raw); background: var(--raw)"></span>Raw</div>
+            <div class="legend-row"><span class="swatch" style="color: var(--dv); background: var(--dv)"></span>Data Vault</div>
+            <div class="legend-row"><span class="swatch" style="color: var(--cd); background: var(--cd)"></span>Crystal/CD</div>
+            <div class="legend-row"><span class="swatch" style="color: var(--aws); background: var(--aws)"></span>Replica AWS</div>
+            <div class="legend-row"><span class="swatch" style="color: var(--job); background: var(--job)"></span>Proceso/Job</div>
+            <div class="legend-row"><span class="swatch" style="color: var(--cat); background: var(--cat)"></span>Catalogo</div>
+          </div>
+          <div class="help">drag to orbit · scroll to zoom · click an object · double-click to pause flight</div>
+          <div id="tooltip" class="tooltip" role="status"></div>
+        </div>
+
+        <aside class="lineage-panel" aria-label="Archivo de linaje seleccionado">
+          <header class="lineage-head">
+            <div class="lineage-kicker">lineage file</div>
+            <div id="lineageTitle" class="lineage-title">Selecciona un objeto documentado</div>
+            <div id="lineagePath" class="lineage-path">lineage_&lt;table&gt;.md</div>
+          </header>
+          <div id="lineageBody" class="lineage-body">
+            <p class="lineage-empty">Selecciona un nodo con documentacion de linaje para ver aqui el contenido completo de su archivo Markdown.</p>
+          </div>
+        </aside>
+      </div>
+
+      <footer class="detailbar">
+        <div id="detailMain" class="detail-main">Selecciona una estrella para ver objeto, capa, entradas/salidas y relaciones.</div>
+        <div id="detailExtra" class="detail-extra">mode: all layers</div>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+  (() => {
+    'use strict';
+
+    const DATA = {"nodes":[{"id":"cu_baz_bdsopoperlog.cu_ebx_catt_baz_cripto_estado_curp","label":"cu_ebx_catt_baz_cripto_estado_curp","layer":"Catalogo","in":0,"out":2,"rel":2},{"id":"cd_bdpld.cd_cap_ceco_suc_pdv","label":"cd_cap_ceco_suc_pdv","layer":"Crystal/CD","in":0,"out":2,"rel":2},{"id":"cd_bdpld.cd_cri_actividad_geolocalizacion","label":"cd_cri_actividad_geolocalizacion","layer":"Crystal/CD","in":30,"out":0,"rel":38},{"id":"cd_bdpld.cd_cri_actividad_lista","label":"cd_cri_actividad_lista","layer":"Crystal/CD","in":31,"out":0,"rel":40},{"id":"cd_bdpld.cd_cri_actividad_pep","label":"cd_cri_actividad_pep","layer":"Crystal/CD","in":21,"out":0,"rel":26},{"id":"cd_bdpld.cd_cri_cliente","label":"cd_cri_cliente","layer":"Crystal/CD","in":106,"out":44,"rel":184},{"id":"cd_bdpld.cd_cri_cliente_detalle","label":"cd_cri_cliente_detalle","layer":"Crystal/CD","in":19,"out":0,"rel":19},{"id":"cd_bdpld.cd_cri_cliente_dom","label":"cd_cri_cliente_dom","layer":"Crystal/CD","in":13,"out":0,"rel":13},{"id":"cd_bdpld.cd_cri_cuenta_cripto","label":"cd_cri_cuenta_cripto","layer":"Crystal/CD","in":19,"out":0,"rel":24},{"id":"cd_bdpld.cd_cri_movimientos","label":"cd_cri_movimientos","layer":"Crystal/CD","in":151,"out":251,"rel":451},{"id":"cd_bdpld.cd_cri_operaciones_cripto","label":"cd_cri_operaciones_cripto","layer":"Crystal/CD","in":125,"out":0,"rel":165},{"id":"cd_bdpld.cd_cri_periodo_mes","label":"cd_cri_periodo_mes","layer":"Crystal/CD","in":21,"out":0,"rel":26},{"id":"cd_bdpld.cd_cri_rebase_umbral","label":"cd_cri_rebase_umbral","layer":"Crystal/CD","in":21,"out":0,"rel":26},{"id":"cd_bdpld.cd_cri_resumen_tipo_operacion","label":"cd_cri_resumen_tipo_operacion","layer":"Crystal/CD","in":31,"out":0,"rel":40},{"id":"dv_bdbaz.br_baz_coinpro_cliente_operacion","label":"br_baz_coinpro_cliente_operacion","layer":"Data Vault","in":27,"out":21,"rel":60},{"id":"dv_bdbaz.h_baz_coinpro_cliente","label":"h_baz_coinpro_cliente","layer":"Data Vault","in":14,"out":2,"rel":21},{"id":"dv_bdbaz.h_baz_coinpro_operacion","label":"h_baz_coinpro_operacion","layer":"Data Vault","in":14,"out":17,"rel":36},{"id":"dv_bdbaz.l_baz_coinpro_cliente_operacion","label":"l_baz_coinpro_cliente_operacion","layer":"Data Vault","in":16,"out":24,"rel":46},{"id":"dv_bdbaz.s_h_baz_coinpro_cliente_demografico","label":"s_h_baz_coinpro_cliente_demografico","layer":"Data Vault","in":38,"out":49,"rel":104},{"id":"dv_bdbaz.s_h_baz_coinpro_cliente_identificacion","label":"s_h_baz_coinpro_cliente_identificacion","layer":"Data Vault","in":46,"out":68,"rel":135},{"id":"dv_bdbaz.s_h_baz_coinpro_operacion_detalle","label":"s_h_baz_coinpro_operacion_detalle","layer":"Data Vault","in":21,"out":39,"rel":69},{"id":"dv_bdbaz.s_l_baz_coinpro_operacion_movimiento","label":"s_l_baz_coinpro_operacion_movimiento","layer":"Data Vault","in":131,"out":176,"rel":371},{"id":"job:baz-clientes-div-rd_cripto_trans-mt","label":"baz-clientes-div-rd_cripto_trans-mt","layer":"Proceso/Job","in":0,"out":1,"rel":34},{"id":"job:baz-crystal-cd_cri_mov_cte-jnb","label":"baz-crystal-cd_cri_mov_cte-jnb","layer":"Proceso/Job","in":3,"out":2,"rel":97},{"id":"job:baz-crystal-cd_cri_mov_cte_detalle-jnb","label":"baz-crystal-cd_cri_mov_cte_detalle-jnb","layer":"Proceso/Job","in":3,"out":8,"rel":106},{"id":"job:baz-dv-coinpro-operacion-aws-carga-dt","label":"baz-dv-coinpro-operacion-aws-carga-dt","layer":"Proceso/Job","in":0,"out":6,"rel":66},{"id":"job:baz-dv-coinpro-operacion-jnb","label":"baz-dv-coinpro-operacion-jnb","layer":"Proceso/Job","in":2,"out":8,"rel":163},{"id":"rd_baz_bdclientes.rd_cripto_trans","label":"rd_cripto_trans","layer":"Raw","in":1,"out":243,"rel":277},{"id":"rd_baz_bdregulatorio.rd_regulatorio_cedulaingestas","label":"rd_regulatorio_cedulaingestas","layer":"Raw","in":0,"out":5,"rel":5},{"id":"dv_bdgs_cnp.h_gs_cnp_operacion","label":"h_gs_cnp_operacion","layer":"Replica AWS","in":9,"out":0,"rel":12},{"id":"dv_bdgs_cnp.l_gs_cnp_cliente_operacion","label":"l_gs_cnp_cliente_operacion","layer":"Replica AWS","in":12,"out":0,"rel":16},{"id":"dv_bdgs_cnp.s_h_gs_cnp_cliente_demografico","label":"s_h_gs_cnp_cliente_demografico","layer":"Replica AWS","in":18,"out":0,"rel":25},{"id":"dv_bdgs_cnp.s_h_gs_cnp_cliente_identificacion","label":"s_h_gs_cnp_cliente_identificacion","layer":"Replica AWS","in":22,"out":0,"rel":31},{"id":"dv_bdgs_cnp.s_h_gs_cnp_operacion_detalle","label":"s_h_gs_cnp_operacion_detalle","layer":"Replica AWS","in":18,"out":0,"rel":25},{"id":"dv_bdgs_cnp.s_l_gs_cnp_operacion_movimiento","label":"s_l_gs_cnp_operacion_movimiento","layer":"Replica AWS","in":64,"out":0,"rel":94},{"id":"dv_creator.add_metadata","label":"add_metadata","layer":"Runtime/Helper","in":0,"out":25,"rel":32},{"id":"literal","label":"literal","layer":"Runtime/Helper","in":0,"out":5,"rel":11},{"id":"runtime","label":"runtime","layer":"Runtime/Helper","in":0,"out":8,"rel":14},{"id":"runtime/literal","label":"runtime/literal","layer":"Runtime/Helper","in":0,"out":29,"rel":35},{"id":"system_source","label":"system_source","layer":"Runtime/Helper","in":0,"out":12,"rel":19}],"links":[{"s":"cd_bdpld.cd_cap_ceco_suc_pdv","t":"cd_bdpld.cd_cri_actividad_geolocalizacion","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"related_object","ev":"85088"},{"s":"cd_bdpld.cd_cap_ceco_suc_pdv","t":"cd_bdpld.cd_cri_movimientos","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"related_object","ev":"85067"},{"s":"cd_bdpld.cd_cri_cliente","t":"cd_bdpld.cd_cri_actividad_lista","c":11,"p":"upstream","u":5,"dn":5,"n":1,"type":"additional_upstream_field","ev":"85089"},{"s":"cd_bdpld.cd_cri_cliente","t":"cd_bdpld.cd_cri_cliente_detalle","c":19,"p":"downstream","u":0,"dn":19,"n":0,"type":"downstream_field","ev":"85091"},{"s":"cd_bdpld.cd_cri_cliente","t":"cd_bdpld.cd_cri_cliente_dom","c":13,"p":"downstream","u":0,"dn":13,"n":0,"type":"downstream_field","ev":"85092"},{"s":"cd_bdpld.cd_cri_cliente","t":"cd_bdpld.cd_cri_movimientos","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"related_object","ev":"85067"},{"s":"cd_bdpld.cd_cri_movimientos","t":"cd_bdpld.cd_cri_actividad_geolocalizacion","c":25,"p":"upstream","u":12,"dn":12,"n":1,"type":"active_upstream_field","ev":"85088"},{"s":"cd_bdpld.cd_cri_movimientos","t":"cd_bdpld.cd_cri_actividad_lista","c":11,"p":"upstream","u":5,"dn":5,"n":1,"type":"active_upstream_field","ev":"85089"},{"s":"cd_bdpld.cd_cri_movimientos","t":"cd_bdpld.cd_cri_actividad_pep","c":17,"p":"upstream","u":8,"dn":8,"n":1,"type":"active_upstream_field","ev":"85090"},{"s":"cd_bdpld.cd_cri_movimientos","t":"cd_bdpld.cd_cri_cliente","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"related_object","ev":"85066"},{"s":"cd_bdpld.cd_cri_movimientos","t":"cd_bdpld.cd_cri_cuenta_cripto","c":15,"p":"upstream","u":7,"dn":7,"n":1,"type":"active_upstream_field","ev":"85093"},{"s":"cd_bdpld.cd_cri_movimientos","t":"cd_bdpld.cd_cri_operaciones_cripto","c":121,"p":"downstream","u":60,"dn":60,"n":1,"type":"active_upstream_field","ev":"85094"},{"s":"cd_bdpld.cd_cri_movimientos","t":"cd_bdpld.cd_cri_periodo_mes","c":17,"p":"downstream","u":8,"dn":8,"n":1,"type":"active_upstream_field","ev":"85095"},{"s":"cd_bdpld.cd_cri_movimientos","t":"cd_bdpld.cd_cri_rebase_umbral","c":17,"p":"downstream","u":8,"dn":8,"n":1,"type":"active_upstream_field","ev":"85096"},{"s":"cd_bdpld.cd_cri_movimientos","t":"cd_bdpld.cd_cri_resumen_tipo_operacion","c":27,"p":"downstream","u":13,"dn":13,"n":1,"type":"active_upstream_field","ev":"85097"},{"s":"cu_baz_bdsopoperlog.cu_ebx_catt_baz_cripto_estado_curp","t":"cd_bdpld.cd_cri_cliente","c":2,"p":"upstream","u":1,"dn":1,"n":0,"type":"active_upstream_field","ev":"85066"},{"s":"dv_bdbaz.br_baz_coinpro_cliente_operacion","t":"cd_bdpld.cd_cri_cliente","c":18,"p":"downstream","u":6,"dn":11,"n":1,"type":"active_upstream_field","ev":"85066"},{"s":"dv_bdbaz.br_baz_coinpro_cliente_operacion","t":"dv_bdbaz.h_baz_coinpro_cliente","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92090"},{"s":"dv_bdbaz.br_baz_coinpro_cliente_operacion","t":"dv_bdbaz.h_baz_coinpro_operacion","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92090"},{"s":"dv_bdbaz.br_baz_coinpro_cliente_operacion","t":"dv_bdbaz.l_baz_coinpro_cliente_operacion","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92090"},{"s":"dv_bdbaz.h_baz_coinpro_cliente","t":"cd_bdpld.cd_cri_movimientos","c":2,"p":"upstream","u":1,"dn":0,"n":1,"type":"active_upstream_field","ev":"85067"},{"s":"dv_bdbaz.h_baz_coinpro_operacion","t":"cd_bdpld.cd_cri_movimientos","c":4,"p":"downstream","u":1,"dn":2,"n":1,"type":"crystal_cd_movimientos_field","ev":"85067"},{"s":"dv_bdbaz.h_baz_coinpro_operacion","t":"dv_bdbaz.br_baz_coinpro_cliente_operacion","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92092"},{"s":"dv_bdbaz.h_baz_coinpro_operacion","t":"dv_bdbaz.l_baz_coinpro_cliente_operacion","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92092"},{"s":"dv_bdbaz.h_baz_coinpro_operacion","t":"dv_bdbaz.s_h_baz_coinpro_operacion_detalle","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92092"},{"s":"dv_bdbaz.h_baz_coinpro_operacion","t":"dv_bdbaz.s_l_baz_coinpro_operacion_movimiento","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92092"},{"s":"dv_bdbaz.h_baz_coinpro_operacion","t":"dv_bdgs_cnp.h_gs_cnp_operacion","c":8,"p":"downstream","u":0,"dn":8,"n":0,"type":"datatransfer_field","ev":"105172"},{"s":"dv_bdbaz.h_baz_coinpro_operacion","t":"dv_bdgs_cnp.l_gs_cnp_cliente_operacion","c":1,"p":"downstream","u":0,"dn":1,"n":0,"type":"datatransfer_lookup","ev":"105172"},{"s":"dv_bdbaz.l_baz_coinpro_cliente_operacion","t":"cd_bdpld.cd_cri_movimientos","c":10,"p":"upstream","u":5,"dn":4,"n":1,"type":"join_condition","ev":"85067"},{"s":"dv_bdbaz.l_baz_coinpro_cliente_operacion","t":"dv_bdbaz.br_baz_coinpro_cliente_operacion","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92094"},{"s":"dv_bdbaz.l_baz_coinpro_cliente_operacion","t":"dv_bdbaz.h_baz_coinpro_cliente","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92094"},{"s":"dv_bdbaz.l_baz_coinpro_cliente_operacion","t":"dv_bdbaz.h_baz_coinpro_operacion","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92094"},{"s":"dv_bdbaz.l_baz_coinpro_cliente_operacion","t":"dv_bdbaz.s_l_baz_coinpro_operacion_movimiento","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92094"},{"s":"dv_bdbaz.l_baz_coinpro_cliente_operacion","t":"dv_bdgs_cnp.l_gs_cnp_cliente_operacion","c":10,"p":"downstream","u":0,"dn":10,"n":0,"type":"datatransfer_field","ev":"105172"},{"s":"dv_bdbaz.s_h_baz_coinpro_cliente_demografico","t":"cd_bdpld.cd_cri_cliente","c":29,"p":"downstream","u":9,"dn":19,"n":1,"type":"crystal_cd_cliente_field","ev":"85066"},{"s":"dv_bdbaz.s_h_baz_coinpro_cliente_demografico","t":"dv_bdbaz.br_baz_coinpro_cliente_operacion","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92095"},{"s":"dv_bdbaz.s_h_baz_coinpro_cliente_demografico","t":"dv_bdbaz.h_baz_coinpro_cliente","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92095"},{"s":"dv_bdbaz.s_h_baz_coinpro_cliente_demografico","t":"dv_bdbaz.s_h_baz_coinpro_cliente_identificacion","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92095"},{"s":"dv_bdbaz.s_h_baz_coinpro_cliente_demografico","t":"dv_bdgs_cnp.s_h_gs_cnp_cliente_demografico","c":17,"p":"downstream","u":0,"dn":17,"n":0,"type":"datatransfer_field","ev":"105172"},{"s":"dv_bdbaz.s_h_baz_coinpro_cliente_identificacion","t":"cd_bdpld.cd_cri_cliente","c":41,"p":"downstream","u":13,"dn":27,"n":1,"type":"crystal_cd_cliente_field","ev":"85066"},{"s":"dv_bdbaz.s_h_baz_coinpro_cliente_identificacion","t":"cd_bdpld.cd_cri_movimientos","c":3,"p":"downstream","u":1,"dn":2,"n":0,"type":"crystal_cd_movimientos_field","ev":"85067"},{"s":"dv_bdbaz.s_h_baz_coinpro_cliente_identificacion","t":"dv_bdbaz.br_baz_coinpro_cliente_operacion","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92096"},{"s":"dv_bdbaz.s_h_baz_coinpro_cliente_identificacion","t":"dv_bdbaz.h_baz_coinpro_cliente","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92096"},{"s":"dv_bdbaz.s_h_baz_coinpro_cliente_identificacion","t":"dv_bdbaz.s_h_baz_coinpro_cliente_demografico","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92096"},{"s":"dv_bdbaz.s_h_baz_coinpro_cliente_identificacion","t":"dv_bdgs_cnp.s_h_gs_cnp_cliente_identificacion","c":21,"p":"downstream","u":0,"dn":21,"n":0,"type":"datatransfer_field","ev":"105172"},{"s":"dv_bdbaz.s_h_baz_coinpro_operacion_detalle","t":"cd_bdpld.cd_cri_movimientos","c":20,"p":"downstream","u":9,"dn":10,"n":1,"type":"crystal_cd_movimientos_field","ev":"85067"},{"s":"dv_bdbaz.s_h_baz_coinpro_operacion_detalle","t":"dv_bdbaz.h_baz_coinpro_operacion","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92097"},{"s":"dv_bdbaz.s_h_baz_coinpro_operacion_detalle","t":"dv_bdbaz.l_baz_coinpro_cliente_operacion","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92097"},{"s":"dv_bdbaz.s_h_baz_coinpro_operacion_detalle","t":"dv_bdgs_cnp.s_h_gs_cnp_operacion_detalle","c":17,"p":"downstream","u":0,"dn":17,"n":0,"type":"datatransfer_field","ev":"105172"},{"s":"dv_bdbaz.s_l_baz_coinpro_operacion_movimiento","t":"cd_bdpld.cd_cri_cliente","c":5,"p":"downstream","u":1,"dn":3,"n":1,"type":"crystal_cd_cliente_field","ev":"85066"},{"s":"dv_bdbaz.s_l_baz_coinpro_operacion_movimiento","t":"cd_bdpld.cd_cri_movimientos","c":106,"p":"downstream","u":52,"dn":53,"n":1,"type":"crystal_cd_movimientos_field","ev":"85067"},{"s":"dv_bdbaz.s_l_baz_coinpro_operacion_movimiento","t":"dv_bdbaz.br_baz_coinpro_cliente_operacion","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92098"},{"s":"dv_bdbaz.s_l_baz_coinpro_operacion_movimiento","t":"dv_bdbaz.l_baz_coinpro_cliente_operacion","c":1,"p":"neighborhood","u":0,"dn":0,"n":1,"type":"dv_model_relationship","ev":"92098"},{"s":"dv_bdbaz.s_l_baz_coinpro_operacion_movimiento","t":"dv_bdgs_cnp.s_l_gs_cnp_operacion_movimiento","c":63,"p":"downstream","u":0,"dn":63,"n":0,"type":"datatransfer_field","ev":"105172"},{"s":"dv_creator.add_metadata","t":"dv_bdbaz.br_baz_coinpro_cliente_operacion","c":4,"p":"upstream","u":2,"dn":0,"n":2,"type":"metadata","ev":"92090"},{"s":"dv_creator.add_metadata","t":"dv_bdbaz.h_baz_coinpro_cliente","c":2,"p":"upstream","u":2,"dn":0,"n":0,"type":"metadata","ev":"92091"},{"s":"dv_creator.add_metadata","t":"dv_bdbaz.h_baz_coinpro_operacion","c":2,"p":"upstream","u":2,"dn":0,"n":0,"type":"metadata","ev":"92092"},{"s":"dv_creator.add_metadata","t":"dv_bdbaz.l_baz_coinpro_cliente_operacion","c":2,"p":"upstream","u":2,"dn":0,"n":0,"type":"metadata","ev":"92094"},{"s":"dv_creator.add_metadata","t":"dv_bdbaz.s_h_baz_coinpro_cliente_demografico","c":4,"p":"neighborhood","u":2,"dn":0,"n":2,"type":"metadata","ev":"92095"},{"s":"dv_creator.add_metadata","t":"dv_bdbaz.s_h_baz_coinpro_cliente_identificacion","c":4,"p":"neighborhood","u":2,"dn":0,"n":2,"type":"metadata","ev":"92096"},{"s":"dv_creator.add_metadata","t":"dv_bdbaz.s_h_baz_coinpro_operacion_detalle","c":2,"p":"upstream","u":2,"dn":0,"n":0,"type":"metadata","ev":"92097"},{"s":"dv_creator.add_metadata","t":"dv_bdbaz.s_l_baz_coinpro_operacion_movimiento","c":4,"p":"neighborhood","u":2,"dn":0,"n":2,"type":"metadata","ev":"92098"},{"s":"literal","t":"cd_bdpld.cd_cri_cliente","c":2,"p":"upstream","u":1,"dn":1,"n":0,"type":"active_upstream_field","ev":"85066"},{"s":"literal","t":"cd_bdpld.cd_cri_movimientos","c":1,"p":"upstream","u":1,"dn":0,"n":0,"type":"active_upstream_field","ev":"85067"},{"s":"rd_baz_bdclientes.rd_cripto_trans","t":"dv_bdbaz.br_baz_coinpro_cliente_operacion","c":16,"p":"upstream","u":9,"dn":0,"n":7,"type":"direct_field_transform","ev":"92090"},{"s":"rd_baz_bdclientes.rd_cripto_trans","t":"dv_bdbaz.h_baz_coinpro_cliente","c":6,"p":"upstream","u":6,"dn":0,"n":0,"type":"direct_field_transform","ev":"92091"},{"s":"rd_baz_bdclientes.rd_cripto_trans","t":"dv_bdbaz.h_baz_coinpro_operacion","c":7,"p":"upstream","u":7,"dn":0,"n":0,"type":"direct_field_transform","ev":"92092"},{"s":"rd_baz_bdclientes.rd_cripto_trans","t":"dv_bdbaz.l_baz_coinpro_cliente_operacion","c":8,"p":"upstream","u":8,"dn":0,"n":0,"type":"direct_field_transform","ev":"92094"},{"s":"rd_baz_bdclientes.rd_cripto_trans","t":"dv_bdbaz.s_h_baz_coinpro_cliente_demografico","c":30,"p":"upstream","u":16,"dn":0,"n":14,"type":"direct_field_transform","ev":"92095"},{"s":"rd_baz_bdclientes.rd_cripto_trans","t":"dv_bdbaz.s_h_baz_coinpro_cliente_identificacion","c":38,"p":"upstream","u":20,"dn":0,"n":18,"type":"direct_field_transform","ev":"92096"},{"s":"rd_baz_bdclientes.rd_cripto_trans","t":"dv_bdbaz.s_h_baz_coinpro_operacion_detalle","c":16,"p":"upstream","u":16,"dn":0,"n":0,"type":"direct_field_transform","ev":"92097"},{"s":"rd_baz_bdclientes.rd_cripto_trans","t":"dv_bdbaz.s_l_baz_coinpro_operacion_movimiento","c":122,"p":"upstream","u":62,"dn":0,"n":60,"type":"direct_field_transform","ev":"92098"},{"s":"rd_baz_bdregulatorio.rd_regulatorio_cedulaingestas","t":"cd_bdpld.cd_cri_actividad_lista","c":5,"p":"upstream","u":4,"dn":0,"n":1,"type":"additional_upstream_field","ev":"85089"},{"s":"runtime","t":"cd_bdpld.cd_cri_cliente","c":4,"p":"upstream","u":2,"dn":2,"n":0,"type":"active_upstream_field","ev":"85066"},{"s":"runtime","t":"cd_bdpld.cd_cri_movimientos","c":2,"p":"upstream","u":2,"dn":0,"n":0,"type":"active_upstream_field","ev":"85067"},{"s":"runtime/literal","t":"cd_bdpld.cd_cri_actividad_geolocalizacion","c":3,"p":"upstream","u":3,"dn":0,"n":0,"type":"runtime_metadata","ev":"85088"},{"s":"runtime/literal","t":"cd_bdpld.cd_cri_actividad_lista","c":3,"p":"upstream","u":3,"dn":0,"n":0,"type":"runtime_metadata","ev":"85089"},{"s":"runtime/literal","t":"cd_bdpld.cd_cri_actividad_pep","c":3,"p":"upstream","u":3,"dn":0,"n":0,"type":"runtime_metadata","ev":"85090"},{"s":"runtime/literal","t":"cd_bdpld.cd_cri_cliente","c":3,"p":"upstream","u":3,"dn":0,"n":0,"type":"runtime_metadata","ev":"85066"},{"s":"runtime/literal","t":"cd_bdpld.cd_cri_cuenta_cripto","c":3,"p":"upstream","u":3,"dn":0,"n":0,"type":"runtime_metadata","ev":"85093"},{"s":"runtime/literal","t":"cd_bdpld.cd_cri_operaciones_cripto","c":3,"p":"upstream","u":3,"dn":0,"n":0,"type":"runtime_metadata","ev":"85094"},{"s":"runtime/literal","t":"cd_bdpld.cd_cri_periodo_mes","c":3,"p":"upstream","u":3,"dn":0,"n":0,"type":"runtime_metadata","ev":"85095"},{"s":"runtime/literal","t":"cd_bdpld.cd_cri_rebase_umbral","c":3,"p":"upstream","u":3,"dn":0,"n":0,"type":"runtime_metadata","ev":"85096"},{"s":"runtime/literal","t":"cd_bdpld.cd_cri_resumen_tipo_operacion","c":3,"p":"upstream","u":3,"dn":0,"n":0,"type":"runtime_metadata","ev":"85097"},{"s":"system_source","t":"dv_bdbaz.br_baz_coinpro_cliente_operacion","c":1,"p":"upstream","u":1,"dn":0,"n":0,"type":"constant","ev":"92090"},{"s":"system_source","t":"dv_bdbaz.h_baz_coinpro_cliente","c":1,"p":"upstream","u":1,"dn":0,"n":0,"type":"constant","ev":"92091"},{"s":"system_source","t":"dv_bdbaz.h_baz_coinpro_operacion","c":1,"p":"upstream","u":1,"dn":0,"n":0,"type":"constant","ev":"92092"},{"s":"system_source","t":"dv_bdbaz.l_baz_coinpro_cliente_operacion","c":1,"p":"upstream","u":1,"dn":0,"n":0,"type":"constant","ev":"92094"},{"s":"system_source","t":"dv_bdbaz.s_h_baz_coinpro_cliente_demografico","c":2,"p":"neighborhood","u":1,"dn":0,"n":1,"type":"metadata","ev":"92095"},{"s":"system_source","t":"dv_bdbaz.s_h_baz_coinpro_cliente_identificacion","c":2,"p":"neighborhood","u":1,"dn":0,"n":1,"type":"metadata","ev":"92096"},{"s":"system_source","t":"dv_bdbaz.s_h_baz_coinpro_operacion_detalle","c":1,"p":"upstream","u":1,"dn":0,"n":0,"type":"constant","ev":"92097"},{"s":"system_source","t":"dv_bdbaz.s_l_baz_coinpro_operacion_movimiento","c":2,"p":"neighborhood","u":1,"dn":0,"n":1,"type":"metadata","ev":"92098"},{"s":"dv_creator.add_metadata","t":"job:baz-dv-coinpro-operacion-jnb","c":8,"p":"process","u":0,"dn":0,"n":0,"type":"runtime_context","ev":"","kind":"process"},{"s":"job:baz-clientes-div-rd_cripto_trans-mt","t":"rd_baz_bdclientes.rd_cripto_trans","c":34,"p":"process","u":0,"dn":0,"n":0,"type":"raw_load","ev":"105683","kind":"process"},{"s":"job:baz-crystal-cd_cri_mov_cte-jnb","t":"cd_bdpld.cd_cri_cliente","c":35,"p":"process","u":0,"dn":0,"n":0,"type":"notebook_constructor","ev":"","kind":"process"},{"s":"job:baz-crystal-cd_cri_mov_cte-jnb","t":"cd_bdpld.cd_cri_movimientos","c":50,"p":"process","u":0,"dn":0,"n":0,"type":"notebook_constructor","ev":"","kind":"process"},{"s":"job:baz-crystal-cd_cri_mov_cte_detalle-jnb","t":"cd_bdpld.cd_cri_actividad_geolocalizacion","c":9,"p":"process","u":0,"dn":0,"n":0,"type":"notebook_constructor","ev":"","kind":"process"},{"s":"job:baz-crystal-cd_cri_mov_cte_detalle-jnb","t":"cd_bdpld.cd_cri_actividad_lista","c":10,"p":"process","u":0,"dn":0,"n":0,"type":"notebook_constructor","ev":"","kind":"process"},{"s":"job:baz-crystal-cd_cri_mov_cte_detalle-jnb","t":"cd_bdpld.cd_cri_actividad_pep","c":6,"p":"process","u":0,"dn":0,"n":0,"type":"notebook_constructor","ev":"","kind":"process"},{"s":"job:baz-crystal-cd_cri_mov_cte_detalle-jnb","t":"cd_bdpld.cd_cri_cuenta_cripto","c":6,"p":"process","u":0,"dn":0,"n":0,"type":"notebook_constructor","ev":"","kind":"process"},{"s":"job:baz-crystal-cd_cri_mov_cte_detalle-jnb","t":"cd_bdpld.cd_cri_operaciones_cripto","c":41,"p":"process","u":0,"dn":0,"n":0,"type":"notebook_constructor","ev":"","kind":"process"},{"s":"job:baz-crystal-cd_cri_mov_cte_detalle-jnb","t":"cd_bdpld.cd_cri_periodo_mes","c":6,"p":"process","u":0,"dn":0,"n":0,"type":"notebook_constructor","ev":"","kind":"process"},{"s":"job:baz-crystal-cd_cri_mov_cte_detalle-jnb","t":"cd_bdpld.cd_cri_rebase_umbral","c":6,"p":"process","u":0,"dn":0,"n":0,"type":"notebook_constructor","ev":"","kind":"process"},{"s":"job:baz-crystal-cd_cri_mov_cte_detalle-jnb","t":"cd_bdpld.cd_cri_resumen_tipo_operacion","c":10,"p":"process","u":0,"dn":0,"n":0,"type":"notebook_constructor","ev":"","kind":"process"},{"s":"job:baz-dv-coinpro-operacion-aws-carga-dt","t":"dv_bdgs_cnp.h_gs_cnp_operacion","c":4,"p":"process","u":0,"dn":0,"n":0,"type":"datatransfer_replica","ev":"105172","kind":"process"},{"s":"job:baz-dv-coinpro-operacion-aws-carga-dt","t":"dv_bdgs_cnp.l_gs_cnp_cliente_operacion","c":5,"p":"process","u":0,"dn":0,"n":0,"type":"datatransfer_replica","ev":"105172","kind":"process"},{"s":"job:baz-dv-coinpro-operacion-aws-carga-dt","t":"dv_bdgs_cnp.s_h_gs_cnp_cliente_demografico","c":8,"p":"process","u":0,"dn":0,"n":0,"type":"datatransfer_replica","ev":"105172","kind":"process"},{"s":"job:baz-dv-coinpro-operacion-aws-carga-dt","t":"dv_bdgs_cnp.s_h_gs_cnp_cliente_identificacion","c":10,"p":"process","u":0,"dn":0,"n":0,"type":"datatransfer_replica","ev":"105172","kind":"process"},{"s":"job:baz-dv-coinpro-operacion-aws-carga-dt","t":"dv_bdgs_cnp.s_h_gs_cnp_operacion_detalle","c":8,"p":"process","u":0,"dn":0,"n":0,"type":"datatransfer_replica","ev":"105172","kind":"process"},{"s":"job:baz-dv-coinpro-operacion-aws-carga-dt","t":"dv_bdgs_cnp.s_l_gs_cnp_operacion_movimiento","c":31,"p":"process","u":0,"dn":0,"n":0,"type":"datatransfer_replica","ev":"105172","kind":"process"},{"s":"job:baz-dv-coinpro-operacion-jnb","t":"dv_bdbaz.br_baz_coinpro_cliente_operacion","c":13,"p":"process","u":0,"dn":0,"n":0,"type":"notebook_constructor","ev":"","kind":"process"},{"s":"job:baz-dv-coinpro-operacion-jnb","t":"dv_bdbaz.h_baz_coinpro_cliente","c":6,"p":"process","u":0,"dn":0,"n":0,"type":"notebook_constructor","ev":"","kind":"process"},{"s":"job:baz-dv-coinpro-operacion-jnb","t":"dv_bdbaz.h_baz_coinpro_operacion","c":6,"p":"process","u":0,"dn":0,"n":0,"type":"notebook_constructor","ev":"","kind":"process"},{"s":"job:baz-dv-coinpro-operacion-jnb","t":"dv_bdbaz.l_baz_coinpro_cliente_operacion","c":7,"p":"process","u":0,"dn":0,"n":0,"type":"notebook_constructor","ev":"","kind":"process"},{"s":"job:baz-dv-coinpro-operacion-jnb","t":"dv_bdbaz.s_h_baz_coinpro_cliente_demografico","c":18,"p":"process","u":0,"dn":0,"n":0,"type":"notebook_constructor","ev":"","kind":"process"},{"s":"job:baz-dv-coinpro-operacion-jnb","t":"dv_bdbaz.s_h_baz_coinpro_cliente_identificacion","c":22,"p":"process","u":0,"dn":0,"n":0,"type":"notebook_constructor","ev":"","kind":"process"},{"s":"job:baz-dv-coinpro-operacion-jnb","t":"dv_bdbaz.s_h_baz_coinpro_operacion_detalle","c":10,"p":"process","u":0,"dn":0,"n":0,"type":"notebook_constructor","ev":"","kind":"process"},{"s":"job:baz-dv-coinpro-operacion-jnb","t":"dv_bdbaz.s_l_baz_coinpro_operacion_movimiento","c":65,"p":"process","u":0,"dn":0,"n":0,"type":"notebook_constructor","ev":"","kind":"process"},{"s":"literal","t":"job:baz-crystal-cd_cri_mov_cte-jnb","c":4,"p":"process","u":0,"dn":0,"n":0,"type":"runtime_context","ev":"","kind":"process"},{"s":"literal","t":"job:baz-crystal-cd_cri_mov_cte_detalle-jnb","c":4,"p":"process","u":0,"dn":0,"n":0,"type":"runtime_context","ev":"","kind":"process"},{"s":"runtime","t":"job:baz-crystal-cd_cri_mov_cte-jnb","c":4,"p":"process","u":0,"dn":0,"n":0,"type":"runtime_context","ev":"","kind":"process"},{"s":"runtime","t":"job:baz-crystal-cd_cri_mov_cte_detalle-jnb","c":4,"p":"process","u":0,"dn":0,"n":0,"type":"runtime_context","ev":"","kind":"process"},{"s":"runtime/literal","t":"job:baz-crystal-cd_cri_mov_cte-jnb","c":4,"p":"process","u":0,"dn":0,"n":0,"type":"runtime_context","ev":"","kind":"process"},{"s":"runtime/literal","t":"job:baz-crystal-cd_cri_mov_cte_detalle-jnb","c":4,"p":"process","u":0,"dn":0,"n":0,"type":"runtime_context","ev":"","kind":"process"},{"s":"system_source","t":"job:baz-dv-coinpro-operacion-jnb","c":8,"p":"process","u":0,"dn":0,"n":0,"type":"runtime_context","ev":"","kind":"process"}]};
+
+    const LINEAGE_DOCS = {"br_baz_coinpro_cliente_operacion":{"path":"coinpro_lineage/lineage_br_baz_coinpro_cliente_operacion.md","content":"# Linaje principal - `dv_bdbaz.br_baz_coinpro_cliente_operacion`\n\nBridge/derived relation object from raw CoinPro transaction records. It carries ClienteHashKey, OperacionHashKey and ClienteOperacionLnkHashKey for downstream denormalized CD processes.\n\n## Grafo\n\n```text\nTP-SISTEMAS-PAGOS-CRIPTOMONEDAS-CONSUMO-ALGORITHIA-ADD\n  -> rd_baz_bdclientes.rd_cripto_trans\n  -> /app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/br_baz_coinpro_cliente_operacion.ipynb\n  -> dv_bdbaz.br_baz_coinpro_cliente_operacion\n       -> cd_bdpld.cd_cri_cliente\n```\n\n## Construccion\n\n- Notebook: `/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/br_baz_coinpro_cliente_operacion.ipynb`\n- path_index: `92090`\n- Fuente directa: `rd_baz_bdclientes.rd_cripto_trans`\n- Delta: `fdfechacreacion`\n- Filtro comun: `get_json_object(clienteid, \"$.bandera\") == True`; los objetos de operacion/link/satelite filtran tambien `numerotransaccion != \"\"`.\n\n## Downstream detectado\n\n- `cd_bdpld.cd_cri_cliente`\n\n## Neighborhood\n\n- `ClienteHashKey` -> `dv_bdbaz.h_baz_coinpro_cliente.clientehashkey`: Same client key; BR carries raw business relation and active CD uses it to join satellites.\n- `OperacionHashKey` -> `dv_bdbaz.h_baz_coinpro_operacion.operacionhashkey`: Same operation key.\n- `ClienteOperacionLnkHashKey` -> `dv_bdbaz.l_baz_coinpro_cliente_operacion.clienteoperacionlnkhashkey`: Same link business key/hash.\n\n## Archivos relacionados\n\n- Campo a campo CSV: `field_lineage_br_baz_coinpro_cliente_operacion.csv`\n- Campo a campo Markdown: `field_lineage_br_baz_coinpro_cliente_operacion.md`\n"},"cd_cri_actividad_geolocalizacion":{"path":"coinpro_lineage/lineage_cd_cri_actividad_geolocalizacion.md","content":"# Linaje principal - `cd_bdpld.cd_cri_actividad_geolocalizacion`\n\nAgregado de actividad por cliente, periodo, moneda, tipo de operacion y geolocalizacion/sucursal.\n\n## Grafo\n\n```text\ncd_bdpld.cd_cri_movimientos\n  -> /app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_actividad_geolocalizacion.ipynb\n  -> cd_bdpld.cd_cri_actividad_geolocalizacion\n```\n\n## Construccion\n\n- Notebook: `/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_actividad_geolocalizacion.ipynb`\n- path_index: `85088`\n- DDL/productivo detectado: path_index `85729`.\n- Filtros comunes en fuentes CD: cliente/transaccion no nulos, no vacios y cliente distinto de `ANONIMO`; la mayoria filtra ventana movil de 6 meses.\n\n## Downstream detectado\n\n- No se detecto downstream adicional en `knowledge_app` para este objeto.\n\n## Archivos relacionados\n\n- Campo a campo CSV: `field_lineage_cd_cri_actividad_geolocalizacion.csv`\n- Campo a campo Markdown: `field_lineage_cd_cri_actividad_geolocalizacion.md`\n"},"cd_cri_actividad_lista":{"path":"coinpro_lineage/lineage_cd_cri_actividad_lista.md","content":"# Linaje principal - `cd_bdpld.cd_cri_actividad_lista`\n\nActividad mensual cruzada contra listas regulatorias por nombre y fecha de nacimiento.\n\n## Grafo\n\n```text\ncd_bdpld.cd_cri_movimientos\ncd_bdpld.cd_cri_cliente\nrd_baz_bdregulatorio.rd_regulatorio_cedulaingestas\n  -> /app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_actividad_lista.ipynb\n  -> cd_bdpld.cd_cri_actividad_lista\n```\n\n## Construccion\n\n- Notebook: `/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_actividad_lista.ipynb`\n- path_index: `85089`\n- DDL/productivo detectado: path_index `85734`.\n- Filtros comunes en fuentes CD: cliente/transaccion no nulos, no vacios y cliente distinto de `ANONIMO`; la mayoria filtra ventana movil de 6 meses.\n\n## Downstream detectado\n\n- No se detecto downstream adicional en `knowledge_app` para este objeto.\n\n## Archivos relacionados\n\n- Campo a campo CSV: `field_lineage_cd_cri_actividad_lista.csv`\n- Campo a campo Markdown: `field_lineage_cd_cri_actividad_lista.md`\n"},"cd_cri_actividad_pep":{"path":"coinpro_lineage/lineage_cd_cri_actividad_pep.md","content":"# Linaje principal - `cd_bdpld.cd_cri_actividad_pep`\n\nAgregado de actividad por cliente PEP, tipo de operacion y periodo.\n\n## Grafo\n\n```text\ncd_bdpld.cd_cri_movimientos\n  -> /app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_actividad_pep.ipynb\n  -> cd_bdpld.cd_cri_actividad_pep\n```\n\n## Construccion\n\n- Notebook: `/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_actividad_pep.ipynb`\n- path_index: `85090`\n- DDL/productivo detectado: path_index `85740`.\n- Filtros comunes en fuentes CD: cliente/transaccion no nulos, no vacios y cliente distinto de `ANONIMO`; la mayoria filtra ventana movil de 6 meses.\n\n## Downstream detectado\n\n- No se detecto downstream adicional en `knowledge_app` para este objeto.\n\n## Archivos relacionados\n\n- Campo a campo CSV: `field_lineage_cd_cri_actividad_pep.csv`\n- Campo a campo Markdown: `field_lineage_cd_cri_actividad_pep.md`\n"},"cd_cri_cliente":{"path":"coinpro_lineage/lineage_cd_cri_cliente.md","content":"# Linaje principal - `cd_bdpld.cd_cri_cliente`\n\nTabla Crystal/CD de datos de cliente CoinPro por transaccion; combina BR, satelites de cliente y movimiento.\n\n## Grafo\n\n```text\nrd_baz_bdclientes.rd_cripto_trans\n  -> dv_bdbaz.br_baz_coinpro_cliente_operacion\n  -> dv_bdbaz.s_h_baz_coinpro_cliente_identificacion\n  -> dv_bdbaz.s_h_baz_coinpro_cliente_demografico\n  -> dv_bdbaz.s_l_baz_coinpro_operacion_movimiento\n  -> /app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte-jnb/run.nb/cd_cri_cliente.ipynb\n  -> cd_bdpld.cd_cri_cliente\n       -> cd_bdpld.cd_cri_cliente_detalle\n       -> cd_bdpld.cd_cri_cliente_dom\n       -> cd_bdpld.cd_cri_actividad_lista\n```\n\n## Construccion\n\n- Notebook: `/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte-jnb/run.nb/cd_cri_cliente.ipynb`\n- path_index: `85066`\n- DDL/productivo detectado: path_index `85744`.\n- Escritura: `df_cd_cri_vw_cliente.write.mode(\"overwrite\").insertInto(\"cd_bdpld.cd_cri_cliente\")`.\n\n## Downstream detectado\n\n- `cd_bdpld.cd_cri_cliente_detalle`\n- `cd_bdpld.cd_cri_cliente_dom`\n- `cd_bdpld.cd_cri_actividad_lista`\n\n## Archivos relacionados\n\n- Campo a campo CSV: `field_lineage_cd_cri_cliente.csv`\n- Campo a campo Markdown: `field_lineage_cd_cri_cliente.md`\n"},"cd_cri_cuenta_cripto":{"path":"coinpro_lineage/lineage_cd_cri_cuenta_cripto.md","content":"# Linaje principal - `cd_bdpld.cd_cri_cuenta_cripto`\n\nConteo de cuentas origen/destino distintas por cliente, periodo y tipo de operacion.\n\n## Grafo\n\n```text\ncd_bdpld.cd_cri_movimientos\n  -> /app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_cuenta_cripto.ipynb\n  -> cd_bdpld.cd_cri_cuenta_cripto\n```\n\n## Construccion\n\n- Notebook: `/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_cuenta_cripto.ipynb`\n- path_index: `85093`\n- DDL/productivo detectado: path_index `85762`.\n- Filtros comunes en fuentes CD: cliente/transaccion no nulos, no vacios y cliente distinto de `ANONIMO`; la mayoria filtra ventana movil de 6 meses.\n\n## Downstream detectado\n\n- No se detecto downstream adicional en `knowledge_app` para este objeto.\n\n## Archivos relacionados\n\n- Campo a campo CSV: `field_lineage_cd_cri_cuenta_cripto.csv`\n- Campo a campo Markdown: `field_lineage_cd_cri_cuenta_cripto.md`\n"},"cd_cri_movimientos":{"path":"coinpro_lineage/lineage_cd_cri_movimientos.md","content":"# Linaje principal - `cd_bdpld.cd_cri_movimientos`\n\nTabla Crystal/CD de movimientos CoinPro. Se construye desde el modelo Data Vault `dv_bdbaz` y normaliza datos de cliente, operacion, detalle de operacion y movimiento para consumo analitico/regulatorio.\n\n## Grafo\n\n```text\nrd_baz_bdclientes.rd_cripto_trans\n  -> dv_bdbaz.h_baz_coinpro_cliente\n  -> dv_bdbaz.h_baz_coinpro_operacion\n  -> dv_bdbaz.l_baz_coinpro_cliente_operacion\n  -> dv_bdbaz.s_h_baz_coinpro_cliente_identificacion\n  -> dv_bdbaz.s_h_baz_coinpro_operacion_detalle\n  -> dv_bdbaz.s_l_baz_coinpro_operacion_movimiento\n  -> /app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte-jnb/run.nb/cd_cri_movimientos.ipynb\n  -> cd_bdpld.cd_cri_movimientos\n       -> cd_bdpld.cd_cri_actividad_geolocalizacion\n       -> cd_bdpld.cd_cri_actividad_lista\n       -> cd_bdpld.cd_cri_actividad_pep\n       -> cd_bdpld.cd_cri_cuenta_cripto\n       -> cd_bdpld.cd_cri_operaciones_cripto\n       -> cd_bdpld.cd_cri_periodo_mes\n       -> cd_bdpld.cd_cri_rebase_umbral\n       -> cd_bdpld.cd_cri_resumen_tipo_operacion\n```\n\n## Construccion\n\n- Notebook: `/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte-jnb/run.nb/cd_cri_movimientos.ipynb`\n- path_index: `85067`\n- Escritura: `df_cd_cri_vw_movimientos.write.mode(\"overwrite\").insertInto(\"cd_bdpld.cd_cri_movimientos\")`\n- Filtros principales: `fifecha >= fecha_inicio`, `clienteid` no nulo/no vacio, `numerotransaccion != \"\"`.\n- Joins principales: `l` inner join con `h_c` y `h_o`; left join con `s_ci`, `s_od` y `s_lm` por llaves hash y `LoadDate`.\n\n## DDL detectado\n\n- `/app/bancoazteca/crystal/bdpld/cd_cri_movimientos/deploy/prod/req_20260217_01.sql`, path_index `85766`.\n\n## Downstream detectado\n\n- `cd_bdpld.cd_cri_actividad_geolocalizacion`\n- `cd_bdpld.cd_cri_actividad_lista`\n- `cd_bdpld.cd_cri_actividad_pep`\n- `cd_bdpld.cd_cri_cuenta_cripto`\n- `cd_bdpld.cd_cri_operaciones_cripto`\n- `cd_bdpld.cd_cri_periodo_mes`\n- `cd_bdpld.cd_cri_rebase_umbral`\n- `cd_bdpld.cd_cri_resumen_tipo_operacion`\n\n## Archivos relacionados\n\n- Campo a campo CSV: `field_lineage_cd_cri_movimientos.csv`\n- Campo a campo Markdown: `field_lineage_cd_cri_movimientos.md`\n"},"cd_cri_operaciones_cripto":{"path":"coinpro_lineage/lineage_cd_cri_operaciones_cripto.md","content":"# Linaje principal - `cd_bdpld.cd_cri_operaciones_cripto`\n\nTabla detalle/proyeccion de operaciones cripto desde cd_cri_movimientos.\n\n## Grafo\n\n```text\ncd_bdpld.cd_cri_movimientos\n  -> /app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb\n  -> cd_bdpld.cd_cri_operaciones_cripto\n```\n\n## Construccion\n\n- Notebook: `/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb`\n- path_index: `85094`\n- DDL/productivo detectado: path_index `85772`.\n- Filtros comunes en fuentes CD: cliente/transaccion no nulos, no vacios y cliente distinto de `ANONIMO`; la mayoria filtra ventana movil de 6 meses.\n\n## Downstream detectado\n\n- No se detecto downstream adicional en `knowledge_app` para este objeto.\n\n## Archivos relacionados\n\n- Campo a campo CSV: `field_lineage_cd_cri_operaciones_cripto.csv`\n- Campo a campo Markdown: `field_lineage_cd_cri_operaciones_cripto.md`\n"},"cd_cri_periodo_mes":{"path":"coinpro_lineage/lineage_cd_cri_periodo_mes.md","content":"# Linaje principal - `cd_bdpld.cd_cri_periodo_mes`\n\nAgregado mensual por cliente y moneda cripto.\n\n## Grafo\n\n```text\ncd_bdpld.cd_cri_movimientos\n  -> /app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_periodo_mes.ipynb\n  -> cd_bdpld.cd_cri_periodo_mes\n```\n\n## Construccion\n\n- Notebook: `/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_periodo_mes.ipynb`\n- path_index: `85095`\n- DDL/productivo detectado: path_index `85778`.\n- Filtros comunes en fuentes CD: cliente/transaccion no nulos, no vacios y cliente distinto de `ANONIMO`; la mayoria filtra ventana movil de 6 meses.\n\n## Downstream detectado\n\n- No se detecto downstream adicional en `knowledge_app` para este objeto.\n\n## Archivos relacionados\n\n- Campo a campo CSV: `field_lineage_cd_cri_periodo_mes.csv`\n- Campo a campo Markdown: `field_lineage_cd_cri_periodo_mes.md`\n"},"cd_cri_rebase_umbral":{"path":"coinpro_lineage/lineage_cd_cri_rebase_umbral.md","content":"# Linaje principal - `cd_bdpld.cd_cri_rebase_umbral`\n\nDeteccion de rebases diario/mensual por monto de operaciones COMPRA/VENTA.\n\n## Grafo\n\n```text\ncd_bdpld.cd_cri_movimientos\n  -> /app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_rebase_umbral.ipynb\n  -> cd_bdpld.cd_cri_rebase_umbral\n```\n\n## Construccion\n\n- Notebook: `/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_rebase_umbral.ipynb`\n- path_index: `85096`\n- DDL/productivo detectado: path_index `85784`.\n- Filtros comunes en fuentes CD: cliente/transaccion no nulos, no vacios y cliente distinto de `ANONIMO`; la mayoria filtra ventana movil de 6 meses.\n\n## Downstream detectado\n\n- No se detecto downstream adicional en `knowledge_app` para este objeto.\n\n## Archivos relacionados\n\n- Campo a campo CSV: `field_lineage_cd_cri_rebase_umbral.csv`\n- Campo a campo Markdown: `field_lineage_cd_cri_rebase_umbral.md`\n"},"cd_cri_resumen_tipo_operacion":{"path":"coinpro_lineage/lineage_cd_cri_resumen_tipo_operacion.md","content":"# Linaje principal - `cd_bdpld.cd_cri_resumen_tipo_operacion`\n\nResumen mensual por tipo de operacion, canal, producto y monedas.\n\n## Grafo\n\n```text\ncd_bdpld.cd_cri_movimientos\n  -> /app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_resumen_tipo_operacion.ipynb\n  -> cd_bdpld.cd_cri_resumen_tipo_operacion\n```\n\n## Construccion\n\n- Notebook: `/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_resumen_tipo_operacion.ipynb`\n- path_index: `85097`\n- DDL/productivo detectado: path_index `85790`.\n- Filtros comunes en fuentes CD: cliente/transaccion no nulos, no vacios y cliente distinto de `ANONIMO`; la mayoria filtra ventana movil de 6 meses.\n\n## Downstream detectado\n\n- No se detecto downstream adicional en `knowledge_app` para este objeto.\n\n## Archivos relacionados\n\n- Campo a campo CSV: `field_lineage_cd_cri_resumen_tipo_operacion.csv`\n- Campo a campo Markdown: `field_lineage_cd_cri_resumen_tipo_operacion.md`\n"},"h_baz_coinpro_cliente":{"path":"coinpro_lineage/lineage_h_baz_coinpro_cliente.md","content":"# Linaje principal - `dv_bdbaz.h_baz_coinpro_cliente`\n\n`dv_bdbaz.h_baz_coinpro_cliente` es el Hub Data Vault de clientes CoinPro. Se construye desde la raw `rd_baz_bdclientes.rd_cripto_trans`; su llave principal es `clientehashkey`, derivada del `clienteid` descifrado, y la tabla se particiona por `fifecha`.\n\n## Grafo\n\n```text\nMotorDeTransformacion3 / parametria fistatus 34\n  -> rd_baz_bdclientes.rd_cripto_trans\n  -> /app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/h_baz_coinpro_cliente.ipynb\n  -> dv_bdbaz.h_baz_coinpro_cliente\n       -> dv_bdgs_cnp.h_gs_cnp_cliente\n       -> dv_bdgs_cnp.l_gs_cnp_cliente_operacion\n       -> cd_bdpld.cd_cri_cliente\n       -> cd_bdpld.cd_cri_movimientos\n```\n\n## Construccion\n\n- Notebook/script/query: `/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/h_baz_coinpro_cliente.ipynb`\n- path_index: `92091`\n- Fuente directa: `rd_baz_bdclientes.rd_cripto_trans`\n- Job/config relacionado: `/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.json`, path_index `92088`\n- Fuente raw previa: `/app/common/curated/MotorDeTransformacion3/conf/baz-clientes-div-rd_cripto_trans-mt.conf`, path_index `105683`\n- Filtros principales: procesa solo registros con `get_json_object(clienteid, \"$.bandera\") == True`\n- Joins principales: no hay joins para construir el Hub; la construccion parte de la raw y helpers Data Vault\n- Escritura: `dv_creator.save_records(df_upsert, output_table, mode=1, repartition=\"fifecha\", key_order_column=\"fifecha\", key_column_partition=hash_name, key_hash_index=hash_name)`\n\nReglas tecnicas relevantes:\n\n- `output_table = \"h_baz_coinpro_cliente\"`\n- `input_table = \"rd_cripto_trans\"`\n- `delta_column = \"fdfechacreacion\"`\n- `hash_name = \"clientehashkey\"`\n- `order_column = \"loaddate\"`\n- `fifecha_column = \"loaddate\"`\n- `system_source = \"TP-SISTEMAS-PAGOS-CRIPTOMONEDAS-CONSUMO-ALGORITHIA-ADD\"`\n- `record_source = \"rd_baz_bdclientes.rd_cripto_trans\"`\n- `clienteid` se descifra con `bdf_voltage` via `desncry_expr(input_table, \"clienteid\")`\n- Si `clienteid_des == \"\"`, `clientehashkey` se asigna como 128 ceros y `clienteid = \"ANONIMO\"`\n- Si `clienteid_des != \"\"`, `clientehashkey = hash_key(clienteid_des)` y `clienteid = get_json_object(clienteid, \"$.dato\")`\n- `fechatransaccion` se estandariza como `loaddate`\n- `recordsource`, `systemsource`, `fcusuariocreacion`, `fdfechacreacion` y `fifecha` se agregan mediante helpers Data Vault\n\n## DDL detectado\n\n- `/app/bancoazteca/datavault/bdbaz/h_baz_coinpro_cliente/deploy/prod/req_20250826_01.sql`, path_index `87671`\n- `/app/bancoazteca/datavault/bdbaz/h_baz_coinpro_cliente/deploy/prod/req_20251217_01.sql`, path_index `87672`\n\nColumnas destino detectadas:\n\n```text\nclientehashkey string\nloaddate bigint\nrecordsource string\nsystemsource string\nclienteid string\nfcusuariocreacion string\nfdfechacreacion bigint\nfifecha int partition\n```\n\nPropiedades principales:\n\n```text\nSTORED AS PARQUET\nparquet.compression = SNAPPY\ntransactional = false\n```\n\nEl script operativo `req_20251217_01.sql` ejecuta:\n\n```sql\nINVALIDATE METADATA dv_bdbaz.h_baz_coinpro_cliente;\nTRUNCATE TABLE dv_bdbaz.h_baz_coinpro_cliente;\n```\n\n## Downstream detectado\n\n- `dv_bdgs_cnp.h_gs_cnp_cliente`: replica AWS/Iceberg desde `/app/common/DataTransfer/conf/baz-dv-coinpro-operacion-aws-carga-dt.json`, path_index `105172`\n- `dv_bdgs_cnp.l_gs_cnp_cliente_operacion`: replica/enriquecimiento del link con lookup a `dv_bdbaz.h_baz_coinpro_cliente`\n- `cd_bdpld.cd_cri_cliente`: consumo Crystal documentado en `/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte-jnb/run.nb/cd_cri_cliente.ipynb`, path_index `85066`\n- `cd_bdpld.cd_cri_movimientos`: consumo Crystal documentado en `/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte-jnb/run.nb/cd_cri_movimientos.ipynb`, path_index `85067`\n\nNotas downstream:\n\n- `cd_cri_cliente.ipynb` usa activamente `dv_bdbaz.br_baz_coinpro_cliente_operacion`, `dv_bdbaz.s_h_baz_coinpro_cliente_identificacion`, `dv_bdbaz.s_h_baz_coinpro_cliente_demografico`, `dv_bdbaz.s_l_baz_coinpro_operacion_movimiento` y el catalogo `cu_baz_bdsopoperlog.cu_ebx_catt_baz_cripto_estado_curp`.\n- En `cd_cri_cliente.ipynb` existe una version comentada que unia explicitamente `dv_bdbaz.h_baz_coinpro_cliente`; se conserva como evidencia secundaria, no como flujo activo.\n- `cd_cri_movimientos.ipynb` consume `dv_bdbaz.h_baz_coinpro_cliente` junto con link, hub de operacion y satellites de operacion/movimiento.\n\n## Neighborhood\n\n- `dv_bdbaz.br_baz_coinpro_cliente_operacion`: bridge construido desde la misma raw; comparte `ClienteHashKey` con el Hub y relaciona cliente-operacion.\n- `dv_bdbaz.h_baz_coinpro_operacion`: Hub hermano construido desde `numerotransaccion` y `fechatransaccion`.\n- `dv_bdbaz.l_baz_coinpro_cliente_operacion`: link asociado al Hub de cliente y al Hub de operacion.\n- `dv_bdbaz.s_h_baz_coinpro_cliente_identificacion`: satellite asociado a `clientehashkey`; contiene datos de identificacion del cliente.\n- `dv_bdbaz.s_h_baz_coinpro_cliente_demografico`: satellite asociado a `clientehashkey`; contiene datos demograficos/domicilio.\n- `dv_bdbaz.s_h_baz_coinpro_operacion_detalle`: satellite asociado al Hub de operacion.\n- `dv_bdbaz.s_l_baz_coinpro_operacion_movimiento`: satellite asociado al link cliente-operacion mediante `ClienteOperacionLnkHashKey`.\n\n## Archivos relacionados\n\n- Campo a campo CSV: `field_lineage_h_baz_coinpro_cliente.csv`\n- Campo a campo Markdown: `field_lineage_h_baz_coinpro_cliente.md`\n\n## Limitaciones\n\n- El origen fisico anterior a `rd_baz_bdclientes.rd_cripto_trans` no queda completamente resuelto con los archivos indexados; la mejor evidencia disponible apunta a `MotorDeTransformacion3` con `O_PARAMETRIA_FISTATUS=34`.\n- La tabla Hub no se alimenta de satellites ni bridges; esos objetos se construyen en paralelo desde la misma raw y se documentan como `neighborhood`.\n- Hay scripts de `TRUNCATE` para la raw y para el Hub; conviene considerarlos al auditar recargas o historicos.\n"},"h_baz_coinpro_operacion":{"path":"coinpro_lineage/lineage_h_baz_coinpro_operacion.md","content":"# Linaje principal - `dv_bdbaz.h_baz_coinpro_operacion`\n\nOperation Hub generated from numerotransaccion + fechatransaccion.\n\n## Grafo\n\n```text\nTP-SISTEMAS-PAGOS-CRIPTOMONEDAS-CONSUMO-ALGORITHIA-ADD\n  -> rd_baz_bdclientes.rd_cripto_trans\n  -> /app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/h_baz_coinpro_operacion.ipynb\n  -> dv_bdbaz.h_baz_coinpro_operacion\n       -> dv_bdgs_cnp.h_gs_cnp_operacion\n       -> cd_bdpld.cd_cri_movimientos\n       -> dv_bdgs_cnp.l_gs_cnp_cliente_operacion\n```\n\n## Construccion\n\n- Notebook: `/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/h_baz_coinpro_operacion.ipynb`\n- path_index: `92092`\n- Fuente directa: `rd_baz_bdclientes.rd_cripto_trans`\n- Delta: `fdfechacreacion`\n- Filtro comun: `get_json_object(clienteid, \"$.bandera\") == True`; los objetos de operacion/link/satelite filtran tambien `numerotransaccion != \"\"`.\n\n## Downstream detectado\n\n- `dv_bdgs_cnp.h_gs_cnp_operacion`\n- `cd_bdpld.cd_cri_movimientos`\n- `dv_bdgs_cnp.l_gs_cnp_cliente_operacion`\n\n## Neighborhood\n\n- `operacionhashkey` -> `dv_bdbaz.l_baz_coinpro_cliente_operacion.operacionhashkey`: Link references operation hub.\n- `operacionhashkey` -> `dv_bdbaz.s_h_baz_coinpro_operacion_detalle.operacionhashkey`: Operation satellite key.\n- `operacionhashkey` -> `dv_bdbaz.s_l_baz_coinpro_operacion_movimiento.clienteoperacionlnkhashkey`: Indirect via link: movement satellite is attached to ClienteOperacionLnkHashKey, which includes operation.\n- `operacionhashkey` -> `dv_bdbaz.br_baz_coinpro_cliente_operacion.OperacionHashKey`: BR carries operation hash.\n\n## Archivos relacionados\n\n- Campo a campo CSV: `field_lineage_h_baz_coinpro_operacion.csv`\n- Campo a campo Markdown: `field_lineage_h_baz_coinpro_operacion.md`\n"},"l_baz_coinpro_cliente_operacion":{"path":"coinpro_lineage/lineage_l_baz_coinpro_cliente_operacion.md","content":"# Linaje principal - `dv_bdbaz.l_baz_coinpro_cliente_operacion`\n\nData Vault link between customer and operation hubs.\n\n## Grafo\n\n```text\nTP-SISTEMAS-PAGOS-CRIPTOMONEDAS-CONSUMO-ALGORITHIA-ADD\n  -> rd_baz_bdclientes.rd_cripto_trans\n  -> /app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/l_baz_coinpro_cliente_operacion.ipynb\n  -> dv_bdbaz.l_baz_coinpro_cliente_operacion\n       -> dv_bdgs_cnp.l_gs_cnp_cliente_operacion\n       -> cd_bdpld.cd_cri_movimientos\n```\n\n## Construccion\n\n- Notebook: `/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/l_baz_coinpro_cliente_operacion.ipynb`\n- path_index: `92094`\n- Fuente directa: `rd_baz_bdclientes.rd_cripto_trans`\n- Delta: `fdfechacreacion`\n- Filtro comun: `get_json_object(clienteid, \"$.bandera\") == True`; los objetos de operacion/link/satelite filtran tambien `numerotransaccion != \"\"`.\n\n## Downstream detectado\n\n- `dv_bdgs_cnp.l_gs_cnp_cliente_operacion`\n- `cd_bdpld.cd_cri_movimientos`\n\n## Neighborhood\n\n- `clientehashkey` -> `dv_bdbaz.h_baz_coinpro_cliente.clientehashkey`: Link references client hub.\n- `operacionhashkey` -> `dv_bdbaz.h_baz_coinpro_operacion.operacionhashkey`: Link references operation hub.\n- `clienteoperacionlnkhashkey` -> `dv_bdbaz.s_l_baz_coinpro_operacion_movimiento.clienteoperacionlnkhashkey`: Movement satellite key.\n- `clienteoperacionlnkhashkey` -> `dv_bdbaz.br_baz_coinpro_cliente_operacion.ClienteOperacionLnkHashKey`: BR carries same relation hash.\n\n## Archivos relacionados\n\n- Campo a campo CSV: `field_lineage_l_baz_coinpro_cliente_operacion.csv`\n- Campo a campo Markdown: `field_lineage_l_baz_coinpro_cliente_operacion.md`\n"},"s_h_baz_coinpro_cliente_demografico":{"path":"coinpro_lineage/lineage_s_h_baz_coinpro_cliente_demografico.md","content":"# Linaje principal - `dv_bdbaz.s_h_baz_coinpro_cliente_demografico`\n\nCustomer demographic satellite attached to clientehashkey.\n\n## Grafo\n\n```text\nTP-SISTEMAS-PAGOS-CRIPTOMONEDAS-CONSUMO-ALGORITHIA-ADD\n  -> rd_baz_bdclientes.rd_cripto_trans\n  -> /app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_h_baz_coinpro_cliente_demografico.ipynb\n  -> dv_bdbaz.s_h_baz_coinpro_cliente_demografico\n       -> dv_bdgs_cnp.s_h_gs_cnp_cliente_demografico\n       -> cd_bdpld.cd_cri_cliente\n```\n\n## Construccion\n\n- Notebook: `/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_h_baz_coinpro_cliente_demografico.ipynb`\n- path_index: `92095`\n- Fuente directa: `rd_baz_bdclientes.rd_cripto_trans`\n- Delta: `fdfechacreacion`\n- Filtro comun: `get_json_object(clienteid, \"$.bandera\") == True`; los objetos de operacion/link/satelite filtran tambien `numerotransaccion != \"\"`.\n\n## Downstream detectado\n\n- `dv_bdgs_cnp.s_h_gs_cnp_cliente_demografico`\n- `cd_bdpld.cd_cri_cliente`\n\n## Neighborhood\n\n- `clientehashkey` -> `dv_bdbaz.h_baz_coinpro_cliente.clientehashkey`: Satellite attached to client hub.\n- `clientehashkey` -> `dv_bdbaz.br_baz_coinpro_cliente_operacion.ClienteHashKey`: CD joins BR to this satellite by client hash and temporal window.\n- `clientehashkey` -> `dv_bdbaz.s_h_baz_coinpro_cliente_identificacion.clientehashkey`: Sibling customer satellite.\n\n## Archivos relacionados\n\n- Campo a campo CSV: `field_lineage_s_h_baz_coinpro_cliente_demografico.csv`\n- Campo a campo Markdown: `field_lineage_s_h_baz_coinpro_cliente_demografico.md`\n"},"s_h_baz_coinpro_cliente_identificacion":{"path":"coinpro_lineage/lineage_s_h_baz_coinpro_cliente_identificacion.md","content":"# Linaje principal - `dv_bdbaz.s_h_baz_coinpro_cliente_identificacion`\n\nCustomer identification satellite attached to clientehashkey.\n\n## Grafo\n\n```text\nTP-SISTEMAS-PAGOS-CRIPTOMONEDAS-CONSUMO-ALGORITHIA-ADD\n  -> rd_baz_bdclientes.rd_cripto_trans\n  -> /app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_h_baz_coinpro_cliente_identificacion.ipynb\n  -> dv_bdbaz.s_h_baz_coinpro_cliente_identificacion\n       -> dv_bdgs_cnp.s_h_gs_cnp_cliente_identificacion\n       -> cd_bdpld.cd_cri_cliente\n       -> cd_bdpld.cd_cri_movimientos\n```\n\n## Construccion\n\n- Notebook: `/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_h_baz_coinpro_cliente_identificacion.ipynb`\n- path_index: `92096`\n- Fuente directa: `rd_baz_bdclientes.rd_cripto_trans`\n- Delta: `fdfechacreacion`\n- Filtro comun: `get_json_object(clienteid, \"$.bandera\") == True`; los objetos de operacion/link/satelite filtran tambien `numerotransaccion != \"\"`.\n\n## Downstream detectado\n\n- `dv_bdgs_cnp.s_h_gs_cnp_cliente_identificacion`\n- `cd_bdpld.cd_cri_cliente`\n- `cd_bdpld.cd_cri_movimientos`\n\n## Neighborhood\n\n- `clientehashkey` -> `dv_bdbaz.h_baz_coinpro_cliente.clientehashkey`: Satellite attached to client hub.\n- `clientehashkey` -> `dv_bdbaz.br_baz_coinpro_cliente_operacion.ClienteHashKey`: CD joins BR to this satellite by client hash and temporal window.\n- `clientehashkey` -> `dv_bdbaz.s_h_baz_coinpro_cliente_demografico.clientehashkey`: Sibling customer satellite.\n\n## Archivos relacionados\n\n- Campo a campo CSV: `field_lineage_s_h_baz_coinpro_cliente_identificacion.csv`\n- Campo a campo Markdown: `field_lineage_s_h_baz_coinpro_cliente_identificacion.md`\n"},"s_h_baz_coinpro_operacion_detalle":{"path":"coinpro_lineage/lineage_s_h_baz_coinpro_operacion_detalle.md","content":"# Linaje principal - `dv_bdbaz.s_h_baz_coinpro_operacion_detalle`\n\nOperation detail satellite attached to operacionhashkey.\n\n## Grafo\n\n```text\nTP-SISTEMAS-PAGOS-CRIPTOMONEDAS-CONSUMO-ALGORITHIA-ADD\n  -> rd_baz_bdclientes.rd_cripto_trans\n  -> /app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_h_baz_coinpro_operacion_detalle.ipynb\n  -> dv_bdbaz.s_h_baz_coinpro_operacion_detalle\n       -> dv_bdgs_cnp.s_h_gs_cnp_operacion_detalle\n       -> cd_bdpld.cd_cri_movimientos\n```\n\n## Construccion\n\n- Notebook: `/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_h_baz_coinpro_operacion_detalle.ipynb`\n- path_index: `92097`\n- Fuente directa: `rd_baz_bdclientes.rd_cripto_trans`\n- Delta: `fdfechacreacion`\n- Filtro comun: `get_json_object(clienteid, \"$.bandera\") == True`; los objetos de operacion/link/satelite filtran tambien `numerotransaccion != \"\"`.\n\n## Downstream detectado\n\n- `dv_bdgs_cnp.s_h_gs_cnp_operacion_detalle`\n- `cd_bdpld.cd_cri_movimientos`\n\n## Neighborhood\n\n- `operacionhashkey` -> `dv_bdbaz.h_baz_coinpro_operacion.operacionhashkey`: Satellite attached to operation hub.\n- `operacionhashkey` -> `dv_bdbaz.l_baz_coinpro_cliente_operacion.operacionhashkey`: CD movimientos joins via link operation key and loaddate.\n\n## Archivos relacionados\n\n- Campo a campo CSV: `field_lineage_s_h_baz_coinpro_operacion_detalle.csv`\n- Campo a campo Markdown: `field_lineage_s_h_baz_coinpro_operacion_detalle.md`\n"},"s_l_baz_coinpro_operacion_movimiento":{"path":"coinpro_lineage/lineage_s_l_baz_coinpro_operacion_movimiento.md","content":"# Linaje principal - `dv_bdbaz.s_l_baz_coinpro_operacion_movimiento`\n\nMovement satellite attached to ClienteOperacionLnkHashKey.\n\n## Grafo\n\n```text\nTP-SISTEMAS-PAGOS-CRIPTOMONEDAS-CONSUMO-ALGORITHIA-ADD\n  -> rd_baz_bdclientes.rd_cripto_trans\n  -> /app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_l_baz_coinpro_operacion_movimiento.ipynb\n  -> dv_bdbaz.s_l_baz_coinpro_operacion_movimiento\n       -> dv_bdgs_cnp.s_l_gs_cnp_operacion_movimiento\n       -> cd_bdpld.cd_cri_cliente\n       -> cd_bdpld.cd_cri_movimientos\n```\n\n## Construccion\n\n- Notebook: `/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_l_baz_coinpro_operacion_movimiento.ipynb`\n- path_index: `92098`\n- Fuente directa: `rd_baz_bdclientes.rd_cripto_trans`\n- Delta: `fdfechacreacion`\n- Filtro comun: `get_json_object(clienteid, \"$.bandera\") == True`; los objetos de operacion/link/satelite filtran tambien `numerotransaccion != \"\"`.\n\n## Downstream detectado\n\n- `dv_bdgs_cnp.s_l_gs_cnp_operacion_movimiento`\n- `cd_bdpld.cd_cri_cliente`\n- `cd_bdpld.cd_cri_movimientos`\n\n## Neighborhood\n\n- `clienteoperacionlnkhashkey` -> `dv_bdbaz.l_baz_coinpro_cliente_operacion.clienteoperacionlnkhashkey`: Satellite attached to client-operation link.\n- `clienteoperacionlnkhashkey` -> `dv_bdbaz.br_baz_coinpro_cliente_operacion.ClienteOperacionLnkHashKey`: CD cliente joins BR to this satellite by link hash and temporal window.\n\n## Archivos relacionados\n\n- Campo a campo CSV: `field_lineage_s_l_baz_coinpro_operacion_movimiento.csv`\n- Campo a campo Markdown: `field_lineage_s_l_baz_coinpro_operacion_movimiento.md`\n"}};
+
+    const canvas = document.getElementById('galaxy');
+    const stage = document.getElementById('stage');
+    const ctx = canvas.getContext('2d', { alpha: false });
+    const tooltip = document.getElementById('tooltip');
+    const search = document.getElementById('search');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const detailMain = document.getElementById('detailMain');
+    const detailExtra = document.getElementById('detailExtra');
+    const lineageTitle = document.getElementById('lineageTitle');
+    const lineagePath = document.getElementById('lineagePath');
+    const lineageBody = document.getElementById('lineageBody');
+    const tabs = [...document.querySelectorAll('.tab')];
+
+    const TAU = Math.PI * 2;
+    const layerColors = {
+      'Raw': '#6ee7b7',
+      'Data Vault': '#8ab4ff',
+      'Crystal/CD': '#f5c16c',
+      'Replica AWS': '#c084fc',
+      'Proceso/Job': '#fb923c',
+      'Catalogo': '#67e8f9',
+      'Otros': '#e5e7eb'
+    };
+    const layerCenters = {
+      'Raw': [-340, 0, -30],
+      'Data Vault': [-80, 0, 20],
+      'Crystal/CD': [215, -10, 0],
+      'Replica AWS': [430, 40, -20],
+      'Proceso/Job': [-15, 240, 30],
+      'Catalogo': [125, -235, 20],
+      'Otros': [0, 220, 0]
+    };
+    const directionColors = { upstream: '#6ee7b7', downstream: '#c084fc', neighborhood: '#f5c16c', process: '#fb923c' };
+
+    let width = 1;
+    let height = 1;
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let yaw = -0.36;
+    let pitch = -0.12;
+    let zoom = .92;
+    let panX = 0;
+    let panY = 2;
+    let autoFlight = true;
+    let dragging = false;
+    let moved = false;
+    let pointerX = -999;
+    let pointerY = -999;
+    let lastX = 0;
+    let lastY = 0;
+    let hovered = null;
+    let selected = null;
+    let activeLayer = 'All';
+    let searchTerm = '';
+    let lastTime = performance.now();
+
+    function hash(value) {
+      let h = 2166136261;
+      for (let i = 0; i < value.length; i++) {
+        h ^= value.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+      }
+      return h >>> 0;
+    }
+
+    function randUnit(seed) {
+      seed = Math.imul(seed ^ seed >>> 15, seed | 1);
+      seed ^= seed + Math.imul(seed ^ seed >>> 7, seed | 61);
+      return ((seed ^ seed >>> 14) >>> 0) / 4294967296;
+    }
+
+    const hiddenLayers = new Set(['Runtime/Helper']);
+
+    const nodes = DATA.nodes.filter(node => !hiddenLayers.has(node.layer)).map((node, index) => {
+      const center = layerCenters[node.layer] || layerCenters.Otros;
+      const seed = hash(node.id);
+      const angle = randUnit(seed) * TAU;
+      const radius = 38 + randUnit(seed + 11) * 98 + Math.sqrt(node.rel) * 3.3;
+      const depth = (randUnit(seed + 29) - .5) * 130;
+      const yBias = (randUnit(seed + 47) - .5) * 88;
+      return {
+        ...node,
+        index,
+        color: layerColors[node.layer] || layerColors.Otros,
+        x: center[0] + Math.cos(angle) * radius,
+        y: center[1] + Math.sin(angle) * radius * .72 + yBias,
+        z: center[2] + depth,
+        size: 3.5 + Math.sqrt(node.rel) * .68,
+        labelImportant: node.rel >= 60 || node.out >= 50 || node.in >= 80 || node.layer === 'Raw'
+      };
+    });
+    const nodeById = new Map(nodes.map(node => [node.id, node]));
+    const links = DATA.links
+      .map(link => ({ ...link, source: nodeById.get(link.s), target: nodeById.get(link.t) }))
+      .filter(link => link.source && link.target);
+    const processNeighborIds = new Set();
+    for (const link of links) {
+      if (link.kind === 'process') {
+        processNeighborIds.add(link.source.id);
+        processNeighborIds.add(link.target.id);
+      }
+    }
+
+    const dust = Array.from({ length: 270 }, (_, i) => {
+      const seed = hash(`dust-${i}`);
+      return {
+        x: (randUnit(seed) - .5) * 1050,
+        y: (randUnit(seed + 3) - .5) * 760,
+        z: (randUnit(seed + 9) - .5) * 520,
+        size: .35 + randUnit(seed + 15) * 1.25,
+        alpha: .12 + randUnit(seed + 25) * .42,
+        phase: randUnit(seed + 31) * TAU
+      };
+    });
+
+    function resize() {
+      const rect = stage.getBoundingClientRect();
+      width = Math.max(1, rect.width);
+      height = Math.max(1, rect.height);
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function rotatePoint(x, y, z) {
+      const cy = Math.cos(yaw), sy = Math.sin(yaw);
+      const cp = Math.cos(pitch), sp = Math.sin(pitch);
+      const x1 = x * cy - z * sy;
+      const z1 = x * sy + z * cy;
+      const y1 = y * cp - z1 * sp;
+      const z2 = y * sp + z1 * cp;
+      return { x: x1, y: y1, z: z2 };
+    }
+
+    function projectPoint(point) {
+      const rotated = rotatePoint(point.x, point.y, point.z);
+      const camera = 780;
+      const focal = 680;
+      const depth = camera - rotated.z;
+      const perspective = focal / Math.max(130, depth);
+      const scale = perspective * zoom;
+      return {
+        x: width * .5 + panX + rotated.x * scale,
+        y: height * .53 + panY + rotated.y * scale,
+        z: rotated.z,
+        depth,
+        scale,
+        visible: depth > 70
+      };
+    }
+
+    function visibleNode(node) {
+      const text = `${node.id} ${node.label} ${node.layer}`.toLowerCase();
+      const matchesSearch = !searchTerm || text.includes(searchTerm);
+      const isJob = node.layer === 'Proceso/Job';
+      if (isJob && activeLayer !== 'Proceso/Job') return false;
+
+      let matchesLayer = activeLayer === 'All' || node.layer === activeLayer;
+      if (activeLayer === 'Proceso/Job') {
+        matchesLayer = processNeighborIds.has(node.id);
+      }
+      return matchesSearch && matchesLayer;
+    }
+
+    function activeLink(link) {
+      if (link.kind === 'process' && activeLayer !== 'Proceso/Job') return false;
+      return visibleNode(link.source) && visibleNode(link.target);
+    }
+
+    function hexToRgb(hex) {
+      const clean = hex.replace('#', '');
+      const n = parseInt(clean, 16);
+      return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+    }
+
+    function rgba(hex, alpha) {
+      const [r, g, b] = hexToRgb(hex);
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
+
+    function drawBackground(t) {
+      const grd = ctx.createLinearGradient(0, 0, 0, height);
+      grd.addColorStop(0, '#080b13');
+      grd.addColorStop(.72, '#070910');
+      grd.addColorStop(1, '#05060a');
+      ctx.fillStyle = grd;
+      ctx.fillRect(0, 0, width, height);
+
+      for (const star of dust) {
+        const p = projectPoint(star);
+        if (!p.visible) continue;
+        const twinkle = .72 + .28 * Math.sin(t * .0011 + star.phase);
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(218, 229, 255, ${star.alpha * twinkle})`;
+        ctx.arc(p.x, p.y, Math.max(.32, star.size * p.scale), 0, TAU);
+        ctx.fill();
+      }
+    }
+
+    function drawLinks(projected) {
+      ctx.lineCap = 'round';
+      for (const link of links) {
+        if (!activeLink(link)) continue;
+        const a = projected.get(link.source.id);
+        const b = projected.get(link.target.id);
+        if (!a || !b || !a.visible || !b.visible) continue;
+
+        const active = hovered && (hovered.id === link.source.id || hovered.id === link.target.id);
+        const chosen = selected && (selected.id === link.source.id || selected.id === link.target.id);
+        const base = directionColors[link.p] || '#93a4b8';
+        const alpha = active ? .72 : chosen ? .46 : Math.min(.26, .055 + Math.log1p(link.c) * .038);
+        const widthScale = active ? 1.55 : 1;
+
+        ctx.beginPath();
+        ctx.strokeStyle = rgba(base, alpha);
+        ctx.lineWidth = Math.max(.45, Math.log1p(link.c) * .45) * widthScale;
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      }
+    }
+
+    function drawNode(node, p, t) {
+      if (!visibleNode(node) || !p.visible) return;
+      const active = hovered && hovered.id === node.id;
+      const chosen = selected && selected.id === node.id;
+      const pulse = 1 + Math.sin(t * .002 + node.index) * .05;
+      const radius = Math.max(2.2, node.size * p.scale * pulse);
+      const halo = radius * (active || chosen ? 4.7 : 3.3);
+
+      const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, halo);
+      glow.addColorStop(0, rgba('#ffffff', active || chosen ? .9 : .62));
+      glow.addColorStop(.2, rgba(node.color, active || chosen ? .62 : .38));
+      glow.addColorStop(1, rgba(node.color, 0));
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, halo, 0, TAU);
+      ctx.fill();
+
+      if (active || chosen) {
+        ctx.beginPath();
+        ctx.strokeStyle = 'rgba(255,255,255,.9)';
+        ctx.lineWidth = 1;
+        ctx.arc(p.x, p.y, radius * 1.7, 0, TAU);
+        ctx.stroke();
+      }
+
+      ctx.save();
+      ctx.shadowBlur = active || chosen ? 22 : 12;
+      ctx.shadowColor = node.color;
+      ctx.fillStyle = node.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, radius, 0, TAU);
+      ctx.fill();
+      ctx.restore();
+
+      ctx.fillStyle = 'rgba(255,255,255,.68)';
+      ctx.beginPath();
+      ctx.arc(p.x - radius * .24, p.y - radius * .24, Math.max(.7, radius * .28), 0, TAU);
+      ctx.fill();
+    }
+
+    function drawLabel(node, p) {
+      if (!visibleNode(node) || !p.visible) return;
+      const active = hovered && hovered.id === node.id;
+      const chosen = selected && selected.id === node.id;
+      if (!node.labelImportant && !active && !chosen && !searchTerm) return;
+
+      const label = node.label;
+      const alpha = active || chosen ? 1 : Math.max(.42, Math.min(.84, p.scale * .85));
+      const size = active || chosen ? 12 : 10.5;
+      ctx.font = `${active || chosen ? 800 : 650} ${size}px Inter, ui-sans-serif, system-ui, sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = `rgba(4, 6, 11, ${alpha})`;
+      ctx.strokeText(label, p.x, p.y + Math.max(8, node.size * p.scale * 1.35));
+      ctx.fillStyle = `rgba(239, 246, 255, ${alpha})`;
+      ctx.fillText(label, p.x, p.y + Math.max(8, node.size * p.scale * 1.35));
+    }
+
+    function updateHover(projected) {
+      if (dragging) return;
+      let nearest = null;
+      let min = 18;
+      for (const node of nodes) {
+        if (!visibleNode(node)) continue;
+        const p = projected.get(node.id);
+        if (!p || !p.visible) continue;
+        const d = Math.hypot(pointerX - p.x, pointerY - p.y);
+        const threshold = Math.max(8, node.size * p.scale * 2.4);
+        if (d < threshold && d < min) {
+          min = d;
+          nearest = node;
+        }
+      }
+
+      hovered = nearest;
+      if (hovered) {
+        const p = projected.get(hovered.id);
+        tooltip.style.display = 'block';
+        tooltip.style.left = `${Math.min(width - 340, Math.max(10, p.x + 14))}px`;
+        tooltip.style.top = `${Math.min(height - 118, Math.max(10, p.y + 14))}px`;
+        tooltip.innerHTML = `<b>${escapeHtml(hovered.label)}</b><small>${escapeHtml(hovered.layer)}<br>${hovered.rel} field relations · in ${hovered.in} · out ${hovered.out}</small>`;
+      } else {
+        tooltip.style.display = 'none';
+      }
+    }
+
+    function render(t) {
+      const dt = Math.min(40, t - lastTime);
+      lastTime = t;
+      if (autoFlight && !dragging) {
+        yaw += .00005 * dt;
+        pitch += Math.sin(t * .00013) * .000008 * dt;
+        pitch = Math.max(-1.18, Math.min(1.18, pitch));
+      }
+
+      drawBackground(t);
+      const projected = new Map(nodes.map(node => [node.id, projectPoint(node)]));
+      drawLinks(projected);
+
+      const order = nodes
+        .map(node => ({ node, p: projected.get(node.id) }))
+        .filter(item => item.p && item.p.visible)
+        .sort((a, b) => b.p.depth - a.p.depth);
+
+      for (const item of order) drawNode(item.node, item.p, t);
+      for (const item of order) drawLabel(item.node, item.p);
+      updateHover(projected);
+      requestAnimationFrame(render);
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>'"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;' })[ch]);
+    }
+
+    function renderInlineMarkdown(value) {
+      let html = escapeHtml(value);
+      html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+      html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+      return html;
+    }
+
+    function isTableDivider(line) {
+      return /^\s*\|?[\s:-]+\|[\s|:-]+\|?\s*$/.test(line);
+    }
+
+    function tableCells(line) {
+      return line.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map(cell => cell.trim());
+    }
+
+    function renderMarkdown(markdown) {
+      const lines = String(markdown).replace(/\r/g, '').split('\n');
+      const html = [];
+      let paragraph = [];
+      let listOpen = false;
+      let codeOpen = false;
+      let codeLines = [];
+
+      function flushParagraph() {
+        if (!paragraph.length) return;
+        html.push(`<p>${renderInlineMarkdown(paragraph.join(' '))}</p>`);
+        paragraph = [];
+      }
+
+      function closeList() {
+        if (!listOpen) return;
+        html.push('</ul>');
+        listOpen = false;
+      }
+
+      function flushCode() {
+        html.push(`<pre><code>${escapeHtml(codeLines.join('\n'))}</code></pre>`);
+        codeLines = [];
+      }
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        const trimmed = line.trim();
+
+        if (trimmed.startsWith('```')) {
+          if (codeOpen) {
+            codeOpen = false;
+            flushCode();
+          } else {
+            flushParagraph();
+            closeList();
+            codeOpen = true;
+            codeLines = [];
+          }
+          continue;
+        }
+
+        if (codeOpen) {
+          codeLines.push(line);
+          continue;
+        }
+
+        if (!trimmed) {
+          flushParagraph();
+          closeList();
+          continue;
+        }
+
+        const tableNext = i + 1 < lines.length ? lines[i + 1] : '';
+        if (trimmed.includes('|') && isTableDivider(tableNext)) {
+          flushParagraph();
+          closeList();
+          const headers = tableCells(trimmed);
+          i += 1;
+          const rows = [];
+          while (i + 1 < lines.length && lines[i + 1].trim().includes('|') && lines[i + 1].trim()) {
+            i += 1;
+            rows.push(tableCells(lines[i]));
+          }
+          html.push('<table><thead><tr>' + headers.map(cell => `<th>${renderInlineMarkdown(cell)}</th>`).join('') + '</tr></thead><tbody>');
+          for (const row of rows) {
+            html.push('<tr>' + row.map(cell => `<td>${renderInlineMarkdown(cell)}</td>`).join('') + '</tr>');
+          }
+          html.push('</tbody></table>');
+          continue;
+        }
+
+        const heading = /^(#{1,3})\s+(.+)$/.exec(trimmed);
+        if (heading) {
+          flushParagraph();
+          closeList();
+          const level = heading[1].length;
+          html.push(`<h${level}>${renderInlineMarkdown(heading[2])}</h${level}>`);
+          continue;
+        }
+
+        const bullet = /^-\s+(.+)$/.exec(trimmed);
+        if (bullet) {
+          flushParagraph();
+          if (!listOpen) {
+            html.push('<ul>');
+            listOpen = true;
+          }
+          html.push(`<li>${renderInlineMarkdown(bullet[1])}</li>`);
+          continue;
+        }
+
+        paragraph.push(trimmed);
+      }
+
+      if (codeOpen) flushCode();
+      flushParagraph();
+      closeList();
+      return `<div class="markdown-view">${html.join('\n')}</div>`;
+    }
+
+    function pointerPosition(event) {
+      const rect = canvas.getBoundingClientRect();
+      return { x: event.clientX - rect.left, y: event.clientY - rect.top };
+    }
+
+    function lineageDocForNode(node) {
+      if (!node) return null;
+      return LINEAGE_DOCS[node.label] || null;
+    }
+
+    function renderLineage(node) {
+      const doc = lineageDocForNode(node);
+      if (!node) {
+        lineageTitle.textContent = 'Selecciona un objeto documentado';
+        lineagePath.textContent = 'lineage_<table>.md';
+        lineageBody.innerHTML = '<p class="lineage-empty">Selecciona un nodo con documentacion de linaje para ver aqui el contenido completo de su archivo Markdown.</p>';
+        return;
+      }
+
+      if (!doc) {
+        lineageTitle.textContent = node.label;
+        lineagePath.textContent = 'Sin archivo lineage_<table>.md';
+        lineageBody.innerHTML = `<p class="lineage-empty">${escapeHtml(node.id)} pertenece a la capa ${escapeHtml(node.layer)}, pero no tiene un archivo lineage propio en coinpro_lineage. Selecciona una tabla documentada de Data Vault o Crystal/CD para visualizar su Markdown.</p>`;
+        return;
+      }
+
+      lineageTitle.textContent = node.label;
+      lineagePath.textContent = doc.path;
+      lineageBody.innerHTML = renderMarkdown(doc.content);
+      lineageBody.scrollTop = 0;
+    }
+
+    function selectNode(node) {
+      selected = node;
+      if (!node) {
+        detailMain.textContent = 'Selecciona una estrella para ver objeto, capa, entradas/salidas y relaciones.';
+        detailExtra.textContent = `mode: ${activeLayer === 'All' ? 'all layers' : activeLayer}`;
+        renderLineage(null);
+        return;
+      }
+      const inbound = links.filter(link => link.target.id === node.id).length;
+      const outbound = links.filter(link => link.source.id === node.id).length;
+      detailMain.textContent = `${node.id} | ${node.layer} | ${node.rel} relaciones campo-a-campo`;
+      detailExtra.textContent = `in ${node.in} (${inbound} objetos) · out ${node.out} (${outbound} objetos)`;
+      renderLineage(node);
+    }
+
+    function updateTabs() {
+      for (const tab of tabs) tab.classList.toggle('active', tab.dataset.layer === activeLayer);
+      detailExtra.textContent = selected
+        ? detailExtra.textContent
+        : `mode: ${activeLayer === 'All' ? 'all layers' : activeLayer}`;
+      updateMetrics();
+    }
+
+    function updateMetrics() {
+      const shownNodes = nodes.filter(visibleNode);
+      const shownLinks = links.filter(activeLink);
+      const shownFieldLinks = shownLinks.filter(link => link.kind !== 'process').reduce((sum, link) => sum + link.c, 0);
+      const shownProcessLinks = shownLinks.filter(link => link.kind === 'process').length;
+      const processText = shownProcessLinks ? ` (${shownProcessLinks} process)` : '';
+      document.getElementById('metricNodes').textContent = shownNodes.length;
+      document.getElementById('metricLinks').textContent = shownLinks.length;
+      document.getElementById('metricFields').textContent = shownFieldLinks;
+      document.getElementById('hudStats').textContent = `${shownNodes.length} nodes · ${shownLinks.length} relations${processText} · ${shownFieldLinks} field links`;
+    }
+
+    canvas.addEventListener('pointerdown', event => {
+      const p = pointerPosition(event);
+      dragging = true;
+      moved = false;
+      lastX = p.x;
+      lastY = p.y;
+      pointerX = p.x;
+      pointerY = p.y;
+      canvas.classList.add('dragging');
+      canvas.setPointerCapture(event.pointerId);
+    });
+
+    canvas.addEventListener('pointermove', event => {
+      const p = pointerPosition(event);
+      pointerX = p.x;
+      pointerY = p.y;
+      if (!dragging) return;
+      const dx = p.x - lastX;
+      const dy = p.y - lastY;
+      if (Math.abs(dx) + Math.abs(dy) > 1.5) moved = true;
+      yaw += dx * .006;
+      pitch += dy * .006;
+      pitch = Math.max(-1.3, Math.min(1.3, pitch));
+      lastX = p.x;
+      lastY = p.y;
+    });
+
+    canvas.addEventListener('pointerup', event => {
+      dragging = false;
+      canvas.classList.remove('dragging');
+      if (!moved && hovered) selectNode(hovered);
+      try { canvas.releasePointerCapture(event.pointerId); } catch (_) {}
+    });
+
+    canvas.addEventListener('pointerleave', () => {
+      if (!dragging) {
+        hovered = null;
+        tooltip.style.display = 'none';
+      }
+    });
+
+    canvas.addEventListener('wheel', event => {
+      event.preventDefault();
+      const factor = Math.exp(-event.deltaY * .0012);
+      zoom = Math.max(.45, Math.min(2.8, zoom * factor));
+    }, { passive: false });
+
+    canvas.addEventListener('dblclick', () => {
+      autoFlight = !autoFlight;
+      pauseBtn.textContent = autoFlight ? 'Pause' : 'Resume';
+    });
+
+    search.addEventListener('input', () => {
+      searchTerm = search.value.trim().toLowerCase();
+      if (selected && !visibleNode(selected)) selectNode(null);
+      updateMetrics();
+    });
+
+    for (const tab of tabs) {
+      tab.addEventListener('click', () => {
+        activeLayer = tab.dataset.layer;
+        if (selected && !visibleNode(selected)) selectNode(null);
+        updateTabs();
+      });
+    }
+
+    pauseBtn.addEventListener('click', () => {
+      autoFlight = !autoFlight;
+      pauseBtn.textContent = autoFlight ? 'Pause' : 'Resume';
+    });
+
+    resetBtn.addEventListener('click', () => {
+      yaw = -0.36;
+      pitch = -0.12;
+      zoom = .92;
+      panX = 0;
+      panY = 2;
+      activeLayer = 'All';
+      search.value = '';
+      searchTerm = '';
+      selectNode(null);
+      updateTabs();
+    });
+
+    new ResizeObserver(resize).observe(stage);
+    resize();
+    updateMetrics();
+    requestAnimationFrame(render);
+  })();
+  </script>
+</body>
+</html>
