@@ -1448,6 +1448,7 @@ function renderSchemaGroups() {
     el.style.setProperty("--group-color", group.color);
     diagramScene.appendChild(el);
     schemaGroupEls.push(el);
+    enableGroupDrag(group, el.querySelector(".table-group-header"));
   });
 
   updateSchemaGroups();
@@ -1878,7 +1879,6 @@ function initializeModeler() {
       }
     });
   }
-
   renderCards(state?.positions);
   applyColors(state?.colors);
   createFieldConnectors();

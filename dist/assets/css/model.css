@@ -902,7 +902,7 @@ body.diagram-expanded-mode {
 }
 
 .schema-table-group {
-  pointer-events: none;
+  pointer-events: auto;
   opacity: 0.86;
   border-style: solid;
   background:
@@ -911,7 +911,7 @@ body.diagram-expanded-mode {
 }
 
 .schema-table-group .table-group-header {
-  cursor: default;
+  cursor: grab;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
