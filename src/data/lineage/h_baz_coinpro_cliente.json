@@ -1,0 +1,2988 @@
+{
+  "target": "dv_bdbaz.h_baz_coinpro_cliente",
+  "short": "h_baz_coinpro_cliente",
+  "nodes": [
+    {
+      "id": "n_src_metadatos",
+      "table": "metadatos",
+      "label": "metadatos",
+      "role": "source",
+      "kind": "metadatos",
+      "fields": [
+        {
+          "name": "TP-SISTEMAS-PAGOS-CRIPTOMONEDAS-CONSUMO-ALGORITHIA-ADD",
+          "type": "string",
+          "description": "Valor literal o técnico usado por la transformación."
+        },
+        {
+          "name": "fcusuariocreacion",
+          "type": "string",
+          "description": "Usuario que procesó la ingesta del registro."
+        },
+        {
+          "name": "fdfechacreacion",
+          "type": "timestamp",
+          "description": "Fecha de procesamiento de la ingesta."
+        }
+      ]
+    },
+    {
+      "id": "n_src_rd_baz_bdclientes_rd_cripto_trans",
+      "table": "rd_baz_bdclientes.rd_cripto_trans",
+      "label": "rd_cripto_trans",
+      "role": "source",
+      "kind": "tabla raw",
+      "fields": [
+        {
+          "name": "ClienteId",
+          "type": "string",
+          "description": "Identificador del cliente"
+        },
+        {
+          "name": "FechaTransaccion",
+          "type": "bigint",
+          "description": "Fecha y hora en la que se efectuo la transaccion"
+        }
+      ]
+    },
+    {
+      "id": "n_model",
+      "table": "dv_bdbaz.h_baz_coinpro_cliente",
+      "label": "h_baz_coinpro_cliente",
+      "role": "model",
+      "kind": "hub Data Vault de Coinpro",
+      "fields": [
+        {
+          "name": "ClienteHashKey",
+          "type": "string",
+          "description": "Llave Hash única del Hub (HashKey)."
+        },
+        {
+          "name": "LoadDate",
+          "type": "bigint",
+          "description": "Fecha/hora de carga (epoch)."
+        },
+        {
+          "name": "RecordSource",
+          "type": "string",
+          "description": "Fuente original (esquema.tabla)."
+        },
+        {
+          "name": "SystemSource",
+          "type": "string",
+          "description": "Sistema de negocio de origen."
+        },
+        {
+          "name": "ClienteId",
+          "type": "string",
+          "description": "Número de cliente divisas."
+        },
+        {
+          "name": "fcusuariocreacion",
+          "type": "string",
+          "description": "Usuario que procesó la ingesta."
+        },
+        {
+          "name": "fdfechacreacion",
+          "type": "bigint",
+          "description": "Fecha de procesamiento de ingesta (epoch)."
+        },
+        {
+          "name": "fifecha",
+          "type": "int",
+          "description": "Fecha calendario YYYYMMDD"
+        }
+      ]
+    },
+    {
+      "id": "n_cons_cd_bdpld_cd_cri_cliente",
+      "table": "cd_bdpld.cd_cri_cliente",
+      "label": "cd_cri_cliente",
+      "role": "consume",
+      "kind": "Crystal/CD",
+      "fields": [
+        {
+          "name": "ClienteCriptoId",
+          "type": "string",
+          "description": "Identificador del cliente"
+        },
+        {
+          "name": "FecOpe",
+          "type": "string",
+          "description": "Fecha y hora en la que se efectuo la transaccion"
+        },
+        {
+          "name": "NumeroTransaccion",
+          "type": "string",
+          "description": "Identificador de la transaccion"
+        },
+        {
+          "name": "ClienteNombre",
+          "type": "string",
+          "description": "Nombre del cliente  que realiza la transacción"
+        },
+        {
+          "name": "ClienteApePaterno",
+          "type": "string",
+          "description": "Apellido paterno del cliente  que realiza la transacción"
+        },
+        {
+          "name": "ClienteApeMaterno",
+          "type": "string",
+          "description": "Apellido materno del clientes que realiza la transacción"
+        },
+        {
+          "name": "ClienteFechaNacimiento",
+          "type": "string",
+          "description": "Nombre y apellidos del cliente Divisas"
+        },
+        {
+          "name": "CodClienteGenero",
+          "type": "string",
+          "description": "Genero del cliente  que realiza la transacción"
+        },
+        {
+          "name": "ClienteEstadoNacimiento",
+          "type": "string",
+          "description": "Estado del cliente que realiza la transacción"
+        },
+        {
+          "name": "ClienteNacionalidad",
+          "type": "string",
+          "description": "Nacionalidad del cliente que realiza la transacción"
+        },
+        {
+          "name": "ClienteRfc",
+          "type": "string",
+          "description": "Clave de Registro Federal de Contribuyente del cliente que realiza la transacción"
+        },
+        {
+          "name": "ClienteCurp",
+          "type": "string",
+          "description": "Clave Unica de Registro de la Poblacion del cliente que realiza la transacción"
+        },
+        {
+          "name": "ClienteCorreoElectronico",
+          "type": "string",
+          "description": "Correo Electronico del cliente"
+        },
+        {
+          "name": "ClienteTelefono",
+          "type": "string",
+          "description": "Teléfono del cliente"
+        },
+        {
+          "name": "ClienteRegimenFiscal",
+          "type": "string",
+          "description": "Regimen Fiscal que realiza la transacción"
+        },
+        {
+          "name": "ClienteOcupacionId",
+          "type": "string",
+          "description": "Actividad economica del cliente"
+        },
+        {
+          "name": "ClientePep",
+          "type": "string",
+          "description": "Persona Expuesta Políticamente"
+        },
+        {
+          "name": "ClienteCalle",
+          "type": "string",
+          "description": "Calle de la direccion del cliente"
+        },
+        {
+          "name": "ClienteNumExterior",
+          "type": "string",
+          "description": "Número exterior de la dirección del cliente"
+        },
+        {
+          "name": "ClienteNumInterior",
+          "type": "string",
+          "description": "Número interior de la dirección del cliente"
+        },
+        {
+          "name": "ClienteColonia",
+          "type": "string",
+          "description": "Nombre de la colonia de la dirección del cliente"
+        },
+        {
+          "name": "ClienteMunicipio",
+          "type": "string",
+          "description": "Municipio de la direccion del cliente"
+        },
+        {
+          "name": "ClienteCiudad",
+          "type": "string",
+          "description": "Ciudad de la direccion del cliente"
+        },
+        {
+          "name": "ClienteEstado",
+          "type": "string",
+          "description": "Nombre del estado donde vive el cliente"
+        },
+        {
+          "name": "ClienteCp",
+          "type": "string",
+          "description": "Codigo Postal de la direccion del cliente"
+        },
+        {
+          "name": "ClientePais",
+          "type": "string",
+          "description": "Pais de la dirección del cliente"
+        },
+        {
+          "name": "ClienteOrigenFondo",
+          "type": "string",
+          "description": "Origen de fondo del cliente"
+        },
+        {
+          "name": "fcusuariocreacion",
+          "type": "string",
+          "description": "Usuario que proceso la ingesta del registro"
+        },
+        {
+          "name": "fdfechacreacion",
+          "type": "bigint",
+          "description": "Fecha en la que se proceso la ingesta del registro"
+        },
+        {
+          "name": "fifecha",
+          "type": "int",
+          "description": "Fecha en formato yyyyMMdd que sirve para el particionamiento de la tabla"
+        }
+      ]
+    },
+    {
+      "id": "n_cons_dv_bdbaz_br_baz_coinpro_cliente_operacion",
+      "table": "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+      "label": "br_baz_coinpro_cliente_operacion",
+      "role": "consume",
+      "kind": "Data Vault",
+      "fields": [
+        {
+          "name": "ClienteOperacionLnkHashKey",
+          "type": "string",
+          "description": "Llave Hash del Link Cliente–Operación."
+        },
+        {
+          "name": "ClienteHashKey",
+          "type": "string",
+          "description": "Llave Hash del Hub Cliente."
+        },
+        {
+          "name": "OperacionHashKey",
+          "type": "string",
+          "description": "Llave Hash del Hub Operación."
+        },
+        {
+          "name": "ClienteId",
+          "type": "string",
+          "description": "Número de cliente (BK de negocio)."
+        },
+        {
+          "name": "OperacionId",
+          "type": "string",
+          "description": "Identificador de la operación/transacción de negocio."
+        },
+        {
+          "name": "FechaTransaccion",
+          "type": "bigint",
+          "description": "Fecha/hora en que se efectuó la transacción (epoch)."
+        },
+        {
+          "name": "fcusuariocreacion",
+          "type": "string",
+          "description": "Usuario que procesó la ingesta del registro."
+        },
+        {
+          "name": "fdfechacreacion",
+          "type": "bigint",
+          "description": "Fecha de procesamiento de la ingesta (epoch)."
+        },
+        {
+          "name": "fifecha",
+          "type": "int",
+          "description": "Fecha calendario YYYYMMDD"
+        }
+      ]
+    },
+    {
+      "id": "n_cons_dv_bdbaz_s_h_baz_coinpro_cliente_demografico",
+      "table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "label": "s_h_baz_coinpro_cliente_demografico",
+      "role": "consume",
+      "kind": "Data Vault",
+      "fields": [
+        {
+          "name": "ClienteHashKey",
+          "type": "string",
+          "description": "Llave Hash del Hub al que pertenece el satélite."
+        },
+        {
+          "name": "LoadDate",
+          "type": "bigint",
+          "description": "Fecha/hora de carga del registro (epoch)."
+        },
+        {
+          "name": "RecordSource",
+          "type": "string",
+          "description": "Fuente original de los datos (esquema.tabla)."
+        },
+        {
+          "name": "SystemSource",
+          "type": "string",
+          "description": "Sistema de negocio de origen."
+        },
+        {
+          "name": "HashDiff",
+          "type": "string",
+          "description": "Hash de los campos del satélite para detección de cambios."
+        },
+        {
+          "name": "ClientePais",
+          "type": "string",
+          "description": "País de la dirección del cliente."
+        },
+        {
+          "name": "ClienteEstado",
+          "type": "string",
+          "description": "Estado donde vive el cliente."
+        },
+        {
+          "name": "ClienteMunicipio",
+          "type": "string",
+          "description": "Municipio de la dirección del cliente."
+        },
+        {
+          "name": "ClienteCiudad",
+          "type": "string",
+          "description": "Ciudad de la dirección del cliente."
+        },
+        {
+          "name": "ClienteColonia",
+          "type": "string",
+          "description": "Colonia de la dirección del cliente."
+        },
+        {
+          "name": "ClienteCp",
+          "type": "string",
+          "description": "Código Postal de la dirección del cliente."
+        },
+        {
+          "name": "ClienteCalle",
+          "type": "string",
+          "description": "Calle de la dirección del cliente."
+        },
+        {
+          "name": "ClienteNumExterior",
+          "type": "string",
+          "description": "Número exterior de la dirección del cliente."
+        },
+        {
+          "name": "ClienteNumInterior",
+          "type": "string",
+          "description": "Número interior de la dirección del cliente."
+        },
+        {
+          "name": "fcusuariocreacion",
+          "type": "string",
+          "description": "Usuario que procesó la ingesta de ese registro."
+        },
+        {
+          "name": "fdfechacreacion",
+          "type": "bigint",
+          "description": "Fecha en la que se procesó la ingesta del registro (epoch)."
+        },
+        {
+          "name": "fifecha",
+          "type": "int",
+          "description": "Fecha calendario YYYYMMDD"
+        }
+      ]
+    },
+    {
+      "id": "n_cons_dv_bdbaz_s_h_baz_coinpro_cliente_identificacion",
+      "table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "label": "s_h_baz_coinpro_cliente_identificacion",
+      "role": "consume",
+      "kind": "Data Vault",
+      "fields": [
+        {
+          "name": "ClienteHashKey",
+          "type": "string",
+          "description": "Llave Hash que identifica al Hub al que pertenece el satélite."
+        },
+        {
+          "name": "LoadDate",
+          "type": "bigint",
+          "description": "Fecha/hora de carga del registro (epoch)."
+        },
+        {
+          "name": "RecordSource",
+          "type": "string",
+          "description": "Fuente original de los datos (esquema.tabla)."
+        },
+        {
+          "name": "SystemSource",
+          "type": "string",
+          "description": "Sistema de negocio de origen."
+        },
+        {
+          "name": "HashDiff",
+          "type": "string",
+          "description": "Hash de los campos del satélite para detección de cambios."
+        },
+        {
+          "name": "ClienteApePaterno",
+          "type": "string",
+          "description": "Apellido paterno del cliente."
+        },
+        {
+          "name": "ClienteApeMaterno",
+          "type": "string",
+          "description": "Apellido materno del cliente."
+        },
+        {
+          "name": "ClienteNombre",
+          "type": "string",
+          "description": "Nombre(s) del cliente."
+        },
+        {
+          "name": "ClienteNacionalidad",
+          "type": "string",
+          "description": "Nacionalidad del cliente."
+        },
+        {
+          "name": "ClienteFechaNacimiento",
+          "type": "string",
+          "description": "Fecha de nacimiento del cliente (formato de ingesta)."
+        },
+        {
+          "name": "ClienteCorreoElectronico",
+          "type": "string",
+          "description": "Correo electrónico del cliente."
+        },
+        {
+          "name": "ClienteTelefono",
+          "type": "string",
+          "description": "Número telefónico de contacto."
+        },
+        {
+          "name": "ClienteCurp",
+          "type": "string",
+          "description": "CURP del cliente."
+        },
+        {
+          "name": "ClienteRfc",
+          "type": "string",
+          "description": "Registro Federal de Contribuyentes (RFC) del cliente."
+        },
+        {
+          "name": "ClienteRegimenFiscal",
+          "type": "string",
+          "description": "Régimen fiscal / tipo de contribuyente (Física/Moral)."
+        },
+        {
+          "name": "CodClienteGenero",
+          "type": "string",
+          "description": "Género del cliente."
+        },
+        {
+          "name": "ClienteOcupacionId",
+          "type": "string",
+          "description": "Identificador de la ocupación del cliente."
+        },
+        {
+          "name": "ClientePep",
+          "type": "string",
+          "description": "Indicador de Persona Políticamente Expuesta (PEP)."
+        },
+        {
+          "name": "fcusuariocreacion",
+          "type": "string",
+          "description": "Usuario que procesó la ingesta del registro."
+        },
+        {
+          "name": "fdfechacreacion",
+          "type": "bigint",
+          "description": "Fecha de procesamiento de la ingesta (epoch)."
+        },
+        {
+          "name": "fifecha",
+          "type": "int",
+          "description": "Fecha calendario YYYYMMDD"
+        }
+      ]
+    },
+    {
+      "id": "n_cons_dv_bdbaz_s_l_baz_coinpro_operacion_movimiento",
+      "table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "label": "s_l_baz_coinpro_operacion_movimiento",
+      "role": "consume",
+      "kind": "Data Vault",
+      "fields": [
+        {
+          "name": "ClienteOperacionLnkHashKey",
+          "type": "string",
+          "description": "Llave Hash del Link al que pertenece el satélite."
+        },
+        {
+          "name": "LoadDate",
+          "type": "bigint",
+          "description": "Fecha/hora de carga (epoch)."
+        },
+        {
+          "name": "RecordSource",
+          "type": "string",
+          "description": "Fuente original de los datos (esquema.tabla)."
+        },
+        {
+          "name": "SystemSource",
+          "type": "string",
+          "description": "Sistema de negocio de origen."
+        },
+        {
+          "name": "HashDiff",
+          "type": "string",
+          "description": "Hash de campos del satélite para detección de cambios."
+        },
+        {
+          "name": "ClienteOrigenFondo",
+          "type": "string",
+          "description": "Origen de fondos del cliente."
+        },
+        {
+          "name": "OpeCanal",
+          "type": "string",
+          "description": "Nombre del canal en la que se hizo la operacion"
+        },
+        {
+          "name": "FechaTransaccion",
+          "type": "bigint",
+          "description": "Fecha de operación (epoch o timestamp numérico)."
+        },
+        {
+          "name": "TrazabilidadId",
+          "type": "string",
+          "description": "Identificador de trazabilidad."
+        },
+        {
+          "name": "CarreteraDesc",
+          "type": "string",
+          "description": "Descripción de carretera."
+        },
+        {
+          "name": "ComisionCanal",
+          "type": "decimal(30,18)",
+          "description": "Comisión canal."
+        },
+        {
+          "name": "MontoComision",
+          "type": "decimal(30,18)",
+          "description": "Comisión carretera."
+        },
+        {
+          "name": "MontoComisionProveedor",
+          "type": "decimal(30,18)",
+          "description": "Comisión proveedor."
+        },
+        {
+          "name": "ComisionIva",
+          "type": "decimal(30,18)",
+          "description": "IVA de comisiones."
+        },
+        {
+          "name": "DescripcionOpe",
+          "type": "string",
+          "description": "Concepto / descripción de la operación."
+        },
+        {
+          "name": "CostoTxn",
+          "type": "decimal(30,18)",
+          "description": "Costos de la transacción."
+        },
+        {
+          "name": "ComisionCarreteraDivisa",
+          "type": "string",
+          "description": "Divisa de la comisión de la carretera."
+        },
+        {
+          "name": "ComisionProveedorDivisa",
+          "type": "string",
+          "description": "Divisa de la comisión del proveedor."
+        },
+        {
+          "name": "OpeEstatus",
+          "type": "string",
+          "description": "Estatus de la operación."
+        },
+        {
+          "name": "HashBlockchain",
+          "type": "string",
+          "description": "hash de la confirmacion del blockchain"
+        },
+        {
+          "name": "HashOpe",
+          "type": "string",
+          "description": "Identificador único de la transacción cripto."
+        },
+        {
+          "name": "ComercioId",
+          "type": "string",
+          "description": "ID de comercio (interno)."
+        },
+        {
+          "name": "IdCanal",
+          "type": "string",
+          "description": "Identificador del canal de operación."
+        },
+        {
+          "name": "CarreteraId",
+          "type": "string",
+          "description": "ID de carretera."
+        },
+        {
+          "name": "ImpuestoPais",
+          "type": "string",
+          "description": "Porcentaje de impuesto por país."
+        },
+        {
+          "name": "ImpuestoComision",
+          "type": "decimal(30,18)",
+          "description": "Ingreso por comisión."
+        },
+        {
+          "name": "ComisionIvaCana",
+          "type": "decimal(30,18)",
+          "description": "IVA de la comisión del canal."
+        },
+        {
+          "name": "MontoIvaComision",
+          "type": "decimal(30,18)",
+          "description": "IVA de comisión carretera."
+        },
+        {
+          "name": "MontoIvaProveedor",
+          "type": "decimal(30,18)",
+          "description": "IVA de comisión proveedor."
+        },
+        {
+          "name": "OpeMedio",
+          "type": "string",
+          "description": "Medio de operación."
+        },
+        {
+          "name": "OpeMonto",
+          "type": "decimal(30,18)",
+          "description": "Monto cripto."
+        },
+        {
+          "name": "MontoMnx",
+          "type": "decimal(30,18)",
+          "description": "Monto MXN."
+        },
+        {
+          "name": "MontoUsd",
+          "type": "decimal(30,18)",
+          "description": "Monto USD."
+        },
+        {
+          "name": "TipoSpreadTxn",
+          "type": "decimal(30,18)",
+          "description": "Spread aplicado."
+        },
+        {
+          "name": "ComisionSubtotalCanal",
+          "type": "decimal(30,18)",
+          "description": "Subtotal comisión del canal."
+        },
+        {
+          "name": "MontoSubtotalComision",
+          "type": "decimal(30,18)",
+          "description": "Subtotal comisión carretera."
+        },
+        {
+          "name": "MontoSubtotalProveedor",
+          "type": "decimal(30,18)",
+          "description": "Subtotal comisión proveedor."
+        },
+        {
+          "name": "OpeSucursal",
+          "type": "string",
+          "description": "Número de sucursal donde se efectuó la operación."
+        },
+        {
+          "name": "TcCanal",
+          "type": "decimal(30,18)",
+          "description": "Tipo de cambio del canal."
+        },
+        {
+          "name": "TcCarretera",
+          "type": "decimal(30,18)",
+          "description": "Tipo de cambio de la carretera."
+        },
+        {
+          "name": "TcFiatCripto",
+          "type": "decimal(30,18)",
+          "description": "Tipo de cambio fiat?cripto."
+        },
+        {
+          "name": "TcFiatProveedor",
+          "type": "decimal(30,18)",
+          "description": "Tipo de cambio fiat?puente (proveedor)."
+        },
+        {
+          "name": "TcProveedor",
+          "type": "decimal(30,18)",
+          "description": "Tipo de cambio del proveedor."
+        },
+        {
+          "name": "TcPuenteCripto",
+          "type": "string",
+          "description": "Tipo de cambio USD?cripto utilizado."
+        },
+        {
+          "name": "TipoDivisaComision",
+          "type": "string",
+          "description": "Divisa en la que se cobra la comisión."
+        },
+        {
+          "name": "TipoTcPuenteCripto",
+          "type": "string",
+          "description": "Proveedor/Tipo para TC de puente cripto."
+        },
+        {
+          "name": "TipoTcFiatCripto",
+          "type": "string",
+          "description": "Tipo de cambio utilizado (spot - fix)"
+        },
+        {
+          "name": "TipoCambioSpotFix",
+          "type": "string",
+          "description": "Tipo de cambio utilizado (spot/fix)."
+        },
+        {
+          "name": "MonedaOrigenId",
+          "type": "string",
+          "description": "Identificador de la moneda origen."
+        },
+        {
+          "name": "MonedaDestinoId",
+          "type": "string",
+          "description": "Identificador de la moneda destino."
+        },
+        {
+          "name": "TipoCambioOrigen",
+          "type": "decimal(30,18)",
+          "description": "Tipo de cambio origen."
+        },
+        {
+          "name": "TipoCambioDestino",
+          "type": "decimal(30,18)",
+          "description": "Tipo de cambio destino."
+        },
+        {
+          "name": "MontoOrigen",
+          "type": "decimal(30,18)",
+          "description": "Monto origen de la operación."
+        },
+        {
+          "name": "MontoDestino",
+          "type": "decimal(30,18)",
+          "description": "Monto destino de la operación."
+        },
+        {
+          "name": "CuentaOrigen",
+          "type": "string",
+          "description": "Cuenta origen de la operación."
+        },
+        {
+          "name": "CuentaDestino",
+          "type": "string",
+          "description": "Cuenta destino de la operación."
+        },
+        {
+          "name": "CotizacionId",
+          "type": "string",
+          "description": "Identificador de cotización."
+        },
+        {
+          "name": "TransaccionId",
+          "type": "string",
+          "description": "Identificador de la transacción."
+        },
+        {
+          "name": "Latitud",
+          "type": "string",
+          "description": "Latitud geográfica."
+        },
+        {
+          "name": "Longitud",
+          "type": "string",
+          "description": "Longitud geográfica."
+        },
+        {
+          "name": "fcusuariocreacion",
+          "type": "string",
+          "description": "Usuario que procesó la ingesta."
+        },
+        {
+          "name": "fdfechacreacion",
+          "type": "bigint",
+          "description": "Fecha de procesamiento de ingesta (epoch)."
+        },
+        {
+          "name": "fifecha",
+          "type": "int",
+          "description": "Fecha calendario YYYYMMDD"
+        }
+      ]
+    }
+  ],
+  "canvasRel": [
+    {
+      "id": "c1",
+      "fromNode": "n_src_rd_baz_bdclientes_rd_cripto_trans",
+      "fromField": "ClienteId",
+      "toNode": "n_model",
+      "toField": "ClienteHashKey",
+      "color": "#10b981",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "direct_field_transform",
+      "transform": "Filter ClienteId.$.bandera = true; decrypt ClienteId with bdf_voltage; if decrypted Clien...",
+      "full": "Filter ClienteId.$.bandera = true; decrypt ClienteId with bdf_voltage; if decrypted ClienteId is empty then 128 zeroes else hash_key(ClienteIdDes).",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/h_baz_coinpro_cliente.ipynb",
+      "path_index": "92091",
+      "notes": ""
+    },
+    {
+      "id": "c2",
+      "fromNode": "n_src_rd_baz_bdclientes_rd_cripto_trans",
+      "fromField": "FechaTransaccion",
+      "toNode": "n_model",
+      "toField": "LoadDate",
+      "color": "#10b981",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "direct_field_transform",
+      "transform": "standardize_columns maps FechaTransaccion to LoadDate.",
+      "full": "standardize_columns maps FechaTransaccion to LoadDate.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/h_baz_coinpro_cliente.ipynb",
+      "path_index": "92091",
+      "notes": ""
+    },
+    {
+      "id": "c3",
+      "fromNode": "n_src_metadatos",
+      "fromField": "TP-SISTEMAS-PAGOS-CRIPTOMONEDAS-CONSUMO-ALGORITHIA-ADD",
+      "toNode": "n_model",
+      "toField": "SystemSource",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "constant",
+      "transform": "Constant system_source in notebook.",
+      "full": "Constant system_source in notebook.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/h_baz_coinpro_cliente.ipynb",
+      "path_index": "92091",
+      "notes": ""
+    },
+    {
+      "id": "c4",
+      "fromNode": "n_src_rd_baz_bdclientes_rd_cripto_trans",
+      "fromField": "ClienteId",
+      "toNode": "n_model",
+      "toField": "ClienteId",
+      "color": "#10b981",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "direct_field_transform",
+      "transform": "If decrypted ClienteId is empty then ANONIMO else get_json_object(ClienteId, $.dato).",
+      "full": "If decrypted ClienteId is empty then ANONIMO else get_json_object(ClienteId, $.dato).",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/h_baz_coinpro_cliente.ipynb",
+      "path_index": "92091",
+      "notes": ""
+    },
+    {
+      "id": "c5",
+      "fromNode": "n_src_metadatos",
+      "fromField": "fcusuariocreacion",
+      "toNode": "n_model",
+      "toField": "fcusuariocreacion",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "metadata",
+      "transform": "Metadata generated by GenericDataVaultCreator.add_metadata.",
+      "full": "Metadata generated by GenericDataVaultCreator.add_metadata.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/h_baz_coinpro_cliente.ipynb",
+      "path_index": "92091",
+      "notes": ""
+    },
+    {
+      "id": "c6",
+      "fromNode": "n_src_metadatos",
+      "fromField": "fdfechacreacion",
+      "toNode": "n_model",
+      "toField": "fdfechacreacion",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "metadata",
+      "transform": "Metadata generated by GenericDataVaultCreator.add_metadata; also delta column.",
+      "full": "Metadata generated by GenericDataVaultCreator.add_metadata; also delta column.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/h_baz_coinpro_cliente.ipynb",
+      "path_index": "92091",
+      "notes": ""
+    },
+    {
+      "id": "c7",
+      "fromNode": "n_src_rd_baz_bdclientes_rd_cripto_trans",
+      "fromField": "FechaTransaccion",
+      "toNode": "n_model",
+      "toField": "fifecha",
+      "color": "#10b981",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "partition_transform",
+      "transform": "add_dv_stamps from FiFechaColumn=LoadDate, where LoadDate comes from FechaTransaccion.",
+      "full": "add_dv_stamps from FiFechaColumn=LoadDate, where LoadDate comes from FechaTransaccion.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/h_baz_coinpro_cliente.ipynb",
+      "path_index": "92091",
+      "notes": ""
+    },
+    {
+      "id": "c8",
+      "fromNode": "n_model",
+      "fromField": "ClienteId",
+      "toNode": "n_cons_cd_bdpld_cd_cri_cliente",
+      "toField": "ClienteCriptoId",
+      "color": "#f59e0b",
+      "stroke": "solid",
+      "direction": "downstream",
+      "rtype": "active_downstream_field",
+      "transform": "Alias br.ClienteId; records with empty ClienteId are filtered out.",
+      "full": "Alias br.ClienteId; records with empty ClienteId are filtered out.",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte-jnb/run.nb/cd_cri_cliente.ipynb",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "id": "c9",
+      "fromNode": "n_model",
+      "fromField": "ClienteId",
+      "toNode": "n_cons_dv_bdbaz_br_baz_coinpro_cliente_operacion",
+      "toField": "ClienteHashKey",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "neighbor_bridge_field",
+      "transform": "decrypt ClienteId; ANONIMO when empty; hash_key(ClienteIdDes); zero hash when original Cl...",
+      "full": "decrypt ClienteId; ANONIMO when empty; hash_key(ClienteIdDes); zero hash when original ClienteId empty.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/br_baz_coinpro_cliente_operacion.ipynb",
+      "path_index": "92090",
+      "notes": ""
+    },
+    {
+      "id": "c10",
+      "fromNode": "n_model",
+      "fromField": "ClienteId",
+      "toNode": "n_cons_dv_bdbaz_br_baz_coinpro_cliente_operacion",
+      "toField": "ClienteId",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "neighbor_bridge_field",
+      "transform": "get_json_object(ClienteId, $.dato); adjusted when original ClienteId empty.",
+      "full": "get_json_object(ClienteId, $.dato); adjusted when original ClienteId empty.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/br_baz_coinpro_cliente_operacion.ipynb",
+      "path_index": "92090",
+      "notes": ""
+    },
+    {
+      "id": "c11",
+      "fromNode": "n_model",
+      "fromField": "fcusuariocreacion",
+      "toNode": "n_cons_dv_bdbaz_br_baz_coinpro_cliente_operacion",
+      "toField": "fcusuariocreacion",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "metadata",
+      "transform": "Metadata generated by GenericDataVaultCreator.add_metadata.",
+      "full": "Metadata generated by GenericDataVaultCreator.add_metadata.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/br_baz_coinpro_cliente_operacion.ipynb",
+      "path_index": "92090",
+      "notes": ""
+    },
+    {
+      "id": "c12",
+      "fromNode": "n_model",
+      "fromField": "fdfechacreacion",
+      "toNode": "n_cons_dv_bdbaz_br_baz_coinpro_cliente_operacion",
+      "toField": "fdfechacreacion",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "metadata",
+      "transform": "Metadata generated by GenericDataVaultCreator.add_metadata.",
+      "full": "Metadata generated by GenericDataVaultCreator.add_metadata.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/br_baz_coinpro_cliente_operacion.ipynb",
+      "path_index": "92090",
+      "notes": ""
+    },
+    {
+      "id": "c13",
+      "fromNode": "n_model",
+      "fromField": "ClienteId",
+      "toNode": "n_cons_dv_bdbaz_s_h_baz_coinpro_cliente_identificacion",
+      "toField": "ClienteHashKey",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "neighbor_satellite_key",
+      "transform": "decrypt ClienteId; hash_key(ClienteId); zero hash when ClienteId empty.",
+      "full": "decrypt ClienteId; hash_key(ClienteId); zero hash when ClienteId empty.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_h_baz_coinpro_cliente_identificacion.ipynb",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "id": "c14",
+      "fromNode": "n_model",
+      "fromField": "RecordSource",
+      "toNode": "n_cons_dv_bdbaz_s_h_baz_coinpro_cliente_identificacion",
+      "toField": "RecordSource",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "metadata",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "full": "Metadata/stamp generated by Data Vault creator.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_h_baz_coinpro_cliente_identificacion.ipynb",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "id": "c15",
+      "fromNode": "n_model",
+      "fromField": "SystemSource",
+      "toNode": "n_cons_dv_bdbaz_s_h_baz_coinpro_cliente_identificacion",
+      "toField": "SystemSource",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "metadata",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "full": "Metadata/stamp generated by Data Vault creator.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_h_baz_coinpro_cliente_identificacion.ipynb",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "id": "c16",
+      "fromNode": "n_model",
+      "fromField": "fcusuariocreacion",
+      "toNode": "n_cons_dv_bdbaz_s_h_baz_coinpro_cliente_identificacion",
+      "toField": "fcusuariocreacion",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "metadata",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "full": "Metadata/stamp generated by Data Vault creator.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_h_baz_coinpro_cliente_identificacion.ipynb",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "id": "c17",
+      "fromNode": "n_model",
+      "fromField": "fdfechacreacion",
+      "toNode": "n_cons_dv_bdbaz_s_h_baz_coinpro_cliente_identificacion",
+      "toField": "fdfechacreacion",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "metadata",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "full": "Metadata/stamp generated by Data Vault creator.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_h_baz_coinpro_cliente_identificacion.ipynb",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "id": "c18",
+      "fromNode": "n_model",
+      "fromField": "fifecha",
+      "toNode": "n_cons_dv_bdbaz_s_h_baz_coinpro_cliente_identificacion",
+      "toField": "fifecha",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "metadata",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "full": "Metadata/stamp generated by Data Vault creator.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_h_baz_coinpro_cliente_identificacion.ipynb",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "id": "c19",
+      "fromNode": "n_model",
+      "fromField": "ClienteId",
+      "toNode": "n_cons_dv_bdbaz_s_h_baz_coinpro_cliente_demografico",
+      "toField": "ClienteHashKey",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "neighbor_satellite_key",
+      "transform": "decrypt ClienteId; hash_key(ClienteId); zero hash when ClienteId empty.",
+      "full": "decrypt ClienteId; hash_key(ClienteId); zero hash when ClienteId empty.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_h_baz_coinpro_cliente_demografico.ipynb",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "id": "c20",
+      "fromNode": "n_model",
+      "fromField": "RecordSource",
+      "toNode": "n_cons_dv_bdbaz_s_h_baz_coinpro_cliente_demografico",
+      "toField": "RecordSource",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "metadata",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "full": "Metadata/stamp generated by Data Vault creator.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_h_baz_coinpro_cliente_demografico.ipynb",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "id": "c21",
+      "fromNode": "n_model",
+      "fromField": "SystemSource",
+      "toNode": "n_cons_dv_bdbaz_s_h_baz_coinpro_cliente_demografico",
+      "toField": "SystemSource",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "metadata",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "full": "Metadata/stamp generated by Data Vault creator.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_h_baz_coinpro_cliente_demografico.ipynb",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "id": "c22",
+      "fromNode": "n_model",
+      "fromField": "fcusuariocreacion",
+      "toNode": "n_cons_dv_bdbaz_s_h_baz_coinpro_cliente_demografico",
+      "toField": "fcusuariocreacion",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "metadata",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "full": "Metadata/stamp generated by Data Vault creator.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_h_baz_coinpro_cliente_demografico.ipynb",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "id": "c23",
+      "fromNode": "n_model",
+      "fromField": "fdfechacreacion",
+      "toNode": "n_cons_dv_bdbaz_s_h_baz_coinpro_cliente_demografico",
+      "toField": "fdfechacreacion",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "metadata",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "full": "Metadata/stamp generated by Data Vault creator.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_h_baz_coinpro_cliente_demografico.ipynb",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "id": "c24",
+      "fromNode": "n_model",
+      "fromField": "fifecha",
+      "toNode": "n_cons_dv_bdbaz_s_h_baz_coinpro_cliente_demografico",
+      "toField": "fifecha",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "metadata",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "full": "Metadata/stamp generated by Data Vault creator.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_h_baz_coinpro_cliente_demografico.ipynb",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "id": "c25",
+      "fromNode": "n_model",
+      "fromField": "RecordSource",
+      "toNode": "n_cons_dv_bdbaz_s_l_baz_coinpro_operacion_movimiento",
+      "toField": "RecordSource",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "metadata",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "full": "Metadata/stamp generated by Data Vault creator.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_l_baz_coinpro_operacion_movimiento.ipynb",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "id": "c26",
+      "fromNode": "n_model",
+      "fromField": "SystemSource",
+      "toNode": "n_cons_dv_bdbaz_s_l_baz_coinpro_operacion_movimiento",
+      "toField": "SystemSource",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "metadata",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "full": "Metadata/stamp generated by Data Vault creator.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_l_baz_coinpro_operacion_movimiento.ipynb",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "id": "c27",
+      "fromNode": "n_model",
+      "fromField": "fcusuariocreacion",
+      "toNode": "n_cons_dv_bdbaz_s_l_baz_coinpro_operacion_movimiento",
+      "toField": "fcusuariocreacion",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "metadata",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "full": "Metadata/stamp generated by Data Vault creator.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_l_baz_coinpro_operacion_movimiento.ipynb",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "id": "c28",
+      "fromNode": "n_model",
+      "fromField": "fdfechacreacion",
+      "toNode": "n_cons_dv_bdbaz_s_l_baz_coinpro_operacion_movimiento",
+      "toField": "fdfechacreacion",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "metadata",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "full": "Metadata/stamp generated by Data Vault creator.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_l_baz_coinpro_operacion_movimiento.ipynb",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "id": "c29",
+      "fromNode": "n_model",
+      "fromField": "fifecha",
+      "toNode": "n_cons_dv_bdbaz_s_l_baz_coinpro_operacion_movimiento",
+      "toField": "fifecha",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "metadata",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "full": "Metadata/stamp generated by Data Vault creator.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/s_l_baz_coinpro_operacion_movimiento.ipynb",
+      "path_index": "92098",
+      "notes": ""
+    }
+  ],
+  "all": [
+    {
+      "direction": "upstream",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteId",
+      "target_table": "dv_bdbaz.h_baz_coinpro_cliente",
+      "target_field": "ClienteHashKey",
+      "transform": "Filter ClienteId.$.bandera = true; decrypt ClienteId with bdf_voltage; if decrypted ClienteId is empty then 128 zeroes else hash_key(ClienteIdDes).",
+      "relation_type": "direct_field_transform",
+      "path_index": "92091",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "FechaTransaccion",
+      "target_table": "dv_bdbaz.h_baz_coinpro_cliente",
+      "target_field": "LoadDate",
+      "transform": "standardize_columns maps FechaTransaccion to LoadDate.",
+      "relation_type": "direct_field_transform",
+      "path_index": "92091",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "rd_baz_bdclientes.rd_cripto_trans",
+      "target_table": "dv_bdbaz.h_baz_coinpro_cliente",
+      "target_field": "RecordSource",
+      "transform": "Constant derived from schema_raw and input_table.",
+      "relation_type": "constant_from_source_table",
+      "path_index": "92091",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "metadatos",
+      "source_field": "TP-SISTEMAS-PAGOS-CRIPTOMONEDAS-CONSUMO-ALGORITHIA-ADD",
+      "target_table": "dv_bdbaz.h_baz_coinpro_cliente",
+      "target_field": "SystemSource",
+      "transform": "Constant system_source in notebook.",
+      "relation_type": "constant",
+      "path_index": "92091",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteId",
+      "target_table": "dv_bdbaz.h_baz_coinpro_cliente",
+      "target_field": "ClienteId",
+      "transform": "If decrypted ClienteId is empty then ANONIMO else get_json_object(ClienteId, $.dato).",
+      "relation_type": "direct_field_transform",
+      "path_index": "92091",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "metadatos",
+      "source_field": "fcusuariocreacion",
+      "target_table": "dv_bdbaz.h_baz_coinpro_cliente",
+      "target_field": "fcusuariocreacion",
+      "transform": "Metadata generated by GenericDataVaultCreator.add_metadata.",
+      "relation_type": "metadata",
+      "path_index": "92091",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "metadatos",
+      "source_field": "fdfechacreacion",
+      "target_table": "dv_bdbaz.h_baz_coinpro_cliente",
+      "target_field": "fdfechacreacion",
+      "transform": "Metadata generated by GenericDataVaultCreator.add_metadata; also delta column.",
+      "relation_type": "metadata",
+      "path_index": "92091",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "FechaTransaccion",
+      "target_table": "dv_bdbaz.h_baz_coinpro_cliente",
+      "target_field": "fifecha",
+      "transform": "add_dv_stamps from FiFechaColumn=LoadDate, where LoadDate comes from FechaTransaccion.",
+      "relation_type": "partition_transform",
+      "path_index": "92091",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteId",
+      "target_table": "dv_bdbaz.h_baz_coinpro_cliente",
+      "target_field": "_row_filter",
+      "transform": "Only rows with get_json_object(ClienteId, $.bandera) = true are processed.",
+      "relation_type": "filter",
+      "path_index": "92091",
+      "notes": ""
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+      "source_field": "ClienteId",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteCriptoId",
+      "transform": "Alias br.ClienteId; records with empty ClienteId are filtered out.",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+      "source_field": "FechaTransaccion",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "FecOpe",
+      "transform": "Alias br.FechaTransaccion, then from_unixtime(FecOpe / 1000, yyyy-MM-dd HH:mm:ss).",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+      "source_field": "OperacionId",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "NumeroTransaccion",
+      "transform": "Alias br.OperacionId.",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "source_field": "ClienteNombre",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteNombre",
+      "transform": "Temporal satellite join by ClienteHashKey and transaction timestamp window.",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "source_field": "ClienteApePaterno",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteApePaterno",
+      "transform": "Temporal satellite join by ClienteHashKey and transaction timestamp window.",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "source_field": "ClienteApeMaterno",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteApeMaterno",
+      "transform": "Temporal satellite join by ClienteHashKey and transaction timestamp window.",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "source_field": "ClienteFechaNacimiento",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteFechaNacimiento",
+      "transform": "Temporal satellite join by ClienteHashKey and transaction timestamp window.",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "source_field": "CodClienteGenero",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "CodClienteGenero",
+      "transform": "Alias then upper(trim(coalesce(value, empty string))).",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "cu_baz_bdsopoperlog.cu_ebx_catt_baz_cripto_estado_curp",
+      "source_field": "FcEstado",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteEstadoNacimiento",
+      "transform": "Left join on substring(decrypted ClienteCurp, 12, 2) = fcclave; then upper(trim(coalesce(value, empty string))).",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "source_field": "ClienteNacionalidad",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteNacionalidad",
+      "transform": "Alias then upper(trim(coalesce(value, empty string))).",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "source_field": "ClienteRfc",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteRfc",
+      "transform": "Temporal satellite join by ClienteHashKey and transaction timestamp window.",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "source_field": "ClienteCurp",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteCurp",
+      "transform": "Preserves encrypted/non-decrypted value as ClienteCurpNd; a decrypted value is used only to derive EstadoNacimiento.",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "source_field": "ClienteCorreoElectronico",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteCorreoElectronico",
+      "transform": "Temporal satellite join by ClienteHashKey and transaction timestamp window.",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "source_field": "ClienteTelefono",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteTelefono",
+      "transform": "Temporal satellite join by ClienteHashKey and transaction timestamp window.",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "source_field": "ClienteRegimenFiscal",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteRegimenFiscal",
+      "transform": "Alias then upper(trim(coalesce(value, empty string))).",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "source_field": "ClienteOcupacionId",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteOcupacionId",
+      "transform": "Alias then upper(trim(coalesce(value, empty string))).",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "source_field": "ClientePep",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClientePep",
+      "transform": "Alias then upper(trim(coalesce(value, empty string))).",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "source_field": "ClienteCalle",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteCalle",
+      "transform": "Temporal satellite join by ClienteHashKey and transaction timestamp window.",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "source_field": "ClienteNumExterior",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteNumExterior",
+      "transform": "Temporal satellite join by ClienteHashKey and transaction timestamp window.",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "source_field": "ClienteNumInterior",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteNumInterior",
+      "transform": "Temporal satellite join by ClienteHashKey and transaction timestamp window.",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "source_field": "ClienteColonia",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteColonia",
+      "transform": "Alias then upper(trim(coalesce(value, empty string))).",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "source_field": "ClienteMunicipio",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteMunicipio",
+      "transform": "Alias then quitar_acentos_udf(upper/trim semantics inside UDF).",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "source_field": "ClienteCiudad",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteCiudad",
+      "transform": "Alias then upper(trim(coalesce(value, empty string))).",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "source_field": "ClienteEstado",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteEstado",
+      "transform": "Alias then upper(trim(coalesce(value, empty string))).",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "source_field": "ClienteCp",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteCp",
+      "transform": "Alias then upper(trim(coalesce(value, empty string))).",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "source_field": "ClientePais",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClientePais",
+      "transform": "Alias then quitar_acentos_udf(upper/trim semantics inside UDF).",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "source_field": "ClienteOrigenFondo",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "ClienteOrigenFondo",
+      "transform": "Temporal satellite join by ClienteOperacionLnkHashKey and transaction timestamp window.",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "metadatos",
+      "source_field": "UBDF_APP_BAZ_COINPRO",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "fcusuariocreacion",
+      "transform": "Constant lit(UBDF_APP_BAZ_COINPRO).",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "metadatos",
+      "source_field": "datetime.now().timestamp() * 1000",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "fdfechacreacion",
+      "transform": "Runtime processing timestamp cast to BIGINT.",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "metadatos",
+      "source_field": "current date yyyyMMdd",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "fifecha",
+      "transform": "Runtime FiFechaValue cast to INT.",
+      "relation_type": "active_downstream_field",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+      "source_field": "ClienteHashKey",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "_join_condition",
+      "transform": "Join to s_h_baz_coinpro_cliente_identificacion.ClienteHashKey and s_h_baz_coinpro_cliente_demografico.ClienteHashKey.",
+      "relation_type": "join_condition",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+      "source_field": "FechaTransaccion",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "_join_condition",
+      "transform": "Temporal join condition: satellite LoadDate <= br.FechaTransaccion < satellite enddate.",
+      "relation_type": "join_condition",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+      "source_field": "ClienteOperacionLnkHashKey",
+      "target_table": "cd_bdpld.cd_cri_cliente",
+      "target_field": "_join_condition",
+      "transform": "Join to s_l_baz_coinpro_operacion_movimiento.ClienteOperacionLnkHashKey.",
+      "relation_type": "join_condition",
+      "path_index": "85066",
+      "notes": "Active cd_cri_cliente notebook does not read dv_bdbaz.h_baz_coinpro_cliente directly; it uses BR and satellite objects related to the hub by ClienteHashKey."
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteId,NumeroTransaccion,FechaTransaccion",
+      "target_table": "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+      "target_field": "ClienteOperacionLnkHashKey",
+      "transform": "concat(ClienteIdDes, -, NumeroTransaccion, -, FechaTransaccion) then hash_key.",
+      "relation_type": "neighbor_bridge_key",
+      "path_index": "92090",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteId",
+      "target_table": "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+      "target_field": "ClienteHashKey",
+      "transform": "decrypt ClienteId; ANONIMO when empty; hash_key(ClienteIdDes); zero hash when original ClienteId empty.",
+      "relation_type": "neighbor_bridge_field",
+      "path_index": "92090",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "NumeroTransaccion,FechaTransaccion",
+      "target_table": "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+      "target_field": "OperacionHashKey",
+      "transform": "hash_key(concat(NumeroTransaccion, -, FechaTransaccion)).",
+      "relation_type": "neighbor_bridge_field",
+      "path_index": "92090",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteId",
+      "target_table": "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+      "target_field": "ClienteId",
+      "transform": "get_json_object(ClienteId, $.dato); adjusted when original ClienteId empty.",
+      "relation_type": "neighbor_bridge_field",
+      "path_index": "92090",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "NumeroTransaccion",
+      "target_table": "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+      "target_field": "OperacionId",
+      "transform": "Alias NumeroTransaccion.",
+      "relation_type": "neighbor_bridge_field",
+      "path_index": "92090",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "FechaTransaccion",
+      "target_table": "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+      "target_field": "FechaTransaccion",
+      "transform": "Alias FechaTransaccion.",
+      "relation_type": "neighbor_bridge_field",
+      "path_index": "92090",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "metadatos",
+      "source_field": "fcusuariocreacion",
+      "target_table": "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+      "target_field": "fcusuariocreacion",
+      "transform": "Metadata generated by GenericDataVaultCreator.add_metadata.",
+      "relation_type": "metadata",
+      "path_index": "92090",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "metadatos",
+      "source_field": "fdfechacreacion",
+      "target_table": "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+      "target_field": "fdfechacreacion",
+      "transform": "Metadata generated by GenericDataVaultCreator.add_metadata.",
+      "relation_type": "metadata",
+      "path_index": "92090",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "FechaTransaccion",
+      "target_table": "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+      "target_field": "fifecha",
+      "transform": "add_dv_stamps from LoadDate, where LoadDate is FechaTransaccion.",
+      "relation_type": "partition_transform",
+      "path_index": "92090",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteId",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "ClienteHashKey",
+      "transform": "decrypt ClienteId; hash_key(ClienteId); zero hash when ClienteId empty.",
+      "relation_type": "neighbor_satellite_key",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteApePaterno,ClienteApeMaterno,ClienteNombre,ClienteNacionalidad,ClienteFechaNacimiento,ClienteCorreoElectronico,ClienteTelefono,ClienteCurp,ClienteRfc,ClienteRegimenFiscal,CodClienteGenero,ClienteOcupacionId,ClientePep",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "HashDiff",
+      "transform": "hash_diff over identification descriptive fields.",
+      "relation_type": "neighbor_satellite_hashdiff",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "FechaTransaccion",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "LoadDate",
+      "transform": "standardize_columns maps FechaTransaccion to LoadDate.",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteApePaterno",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "ClienteApePaterno",
+      "transform": "get_json_object(ClienteApePaterno, $.dato)",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteApeMaterno",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "ClienteApeMaterno",
+      "transform": "get_json_object(ClienteApeMaterno, $.dato)",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteNombre",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "ClienteNombre",
+      "transform": "get_json_object(ClienteNombre, $.dato)",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteNacionalidad",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "ClienteNacionalidad",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteFechaNacimiento",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "ClienteFechaNacimiento",
+      "transform": "decrypt with bdf_voltage, normalizar_fecha, then encrypt with bdf_voltage",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteCorreoElectronico",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "ClienteCorreoElectronico",
+      "transform": "get_json_object(ClienteCorreoElectronico, $.dato)",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteTelefono",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "ClienteTelefono",
+      "transform": "get_json_object(ClienteTelefono, $.dato)",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteCurp",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "ClienteCurp",
+      "transform": "get_json_object(ClienteCurp, $.dato)",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteRfc",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "ClienteRfc",
+      "transform": "get_json_object(ClienteRfc, $.dato)",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteRegimenFiscal",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "ClienteRegimenFiscal",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "CodClienteGenero",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "CodClienteGenero",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteOcupacionId",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "ClienteOcupacionId",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClientePep",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "ClientePep",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "RecordSource",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "RecordSource",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "relation_type": "metadata",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "metadatos",
+      "source_field": "SystemSource",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "SystemSource",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "relation_type": "metadata",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "metadatos",
+      "source_field": "fcusuariocreacion",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "fcusuariocreacion",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "relation_type": "metadata",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "metadatos",
+      "source_field": "fdfechacreacion",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "fdfechacreacion",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "relation_type": "metadata",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "fifecha",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "target_field": "fifecha",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "relation_type": "metadata",
+      "path_index": "92096",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteId",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "target_field": "ClienteHashKey",
+      "transform": "decrypt ClienteId; hash_key(ClienteId); zero hash when ClienteId empty.",
+      "relation_type": "neighbor_satellite_key",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClientePais,ClienteEstado,ClienteMunicipio,ClienteCiudad,ClienteColonia,ClienteCp,ClienteCalle,ClienteNumExterior,ClienteNumInterior",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "target_field": "HashDiff",
+      "transform": "hash_diff over demographic descriptive fields.",
+      "relation_type": "neighbor_satellite_hashdiff",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "FechaTransaccion",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "target_field": "LoadDate",
+      "transform": "standardize_columns maps FechaTransaccion to LoadDate.",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClientePais",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "target_field": "ClientePais",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteEstado",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "target_field": "ClienteEstado",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteMunicipio",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "target_field": "ClienteMunicipio",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteCiudad",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "target_field": "ClienteCiudad",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteColonia",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "target_field": "ClienteColonia",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteCp",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "target_field": "ClienteCp",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteCalle",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "target_field": "ClienteCalle",
+      "transform": "get_json_object(ClienteCalle, $.dato)",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteNumExterior",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "target_field": "ClienteNumExterior",
+      "transform": "get_json_object(ClienteNumExterior, $.dato)",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteNumInterior",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "target_field": "ClienteNumInterior",
+      "transform": "get_json_object(ClienteNumInterior, $.dato)",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "RecordSource",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "target_field": "RecordSource",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "relation_type": "metadata",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "metadatos",
+      "source_field": "SystemSource",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "target_field": "SystemSource",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "relation_type": "metadata",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "metadatos",
+      "source_field": "fcusuariocreacion",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "target_field": "fcusuariocreacion",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "relation_type": "metadata",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "metadatos",
+      "source_field": "fdfechacreacion",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "target_field": "fdfechacreacion",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "relation_type": "metadata",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "fifecha",
+      "target_table": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "target_field": "fifecha",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "relation_type": "metadata",
+      "path_index": "92095",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteId,NumeroTransaccion,FechaTransaccion",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "ClienteOperacionLnkHashKey",
+      "transform": "colKey = concat(decrypted ClienteId, -, NumeroTransaccion, -, FechaTransaccion); hash_key(colKey).",
+      "relation_type": "neighbor_satellite_key",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteOrigenFondo,OpeCanal,FechaTransaccion,TrazabilidadId,CarreteraDesc,ComisionCanal,MontoComision,MontoComisionProveedor,ComisionIva,DescripcionOpe,CostoTxn,ComisionCarreteraDivisa,ComisionProveedorDivisa,OpeEstatus,HashBlockchain,HashOpe,ComercioId,IdCanal,CarreteraId,ImpuestoPais,ImpuestoComision,ComisionIvaCana,MontoIvaComision,MontoIvaProveedor,OpeMedio,OpeMonto,MontoMnx,MontoUsd,TipoSpreadTxn,ComisionSubtotalCanal,MontoSubtotalComision,MontoSubtotalProveedor,OpeSucursal,TcCanal,TcCarretera,TcFiatCripto,TcFiatProveedor,TcProveedor,TcPuenteCripto,TipoDivisaComision,TipoTcPuenteCripto,TipoTcFiatCripto,TipoCambioSpotFix,MonedaOrigenId,MonedaDestinoId,TipoCambioOrigen,TipoCambioDestino,MontoOrigen,MontoDestino,CuentaOrigen,CuentaDestino,CotizacionId,TransaccionId,Latitud,Longitud",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "HashDiff",
+      "transform": "hash_diff over movement descriptive fields.",
+      "relation_type": "neighbor_satellite_hashdiff",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "FechaTransaccion",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "LoadDate",
+      "transform": "LoadDate = FechaTransaccion.",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteOrigenFondo",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "ClienteOrigenFondo",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "OpeCanal",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "OpeCanal",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "FechaTransaccion",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "FechaTransaccion",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "TrazabilidadId",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "TrazabilidadId",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "CarreteraDesc",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "CarreteraDesc",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ComisionCanal",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "ComisionCanal",
+      "transform": "cast(ComisionCanal as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "MontoComision",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "MontoComision",
+      "transform": "cast(MontoComision as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "MontoComisionProveedor",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "MontoComisionProveedor",
+      "transform": "cast(MontoComisionProveedor as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ComisionIva",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "ComisionIva",
+      "transform": "cast(ComisionIva as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "DescripcionOpe",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "DescripcionOpe",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "CostoTxn",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "CostoTxn",
+      "transform": "cast(CostoTxn as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ComisionCarreteraDivisa",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "ComisionCarreteraDivisa",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ComisionProveedorDivisa",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "ComisionProveedorDivisa",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "OpeEstatus",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "OpeEstatus",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "HashBlockchain",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "HashBlockchain",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "HashOpe",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "HashOpe",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ComercioId",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "ComercioId",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "IdCanal",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "IdCanal",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "CarreteraId",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "CarreteraId",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ImpuestoPais",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "ImpuestoPais",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ImpuestoComision",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "ImpuestoComision",
+      "transform": "cast(ImpuestoComision as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ComisionIvaCana",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "ComisionIvaCana",
+      "transform": "cast(ComisionIvaCana as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "MontoIvaComision",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "MontoIvaComision",
+      "transform": "cast(MontoIvaComision as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "MontoIvaProveedor",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "MontoIvaProveedor",
+      "transform": "cast(MontoIvaProveedor as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "OpeMedio",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "OpeMedio",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "OpeMonto",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "OpeMonto",
+      "transform": "cast(OpeMonto as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "MontoMnx",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "MontoMnx",
+      "transform": "cast(MontoMnx as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "MontoUsd",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "MontoUsd",
+      "transform": "cast(MontoUsd as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "TipoSpreadTxn",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "TipoSpreadTxn",
+      "transform": "cast(TipoSpreadTxn as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ComisionSubtotalCanal",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "ComisionSubtotalCanal",
+      "transform": "cast(ComisionSubtotalCanal as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "MontoSubtotalComision",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "MontoSubtotalComision",
+      "transform": "cast(MontoSubtotalComision as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "MontoSubtotalProveedor",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "MontoSubtotalProveedor",
+      "transform": "cast(MontoSubtotalProveedor as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "OpeSucursal",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "OpeSucursal",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "TcCanal",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "TcCanal",
+      "transform": "cast(TcCanal as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "TcCarretera",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "TcCarretera",
+      "transform": "cast(TcCarretera as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "TcFiatCripto",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "TcFiatCripto",
+      "transform": "cast(TcFiatCripto as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "TcFiatProveedor",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "TcFiatProveedor",
+      "transform": "cast(TcFiatProveedor as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "TcProveedor",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "TcProveedor",
+      "transform": "cast(TcProveedor as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "TcPuenteCripto",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "TcPuenteCripto",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "TipoDivisaComision",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "TipoDivisaComision",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "TipoTcPuenteCripto",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "TipoTcPuenteCripto",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "TipoTcFiatCripto",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "TipoTcFiatCripto",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "TipoCambioSpotFix",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "TipoCambioSpotFix",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "MonedaOrigenId",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "MonedaOrigenId",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "MonedaDestinoId",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "MonedaDestinoId",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "TipoCambioOrigen",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "TipoCambioOrigen",
+      "transform": "cast(TipoCambioOrigen as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "TipoCambioDestino",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "TipoCambioDestino",
+      "transform": "cast(TipoCambioDestino as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "MontoOrigen",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "MontoOrigen",
+      "transform": "cast(MontoOrigen as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "MontoDestino",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "MontoDestino",
+      "transform": "cast(MontoDestino as DecimalType(30, 18))",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "CuentaOrigen",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "CuentaOrigen",
+      "transform": "get_json_object(CuentaOrigen, $.dato)",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "CuentaDestino",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "CuentaDestino",
+      "transform": "get_json_object(CuentaDestino, $.dato)",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "CotizacionId",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "CotizacionId",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "TransaccionId",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "TransaccionId",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "Latitud",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "Latitud",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "Longitud",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "Longitud",
+      "transform": "direct standardize_columns mapping",
+      "relation_type": "neighbor_satellite_field",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "RecordSource",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "RecordSource",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "relation_type": "metadata",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "metadatos",
+      "source_field": "SystemSource",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "SystemSource",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "relation_type": "metadata",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "metadatos",
+      "source_field": "fcusuariocreacion",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "fcusuariocreacion",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "relation_type": "metadata",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "metadatos",
+      "source_field": "fdfechacreacion",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "fdfechacreacion",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "relation_type": "metadata",
+      "path_index": "92098",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "fifecha",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "fifecha",
+      "transform": "Metadata/stamp generated by Data Vault creator.",
+      "relation_type": "metadata",
+      "path_index": "92098",
+      "notes": ""
+    }
+  ],
+  "counts": {
+    "upstream": 9,
+    "downstream": 33,
+    "neighborhood": 110
+  }
+}

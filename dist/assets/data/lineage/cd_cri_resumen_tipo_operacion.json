@@ -1,0 +1,593 @@
+{
+  "target": "cd_bdpld.cd_cri_resumen_tipo_operacion",
+  "short": "cd_cri_resumen_tipo_operacion",
+  "nodes": [
+    {
+      "id": "n_src_cd_bdpld_cd_cri_movimientos",
+      "table": "cd_bdpld.cd_cri_movimientos",
+      "label": "cd_cri_movimientos",
+      "role": "source",
+      "kind": "Crystal/CD",
+      "fields": [
+        {
+          "name": "ClienteCriptoId",
+          "type": "string",
+          "description": "Identificador del cliente"
+        },
+        {
+          "name": "FecOpe",
+          "type": "string",
+          "description": "Fecha y hora en la que se efectuo la transaccion"
+        },
+        {
+          "name": "NumeroTransaccion",
+          "type": "string",
+          "description": "Identificador de la transaccion"
+        },
+        {
+          "name": "ClienteProductoId",
+          "type": "string",
+          "description": "Nombre del producto consumido"
+        },
+        {
+          "name": "MonedaCripto",
+          "type": "string",
+          "description": "Tipo de moneda cripto utilizada en la transaccion"
+        },
+        {
+          "name": "MonedaFiat",
+          "type": "string",
+          "description": "Divisa de origen de la operacion"
+        },
+        {
+          "name": "MontoMnx",
+          "type": "decimal(18,2)",
+          "description": "Monto de la transaccion en MXN"
+        },
+        {
+          "name": "OpeMonto",
+          "type": "decimal(25,15)",
+          "description": "Monto de la transaccion en la criptomoneda utilizada"
+        },
+        {
+          "name": "OpeCanal",
+          "type": "string",
+          "description": "Nombre del canal en la que se hizo la operacion"
+        },
+        {
+          "name": "TipoOpe",
+          "type": "string",
+          "description": "Tipo de la transaccion que se efectuo (COMPRA, VENTA)"
+        }
+      ]
+    },
+    {
+      "id": "n_src_metadatos",
+      "table": "metadatos",
+      "label": "metadatos",
+      "role": "source",
+      "kind": "metadatos",
+      "fields": [
+        {
+          "name": "UBDF_APP_BAZ_COINPRO",
+          "type": "string",
+          "description": "Valor literal o técnico usado por la transformación."
+        },
+        {
+          "name": "datetime.now().timestamp() * 1000",
+          "type": "timestamp",
+          "description": "Valor calculado en tiempo de ejecución."
+        },
+        {
+          "name": "current date yyyyMMdd",
+          "type": "timestamp",
+          "description": "Valor calculado en tiempo de ejecución."
+        }
+      ]
+    },
+    {
+      "id": "n_model",
+      "table": "cd_bdpld.cd_cri_resumen_tipo_operacion",
+      "label": "cd_cri_resumen_tipo_operacion",
+      "role": "model",
+      "kind": "objeto Crystal/CD de Coinpro",
+      "fields": [
+        {
+          "name": "ClienteCriptoId",
+          "type": "string",
+          "description": "Identificador del cliente"
+        },
+        {
+          "name": "FecOpe",
+          "type": "string",
+          "description": "Fecha y hora en la que se efectuo la transaccion"
+        },
+        {
+          "name": "OpeMesPeriodo",
+          "type": "int",
+          "description": "Numero de mes"
+        },
+        {
+          "name": "TipoOpe",
+          "type": "string",
+          "description": "Tipo de la transaccion que se efectuo (COMPRA, VENTA, etc)"
+        },
+        {
+          "name": "OpeCanal",
+          "type": "string",
+          "description": "Nombre del canal en la que se hizo la operacion"
+        },
+        {
+          "name": "ClienteProductoId",
+          "type": "string",
+          "description": "Numero del producto consumido"
+        },
+        {
+          "name": "MonedaCripto",
+          "type": "string",
+          "description": "Tipo de moneda cripto utilizada en la transaccion"
+        },
+        {
+          "name": "MonedaFiat",
+          "type": "string",
+          "description": "Divisa de origen de la operacion"
+        },
+        {
+          "name": "MontoOpeTotal",
+          "type": "decimal(25,15)",
+          "description": "Monto total de las operaciones en el tipo de moneda cripto que se utilizo para la transaccion"
+        },
+        {
+          "name": "MontoOpeTotalPeso",
+          "type": "decimal(18,2)",
+          "description": "Monto total de las operaciones en pesos"
+        },
+        {
+          "name": "NumOpe",
+          "type": "int",
+          "description": "Numero de operaciones del cliente"
+        },
+        {
+          "name": "NumDiaOperado",
+          "type": "int",
+          "description": "Numero de dias operados en el mes"
+        },
+        {
+          "name": "fcusuariocreacion",
+          "type": "string",
+          "description": "Usuario que proceso la ingesta del registro"
+        },
+        {
+          "name": "fdfechacreacion",
+          "type": "bigint",
+          "description": "Fecha en la que se proceso la ingesta del registro"
+        },
+        {
+          "name": "fifecha",
+          "type": "int",
+          "description": "Fecha en formato yyyyMMdd que sirve para el particionamiento de la tabla"
+        }
+      ]
+    }
+  ],
+  "canvasRel": [
+    {
+      "id": "c1",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "ClienteCriptoId",
+      "toNode": "n_model",
+      "toField": "ClienteCriptoId",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "groupBy key",
+      "full": "groupBy key",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_resumen_tipo_operacion.ipynb",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "id": "c2",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "FecOpe",
+      "toNode": "n_model",
+      "toField": "FecOpe",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "date filtering, output f_date",
+      "full": "date filtering, output f_date",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_resumen_tipo_operacion.ipynb",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "id": "c3",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "FecOpe",
+      "toNode": "n_model",
+      "toField": "OpeMesPeriodo",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "date_format(fecha, yyyyMM)",
+      "full": "date_format(fecha, yyyyMM)",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_resumen_tipo_operacion.ipynb",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "id": "c4",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "TipoOpe",
+      "toNode": "n_model",
+      "toField": "TipoOpe",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "groupBy key",
+      "full": "groupBy key",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_resumen_tipo_operacion.ipynb",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "id": "c5",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "OpeCanal",
+      "toNode": "n_model",
+      "toField": "OpeCanal",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "upper(OpeCanal)",
+      "full": "upper(OpeCanal)",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_resumen_tipo_operacion.ipynb",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "id": "c6",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "ClienteProductoId",
+      "toNode": "n_model",
+      "toField": "ClienteProductoId",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "groupBy key",
+      "full": "groupBy key",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_resumen_tipo_operacion.ipynb",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "id": "c7",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "MonedaCripto",
+      "toNode": "n_model",
+      "toField": "MonedaCripto",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "groupBy key",
+      "full": "groupBy key",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_resumen_tipo_operacion.ipynb",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "id": "c8",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "MonedaFiat",
+      "toNode": "n_model",
+      "toField": "MonedaFiat",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "groupBy key",
+      "full": "groupBy key",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_resumen_tipo_operacion.ipynb",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "id": "c9",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "OpeMonto",
+      "toNode": "n_model",
+      "toField": "MontoOpeTotal",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "sum then DecimalType(25,15)",
+      "full": "sum then DecimalType(25,15)",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_resumen_tipo_operacion.ipynb",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "id": "c10",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "MontoMnx",
+      "toNode": "n_model",
+      "toField": "MontoOpeTotalPeso",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "sum then DecimalType(18,2)",
+      "full": "sum then DecimalType(18,2)",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_resumen_tipo_operacion.ipynb",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "id": "c11",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "FecOpe",
+      "toNode": "n_model",
+      "toField": "NumDiaOperado",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "countDistinct(fecha)",
+      "full": "countDistinct(fecha)",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_resumen_tipo_operacion.ipynb",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "id": "c12",
+      "fromNode": "n_src_metadatos",
+      "fromField": "UBDF_APP_BAZ_COINPRO",
+      "toNode": "n_model",
+      "toField": "fcusuariocreacion",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "runtime_metadata",
+      "transform": "Constant lit(UBDF_APP_BAZ_COINPRO).",
+      "full": "Constant lit(UBDF_APP_BAZ_COINPRO).",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_resumen_tipo_operacion.ipynb",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "id": "c13",
+      "fromNode": "n_src_metadatos",
+      "fromField": "datetime.now().timestamp() * 1000",
+      "toNode": "n_model",
+      "toField": "fdfechacreacion",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "runtime_metadata",
+      "transform": "Runtime processing timestamp cast BIGINT.",
+      "full": "Runtime processing timestamp cast BIGINT.",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_resumen_tipo_operacion.ipynb",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "id": "c14",
+      "fromNode": "n_src_metadatos",
+      "fromField": "current date yyyyMMdd",
+      "toNode": "n_model",
+      "toField": "fifecha",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "runtime_metadata",
+      "transform": "Runtime current date cast INT.",
+      "full": "Runtime current date cast INT.",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_resumen_tipo_operacion.ipynb",
+      "path_index": "85097",
+      "notes": ""
+    }
+  ],
+  "all": [
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ClienteCriptoId",
+      "target_table": "cd_bdpld.cd_cri_resumen_tipo_operacion",
+      "target_field": "ClienteCriptoId",
+      "transform": "groupBy key",
+      "relation_type": "active_upstream_field",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "FecOpe",
+      "target_table": "cd_bdpld.cd_cri_resumen_tipo_operacion",
+      "target_field": "FecOpe",
+      "transform": "date filtering, output f_date",
+      "relation_type": "active_upstream_field",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "FecOpe",
+      "target_table": "cd_bdpld.cd_cri_resumen_tipo_operacion",
+      "target_field": "OpeMesPeriodo",
+      "transform": "date_format(fecha, yyyyMM)",
+      "relation_type": "active_upstream_field",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "TipoOpe",
+      "target_table": "cd_bdpld.cd_cri_resumen_tipo_operacion",
+      "target_field": "TipoOpe",
+      "transform": "groupBy key",
+      "relation_type": "active_upstream_field",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "OpeCanal",
+      "target_table": "cd_bdpld.cd_cri_resumen_tipo_operacion",
+      "target_field": "OpeCanal",
+      "transform": "upper(OpeCanal)",
+      "relation_type": "active_upstream_field",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ClienteProductoId",
+      "target_table": "cd_bdpld.cd_cri_resumen_tipo_operacion",
+      "target_field": "ClienteProductoId",
+      "transform": "groupBy key",
+      "relation_type": "active_upstream_field",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "MonedaCripto",
+      "target_table": "cd_bdpld.cd_cri_resumen_tipo_operacion",
+      "target_field": "MonedaCripto",
+      "transform": "groupBy key",
+      "relation_type": "active_upstream_field",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "MonedaFiat",
+      "target_table": "cd_bdpld.cd_cri_resumen_tipo_operacion",
+      "target_field": "MonedaFiat",
+      "transform": "groupBy key",
+      "relation_type": "active_upstream_field",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "OpeMonto",
+      "target_table": "cd_bdpld.cd_cri_resumen_tipo_operacion",
+      "target_field": "MontoOpeTotal",
+      "transform": "sum then DecimalType(25,15)",
+      "relation_type": "active_upstream_field",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "MontoMnx",
+      "target_table": "cd_bdpld.cd_cri_resumen_tipo_operacion",
+      "target_field": "MontoOpeTotalPeso",
+      "transform": "sum then DecimalType(18,2)",
+      "relation_type": "active_upstream_field",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "FecOpe",
+      "target_table": "cd_bdpld.cd_cri_resumen_tipo_operacion",
+      "target_field": "NumDiaOperado",
+      "transform": "countDistinct(fecha)",
+      "relation_type": "active_upstream_field",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "*",
+      "target_table": "cd_bdpld.cd_cri_resumen_tipo_operacion",
+      "target_field": "NumOpe",
+      "transform": "count(*)",
+      "relation_type": "active_upstream_field",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ClienteCriptoId,NumeroTransaccion",
+      "target_table": "cd_bdpld.cd_cri_resumen_tipo_operacion",
+      "target_field": "_row_filter",
+      "transform": "Common downstream filter removes null/empty cliente and transaccion; most flows also remove ANONIMO.",
+      "relation_type": "active_upstream_field",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "metadatos",
+      "source_field": "UBDF_APP_BAZ_COINPRO",
+      "target_table": "cd_bdpld.cd_cri_resumen_tipo_operacion",
+      "target_field": "fcusuariocreacion",
+      "transform": "Constant lit(UBDF_APP_BAZ_COINPRO).",
+      "relation_type": "runtime_metadata",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "metadatos",
+      "source_field": "datetime.now().timestamp() * 1000",
+      "target_table": "cd_bdpld.cd_cri_resumen_tipo_operacion",
+      "target_field": "fdfechacreacion",
+      "transform": "Runtime processing timestamp cast BIGINT.",
+      "relation_type": "runtime_metadata",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "metadatos",
+      "source_field": "current date yyyyMMdd",
+      "target_table": "cd_bdpld.cd_cri_resumen_tipo_operacion",
+      "target_field": "fifecha",
+      "transform": "Runtime current date cast INT.",
+      "relation_type": "runtime_metadata",
+      "path_index": "85097",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ClienteCriptoId,TipoOpe,OpeCanal,ClienteProductoId,MonedaCripto,MonedaFiat",
+      "target_table": "cd_bdpld.cd_cri_resumen_tipo_operacion",
+      "target_field": "_related_object",
+      "transform": "Operation type summary source.",
+      "relation_type": "related_object",
+      "path_index": "85097",
+      "notes": ""
+    }
+  ],
+  "counts": {
+    "upstream": 16,
+    "downstream": 0,
+    "neighborhood": 1
+  }
+}

@@ -1,0 +1,976 @@
+{
+  "target": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+  "short": "l_baz_coinpro_cliente_operacion",
+  "nodes": [
+    {
+      "id": "n_src_metadatos",
+      "table": "metadatos",
+      "label": "metadatos",
+      "role": "source",
+      "kind": "metadatos",
+      "fields": [
+        {
+          "name": "TP-SISTEMAS-PAGOS-CRIPTOMONEDAS-CONSUMO-ALGORITHIA-ADD",
+          "type": "string",
+          "description": "Valor literal o técnico usado por la transformación."
+        },
+        {
+          "name": "fcusuariocreacion",
+          "type": "string",
+          "description": "Usuario que procesó la ingesta del registro."
+        },
+        {
+          "name": "fdfechacreacion",
+          "type": "timestamp",
+          "description": "Fecha de procesamiento de la ingesta."
+        }
+      ]
+    },
+    {
+      "id": "n_src_rd_baz_bdclientes_rd_cripto_trans",
+      "table": "rd_baz_bdclientes.rd_cripto_trans",
+      "label": "rd_cripto_trans",
+      "role": "source",
+      "kind": "tabla raw",
+      "fields": [
+        {
+          "name": "ClienteId",
+          "type": "string",
+          "description": "Identificador del cliente"
+        },
+        {
+          "name": "NumeroTransaccion",
+          "type": "string",
+          "description": "Numero de la transaccion que se efectuo"
+        },
+        {
+          "name": "FechaTransaccion",
+          "type": "bigint",
+          "description": "Fecha y hora en la que se efectuo la transaccion"
+        }
+      ]
+    },
+    {
+      "id": "n_model",
+      "table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "label": "l_baz_coinpro_cliente_operacion",
+      "role": "model",
+      "kind": "link Data Vault de Coinpro",
+      "fields": [
+        {
+          "name": "ClienteOperacionLnkHashKey",
+          "type": "string",
+          "description": "Llave Hash que proporciona una identificación única entre los Hubs referenciados."
+        },
+        {
+          "name": "LoadDate",
+          "type": "bigint",
+          "description": "Fecha y hora en la que el registro fue cargado en la base de datos (epoch)."
+        },
+        {
+          "name": "RecordSource",
+          "type": "string",
+          "description": "Identificador de la fuente original de los datos (esquema.tabla)."
+        },
+        {
+          "name": "SystemSource",
+          "type": "string",
+          "description": "Identificación del sistema de negocio del cual se originan los datos."
+        },
+        {
+          "name": "ClienteHashKey",
+          "type": "string",
+          "description": "Llave Hash del Hub Cliente."
+        },
+        {
+          "name": "OperacionHashKey",
+          "type": "string",
+          "description": "Llave Hash del Hub Operación."
+        },
+        {
+          "name": "fcusuariocreacion",
+          "type": "string",
+          "description": "Usuario que procesó la ingesta de ese registro."
+        },
+        {
+          "name": "fdfechacreacion",
+          "type": "bigint",
+          "description": "Fecha en la que se procesó la ingesta del registro (epoch)."
+        },
+        {
+          "name": "fifecha",
+          "type": "int",
+          "description": "Fecha calendario YYYYMMDD"
+        }
+      ]
+    },
+    {
+      "id": "n_cons_cd_bdpld_cd_cri_movimientos",
+      "table": "cd_bdpld.cd_cri_movimientos",
+      "label": "cd_cri_movimientos",
+      "role": "consume",
+      "kind": "Crystal/CD",
+      "fields": [
+        {
+          "name": "FecOpe",
+          "type": "string",
+          "description": "Fecha y hora en la que se efectuo la transaccion"
+        }
+      ]
+    },
+    {
+      "id": "n_cons_dv_bdbaz_br_baz_coinpro_cliente_operacion",
+      "table": "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+      "label": "br_baz_coinpro_cliente_operacion",
+      "role": "consume",
+      "kind": "Data Vault",
+      "fields": [
+        {
+          "name": "ClienteOperacionLnkHashKey",
+          "type": "string",
+          "description": "Llave Hash del Link Cliente–Operación."
+        }
+      ]
+    },
+    {
+      "id": "n_cons_dv_bdbaz_h_baz_coinpro_cliente",
+      "table": "dv_bdbaz.h_baz_coinpro_cliente",
+      "label": "h_baz_coinpro_cliente",
+      "role": "consume",
+      "kind": "Data Vault",
+      "fields": [
+        {
+          "name": "ClienteHashKey",
+          "type": "string",
+          "description": "Llave Hash única del Hub (HashKey)."
+        }
+      ]
+    },
+    {
+      "id": "n_cons_dv_bdbaz_h_baz_coinpro_operacion",
+      "table": "dv_bdbaz.h_baz_coinpro_operacion",
+      "label": "h_baz_coinpro_operacion",
+      "role": "consume",
+      "kind": "Data Vault",
+      "fields": [
+        {
+          "name": "OperacionHashKey",
+          "type": "string",
+          "description": "Llave Hash que proporciona una identificación única del Hub."
+        }
+      ]
+    },
+    {
+      "id": "n_cons_dv_bdbaz_s_l_baz_coinpro_operacion_movimiento",
+      "table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "label": "s_l_baz_coinpro_operacion_movimiento",
+      "role": "consume",
+      "kind": "Data Vault",
+      "fields": [
+        {
+          "name": "ClienteOperacionLnkHashKey",
+          "type": "string",
+          "description": "Llave Hash del Link al que pertenece el satélite."
+        }
+      ]
+    },
+    {
+      "id": "n_cons_dv_bdgs_cnp_l_gs_cnp_cliente_operacion",
+      "table": "dv_bdgs_cnp.l_gs_cnp_cliente_operacion",
+      "label": "l_gs_cnp_cliente_operacion",
+      "role": "consume",
+      "kind": "Data Vault",
+      "fields": [
+        {
+          "name": "ClienteOperacionLnkHashKey",
+          "type": "string",
+          "description": "Llave Hash que proporciona una identificación única entre los Hubs referenciados."
+        },
+        {
+          "name": "LoadDate",
+          "type": "timestamp",
+          "description": "Fecha y hora en la que el registro fue cargado en la base de datos (epoch)."
+        },
+        {
+          "name": "RecordSource",
+          "type": "string",
+          "description": "Identificador de la fuente original de los datos (esquema.tabla)."
+        },
+        {
+          "name": "SystemSource",
+          "type": "string",
+          "description": "Identificación del sistema de negocio del cual se originan los datos."
+        },
+        {
+          "name": "ClienteHashKey",
+          "type": "string",
+          "description": "Llave Hash del Hub Cliente."
+        },
+        {
+          "name": "OperacionHashKey",
+          "type": "string",
+          "description": "Llave Hash del Hub Operación."
+        },
+        {
+          "name": "fcusuariocreacion",
+          "type": "string",
+          "description": "Usuario que procesó la ingesta de ese registro."
+        },
+        {
+          "name": "fdfechacreacion",
+          "type": "bigint",
+          "description": "Fecha en la que se procesó la ingesta del registro (epoch)."
+        },
+        {
+          "name": "fifecha",
+          "type": "date",
+          "description": "Fecha calendario YYYYMMDD"
+        }
+      ]
+    }
+  ],
+  "canvasRel": [
+    {
+      "id": "c1",
+      "fromNode": "n_src_rd_baz_bdclientes_rd_cripto_trans",
+      "fromField": "ClienteId",
+      "toNode": "n_model",
+      "toField": "ClienteOperacionLnkHashKey",
+      "color": "#10b981",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "direct_field_transform",
+      "transform": "concat(ClienteIdDes, NumeroTransaccion, FechaTransaccion) then hash_key.",
+      "full": "concat(ClienteIdDes, NumeroTransaccion, FechaTransaccion) then hash_key.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/l_baz_coinpro_cliente_operacion.ipynb",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "id": "c2",
+      "fromNode": "n_src_rd_baz_bdclientes_rd_cripto_trans",
+      "fromField": "NumeroTransaccion",
+      "toNode": "n_model",
+      "toField": "ClienteOperacionLnkHashKey",
+      "color": "#10b981",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "direct_field_transform",
+      "transform": "concat(ClienteIdDes, NumeroTransaccion, FechaTransaccion) then hash_key.",
+      "full": "concat(ClienteIdDes, NumeroTransaccion, FechaTransaccion) then hash_key.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/l_baz_coinpro_cliente_operacion.ipynb",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "id": "c3",
+      "fromNode": "n_src_rd_baz_bdclientes_rd_cripto_trans",
+      "fromField": "FechaTransaccion",
+      "toNode": "n_model",
+      "toField": "ClienteOperacionLnkHashKey",
+      "color": "#10b981",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "direct_field_transform",
+      "transform": "concat(ClienteIdDes, NumeroTransaccion, FechaTransaccion) then hash_key.",
+      "full": "concat(ClienteIdDes, NumeroTransaccion, FechaTransaccion) then hash_key.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/l_baz_coinpro_cliente_operacion.ipynb",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "id": "c4",
+      "fromNode": "n_src_rd_baz_bdclientes_rd_cripto_trans",
+      "fromField": "ClienteId",
+      "toNode": "n_model",
+      "toField": "ClienteHashKey",
+      "color": "#10b981",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "direct_field_transform",
+      "transform": "decrypt ClienteId; ANONIMO when empty; hash_key(ClienteIdDes); zero hash when original Cl...",
+      "full": "decrypt ClienteId; ANONIMO when empty; hash_key(ClienteIdDes); zero hash when original ClienteId empty.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/l_baz_coinpro_cliente_operacion.ipynb",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "id": "c5",
+      "fromNode": "n_src_rd_baz_bdclientes_rd_cripto_trans",
+      "fromField": "NumeroTransaccion",
+      "toNode": "n_model",
+      "toField": "OperacionHashKey",
+      "color": "#10b981",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "direct_field_transform",
+      "transform": "hash_key(concat(NumeroTransaccion, -, FechaTransaccion)).",
+      "full": "hash_key(concat(NumeroTransaccion, -, FechaTransaccion)).",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/l_baz_coinpro_cliente_operacion.ipynb",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "id": "c6",
+      "fromNode": "n_src_rd_baz_bdclientes_rd_cripto_trans",
+      "fromField": "FechaTransaccion",
+      "toNode": "n_model",
+      "toField": "OperacionHashKey",
+      "color": "#10b981",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "direct_field_transform",
+      "transform": "hash_key(concat(NumeroTransaccion, -, FechaTransaccion)).",
+      "full": "hash_key(concat(NumeroTransaccion, -, FechaTransaccion)).",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/l_baz_coinpro_cliente_operacion.ipynb",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "id": "c7",
+      "fromNode": "n_src_rd_baz_bdclientes_rd_cripto_trans",
+      "fromField": "FechaTransaccion",
+      "toNode": "n_model",
+      "toField": "LoadDate",
+      "color": "#10b981",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "direct_field_transform",
+      "transform": "LoadDate = FechaTransaccion.",
+      "full": "LoadDate = FechaTransaccion.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/l_baz_coinpro_cliente_operacion.ipynb",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "id": "c8",
+      "fromNode": "n_src_metadatos",
+      "fromField": "TP-SISTEMAS-PAGOS-CRIPTOMONEDAS-CONSUMO-ALGORITHIA-ADD",
+      "toNode": "n_model",
+      "toField": "SystemSource",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "constant",
+      "transform": "Constant system_source in notebook.",
+      "full": "Constant system_source in notebook.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/l_baz_coinpro_cliente_operacion.ipynb",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "id": "c9",
+      "fromNode": "n_src_metadatos",
+      "fromField": "fcusuariocreacion",
+      "toNode": "n_model",
+      "toField": "fcusuariocreacion",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "metadata",
+      "transform": "Generated by GenericDataVaultCreator.add_metadata.",
+      "full": "Generated by GenericDataVaultCreator.add_metadata.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/l_baz_coinpro_cliente_operacion.ipynb",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "id": "c10",
+      "fromNode": "n_src_metadatos",
+      "fromField": "fdfechacreacion",
+      "toNode": "n_model",
+      "toField": "fdfechacreacion",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "metadata",
+      "transform": "Generated by GenericDataVaultCreator.add_metadata; used as delta column.",
+      "full": "Generated by GenericDataVaultCreator.add_metadata; used as delta column.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/l_baz_coinpro_cliente_operacion.ipynb",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "id": "c11",
+      "fromNode": "n_src_rd_baz_bdclientes_rd_cripto_trans",
+      "fromField": "FechaTransaccion",
+      "toNode": "n_model",
+      "toField": "fifecha",
+      "color": "#10b981",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "partition_transform",
+      "transform": "Generated by add_dv_stamps from LoadDate/FechaTransaccion.",
+      "full": "Generated by add_dv_stamps from LoadDate/FechaTransaccion.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/l_baz_coinpro_cliente_operacion.ipynb",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "id": "c12",
+      "fromNode": "n_model",
+      "fromField": "ClienteOperacionLnkHashKey",
+      "toNode": "n_cons_dv_bdgs_cnp_l_gs_cnp_cliente_operacion",
+      "toField": "ClienteOperacionLnkHashKey",
+      "color": "#f59e0b",
+      "stroke": "solid",
+      "direction": "downstream",
+      "rtype": "datatransfer_field",
+      "transform": "Selected by DataTransfer and appended to AWS catalog table.",
+      "full": "Selected by DataTransfer and appended to AWS catalog table.",
+      "evidence": "/app/common/DataTransfer/conf/baz-dv-coinpro-operacion-aws-carga-dt.json",
+      "path_index": "105172",
+      "notes": ""
+    },
+    {
+      "id": "c13",
+      "fromNode": "n_model",
+      "fromField": "LoadDate",
+      "toNode": "n_cons_dv_bdgs_cnp_l_gs_cnp_cliente_operacion",
+      "toField": "LoadDate",
+      "color": "#f59e0b",
+      "stroke": "solid",
+      "direction": "downstream",
+      "rtype": "datatransfer_field",
+      "transform": "CAST LoadDate AS TIMESTAMP or CAST FiFecha int YYYYMMDD AS DATE in DataTransfer.",
+      "full": "CAST LoadDate AS TIMESTAMP or CAST FiFecha int YYYYMMDD AS DATE in DataTransfer.",
+      "evidence": "/app/common/DataTransfer/conf/baz-dv-coinpro-operacion-aws-carga-dt.json",
+      "path_index": "105172",
+      "notes": ""
+    },
+    {
+      "id": "c14",
+      "fromNode": "n_model",
+      "fromField": "RecordSource",
+      "toNode": "n_cons_dv_bdgs_cnp_l_gs_cnp_cliente_operacion",
+      "toField": "RecordSource",
+      "color": "#f59e0b",
+      "stroke": "solid",
+      "direction": "downstream",
+      "rtype": "datatransfer_field",
+      "transform": "Selected by DataTransfer and appended to AWS catalog table.",
+      "full": "Selected by DataTransfer and appended to AWS catalog table.",
+      "evidence": "/app/common/DataTransfer/conf/baz-dv-coinpro-operacion-aws-carga-dt.json",
+      "path_index": "105172",
+      "notes": ""
+    },
+    {
+      "id": "c15",
+      "fromNode": "n_model",
+      "fromField": "SystemSource",
+      "toNode": "n_cons_dv_bdgs_cnp_l_gs_cnp_cliente_operacion",
+      "toField": "SystemSource",
+      "color": "#f59e0b",
+      "stroke": "solid",
+      "direction": "downstream",
+      "rtype": "datatransfer_field",
+      "transform": "Selected by DataTransfer and appended to AWS catalog table.",
+      "full": "Selected by DataTransfer and appended to AWS catalog table.",
+      "evidence": "/app/common/DataTransfer/conf/baz-dv-coinpro-operacion-aws-carga-dt.json",
+      "path_index": "105172",
+      "notes": ""
+    },
+    {
+      "id": "c16",
+      "fromNode": "n_model",
+      "fromField": "ClienteHashKey",
+      "toNode": "n_cons_dv_bdgs_cnp_l_gs_cnp_cliente_operacion",
+      "toField": "ClienteHashKey",
+      "color": "#f59e0b",
+      "stroke": "solid",
+      "direction": "downstream",
+      "rtype": "datatransfer_field",
+      "transform": "Selected by DataTransfer and appended to AWS catalog table.",
+      "full": "Selected by DataTransfer and appended to AWS catalog table.",
+      "evidence": "/app/common/DataTransfer/conf/baz-dv-coinpro-operacion-aws-carga-dt.json",
+      "path_index": "105172",
+      "notes": ""
+    },
+    {
+      "id": "c17",
+      "fromNode": "n_model",
+      "fromField": "OperacionHashKey",
+      "toNode": "n_cons_dv_bdgs_cnp_l_gs_cnp_cliente_operacion",
+      "toField": "OperacionHashKey",
+      "color": "#f59e0b",
+      "stroke": "solid",
+      "direction": "downstream",
+      "rtype": "datatransfer_field",
+      "transform": "Selected by DataTransfer and appended to AWS catalog table.",
+      "full": "Selected by DataTransfer and appended to AWS catalog table.",
+      "evidence": "/app/common/DataTransfer/conf/baz-dv-coinpro-operacion-aws-carga-dt.json",
+      "path_index": "105172",
+      "notes": ""
+    },
+    {
+      "id": "c18",
+      "fromNode": "n_model",
+      "fromField": "fcusuariocreacion",
+      "toNode": "n_cons_dv_bdgs_cnp_l_gs_cnp_cliente_operacion",
+      "toField": "fcusuariocreacion",
+      "color": "#f59e0b",
+      "stroke": "solid",
+      "direction": "downstream",
+      "rtype": "datatransfer_field",
+      "transform": "Selected by DataTransfer and appended to AWS catalog table.",
+      "full": "Selected by DataTransfer and appended to AWS catalog table.",
+      "evidence": "/app/common/DataTransfer/conf/baz-dv-coinpro-operacion-aws-carga-dt.json",
+      "path_index": "105172",
+      "notes": ""
+    },
+    {
+      "id": "c19",
+      "fromNode": "n_model",
+      "fromField": "fdfechacreacion",
+      "toNode": "n_cons_dv_bdgs_cnp_l_gs_cnp_cliente_operacion",
+      "toField": "fdfechacreacion",
+      "color": "#f59e0b",
+      "stroke": "solid",
+      "direction": "downstream",
+      "rtype": "datatransfer_field",
+      "transform": "Selected by DataTransfer and appended to AWS catalog table.",
+      "full": "Selected by DataTransfer and appended to AWS catalog table.",
+      "evidence": "/app/common/DataTransfer/conf/baz-dv-coinpro-operacion-aws-carga-dt.json",
+      "path_index": "105172",
+      "notes": ""
+    },
+    {
+      "id": "c20",
+      "fromNode": "n_model",
+      "fromField": "fifecha",
+      "toNode": "n_cons_dv_bdgs_cnp_l_gs_cnp_cliente_operacion",
+      "toField": "fifecha",
+      "color": "#f59e0b",
+      "stroke": "solid",
+      "direction": "downstream",
+      "rtype": "datatransfer_field",
+      "transform": "CAST LoadDate AS TIMESTAMP or CAST FiFecha int YYYYMMDD AS DATE in DataTransfer.",
+      "full": "CAST LoadDate AS TIMESTAMP or CAST FiFecha int YYYYMMDD AS DATE in DataTransfer.",
+      "evidence": "/app/common/DataTransfer/conf/baz-dv-coinpro-operacion-aws-carga-dt.json",
+      "path_index": "105172",
+      "notes": ""
+    },
+    {
+      "id": "c21",
+      "fromNode": "n_model",
+      "fromField": "LoadDate",
+      "toNode": "n_cons_cd_bdpld_cd_cri_movimientos",
+      "toField": "FecOpe",
+      "color": "#f59e0b",
+      "stroke": "solid",
+      "direction": "downstream",
+      "rtype": "crystal_cd_movimientos_field",
+      "transform": "Alias l.LoadDate then from_unixtime(FecOpe / 1000).",
+      "full": "Alias l.LoadDate then from_unixtime(FecOpe / 1000).",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte-jnb/run.nb/cd_cri_movimientos.ipynb",
+      "path_index": "85067",
+      "notes": ""
+    },
+    {
+      "id": "c22",
+      "fromNode": "n_model",
+      "fromField": "ClienteOperacionLnkHashKey",
+      "toNode": "n_cons_dv_bdgs_cnp_l_gs_cnp_cliente_operacion",
+      "toField": "ClienteOperacionLnkHashKey",
+      "color": "#f59e0b",
+      "stroke": "solid",
+      "direction": "downstream",
+      "rtype": "datatransfer_field",
+      "transform": "Primary source for DataTransfer link replica.",
+      "full": "Primary source for DataTransfer link replica.",
+      "evidence": "/app/common/DataTransfer/conf/baz-dv-coinpro-operacion-aws-carga-dt.json",
+      "path_index": "105172",
+      "notes": ""
+    },
+    {
+      "id": "c23",
+      "fromNode": "n_model",
+      "fromField": "ClienteHashKey",
+      "toNode": "n_cons_dv_bdbaz_h_baz_coinpro_cliente",
+      "toField": "ClienteHashKey",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "dv_model_relationship",
+      "transform": "Link references client hub.",
+      "full": "Link references client hub.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/l_baz_coinpro_cliente_operacion.ipynb",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "id": "c24",
+      "fromNode": "n_model",
+      "fromField": "OperacionHashKey",
+      "toNode": "n_cons_dv_bdbaz_h_baz_coinpro_operacion",
+      "toField": "OperacionHashKey",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "dv_model_relationship",
+      "transform": "Link references operation hub.",
+      "full": "Link references operation hub.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/l_baz_coinpro_cliente_operacion.ipynb",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "id": "c25",
+      "fromNode": "n_model",
+      "fromField": "ClienteOperacionLnkHashKey",
+      "toNode": "n_cons_dv_bdbaz_s_l_baz_coinpro_operacion_movimiento",
+      "toField": "ClienteOperacionLnkHashKey",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "dv_model_relationship",
+      "transform": "Movement satellite key.",
+      "full": "Movement satellite key.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/l_baz_coinpro_cliente_operacion.ipynb",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "id": "c26",
+      "fromNode": "n_model",
+      "fromField": "ClienteOperacionLnkHashKey",
+      "toNode": "n_cons_dv_bdbaz_br_baz_coinpro_cliente_operacion",
+      "toField": "ClienteOperacionLnkHashKey",
+      "color": "#7c3aed",
+      "stroke": "dashed",
+      "direction": "neighborhood",
+      "rtype": "dv_model_relationship",
+      "transform": "BR carries same relation hash.",
+      "full": "BR carries same relation hash.",
+      "evidence": "/app/bancoazteca/datavault/coinpro/baz-dv-coinpro-operacion-jnb/run.nb/l_baz_coinpro_cliente_operacion.ipynb",
+      "path_index": "92094",
+      "notes": ""
+    }
+  ],
+  "all": [
+    {
+      "direction": "upstream",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteId,NumeroTransaccion,FechaTransaccion",
+      "target_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "target_field": "ClienteOperacionLnkHashKey",
+      "transform": "concat(ClienteIdDes, NumeroTransaccion, FechaTransaccion) then hash_key.",
+      "relation_type": "direct_field_transform",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteId",
+      "target_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "target_field": "ClienteHashKey",
+      "transform": "decrypt ClienteId; ANONIMO when empty; hash_key(ClienteIdDes); zero hash when original ClienteId empty.",
+      "relation_type": "direct_field_transform",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "NumeroTransaccion,FechaTransaccion",
+      "target_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "target_field": "OperacionHashKey",
+      "transform": "hash_key(concat(NumeroTransaccion, -, FechaTransaccion)).",
+      "relation_type": "direct_field_transform",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "FechaTransaccion",
+      "target_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "target_field": "LoadDate",
+      "transform": "LoadDate = FechaTransaccion.",
+      "relation_type": "direct_field_transform",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "NumeroTransaccion",
+      "target_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "target_field": "_row_filter",
+      "transform": "Rows with NumeroTransaccion != empty string.",
+      "relation_type": "filter",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "RecordSource",
+      "target_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "target_field": "RecordSource",
+      "transform": "Constant from schema_raw + input_table.",
+      "relation_type": "metadata",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "metadatos",
+      "source_field": "TP-SISTEMAS-PAGOS-CRIPTOMONEDAS-CONSUMO-ALGORITHIA-ADD",
+      "target_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "target_field": "SystemSource",
+      "transform": "Constant system_source in notebook.",
+      "relation_type": "constant",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "metadatos",
+      "source_field": "fcusuariocreacion",
+      "target_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "target_field": "fcusuariocreacion",
+      "transform": "Generated by GenericDataVaultCreator.add_metadata.",
+      "relation_type": "metadata",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "metadatos",
+      "source_field": "fdfechacreacion",
+      "target_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "target_field": "fdfechacreacion",
+      "transform": "Generated by GenericDataVaultCreator.add_metadata; used as delta column.",
+      "relation_type": "metadata",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "FechaTransaccion",
+      "target_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "target_field": "fifecha",
+      "transform": "Generated by add_dv_stamps from LoadDate/FechaTransaccion.",
+      "relation_type": "partition_transform",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "rd_baz_bdclientes.rd_cripto_trans",
+      "source_field": "ClienteId",
+      "target_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "target_field": "_row_filter",
+      "transform": "Rows filtered with get_json_object(ClienteId, $.bandera) = true.",
+      "relation_type": "filter",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "source_field": "ClienteOperacionLnkHashKey",
+      "target_table": "dv_bdgs_cnp.l_gs_cnp_cliente_operacion",
+      "target_field": "ClienteOperacionLnkHashKey",
+      "transform": "Selected by DataTransfer and appended to AWS catalog table.",
+      "relation_type": "datatransfer_field",
+      "path_index": "105172",
+      "notes": ""
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "source_field": "LoadDate",
+      "target_table": "dv_bdgs_cnp.l_gs_cnp_cliente_operacion",
+      "target_field": "LoadDate",
+      "transform": "CAST LoadDate AS TIMESTAMP or CAST FiFecha int YYYYMMDD AS DATE in DataTransfer.",
+      "relation_type": "datatransfer_field",
+      "path_index": "105172",
+      "notes": ""
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "source_field": "RecordSource",
+      "target_table": "dv_bdgs_cnp.l_gs_cnp_cliente_operacion",
+      "target_field": "RecordSource",
+      "transform": "Selected by DataTransfer and appended to AWS catalog table.",
+      "relation_type": "datatransfer_field",
+      "path_index": "105172",
+      "notes": ""
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "source_field": "SystemSource",
+      "target_table": "dv_bdgs_cnp.l_gs_cnp_cliente_operacion",
+      "target_field": "SystemSource",
+      "transform": "Selected by DataTransfer and appended to AWS catalog table.",
+      "relation_type": "datatransfer_field",
+      "path_index": "105172",
+      "notes": ""
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "source_field": "ClienteHashKey",
+      "target_table": "dv_bdgs_cnp.l_gs_cnp_cliente_operacion",
+      "target_field": "ClienteHashKey",
+      "transform": "Selected by DataTransfer and appended to AWS catalog table.",
+      "relation_type": "datatransfer_field",
+      "path_index": "105172",
+      "notes": ""
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "source_field": "OperacionHashKey",
+      "target_table": "dv_bdgs_cnp.l_gs_cnp_cliente_operacion",
+      "target_field": "OperacionHashKey",
+      "transform": "Selected by DataTransfer and appended to AWS catalog table.",
+      "relation_type": "datatransfer_field",
+      "path_index": "105172",
+      "notes": ""
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "source_field": "fcusuariocreacion",
+      "target_table": "dv_bdgs_cnp.l_gs_cnp_cliente_operacion",
+      "target_field": "fcusuariocreacion",
+      "transform": "Selected by DataTransfer and appended to AWS catalog table.",
+      "relation_type": "datatransfer_field",
+      "path_index": "105172",
+      "notes": ""
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "source_field": "fdfechacreacion",
+      "target_table": "dv_bdgs_cnp.l_gs_cnp_cliente_operacion",
+      "target_field": "fdfechacreacion",
+      "transform": "Selected by DataTransfer and appended to AWS catalog table.",
+      "relation_type": "datatransfer_field",
+      "path_index": "105172",
+      "notes": ""
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "source_field": "fifecha",
+      "target_table": "dv_bdgs_cnp.l_gs_cnp_cliente_operacion",
+      "target_field": "fifecha",
+      "transform": "CAST LoadDate AS TIMESTAMP or CAST FiFecha int YYYYMMDD AS DATE in DataTransfer.",
+      "relation_type": "datatransfer_field",
+      "path_index": "105172",
+      "notes": ""
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "source_field": "LoadDate",
+      "target_table": "cd_bdpld.cd_cri_movimientos",
+      "target_field": "FecOpe",
+      "transform": "Alias l.LoadDate then from_unixtime(FecOpe / 1000).",
+      "relation_type": "crystal_cd_movimientos_field",
+      "path_index": "85067",
+      "notes": ""
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "source_field": "ClienteHashKey",
+      "target_table": "cd_bdpld.cd_cri_movimientos",
+      "target_field": "_join_condition",
+      "transform": "Inner join to h_baz_coinpro_cliente and s_h_baz_coinpro_cliente_identificacion.",
+      "relation_type": "crystal_cd_movimientos_field",
+      "path_index": "85067",
+      "notes": ""
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "source_field": "OperacionHashKey",
+      "target_table": "cd_bdpld.cd_cri_movimientos",
+      "target_field": "_join_condition",
+      "transform": "Inner join to h_baz_coinpro_operacion and s_h_baz_coinpro_operacion_detalle.",
+      "relation_type": "crystal_cd_movimientos_field",
+      "path_index": "85067",
+      "notes": ""
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "source_field": "ClienteOperacionLnkHashKey",
+      "target_table": "cd_bdpld.cd_cri_movimientos",
+      "target_field": "_join_condition",
+      "transform": "Left join to s_l_baz_coinpro_operacion_movimiento.",
+      "relation_type": "crystal_cd_movimientos_field",
+      "path_index": "85067",
+      "notes": ""
+    },
+    {
+      "direction": "downstream",
+      "source_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "source_field": "ClienteOperacionLnkHashKey",
+      "target_table": "dv_bdgs_cnp.l_gs_cnp_cliente_operacion",
+      "target_field": "ClienteOperacionLnkHashKey",
+      "transform": "Primary source for DataTransfer link replica.",
+      "relation_type": "datatransfer_field",
+      "path_index": "105172",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "source_field": "ClienteHashKey",
+      "target_table": "dv_bdbaz.h_baz_coinpro_cliente",
+      "target_field": "ClienteHashKey",
+      "transform": "Link references client hub.",
+      "relation_type": "dv_model_relationship",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "source_field": "OperacionHashKey",
+      "target_table": "dv_bdbaz.h_baz_coinpro_operacion",
+      "target_field": "OperacionHashKey",
+      "transform": "Link references operation hub.",
+      "relation_type": "dv_model_relationship",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "source_field": "ClienteOperacionLnkHashKey",
+      "target_table": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "target_field": "ClienteOperacionLnkHashKey",
+      "transform": "Movement satellite key.",
+      "relation_type": "dv_model_relationship",
+      "path_index": "92094",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "source_field": "ClienteOperacionLnkHashKey",
+      "target_table": "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+      "target_field": "ClienteOperacionLnkHashKey",
+      "transform": "BR carries same relation hash.",
+      "relation_type": "dv_model_relationship",
+      "path_index": "92094",
+      "notes": ""
+    }
+  ],
+  "counts": {
+    "upstream": 11,
+    "downstream": 14,
+    "neighborhood": 4
+  }
+}

@@ -1,0 +1,496 @@
+{
+  "generatedFrom": "data_platform_standalone.html",
+  "defaultView": "lineage",
+  "overviewCounts": {
+    "upstream": 428,
+    "downstream": 430,
+    "neighborhood": 154
+  },
+  "options": [
+    "br_baz_coinpro_cliente_operacion",
+    "cd_cri_actividad_geolocalizacion",
+    "cd_cri_actividad_lista",
+    "cd_cri_actividad_pep",
+    "cd_cri_cliente",
+    "cd_cri_cuenta_cripto",
+    "cd_cri_movimientos",
+    "cd_cri_operaciones_cripto",
+    "cd_cri_periodo_mes",
+    "cd_cri_rebase_umbral",
+    "cd_cri_resumen_tipo_operacion",
+    "h_baz_coinpro_cliente",
+    "h_baz_coinpro_operacion",
+    "l_baz_coinpro_cliente_operacion",
+    "s_h_baz_coinpro_cliente_demografico",
+    "s_h_baz_coinpro_cliente_identificacion",
+    "s_h_baz_coinpro_operacion_detalle",
+    "s_l_baz_coinpro_operacion_movimiento"
+  ],
+  "items": [
+    {
+      "key": "br_baz_coinpro_cliente_operacion",
+      "target": "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+      "kind": "bridge Data Vault de Coinpro",
+      "counts": {
+        "upstream": 10,
+        "downstream": 5,
+        "neighborhood": 3
+      },
+      "terms": [
+        "br_baz_coinpro_cliente_operacion",
+        "cd_bdpld.cd_cri_cliente",
+        "cd_cri_cliente",
+        "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+        "dv_bdbaz.h_baz_coinpro_cliente",
+        "dv_bdbaz.h_baz_coinpro_operacion",
+        "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+        "h_baz_coinpro_cliente",
+        "h_baz_coinpro_operacion",
+        "l_baz_coinpro_cliente_operacion",
+        "metadatos",
+        "rd_baz_bdclientes.rd_cripto_trans",
+        "rd_cripto_trans"
+      ],
+      "dataPath": "assets/data/lineage/br_baz_coinpro_cliente_operacion.json"
+    },
+    {
+      "key": "cd_cri_actividad_geolocalizacion",
+      "target": "cd_bdpld.cd_cri_actividad_geolocalizacion",
+      "kind": "objeto Crystal/CD de Coinpro",
+      "counts": {
+        "upstream": 15,
+        "downstream": 0,
+        "neighborhood": 2
+      },
+      "terms": [
+        "cd_bdpld.cd_cri_actividad_geolocalizacion",
+        "cd_bdpld.cd_cri_movimientos",
+        "cd_cri_actividad_geolocalizacion",
+        "cd_cri_movimientos",
+        "metadatos"
+      ],
+      "dataPath": "assets/data/lineage/cd_cri_actividad_geolocalizacion.json"
+    },
+    {
+      "key": "cd_cri_actividad_lista",
+      "target": "cd_bdpld.cd_cri_actividad_lista",
+      "kind": "objeto Crystal/CD de Coinpro",
+      "counts": {
+        "upstream": 17,
+        "downstream": 0,
+        "neighborhood": 3
+      },
+      "terms": [
+        "cd_bdpld.cd_cri_actividad_lista",
+        "cd_bdpld.cd_cri_cliente",
+        "cd_bdpld.cd_cri_movimientos",
+        "cd_cri_actividad_lista",
+        "cd_cri_cliente",
+        "cd_cri_movimientos",
+        "metadatos",
+        "rd_baz_bdregulatorio.rd_regulatorio_cedulaingestas",
+        "rd_regulatorio_cedulaingestas"
+      ],
+      "dataPath": "assets/data/lineage/cd_cri_actividad_lista.json"
+    },
+    {
+      "key": "cd_cri_actividad_pep",
+      "target": "cd_bdpld.cd_cri_actividad_pep",
+      "kind": "objeto Crystal/CD de Coinpro",
+      "counts": {
+        "upstream": 11,
+        "downstream": 0,
+        "neighborhood": 1
+      },
+      "terms": [
+        "cd_bdpld.cd_cri_actividad_pep",
+        "cd_bdpld.cd_cri_movimientos",
+        "cd_cri_actividad_pep",
+        "cd_cri_movimientos",
+        "metadatos"
+      ],
+      "dataPath": "assets/data/lineage/cd_cri_actividad_pep.json"
+    },
+    {
+      "key": "cd_cri_cliente",
+      "target": "cd_bdpld.cd_cri_cliente",
+      "kind": "objeto Crystal/CD de Coinpro",
+      "counts": {
+        "upstream": 36,
+        "downstream": 37,
+        "neighborhood": 5
+      },
+      "terms": [
+        "br_baz_coinpro_cliente_operacion",
+        "cd_bdpld.cd_cri_actividad_lista",
+        "cd_bdpld.cd_cri_cliente",
+        "cd_bdpld.cd_cri_cliente_detalle",
+        "cd_bdpld.cd_cri_cliente_dom",
+        "cd_cri_actividad_lista",
+        "cd_cri_cliente",
+        "cd_cri_cliente_detalle",
+        "cd_cri_cliente_dom",
+        "cu_baz_bdsopoperlog.cu_ebx_catt_baz_cripto_estado_curp",
+        "cu_ebx_catt_baz_cripto_estado_curp",
+        "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+        "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+        "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+        "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+        "metadatos",
+        "s_h_baz_coinpro_cliente_demografico",
+        "s_h_baz_coinpro_cliente_identificacion",
+        "s_l_baz_coinpro_operacion_movimiento"
+      ],
+      "dataPath": "assets/data/lineage/cd_cri_cliente.json"
+    },
+    {
+      "key": "cd_cri_cuenta_cripto",
+      "target": "cd_bdpld.cd_cri_cuenta_cripto",
+      "kind": "objeto Crystal/CD de Coinpro",
+      "counts": {
+        "upstream": 10,
+        "downstream": 0,
+        "neighborhood": 1
+      },
+      "terms": [
+        "cd_bdpld.cd_cri_cuenta_cripto",
+        "cd_bdpld.cd_cri_movimientos",
+        "cd_cri_cuenta_cripto",
+        "cd_cri_movimientos",
+        "metadatos"
+      ],
+      "dataPath": "assets/data/lineage/cd_cri_cuenta_cripto.json"
+    },
+    {
+      "key": "cd_cri_movimientos",
+      "target": "cd_bdpld.cd_cri_movimientos",
+      "kind": "objeto Crystal/CD de Coinpro",
+      "counts": {
+        "upstream": 72,
+        "downstream": 121,
+        "neighborhood": 7
+      },
+      "terms": [
+        "cd_bdpld.cd_cri_actividad_geolocalizacion",
+        "cd_bdpld.cd_cri_actividad_lista",
+        "cd_bdpld.cd_cri_actividad_pep",
+        "cd_bdpld.cd_cri_cuenta_cripto",
+        "cd_bdpld.cd_cri_movimientos",
+        "cd_bdpld.cd_cri_operaciones_cripto",
+        "cd_bdpld.cd_cri_periodo_mes",
+        "cd_bdpld.cd_cri_rebase_umbral",
+        "cd_bdpld.cd_cri_resumen_tipo_operacion",
+        "cd_cri_actividad_geolocalizacion",
+        "cd_cri_actividad_lista",
+        "cd_cri_actividad_pep",
+        "cd_cri_cuenta_cripto",
+        "cd_cri_movimientos",
+        "cd_cri_operaciones_cripto",
+        "cd_cri_periodo_mes",
+        "cd_cri_rebase_umbral",
+        "cd_cri_resumen_tipo_operacion",
+        "dv_bdbaz.h_baz_coinpro_cliente",
+        "dv_bdbaz.h_baz_coinpro_operacion",
+        "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+        "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+        "dv_bdbaz.s_h_baz_coinpro_operacion_detalle",
+        "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+        "h_baz_coinpro_cliente",
+        "h_baz_coinpro_operacion",
+        "l_baz_coinpro_cliente_operacion",
+        "metadatos",
+        "s_h_baz_coinpro_cliente_identificacion",
+        "s_h_baz_coinpro_operacion_detalle",
+        "s_l_baz_coinpro_operacion_movimiento"
+      ],
+      "dataPath": "assets/data/lineage/cd_cri_movimientos.json"
+    },
+    {
+      "key": "cd_cri_operaciones_cripto",
+      "target": "cd_bdpld.cd_cri_operaciones_cripto",
+      "kind": "objeto Crystal/CD de Coinpro",
+      "counts": {
+        "upstream": 63,
+        "downstream": 0,
+        "neighborhood": 1
+      },
+      "terms": [
+        "cd_bdpld.cd_cri_movimientos",
+        "cd_bdpld.cd_cri_operaciones_cripto",
+        "cd_cri_movimientos",
+        "cd_cri_operaciones_cripto",
+        "metadatos"
+      ],
+      "dataPath": "assets/data/lineage/cd_cri_operaciones_cripto.json"
+    },
+    {
+      "key": "cd_cri_periodo_mes",
+      "target": "cd_bdpld.cd_cri_periodo_mes",
+      "kind": "objeto Crystal/CD de Coinpro",
+      "counts": {
+        "upstream": 11,
+        "downstream": 0,
+        "neighborhood": 1
+      },
+      "terms": [
+        "cd_bdpld.cd_cri_movimientos",
+        "cd_bdpld.cd_cri_periodo_mes",
+        "cd_cri_movimientos",
+        "cd_cri_periodo_mes",
+        "metadatos"
+      ],
+      "dataPath": "assets/data/lineage/cd_cri_periodo_mes.json"
+    },
+    {
+      "key": "cd_cri_rebase_umbral",
+      "target": "cd_bdpld.cd_cri_rebase_umbral",
+      "kind": "objeto Crystal/CD de Coinpro",
+      "counts": {
+        "upstream": 11,
+        "downstream": 0,
+        "neighborhood": 1
+      },
+      "terms": [
+        "cd_bdpld.cd_cri_movimientos",
+        "cd_bdpld.cd_cri_rebase_umbral",
+        "cd_cri_movimientos",
+        "cd_cri_rebase_umbral",
+        "metadatos"
+      ],
+      "dataPath": "assets/data/lineage/cd_cri_rebase_umbral.json"
+    },
+    {
+      "key": "cd_cri_resumen_tipo_operacion",
+      "target": "cd_bdpld.cd_cri_resumen_tipo_operacion",
+      "kind": "objeto Crystal/CD de Coinpro",
+      "counts": {
+        "upstream": 16,
+        "downstream": 0,
+        "neighborhood": 1
+      },
+      "terms": [
+        "cd_bdpld.cd_cri_movimientos",
+        "cd_bdpld.cd_cri_resumen_tipo_operacion",
+        "cd_cri_movimientos",
+        "cd_cri_resumen_tipo_operacion",
+        "metadatos"
+      ],
+      "dataPath": "assets/data/lineage/cd_cri_resumen_tipo_operacion.json"
+    },
+    {
+      "key": "h_baz_coinpro_cliente",
+      "target": "dv_bdbaz.h_baz_coinpro_cliente",
+      "kind": "hub Data Vault de Coinpro",
+      "counts": {
+        "upstream": 9,
+        "downstream": 33,
+        "neighborhood": 110
+      },
+      "terms": [
+        "br_baz_coinpro_cliente_operacion",
+        "cd_bdpld.cd_cri_cliente",
+        "cd_cri_cliente",
+        "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+        "dv_bdbaz.h_baz_coinpro_cliente",
+        "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+        "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+        "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+        "h_baz_coinpro_cliente",
+        "metadatos",
+        "rd_baz_bdclientes.rd_cripto_trans",
+        "rd_cripto_trans",
+        "s_h_baz_coinpro_cliente_demografico",
+        "s_h_baz_coinpro_cliente_identificacion",
+        "s_l_baz_coinpro_operacion_movimiento"
+      ],
+      "dataPath": "assets/data/lineage/h_baz_coinpro_cliente.json"
+    },
+    {
+      "key": "h_baz_coinpro_operacion",
+      "target": "dv_bdbaz.h_baz_coinpro_operacion",
+      "kind": "hub Data Vault de Coinpro",
+      "counts": {
+        "upstream": 10,
+        "downstream": 11,
+        "neighborhood": 4
+      },
+      "terms": [
+        "br_baz_coinpro_cliente_operacion",
+        "cd_bdpld.cd_cri_movimientos",
+        "cd_cri_movimientos",
+        "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+        "dv_bdbaz.h_baz_coinpro_operacion",
+        "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+        "dv_bdbaz.s_h_baz_coinpro_operacion_detalle",
+        "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+        "dv_bdgs_cnp.h_gs_cnp_operacion",
+        "dv_bdgs_cnp.l_gs_cnp_cliente_operacion",
+        "h_baz_coinpro_operacion",
+        "h_gs_cnp_operacion",
+        "l_baz_coinpro_cliente_operacion",
+        "l_gs_cnp_cliente_operacion",
+        "metadatos",
+        "rd_baz_bdclientes.rd_cripto_trans",
+        "rd_cripto_trans",
+        "s_h_baz_coinpro_operacion_detalle",
+        "s_l_baz_coinpro_operacion_movimiento"
+      ],
+      "dataPath": "assets/data/lineage/h_baz_coinpro_operacion.json"
+    },
+    {
+      "key": "l_baz_coinpro_cliente_operacion",
+      "target": "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+      "kind": "link Data Vault de Coinpro",
+      "counts": {
+        "upstream": 11,
+        "downstream": 14,
+        "neighborhood": 4
+      },
+      "terms": [
+        "br_baz_coinpro_cliente_operacion",
+        "cd_bdpld.cd_cri_movimientos",
+        "cd_cri_movimientos",
+        "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+        "dv_bdbaz.h_baz_coinpro_cliente",
+        "dv_bdbaz.h_baz_coinpro_operacion",
+        "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+        "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+        "dv_bdgs_cnp.l_gs_cnp_cliente_operacion",
+        "h_baz_coinpro_cliente",
+        "h_baz_coinpro_operacion",
+        "l_baz_coinpro_cliente_operacion",
+        "l_gs_cnp_cliente_operacion",
+        "metadatos",
+        "rd_baz_bdclientes.rd_cripto_trans",
+        "rd_cripto_trans",
+        "s_l_baz_coinpro_operacion_movimiento"
+      ],
+      "dataPath": "assets/data/lineage/l_baz_coinpro_cliente_operacion.json"
+    },
+    {
+      "key": "s_h_baz_coinpro_cliente_demografico",
+      "target": "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+      "kind": "satelite Data Vault de Coinpro",
+      "counts": {
+        "upstream": 19,
+        "downstream": 27,
+        "neighborhood": 3
+      },
+      "terms": [
+        "br_baz_coinpro_cliente_operacion",
+        "cd_bdpld.cd_cri_cliente",
+        "cd_cri_cliente",
+        "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+        "dv_bdbaz.h_baz_coinpro_cliente",
+        "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+        "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+        "dv_bdgs_cnp.s_h_gs_cnp_cliente_demografico",
+        "h_baz_coinpro_cliente",
+        "metadatos",
+        "rd_baz_bdclientes.rd_cripto_trans",
+        "rd_cripto_trans",
+        "s_h_baz_coinpro_cliente_demografico",
+        "s_h_baz_coinpro_cliente_identificacion",
+        "s_h_gs_cnp_cliente_demografico"
+      ],
+      "dataPath": "assets/data/lineage/s_h_baz_coinpro_cliente_demografico.json"
+    },
+    {
+      "key": "s_h_baz_coinpro_cliente_identificacion",
+      "target": "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+      "kind": "satelite Data Vault de Coinpro",
+      "counts": {
+        "upstream": 23,
+        "downstream": 37,
+        "neighborhood": 3
+      },
+      "terms": [
+        "br_baz_coinpro_cliente_operacion",
+        "cd_bdpld.cd_cri_cliente",
+        "cd_bdpld.cd_cri_movimientos",
+        "cd_cri_cliente",
+        "cd_cri_movimientos",
+        "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+        "dv_bdbaz.h_baz_coinpro_cliente",
+        "dv_bdbaz.s_h_baz_coinpro_cliente_demografico",
+        "dv_bdbaz.s_h_baz_coinpro_cliente_identificacion",
+        "dv_bdgs_cnp.s_h_gs_cnp_cliente_identificacion",
+        "h_baz_coinpro_cliente",
+        "metadatos",
+        "rd_baz_bdclientes.rd_cripto_trans",
+        "rd_cripto_trans",
+        "s_h_baz_coinpro_cliente_demografico",
+        "s_h_baz_coinpro_cliente_identificacion",
+        "s_h_gs_cnp_cliente_identificacion"
+      ],
+      "dataPath": "assets/data/lineage/s_h_baz_coinpro_cliente_identificacion.json"
+    },
+    {
+      "key": "s_h_baz_coinpro_operacion_detalle",
+      "target": "dv_bdbaz.s_h_baz_coinpro_operacion_detalle",
+      "kind": "satelite Data Vault de Coinpro",
+      "counts": {
+        "upstream": 19,
+        "downstream": 27,
+        "neighborhood": 2
+      },
+      "terms": [
+        "cd_bdpld.cd_cri_movimientos",
+        "cd_cri_movimientos",
+        "dv_bdbaz.h_baz_coinpro_operacion",
+        "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+        "dv_bdbaz.s_h_baz_coinpro_operacion_detalle",
+        "dv_bdgs_cnp.s_h_gs_cnp_operacion_detalle",
+        "h_baz_coinpro_operacion",
+        "l_baz_coinpro_cliente_operacion",
+        "metadatos",
+        "rd_baz_bdclientes.rd_cripto_trans",
+        "rd_cripto_trans",
+        "s_h_baz_coinpro_operacion_detalle",
+        "s_h_gs_cnp_operacion_detalle"
+      ],
+      "dataPath": "assets/data/lineage/s_h_baz_coinpro_operacion_detalle.json"
+    },
+    {
+      "key": "s_l_baz_coinpro_operacion_movimiento",
+      "target": "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+      "kind": "satelite Data Vault de Coinpro",
+      "counts": {
+        "upstream": 65,
+        "downstream": 118,
+        "neighborhood": 2
+      },
+      "terms": [
+        "br_baz_coinpro_cliente_operacion",
+        "cd_bdpld.cd_cri_cliente",
+        "cd_bdpld.cd_cri_movimientos",
+        "cd_cri_cliente",
+        "cd_cri_movimientos",
+        "dv_bdbaz.br_baz_coinpro_cliente_operacion",
+        "dv_bdbaz.l_baz_coinpro_cliente_operacion",
+        "dv_bdbaz.s_l_baz_coinpro_operacion_movimiento",
+        "dv_bdgs_cnp.s_l_gs_cnp_operacion_movimiento",
+        "l_baz_coinpro_cliente_operacion",
+        "metadatos",
+        "rd_baz_bdclientes.rd_cripto_trans",
+        "rd_cripto_trans",
+        "s_l_baz_coinpro_operacion_movimiento",
+        "s_l_gs_cnp_operacion_movimiento"
+      ],
+      "dataPath": "assets/data/lineage/s_l_baz_coinpro_operacion_movimiento.json"
+    }
+  ],
+  "pages": {
+    "globalLineage": "assets/data/global-lineage.json"
+  },
+  "model": {
+    "schemaPath": "assets/data/model-schema.json",
+    "renderer": "assets/js/components/modeler.js",
+    "stylesheet": "assets/css/model.css"
+  },
+  "lineage": {
+    "renderer": "assets/js/components/lineage-renderer.js",
+    "template": "assets/js/components/lineage-template.js",
+    "stylesheet": "assets/css/lineage.css"
+  }
+}

@@ -1,0 +1,565 @@
+{
+  "target": "cd_bdpld.cd_cri_actividad_lista",
+  "short": "cd_cri_actividad_lista",
+  "nodes": [
+    {
+      "id": "n_src_cd_bdpld_cd_cri_cliente",
+      "table": "cd_bdpld.cd_cri_cliente",
+      "label": "cd_cri_cliente",
+      "role": "source",
+      "kind": "Crystal/CD",
+      "fields": [
+        {
+          "name": "ClienteCriptoId",
+          "type": "string",
+          "description": "Identificador del cliente"
+        },
+        {
+          "name": "FecOpe",
+          "type": "string",
+          "description": "Fecha y hora en la que se efectuo la transaccion"
+        },
+        {
+          "name": "NumeroTransaccion",
+          "type": "string",
+          "description": "Identificador de la transaccion"
+        },
+        {
+          "name": "ClienteNombre",
+          "type": "string",
+          "description": "Nombre del cliente  que realiza la transacción"
+        },
+        {
+          "name": "ClienteApePaterno",
+          "type": "string",
+          "description": "Apellido paterno del cliente  que realiza la transacción"
+        },
+        {
+          "name": "ClienteApeMaterno",
+          "type": "string",
+          "description": "Apellido materno del clientes que realiza la transacción"
+        },
+        {
+          "name": "ClienteFechaNacimiento",
+          "type": "string",
+          "description": "Nombre y apellidos del cliente Divisas"
+        }
+      ]
+    },
+    {
+      "id": "n_src_cd_bdpld_cd_cri_movimientos",
+      "table": "cd_bdpld.cd_cri_movimientos",
+      "label": "cd_cri_movimientos",
+      "role": "source",
+      "kind": "Crystal/CD",
+      "fields": [
+        {
+          "name": "ClienteCriptoId",
+          "type": "string",
+          "description": "Identificador del cliente"
+        },
+        {
+          "name": "FecOpe",
+          "type": "string",
+          "description": "Fecha y hora en la que se efectuo la transaccion"
+        },
+        {
+          "name": "NumeroTransaccion",
+          "type": "string",
+          "description": "Identificador de la transaccion"
+        }
+      ]
+    },
+    {
+      "id": "n_src_metadatos",
+      "table": "metadatos",
+      "label": "metadatos",
+      "role": "source",
+      "kind": "metadatos",
+      "fields": [
+        {
+          "name": "UBDF_APP_BAZ_COINPRO",
+          "type": "string",
+          "description": "Valor literal o técnico usado por la transformación."
+        },
+        {
+          "name": "datetime.now().timestamp() * 1000",
+          "type": "timestamp",
+          "description": "Valor calculado en tiempo de ejecución."
+        },
+        {
+          "name": "current date yyyyMMdd",
+          "type": "timestamp",
+          "description": "Valor calculado en tiempo de ejecución."
+        }
+      ]
+    },
+    {
+      "id": "n_src_rd_baz_bdregulatorio_rd_regulatorio_cedulaingestas",
+      "table": "rd_baz_bdregulatorio.rd_regulatorio_cedulaingestas",
+      "label": "rd_regulatorio_cedulaingestas",
+      "role": "source",
+      "kind": "tabla raw",
+      "fields": [
+        {
+          "name": "FcNombreCompleto",
+          "type": "string",
+          "description": "Sin descripción documentada en DESCRIBE ni en Mapeo_Campos_DV_Coinpro.xlsx."
+        },
+        {
+          "name": "FdFechaNacimiento",
+          "type": "string",
+          "description": "Sin descripción documentada en DESCRIBE ni en Mapeo_Campos_DV_Coinpro.xlsx."
+        },
+        {
+          "name": "FcAlerta",
+          "type": "string",
+          "description": "Sin descripción documentada en DESCRIBE ni en Mapeo_Campos_DV_Coinpro.xlsx."
+        }
+      ]
+    },
+    {
+      "id": "n_model",
+      "table": "cd_bdpld.cd_cri_actividad_lista",
+      "label": "cd_cri_actividad_lista",
+      "role": "model",
+      "kind": "objeto Crystal/CD de Coinpro",
+      "fields": [
+        {
+          "name": "ClienteCriptoId",
+          "type": "string",
+          "description": "Identificador del cliente"
+        },
+        {
+          "name": "FecOpe",
+          "type": "string",
+          "description": "Fecha y hora en la que se efectuo la transaccion"
+        },
+        {
+          "name": "OpeMesPeriodo",
+          "type": "int",
+          "description": "Numero de mes"
+        },
+        {
+          "name": "TipoLista",
+          "type": "string",
+          "description": "Tipor de alerta (Lista, Alerta)"
+        },
+        {
+          "name": "ListaNombre",
+          "type": "string",
+          "description": "Nombre de las alertas en el periodo"
+        },
+        {
+          "name": "NumLista",
+          "type": "bigint",
+          "description": "Numero de alertas en el periodo"
+        },
+        {
+          "name": "fcusuariocreacion",
+          "type": "string",
+          "description": "Usuario que proceso la ingesta del registro"
+        },
+        {
+          "name": "fdfechacreacion",
+          "type": "bigint",
+          "description": "Fecha en la que se proceso la ingesta del registro"
+        },
+        {
+          "name": "fifecha",
+          "type": "int",
+          "description": "Fecha en formato yyyyMMdd que sirve para el particionamiento de la tabla"
+        }
+      ]
+    }
+  ],
+  "canvasRel": [
+    {
+      "id": "c1",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "ClienteCriptoId",
+      "toNode": "n_model",
+      "toField": "ClienteCriptoId",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "join/filter key and final select",
+      "full": "join/filter key and final select",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_actividad_lista.ipynb",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "id": "c2",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "FecOpe",
+      "toNode": "n_model",
+      "toField": "FecOpe",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "converted to period window and output f_date",
+      "full": "converted to period window and output f_date",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_actividad_lista.ipynb",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "id": "c3",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "FecOpe",
+      "toNode": "n_model",
+      "toField": "OpeMesPeriodo",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "date_format(fecha, yyyyMM)",
+      "full": "date_format(fecha, yyyyMM)",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_actividad_lista.ipynb",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "id": "c4",
+      "fromNode": "n_src_cd_bdpld_cd_cri_cliente",
+      "fromField": "ClienteCriptoId",
+      "toNode": "n_model",
+      "toField": "ClienteCriptoId",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "additional_upstream_field",
+      "transform": "Join/filter key and final select.",
+      "full": "Join/filter key and final select.",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_actividad_lista.ipynb",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "id": "c5",
+      "fromNode": "n_src_cd_bdpld_cd_cri_cliente",
+      "fromField": "FecOpe",
+      "toNode": "n_model",
+      "toField": "FecOpe",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "additional_upstream_field",
+      "transform": "Converted to epoch/date window; output FecOpe set to f_date.",
+      "full": "Converted to epoch/date window; output FecOpe set to f_date.",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_actividad_lista.ipynb",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "id": "c6",
+      "fromNode": "n_src_rd_baz_bdregulatorio_rd_regulatorio_cedulaingestas",
+      "fromField": "FcAlerta",
+      "toNode": "n_model",
+      "toField": "TipoLista",
+      "color": "#10b981",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "additional_upstream_field",
+      "transform": "ALERTA/LISTA prefix classification.",
+      "full": "ALERTA/LISTA prefix classification.",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_actividad_lista.ipynb",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "id": "c7",
+      "fromNode": "n_src_rd_baz_bdregulatorio_rd_regulatorio_cedulaingestas",
+      "fromField": "FcAlerta",
+      "toNode": "n_model",
+      "toField": "ListaNombre",
+      "color": "#10b981",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "additional_upstream_field",
+      "transform": "Substring after ALERTA_ or LISTA_ prefix.",
+      "full": "Substring after ALERTA_ or LISTA_ prefix.",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_actividad_lista.ipynb",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "id": "c8",
+      "fromNode": "n_src_metadatos",
+      "fromField": "UBDF_APP_BAZ_COINPRO",
+      "toNode": "n_model",
+      "toField": "fcusuariocreacion",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "runtime_metadata",
+      "transform": "Constant lit(UBDF_APP_BAZ_COINPRO).",
+      "full": "Constant lit(UBDF_APP_BAZ_COINPRO).",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_actividad_lista.ipynb",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "id": "c9",
+      "fromNode": "n_src_metadatos",
+      "fromField": "datetime.now().timestamp() * 1000",
+      "toNode": "n_model",
+      "toField": "fdfechacreacion",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "runtime_metadata",
+      "transform": "Runtime processing timestamp cast BIGINT.",
+      "full": "Runtime processing timestamp cast BIGINT.",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_actividad_lista.ipynb",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "id": "c10",
+      "fromNode": "n_src_metadatos",
+      "fromField": "current date yyyyMMdd",
+      "toNode": "n_model",
+      "toField": "fifecha",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "runtime_metadata",
+      "transform": "Runtime current date cast INT.",
+      "full": "Runtime current date cast INT.",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_actividad_lista.ipynb",
+      "path_index": "85089",
+      "notes": ""
+    }
+  ],
+  "all": [
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ClienteCriptoId",
+      "target_table": "cd_bdpld.cd_cri_actividad_lista",
+      "target_field": "ClienteCriptoId",
+      "transform": "join/filter key and final select",
+      "relation_type": "active_upstream_field",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "FecOpe",
+      "target_table": "cd_bdpld.cd_cri_actividad_lista",
+      "target_field": "FecOpe",
+      "transform": "converted to period window and output f_date",
+      "relation_type": "active_upstream_field",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "FecOpe",
+      "target_table": "cd_bdpld.cd_cri_actividad_lista",
+      "target_field": "OpeMesPeriodo",
+      "transform": "date_format(fecha, yyyyMM)",
+      "relation_type": "active_upstream_field",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "NumeroTransaccion",
+      "target_table": "cd_bdpld.cd_cri_actividad_lista",
+      "target_field": "_join_condition",
+      "transform": "join with cd_cri_cliente on ClienteCriptoId, fecha, NumeroTransaccion",
+      "relation_type": "active_upstream_field",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ClienteCriptoId,NumeroTransaccion",
+      "target_table": "cd_bdpld.cd_cri_actividad_lista",
+      "target_field": "_row_filter",
+      "transform": "Common downstream filter removes null/empty cliente and transaccion; most flows also remove ANONIMO.",
+      "relation_type": "active_upstream_field",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_cliente",
+      "source_field": "ClienteCriptoId",
+      "target_table": "cd_bdpld.cd_cri_actividad_lista",
+      "target_field": "ClienteCriptoId",
+      "transform": "Join/filter key and final select.",
+      "relation_type": "additional_upstream_field",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_cliente",
+      "source_field": "NumeroTransaccion",
+      "target_table": "cd_bdpld.cd_cri_actividad_lista",
+      "target_field": "_join_condition",
+      "transform": "Join with movimientos on ClienteCriptoId, fecha and NumeroTransaccion.",
+      "relation_type": "additional_upstream_field",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_cliente",
+      "source_field": "FecOpe",
+      "target_table": "cd_bdpld.cd_cri_actividad_lista",
+      "target_field": "FecOpe",
+      "transform": "Converted to epoch/date window; output FecOpe set to f_date.",
+      "relation_type": "additional_upstream_field",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_cliente",
+      "source_field": "ClienteNombre,ClienteApePaterno,ClienteApeMaterno",
+      "target_table": "cd_bdpld.cd_cri_actividad_lista",
+      "target_field": "Nombre",
+      "transform": "Decrypt source fields with bdf_voltage and concat trimmed full name.",
+      "relation_type": "additional_upstream_field",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_cliente",
+      "source_field": "ClienteFechaNacimiento",
+      "target_table": "cd_bdpld.cd_cri_actividad_lista",
+      "target_field": "ClienteFechaNacimiento",
+      "transform": "Decrypt with bdf_voltage; used for matching lists.",
+      "relation_type": "additional_upstream_field",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "rd_baz_bdregulatorio.rd_regulatorio_cedulaingestas",
+      "source_field": "FcNombreCompleto,FdFechaNacimiento",
+      "target_table": "cd_bdpld.cd_cri_actividad_lista",
+      "target_field": "_join_condition",
+      "transform": "Decrypt regulatory name/birthdate and join to client full name/birthdate.",
+      "relation_type": "additional_upstream_field",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "rd_baz_bdregulatorio.rd_regulatorio_cedulaingestas",
+      "source_field": "FcAlerta",
+      "target_table": "cd_bdpld.cd_cri_actividad_lista",
+      "target_field": "TipoLista",
+      "transform": "ALERTA/LISTA prefix classification.",
+      "relation_type": "additional_upstream_field",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "rd_baz_bdregulatorio.rd_regulatorio_cedulaingestas",
+      "source_field": "FcAlerta",
+      "target_table": "cd_bdpld.cd_cri_actividad_lista",
+      "target_field": "ListaNombre",
+      "transform": "Substring after ALERTA_ or LISTA_ prefix.",
+      "relation_type": "additional_upstream_field",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "rd_baz_bdregulatorio.rd_regulatorio_cedulaingestas",
+      "source_field": "*",
+      "target_table": "cd_bdpld.cd_cri_actividad_lista",
+      "target_field": "NumLista",
+      "transform": "count(*) by name, birthdate, tipo/lista, MesPeriodo.",
+      "relation_type": "additional_upstream_field",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "metadatos",
+      "source_field": "UBDF_APP_BAZ_COINPRO",
+      "target_table": "cd_bdpld.cd_cri_actividad_lista",
+      "target_field": "fcusuariocreacion",
+      "transform": "Constant lit(UBDF_APP_BAZ_COINPRO).",
+      "relation_type": "runtime_metadata",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "metadatos",
+      "source_field": "datetime.now().timestamp() * 1000",
+      "target_table": "cd_bdpld.cd_cri_actividad_lista",
+      "target_field": "fdfechacreacion",
+      "transform": "Runtime processing timestamp cast BIGINT.",
+      "relation_type": "runtime_metadata",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "metadatos",
+      "source_field": "current date yyyyMMdd",
+      "target_table": "cd_bdpld.cd_cri_actividad_lista",
+      "target_field": "fifecha",
+      "transform": "Runtime current date cast INT.",
+      "relation_type": "runtime_metadata",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ClienteCriptoId,FecOpe,NumeroTransaccion",
+      "target_table": "cd_bdpld.cd_cri_actividad_lista",
+      "target_field": "_related_object",
+      "transform": "Movement side of list activity join.",
+      "relation_type": "related_object",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "cd_bdpld.cd_cri_cliente",
+      "source_field": "ClienteCriptoId,FecOpe,NumeroTransaccion",
+      "target_table": "cd_bdpld.cd_cri_actividad_lista",
+      "target_field": "_related_object",
+      "transform": "Client side of list activity join.",
+      "relation_type": "related_object",
+      "path_index": "85089",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "rd_baz_bdregulatorio.rd_regulatorio_cedulaingestas",
+      "source_field": "FcNombreCompleto,FdFechaNacimiento",
+      "target_table": "cd_bdpld.cd_cri_actividad_lista",
+      "target_field": "_related_object",
+      "transform": "Regulatory list match source.",
+      "relation_type": "related_object",
+      "path_index": "85089",
+      "notes": ""
+    }
+  ],
+  "counts": {
+    "upstream": 17,
+    "downstream": 0,
+    "neighborhood": 3
+  }
+}

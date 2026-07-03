@@ -1,0 +1,960 @@
+[
+  {
+    "id": "h-gs-cnp-cliente",
+    "title": "h_gs_cnp_cliente",
+    "tag": "hub",
+    "description": "Hub que identifica de forma única a un cliente de cripto.",
+    "relations": [
+      "Tiene satélite `s_h_gs_cnp_cliente_demografico`",
+      "Tiene satélite `s_h_gs_cnp_cliente_identificacion`",
+      "Participa en link `l_gs_cnp_cliente_operacion`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "CoinproClienteHashKey",
+        "type": "string",
+        "note": "Llave Hash que proporciona una identificación única del hub."
+      },
+      {
+        "key": "",
+        "name": "LoadDate",
+        "type": "bigint",
+        "note": "Marca temporal del registro."
+      },
+      {
+        "key": "",
+        "name": "RecordSource",
+        "type": "string",
+        "note": "Identificador del origen funcional del registro."
+      },
+      {
+        "key": "",
+        "name": "SystemSource",
+        "type": "string",
+        "note": "Sistema fuente técnico que genero o entrego el registro."
+      },
+      {
+        "key": "",
+        "name": "ClienteID",
+        "type": "string",
+        "note": "Identificador del cliente."
+      },
+      {
+        "key": "",
+        "name": "fcusuariocreacion",
+        "type": "string",
+        "note": "Usuario o identificador del proceso que creo/ingesto el registro."
+      },
+      {
+        "key": "",
+        "name": "fdfechacreacion",
+        "type": "bigint",
+        "note": "Fecha/hora de creación o ingesta del registro en la plataforma."
+      },
+      {
+        "key": "",
+        "name": "fifecha",
+        "type": "date",
+        "note": "Fecha de referencia del registro usada para consultas."
+      }
+    ]
+  },
+  {
+    "id": "h-gs-cnp-operacion",
+    "title": "h_gs_cnp_operacion",
+    "tag": "hub",
+    "description": "Hub que identifica de forma única a una operación de cripto.",
+    "relations": [
+      "Tiene satélite `s_h_gs_cnp_operacion_detalle`",
+      "Participa en link `l_gs_cnp_cliente_operacion`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "CoinproOperacionHashKey",
+        "type": "string",
+        "note": "Llave Hash que proporciona una identificación única del hub."
+      },
+      {
+        "key": "",
+        "name": "LoadDate",
+        "type": "bigint",
+        "note": "Marca temporal del registro."
+      },
+      {
+        "key": "",
+        "name": "RecordSource",
+        "type": "string",
+        "note": "Identificador del origen funcional del registro."
+      },
+      {
+        "key": "",
+        "name": "SystemSource",
+        "type": "string",
+        "note": "Sistema fuente técnico que genero o entrego el registro."
+      },
+      {
+        "key": "",
+        "name": "OperacionID",
+        "type": "string",
+        "note": "Numero de la transaccion que se efectuo concatenada con la fecha de la operación."
+      },
+      {
+        "key": "",
+        "name": "fcusuariocreacion",
+        "type": "string",
+        "note": "Usuario o identificador del proceso que creo/ingesto el registro."
+      },
+      {
+        "key": "",
+        "name": "fdfechacreacion",
+        "type": "bigint",
+        "note": "Fecha/hora de creación o ingesta del registro en la plataforma."
+      },
+      {
+        "key": "",
+        "name": "fifecha",
+        "type": "date",
+        "note": "Fecha de referencia del registro usada para consultas."
+      }
+    ]
+  },
+  {
+    "id": "l-gs-cnp-cliente-operacion",
+    "title": "l_gs_cnp_cliente_operacion",
+    "tag": "link",
+    "description": "Link que relaciona cliente con operación de cripto.",
+    "relations": [
+      "Relaciona hub `h_gs_cnp_cliente`",
+      "Relaciona hub `h_gs_cnp_operacion`",
+      "Tiene satélite `s_l_gs_cnp_operacion_movimiento`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "CoinproClienteOperacionLnkHashKey",
+        "type": "string",
+        "note": "Clave hash del registro; identificador tecnico unico."
+      },
+      {
+        "key": "",
+        "name": "LoadDate",
+        "type": "bigint",
+        "note": "Marca temporal del registro."
+      },
+      {
+        "key": "",
+        "name": "RecordSource",
+        "type": "string",
+        "note": "Identificador del origen funcional del registro."
+      },
+      {
+        "key": "",
+        "name": "SystemSource",
+        "type": "string",
+        "note": "Sistema fuente técnico que genero o entrego el registro."
+      },
+      {
+        "key": "FK",
+        "name": "CoinproClienteHashKey",
+        "type": "string",
+        "note": "Llave Hash que proporciona una identificación única del hub al que pertenece; FK a h_gs_cnp_cliente.CoinproClienteHashKey."
+      },
+      {
+        "key": "",
+        "name": "ClienteID",
+        "type": "string",
+        "note": "Identificador del cliente."
+      },
+      {
+        "key": "FK",
+        "name": "CoinproOperacionHashKey",
+        "type": "string",
+        "note": "Llave Hash que proporciona una identificación única del hub al que pertenece; FK a h_gs_cnp_operacion.CoinproOperacionHashKey."
+      },
+      {
+        "key": "",
+        "name": "OperacionID",
+        "type": "string",
+        "note": "Numero de la transaccion que se efectuo concatenada con la fecha de la operación."
+      },
+      {
+        "key": "",
+        "name": "fcusuariocreacion",
+        "type": "string",
+        "note": "Usuario o identificador del proceso que creo/ingesto el registro."
+      },
+      {
+        "key": "",
+        "name": "fdfechacreacion",
+        "type": "bigint",
+        "note": "Fecha/hora de creación o ingesta del registro en la plataforma."
+      },
+      {
+        "key": "",
+        "name": "fifecha",
+        "type": "date",
+        "note": "Fecha de referencia del registro usada para consultas."
+      }
+    ]
+  },
+  {
+    "id": "s-h-gs-cnp-cliente-demografico",
+    "title": "s_h_gs_cnp_cliente_demografico",
+    "tag": "satelite",
+    "description": "Satelite con datos demograficos del cliente de cripto.",
+    "relations": [
+      "Pertenece al hub `h_gs_cnp_cliente`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "CoinproClienteHashKey",
+        "type": "string",
+        "note": "Llave Hash que proporciona una identificación única del hub al que pertenece el satélite; FK a h_gs_cnp_cliente.CoinproClienteHashKey."
+      },
+      {
+        "key": "",
+        "name": "LoadDate",
+        "type": "bigint",
+        "note": "Marca temporal del registro."
+      },
+      {
+        "key": "",
+        "name": "RecordSource",
+        "type": "string",
+        "note": "Identificador del origen funcional del registro."
+      },
+      {
+        "key": "",
+        "name": "SystemSource",
+        "type": "string",
+        "note": "Sistema fuente técnico que genero o entrego el registro."
+      },
+      {
+        "key": "",
+        "name": "HashDiff",
+        "type": "string",
+        "note": "Hash calculado sobre los atributos descriptivos del satelite."
+      },
+      {
+        "key": "",
+        "name": "ClientePais",
+        "type": "string",
+        "note": "Pais de la dirección del cliente."
+      },
+      {
+        "key": "",
+        "name": "ClienteEstado",
+        "type": "string",
+        "note": "Nombre del estado donde vive el cliente."
+      },
+      {
+        "key": "",
+        "name": "ClienteMunicipio",
+        "type": "string",
+        "note": "Municipio de la direccion del cliente."
+      },
+      {
+        "key": "",
+        "name": "ClienteCiudad",
+        "type": "string",
+        "note": "Ciudad de la direccion del cliente."
+      },
+      {
+        "key": "",
+        "name": "ClienteColonia",
+        "type": "string",
+        "note": "Nombre de la colonia de la dirección del cliente."
+      },
+      {
+        "key": "",
+        "name": "ClienteCP",
+        "type": "string",
+        "note": "Codigo Postal de la direccion del cliente."
+      },
+      {
+        "key": "",
+        "name": "ClienteCalle",
+        "type": "string",
+        "note": "Calle de la direccion del cliente."
+      },
+      {
+        "key": "",
+        "name": "ClienteNumExterior",
+        "type": "string",
+        "note": "Número exterior de la dirección del cliente."
+      },
+      {
+        "key": "",
+        "name": "ClienteNumInterior",
+        "type": "string",
+        "note": "Número interior de la dirección del cliente."
+      },
+      {
+        "key": "",
+        "name": "fcusuariocreacion",
+        "type": "string",
+        "note": "Usuario o identificador del proceso que creo/ingesto el registro."
+      },
+      {
+        "key": "",
+        "name": "fdfechacreacion",
+        "type": "bigint",
+        "note": "Fecha/hora de creación o ingesta del registro en la plataforma."
+      },
+      {
+        "key": "",
+        "name": "fifecha",
+        "type": "date",
+        "note": "Fecha de referencia del registro usada para consultas."
+      }
+    ]
+  },
+  {
+    "id": "s-h-gs-cnp-cliente-identificacion",
+    "title": "s_h_gs_cnp_cliente_identificacion",
+    "tag": "satelite",
+    "description": "Satelite con datos de identificacion del cliente de cripto.",
+    "relations": [
+      "Pertenece al hub `h_gs_cnp_cliente`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "CoinproClienteHashKey",
+        "type": "string",
+        "note": "Llave Hash que proporciona una identificación única del hub al que pertenece el satélite; FK a h_gs_cnp_cliente.CoinproClienteHashKey."
+      },
+      {
+        "key": "",
+        "name": "LoadDate",
+        "type": "bigint",
+        "note": "Marca temporal del registro."
+      },
+      {
+        "key": "",
+        "name": "RecordSource",
+        "type": "string",
+        "note": "Identificador del origen funcional del registro."
+      },
+      {
+        "key": "",
+        "name": "SystemSource",
+        "type": "string",
+        "note": "Sistema fuente técnico que genero o entrego el registro."
+      },
+      {
+        "key": "",
+        "name": "HashDiff",
+        "type": "string",
+        "note": "Hash calculado sobre los atributos descriptivos del satelite."
+      },
+      {
+        "key": "",
+        "name": "ClienteApePaterno",
+        "type": "string",
+        "note": "Apellido paterno del cliente que realiza la operación."
+      },
+      {
+        "key": "",
+        "name": "ClienteApeMaterno",
+        "type": "string",
+        "note": "Apellido materno del cliente que realiza la operación."
+      },
+      {
+        "key": "",
+        "name": "ClienteNombre",
+        "type": "string",
+        "note": "Nombre del cliente que realiza la operación."
+      },
+      {
+        "key": "",
+        "name": "ClienteNacionalidad",
+        "type": "string",
+        "note": "Nacionalidad de la dirección del cliente."
+      },
+      {
+        "key": "",
+        "name": "ClienteFechaNacimiento",
+        "type": "string",
+        "note": "Fecha de nacimiento del cliente."
+      },
+      {
+        "key": "",
+        "name": "ClienteCorreoElectronico",
+        "type": "string",
+        "note": "Correo electrónico del cliente."
+      },
+      {
+        "key": "",
+        "name": "ClienteTelefono",
+        "type": "string",
+        "note": "Numero de telefono del cliente."
+      },
+      {
+        "key": "",
+        "name": "ClienteCURP",
+        "type": "string",
+        "note": "CURP del cliente."
+      },
+      {
+        "key": "",
+        "name": "ClienteRFC",
+        "type": "string",
+        "note": "Registro federal del contribuyente del cliente."
+      },
+      {
+        "key": "",
+        "name": "ClienteRegimenFiscal",
+        "type": "string",
+        "note": "Actividades economicas del cliente (Fisica/Moral)."
+      },
+      {
+        "key": "",
+        "name": "CodClienteGenero",
+        "type": "string",
+        "note": "Genero del cliente que realiza la transacción."
+      },
+      {
+        "key": "",
+        "name": "ClienteOcupacionID",
+        "type": "string",
+        "note": "Identificador de la ocupación que puede tener el cliente."
+      },
+      {
+        "key": "",
+        "name": "ClientePEP",
+        "type": "string",
+        "note": "Si el cliente es una persona políticamente expuesta."
+      },
+      {
+        "key": "",
+        "name": "fcusuariocreacion",
+        "type": "string",
+        "note": "Usuario o identificador del proceso que creo/ingesto el registro."
+      },
+      {
+        "key": "",
+        "name": "fdfechacreacion",
+        "type": "bigint",
+        "note": "Fecha/hora de creación o ingesta del registro en la plataforma."
+      },
+      {
+        "key": "",
+        "name": "fifecha",
+        "type": "date",
+        "note": "Fecha de referencia del registro usada para consultas."
+      }
+    ]
+  },
+  {
+    "id": "s-h-gs-cnp-operacion-detalle",
+    "title": "s_h_gs_cnp_operacion_detalle",
+    "tag": "satelite",
+    "description": "Satelite con detalles de la operacion de cripto.",
+    "relations": [
+      "Pertenece al hub `h_gs_cnp_operacion`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "CoinproOperacionHashKey",
+        "type": "string",
+        "note": "Llave Hash que proporciona una identificación única del hub al que pertenece; FK a h_gs_cnp_operacion.CoinproOperacionHashKey."
+      },
+      {
+        "key": "",
+        "name": "LoadDate",
+        "type": "bigint",
+        "note": "Marca temporal del registro."
+      },
+      {
+        "key": "",
+        "name": "RecordSource",
+        "type": "string",
+        "note": "Identificador del origen funcional del registro."
+      },
+      {
+        "key": "",
+        "name": "SystemSource",
+        "type": "string",
+        "note": "Sistema fuente técnico que genero o entrego el registro."
+      },
+      {
+        "key": "",
+        "name": "HashDiff",
+        "type": "string",
+        "note": "Hash calculado sobre los atributos descriptivos del satelite."
+      },
+      {
+        "key": "",
+        "name": "ComisionEsquema",
+        "type": "decimal(30,18)",
+        "note": "Catalogo de comisiones de cambios cripto."
+      },
+      {
+        "key": "",
+        "name": "IDProducto",
+        "type": "string",
+        "note": "Identificador del producto."
+      },
+      {
+        "key": "",
+        "name": "MonedaCripto",
+        "type": "string",
+        "note": "Tipo de moneda cripto utilizada en la transaccion."
+      },
+      {
+        "key": "",
+        "name": "MonedaFiat",
+        "type": "string",
+        "note": "Divisa de origen de la operacion."
+      },
+      {
+        "key": "",
+        "name": "MonedaPuente",
+        "type": "string",
+        "note": "Divisa destino de la operacion."
+      },
+      {
+        "key": "",
+        "name": "Producto",
+        "type": "string",
+        "note": "Numero del producto consumido."
+      },
+      {
+        "key": "",
+        "name": "Proveedor",
+        "type": "string",
+        "note": "Nombre del proveedor."
+      },
+      {
+        "key": "",
+        "name": "TipoOperacion",
+        "type": "string",
+        "note": "Tipo de la transaccion que se efectuo (COMP, VEN, RECEPCI, ETC..)."
+      },
+      {
+        "key": "",
+        "name": "TipoRed",
+        "type": "string",
+        "note": "Tipo de red con la que se opero."
+      },
+      {
+        "key": "",
+        "name": "fcusuariocreacion",
+        "type": "string",
+        "note": "Usuario o identificador del proceso que creo/ingesto el registro."
+      },
+      {
+        "key": "",
+        "name": "fdfechacreacion",
+        "type": "bigint",
+        "note": "Fecha/hora de creación o ingesta del registro en la plataforma."
+      },
+      {
+        "key": "",
+        "name": "fifecha",
+        "type": "date",
+        "note": "Fecha de referencia del registro usada para consultas."
+      }
+    ]
+  },
+  {
+    "id": "s-l-gs-cnp-operacion-movimiento",
+    "title": "s_l_gs_cnp_operacion_movimiento",
+    "tag": "satelite",
+    "description": "Satelite con movimientos de operaciones de cripto.",
+    "relations": [
+      "Pertenece al link `l_gs_cnp_cliente_operacion`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "CoinproClienteOperacionLnkHashKey",
+        "type": "string",
+        "note": "Clave hash del registro; identificador tecnico unico; FK a l_gs_cnp_cliente_operacion.CoinproClienteOperacionLnkHashKey."
+      },
+      {
+        "key": "",
+        "name": "LoadDate",
+        "type": "bigint",
+        "note": "Marca temporal del registro."
+      },
+      {
+        "key": "",
+        "name": "RecordSource",
+        "type": "string",
+        "note": "Identificador del origen funcional del registro."
+      },
+      {
+        "key": "",
+        "name": "SystemSource",
+        "type": "string",
+        "note": "Sistema fuente técnico que genero o entrego el registro."
+      },
+      {
+        "key": "",
+        "name": "HashDiff",
+        "type": "string",
+        "note": "Hash calculado sobre los atributos descriptivos del satelite."
+      },
+      {
+        "key": "",
+        "name": "ClienteOrigenFondo",
+        "type": "string",
+        "note": "Origen de fondo del cliente."
+      },
+      {
+        "key": "",
+        "name": "OpeCanal",
+        "type": "string",
+        "note": "Nombre del canal en la que se hizo la operacion."
+      },
+      {
+        "key": "",
+        "name": "FechaTransaccion",
+        "type": "bigint",
+        "note": "Marca temporal del registro."
+      },
+      {
+        "key": "",
+        "name": "BeneficiarioNombre",
+        "type": "string",
+        "note": "Nombre del beneficiario."
+      },
+      {
+        "key": "",
+        "name": "TrazabilidadID",
+        "type": "string",
+        "note": "Identificador de la trazabilidad para las transacciones."
+      },
+      {
+        "key": "",
+        "name": "CarreteraDesc",
+        "type": "string",
+        "note": "Nombre de la carretera."
+      },
+      {
+        "key": "",
+        "name": "ComisionCanal",
+        "type": "decimal(30,18)",
+        "note": "Comision del canal por la transaccion."
+      },
+      {
+        "key": "",
+        "name": "MontoComision",
+        "type": "decimal(30,18)",
+        "note": "Comision por usar la carretera."
+      },
+      {
+        "key": "",
+        "name": "MontoComisionProveedor",
+        "type": "decimal(30,18)",
+        "note": "Comision que cobra el proveedor."
+      },
+      {
+        "key": "",
+        "name": "ComisionIVA",
+        "type": "decimal(30,18)",
+        "note": "Iva de las comisiones."
+      },
+      {
+        "key": "",
+        "name": "DescripcionOpe",
+        "type": "string",
+        "note": "Concepto de la transacci, describe para qué se efectuó la transacción."
+      },
+      {
+        "key": "",
+        "name": "CostoTxn",
+        "type": "decimal(30,18)",
+        "note": "Costo de la transaccion (cuanto cuesta hacer la transaccion)."
+      },
+      {
+        "key": "",
+        "name": "ComisionCarreteraDivisa",
+        "type": "string",
+        "note": "Divisa de la comision de la carretera."
+      },
+      {
+        "key": "",
+        "name": "ComisionProveedorDivisa",
+        "type": "string",
+        "note": "Divisa en la que se esta cobrando la comision."
+      },
+      {
+        "key": "",
+        "name": "OpeEstatus",
+        "type": "string",
+        "note": "Estado en el que se encuentra la operacion."
+      },
+      {
+        "key": "",
+        "name": "HashBlockchain",
+        "type": "string",
+        "note": "Hash de la confirmacion del blockchain."
+      },
+      {
+        "key": "",
+        "name": "HashOpe",
+        "type": "string",
+        "note": "Identificador unico de la transaccion cripto."
+      },
+      {
+        "key": "",
+        "name": "ComercioID",
+        "type": "string",
+        "note": "Identificador del comercio."
+      },
+      {
+        "key": "",
+        "name": "IDCanal",
+        "type": "string",
+        "note": "Identificador del canal de operacion."
+      },
+      {
+        "key": "",
+        "name": "CarreteraID",
+        "type": "string",
+        "note": "Identificador de la carretera."
+      },
+      {
+        "key": "",
+        "name": "ImpuestoPais",
+        "type": "string",
+        "note": "Porcentaje de impuesto por el pais."
+      },
+      {
+        "key": "",
+        "name": "ImpuestoComision",
+        "type": "decimal(30,18)",
+        "note": "Ingresos por las comisiones."
+      },
+      {
+        "key": "",
+        "name": "ComisionIVACanal",
+        "type": "decimal(30,18)",
+        "note": "Iva de la comision del canal."
+      },
+      {
+        "key": "",
+        "name": "MontoIVAComision",
+        "type": "decimal(30,18)",
+        "note": "Iva de la comision de la carretera."
+      },
+      {
+        "key": "",
+        "name": "MontoIVAProveedor",
+        "type": "decimal(30,18)",
+        "note": "Iva por las comisiones del proveedor."
+      },
+      {
+        "key": "",
+        "name": "OpeMedio",
+        "type": "string",
+        "note": "Medio por el cuál se efectua la transacción (ej traspa, cash-in-o, SPEI)."
+      },
+      {
+        "key": "",
+        "name": "OpeMonto",
+        "type": "decimal(30,18)",
+        "note": "Monto de la transaccion en la criptomoneda utilizada."
+      },
+      {
+        "key": "",
+        "name": "MontoMNX",
+        "type": "decimal(30,18)",
+        "note": "Monto de la transaccion en MXN."
+      },
+      {
+        "key": "",
+        "name": "MontoUSD",
+        "type": "decimal(30,18)",
+        "note": "Monto de la transaccion en USD."
+      },
+      {
+        "key": "",
+        "name": "TipoSpreadTxn",
+        "type": "decimal(30,18)",
+        "note": "Diferencia entre el precio de la compra y el de venta de la transaccion."
+      },
+      {
+        "key": "",
+        "name": "ComisionSubtotalCanal",
+        "type": "decimal(30,18)",
+        "note": "Subtotal de la comision del canal de operacion."
+      },
+      {
+        "key": "",
+        "name": "MontoSubtotalComision",
+        "type": "decimal(30,18)",
+        "note": "Subtotal de la comision de la carretera."
+      },
+      {
+        "key": "",
+        "name": "MontoSubtotalProveedor",
+        "type": "decimal(30,18)",
+        "note": "Sub total de las comisiones del proveedor."
+      },
+      {
+        "key": "",
+        "name": "OpeSucursal",
+        "type": "string",
+        "note": "Numero de la sucursal donde se efectuo la operacion."
+      },
+      {
+        "key": "",
+        "name": "TCCanal",
+        "type": "decimal(30,18)",
+        "note": "Tipo de cambio del canal."
+      },
+      {
+        "key": "",
+        "name": "TCCarretera",
+        "type": "decimal(30,18)",
+        "note": "Tipo de cambio de la carretera."
+      },
+      {
+        "key": "",
+        "name": "TCFiatCripto",
+        "type": "decimal(30,18)",
+        "note": "Tipo de cambio fiat de la moneda cripto."
+      },
+      {
+        "key": "",
+        "name": "TCFiatProveedor",
+        "type": "decimal(30,18)",
+        "note": "Tipo de cambio MXN a USD con el cual se hizo la transaccion."
+      },
+      {
+        "key": "",
+        "name": "TCProveedor",
+        "type": "decimal(30,18)",
+        "note": "Tipo de cambio del proveedor."
+      },
+      {
+        "key": "",
+        "name": "TCPuenteCripto",
+        "type": "string",
+        "note": "Tipo de cambio USD a cripto con el cual se hizo la transaccion."
+      },
+      {
+        "key": "",
+        "name": "TipoDivisaComision",
+        "type": "string",
+        "note": "Tipo de divisa en la que se cobra la comision."
+      },
+      {
+        "key": "",
+        "name": "TipoTCPuenteCripto",
+        "type": "string",
+        "note": "Proveedor de la moneda cripto."
+      },
+      {
+        "key": "",
+        "name": "TipoTCFiatCripto",
+        "type": "string",
+        "note": "Tipo de cambio utilizado (spot - fix)."
+      },
+      {
+        "key": "",
+        "name": "TipoCambioSpotFix",
+        "type": "string",
+        "note": "Tipo de cambio utilizado."
+      },
+      {
+        "key": "",
+        "name": "MonedaOrigenID",
+        "type": "string",
+        "note": "Identificador de la moneda origen."
+      },
+      {
+        "key": "",
+        "name": "MonedaDestinoID",
+        "type": "string",
+        "note": "Identificador de la moneda destino."
+      },
+      {
+        "key": "",
+        "name": "TipoCambioOrigen",
+        "type": "decimal(30,18)",
+        "note": "Tipo de cambio Origen."
+      },
+      {
+        "key": "",
+        "name": "TipoCambioDestino",
+        "type": "decimal(30,18)",
+        "note": "Tipo de cambio Destino."
+      },
+      {
+        "key": "",
+        "name": "MontoOrigen",
+        "type": "decimal(30,18)",
+        "note": "Monto origen de la operación."
+      },
+      {
+        "key": "",
+        "name": "MontoDestino",
+        "type": "decimal(30,18)",
+        "note": "Monto destino de la operación."
+      },
+      {
+        "key": "",
+        "name": "CuentaOrigen",
+        "type": "string",
+        "note": "Cuenta origen de la operación."
+      },
+      {
+        "key": "",
+        "name": "CuentaDestino",
+        "type": "string",
+        "note": "Cuenta destino de la operación."
+      },
+      {
+        "key": "",
+        "name": "CotizacionID",
+        "type": "string",
+        "note": "Identificador de cotizacion."
+      },
+      {
+        "key": "",
+        "name": "TransaccionID",
+        "type": "string",
+        "note": "Identificador de la transaccion."
+      },
+      {
+        "key": "",
+        "name": "Latitud",
+        "type": "string",
+        "note": "Latitud de la operacion."
+      },
+      {
+        "key": "",
+        "name": "Longitud",
+        "type": "string",
+        "note": "Longitud de la operacion."
+      },
+      {
+        "key": "",
+        "name": "fcusuariocreacion",
+        "type": "string",
+        "note": "Usuario o identificador del proceso que creo/ingesto el registro."
+      },
+      {
+        "key": "",
+        "name": "fdfechacreacion",
+        "type": "bigint",
+        "note": "Fecha/hora de creación o ingesta del registro en la plataforma."
+      },
+      {
+        "key": "",
+        "name": "fifecha",
+        "type": "date",
+        "note": "Fecha de referencia del registro usada para consultas."
+      }
+    ]
+  }
+]

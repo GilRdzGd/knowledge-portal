@@ -1,0 +1,2358 @@
+{
+  "target": "cd_bdpld.cd_cri_operaciones_cripto",
+  "short": "cd_cri_operaciones_cripto",
+  "nodes": [
+    {
+      "id": "n_src_cd_bdpld_cd_cri_movimientos",
+      "table": "cd_bdpld.cd_cri_movimientos",
+      "label": "cd_cri_movimientos",
+      "role": "source",
+      "kind": "Crystal/CD",
+      "fields": [
+        {
+          "name": "ClienteCriptoId",
+          "type": "string",
+          "description": "Identificador del cliente"
+        },
+        {
+          "name": "FecOpe",
+          "type": "string",
+          "description": "Fecha y hora en la que se efectuo la transaccion"
+        },
+        {
+          "name": "NumeroTransaccion",
+          "type": "string",
+          "description": "Identificador de la transaccion"
+        },
+        {
+          "name": "ClienteProductoId",
+          "type": "string",
+          "description": "Nombre del producto consumido"
+        },
+        {
+          "name": "ComercioId",
+          "type": "string",
+          "description": "Identificador del comercio"
+        },
+        {
+          "name": "ComisionCanal",
+          "type": "decimal(18,2)",
+          "description": "Comision del canal por la transaccion"
+        },
+        {
+          "name": "ComisionCarreteraDivisa",
+          "type": "string",
+          "description": "Divisa de la comison de la carretera"
+        },
+        {
+          "name": "ComisionEsquema",
+          "type": "decimal(18,2)",
+          "description": "Catalogo de comisiones de cambios cripto"
+        },
+        {
+          "name": "ComisionIva",
+          "type": "decimal(18,2)",
+          "description": "Iva de las comisiones"
+        },
+        {
+          "name": "ComisionIvaCana",
+          "type": "decimal(18,2)",
+          "description": "Iva de la comision del canal"
+        },
+        {
+          "name": "ComisionProveedorDivisa",
+          "type": "string",
+          "description": "Divisa en la que se esta cobrando la comision"
+        },
+        {
+          "name": "ComisionSubtotalCanal",
+          "type": "decimal(18,2)",
+          "description": "Subtotal de la comision del canal de operacion"
+        },
+        {
+          "name": "CostoTxn",
+          "type": "decimal(18,2)",
+          "description": "Costo de la transaccion (cuento cuesta hacer la transaccion)"
+        },
+        {
+          "name": "CotizacionId",
+          "type": "string",
+          "description": "Identificador de cotizacion"
+        },
+        {
+          "name": "CuentaDestino",
+          "type": "string",
+          "description": "Cuenta destino de la operación"
+        },
+        {
+          "name": "CuentaOrigen",
+          "type": "string",
+          "description": "Cuenta origen de la operación"
+        },
+        {
+          "name": "HashBlockchain",
+          "type": "string",
+          "description": "hash de la confirmacion del blockchain"
+        },
+        {
+          "name": "ImpuestoComision",
+          "type": "decimal(18,2)",
+          "description": "Ingresos por las comisiones"
+        },
+        {
+          "name": "ImpuestoPais",
+          "type": "string",
+          "description": "Porcentaje de impuesto por el pais"
+        },
+        {
+          "name": "MonedaCripto",
+          "type": "string",
+          "description": "Tipo de moneda cripto utilizada en la transaccion"
+        },
+        {
+          "name": "MonedaDestinoId",
+          "type": "string",
+          "description": "Identificador de la moneda destino"
+        },
+        {
+          "name": "MonedaFiat",
+          "type": "string",
+          "description": "Divisa de origen de la operacion"
+        },
+        {
+          "name": "MontoMnx",
+          "type": "decimal(18,2)",
+          "description": "Monto de la transaccion en MXN"
+        },
+        {
+          "name": "DescripcionOpe",
+          "type": "string",
+          "description": "Concepto de la transacción, describe para qué se efectuó la transacción"
+        },
+        {
+          "name": "OpeMonto",
+          "type": "decimal(25,15)",
+          "description": "Monto de la transaccion en la criptomoneda utilizada"
+        },
+        {
+          "name": "TipoTcFiatCripto",
+          "type": "string",
+          "description": "Tipo de cambio utilizado (spot - fix)"
+        },
+        {
+          "name": "MonedaOrigenId",
+          "type": "string",
+          "description": "Identificador de la moneda origen"
+        },
+        {
+          "name": "MonedaPuente",
+          "type": "string",
+          "description": "Divisa destino de la operacion"
+        },
+        {
+          "name": "MontoComision",
+          "type": "decimal(18,2)",
+          "description": "Comision por usar la carretera"
+        },
+        {
+          "name": "MontoComisionProveedor",
+          "type": "decimal(18,2)",
+          "description": "Comision que cobra el proveedor"
+        },
+        {
+          "name": "MontoDestino",
+          "type": "decimal(18,4)",
+          "description": "Monto destino de la operación"
+        },
+        {
+          "name": "MontoIvaComision",
+          "type": "decimal(18,2)",
+          "description": "iva de la comision de la carretera"
+        },
+        {
+          "name": "MontoIvaProveedor",
+          "type": "decimal(18,2)",
+          "description": "Iva por las comisiones del proveedor"
+        },
+        {
+          "name": "MontoOrigen",
+          "type": "decimal(18,4)",
+          "description": "Monto origen de la operación"
+        },
+        {
+          "name": "MontoSubtotalComision",
+          "type": "decimal(18,2)",
+          "description": "Subtotal de la comision de la carretera"
+        },
+        {
+          "name": "MontoSubtotalProveedor",
+          "type": "decimal(18,2)",
+          "description": "Sub total de las comisiones del proveedor"
+        },
+        {
+          "name": "MontoUsd",
+          "type": "decimal(18,2)",
+          "description": "Monto de la transaccion en USD"
+        },
+        {
+          "name": "OpeCanal",
+          "type": "string",
+          "description": "Nombre del canal en la que se hizo la operacion"
+        },
+        {
+          "name": "OpeEstatus",
+          "type": "string",
+          "description": "Estado en el que se encuentra la operacion"
+        },
+        {
+          "name": "OpeMedio",
+          "type": "string",
+          "description": "Medio por el cuál se efectua la transacción (ej traspaso, cash-in-out, SPEI)"
+        },
+        {
+          "name": "Proveedor",
+          "type": "string",
+          "description": "Nombre del proveedor"
+        },
+        {
+          "name": "SucursalId",
+          "type": "string",
+          "description": "Numero de la sucursal donde se efectuo la operación"
+        },
+        {
+          "name": "TcPuenteCripto",
+          "type": "decimal(18,4)",
+          "description": "Tipo de cambio USD a CRIPTO con el cual se hizo la transaccion"
+        },
+        {
+          "name": "TcCanal",
+          "type": "decimal(18,4)",
+          "description": "Tipo de cambio del canal"
+        },
+        {
+          "name": "TcCarretera",
+          "type": "decimal(18,4)",
+          "description": "Tipo de cambio de la carretera"
+        },
+        {
+          "name": "TcFiatCripto",
+          "type": "decimal(18,4)",
+          "description": "Tipo de cambio fiat de la moneda cripto"
+        },
+        {
+          "name": "TcFiatProveedor",
+          "type": "decimal(18,4)",
+          "description": "Tipo de cambio MXN a USD con el cual se hizo la transaccion"
+        },
+        {
+          "name": "TcProveedor",
+          "type": "decimal(18,4)",
+          "description": "Tipo de cambio del proveedor"
+        },
+        {
+          "name": "TipoCambioDestino",
+          "type": "decimal(18,4)",
+          "description": "Tipo de cambio Destino"
+        },
+        {
+          "name": "TipoCambioOrigen",
+          "type": "decimal(18,4)",
+          "description": "Tipo de cambio Origen"
+        },
+        {
+          "name": "TipoCambioSpotFix",
+          "type": "string",
+          "description": "Tipo de cambio utilizado"
+        },
+        {
+          "name": "TipoDivisaComision",
+          "type": "string",
+          "description": "Tipo de divisa en la que se cobra la comision"
+        },
+        {
+          "name": "TipoOpe",
+          "type": "string",
+          "description": "Tipo de la transaccion que se efectuo (COMPRA, VENTA)"
+        },
+        {
+          "name": "TipoRed",
+          "type": "string",
+          "description": "Tipo de red con la que se opero"
+        },
+        {
+          "name": "TipoSpreadTxn",
+          "type": "decimal(18,4)",
+          "description": "Diferencia entre el precio de la compra y el de venta de la transaccion"
+        },
+        {
+          "name": "TipoTcPuenteCripto",
+          "type": "string",
+          "description": "Proveedor de la moneda cripto"
+        },
+        {
+          "name": "OpeLatitud",
+          "type": "string",
+          "description": "Latitud de la operación"
+        },
+        {
+          "name": "OpeLongitud",
+          "type": "string",
+          "description": "longitud de la operación"
+        },
+        {
+          "name": "ClientePep",
+          "type": "string",
+          "description": "Si el cliente es una persona políticamente expuesta"
+        }
+      ]
+    },
+    {
+      "id": "n_src_metadatos",
+      "table": "metadatos",
+      "label": "metadatos",
+      "role": "source",
+      "kind": "metadatos",
+      "fields": [
+        {
+          "name": "UBDF_APP_BAZ_COINPRO",
+          "type": "string",
+          "description": "Valor literal o técnico usado por la transformación."
+        },
+        {
+          "name": "datetime.now().timestamp() * 1000",
+          "type": "timestamp",
+          "description": "Valor calculado en tiempo de ejecución."
+        },
+        {
+          "name": "current date yyyyMMdd",
+          "type": "timestamp",
+          "description": "Valor calculado en tiempo de ejecución."
+        }
+      ]
+    },
+    {
+      "id": "n_model",
+      "table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "label": "cd_cri_operaciones_cripto",
+      "role": "model",
+      "kind": "objeto Crystal/CD de Coinpro",
+      "fields": [
+        {
+          "name": "ClienteCriptoId",
+          "type": "string",
+          "description": "Identificador del cliente"
+        },
+        {
+          "name": "FecOpe",
+          "type": "string",
+          "description": "Fecha y hora en la que se efectuo la transaccion"
+        },
+        {
+          "name": "NumeroTransaccion",
+          "type": "string",
+          "description": "Identificador de la transaccion"
+        },
+        {
+          "name": "ClienteProductoId",
+          "type": "string",
+          "description": "Nombre del producto consumido"
+        },
+        {
+          "name": "ComercioId",
+          "type": "string",
+          "description": "Identificador del comercio"
+        },
+        {
+          "name": "ComisionCanal",
+          "type": "decimal(18,2)",
+          "description": "Comision del canal por la transaccion"
+        },
+        {
+          "name": "ComisionCarreteraDivisa",
+          "type": "string",
+          "description": "Divisa de la comison de la carretera"
+        },
+        {
+          "name": "ComisionEsquema",
+          "type": "decimal(18,2)",
+          "description": "Catalogo de comisiones de cambios cripto"
+        },
+        {
+          "name": "ComisionIva",
+          "type": "decimal(18,2)",
+          "description": "Iva de las comisiones"
+        },
+        {
+          "name": "ComisionIvaCana",
+          "type": "decimal(18,2)",
+          "description": "Iva de la comision del canal"
+        },
+        {
+          "name": "ComisionProveedorDivisa",
+          "type": "string",
+          "description": "Divisa en la que se esta cobrando la comision"
+        },
+        {
+          "name": "ComisionSubtotalCanal",
+          "type": "decimal(18,2)",
+          "description": "Subtotal de la comision del canal de operacion"
+        },
+        {
+          "name": "DescripcionOpe",
+          "type": "string",
+          "description": "Concepto de la transacción, describe para qué se efectuó la transacción"
+        },
+        {
+          "name": "CostoTxn",
+          "type": "decimal(18,2)",
+          "description": "Costo de la transaccion (cuento cuesta hacer la transaccion)"
+        },
+        {
+          "name": "CotizacionId",
+          "type": "string",
+          "description": "Identificador de cotizacion"
+        },
+        {
+          "name": "CuentaDestino",
+          "type": "string",
+          "description": "Cuenta destino de la operación"
+        },
+        {
+          "name": "CuentaOrigen",
+          "type": "string",
+          "description": "Cuenta origen de la operación"
+        },
+        {
+          "name": "HashBlockchain",
+          "type": "string",
+          "description": "hash de la confirmacion del blockchain"
+        },
+        {
+          "name": "ImpuestoComision",
+          "type": "decimal(18,2)",
+          "description": "Ingresos por las comisiones"
+        },
+        {
+          "name": "ImpuestoPais",
+          "type": "string",
+          "description": "Porcentaje de impuesto por el pais"
+        },
+        {
+          "name": "MonedaCripto",
+          "type": "string",
+          "description": "Tipo de moneda cripto utilizada en la transaccion"
+        },
+        {
+          "name": "MonedaDestinoId",
+          "type": "string",
+          "description": "Identificador de la moneda destino"
+        },
+        {
+          "name": "MonedaFiat",
+          "type": "string",
+          "description": "Divisa de origen de la operacion"
+        },
+        {
+          "name": "MonedaOrigenId",
+          "type": "string",
+          "description": "Identificador de la moneda origen"
+        },
+        {
+          "name": "MonedaPuente",
+          "type": "string",
+          "description": "Divisa destino de la operacion"
+        },
+        {
+          "name": "MontoComision",
+          "type": "decimal(18,2)",
+          "description": "Comision por usar la carretera"
+        },
+        {
+          "name": "MontoComisionProveedor",
+          "type": "decimal(18,2)",
+          "description": "Comision que cobra el proveedor"
+        },
+        {
+          "name": "MontoDestino",
+          "type": "decimal(18,4)",
+          "description": "Monto destino de la operación"
+        },
+        {
+          "name": "MontoIvaComision",
+          "type": "decimal(18,2)",
+          "description": "iva de la comision de la carretera"
+        },
+        {
+          "name": "MontoIvaProveedor",
+          "type": "decimal(18,2)",
+          "description": "Iva por las comisiones del proveedor"
+        },
+        {
+          "name": "MontoMnx",
+          "type": "decimal(18,2)",
+          "description": "Monto de la transaccion en MXN"
+        },
+        {
+          "name": "MontoOrigen",
+          "type": "decimal(18,4)",
+          "description": "Monto origen de la operación"
+        },
+        {
+          "name": "MontoSubtotalComision",
+          "type": "decimal(18,2)",
+          "description": "Subtotal de la comision de la carretera"
+        },
+        {
+          "name": "MontoSubtotalProveedor",
+          "type": "decimal(18,2)",
+          "description": "Sub total de las comisiones del proveedor"
+        },
+        {
+          "name": "MontoUsd",
+          "type": "decimal(18,2)",
+          "description": "Monto de la transaccion en USD"
+        },
+        {
+          "name": "OpeCanal",
+          "type": "string",
+          "description": "Nombre del canal en la que se hizo la operacion"
+        },
+        {
+          "name": "OpeEstatus",
+          "type": "string",
+          "description": "Estado en el que se encuentra la operacion"
+        },
+        {
+          "name": "OpeMedio",
+          "type": "string",
+          "description": "Medio por el cuál se efectua la transacción (ej traspaso, cash-in-out, SPEI)"
+        },
+        {
+          "name": "OpeMonto",
+          "type": "decimal(25,15)",
+          "description": "Monto de la transaccion en la criptomoneda utilizada"
+        },
+        {
+          "name": "Proveedor",
+          "type": "string",
+          "description": "Nombre del proveedor"
+        },
+        {
+          "name": "SucursalId",
+          "type": "string",
+          "description": "Numero de la sucursal donde se efectuo la operación"
+        },
+        {
+          "name": "TcPuenteCripto",
+          "type": "decimal(18,4)",
+          "description": "Tipo de cambio USD a CRIPTO con el cual se hizo la transaccion"
+        },
+        {
+          "name": "TcCanal",
+          "type": "decimal(18,4)",
+          "description": "Tipo de cambio del canal"
+        },
+        {
+          "name": "TcCarretera",
+          "type": "decimal(18,4)",
+          "description": "Tipo de cambio de la carretera"
+        },
+        {
+          "name": "TcFiatCripto",
+          "type": "decimal(18,4)",
+          "description": "Tipo de cambio fiat de la moneda cripto"
+        },
+        {
+          "name": "TcFiatProveedor",
+          "type": "decimal(18,4)",
+          "description": "Tipo de cambio MXN a USD con el cual se hizo la transaccion"
+        },
+        {
+          "name": "TcProveedor",
+          "type": "decimal(18,4)",
+          "description": "Tipo de cambio del proveedor"
+        },
+        {
+          "name": "TipoCambioDestino",
+          "type": "decimal(18,4)",
+          "description": "Tipo de cambio Destino"
+        },
+        {
+          "name": "TipoCambioOrigen",
+          "type": "decimal(18,4)",
+          "description": "Tipo de cambio Origen"
+        },
+        {
+          "name": "TipoCambioSpotFix",
+          "type": "string",
+          "description": "Tipo de cambio utilizado"
+        },
+        {
+          "name": "TipoDivisaComision",
+          "type": "string",
+          "description": "Tipo de divisa en la que se cobra la comision"
+        },
+        {
+          "name": "TipoOpe",
+          "type": "string",
+          "description": "Tipo de la transaccion que se efectuo (COMPRA, VENTA)"
+        },
+        {
+          "name": "TipoRed",
+          "type": "string",
+          "description": "Tipo de red con la que se opero"
+        },
+        {
+          "name": "TipoSpreadTxn",
+          "type": "decimal(18,4)",
+          "description": "Diferencia entre el precio de la compra y el de venta de la transaccion"
+        },
+        {
+          "name": "TipoTcFiatCripto",
+          "type": "string",
+          "description": "Tipo de cambio utilizado (spot - fix)"
+        },
+        {
+          "name": "TipoTcPuenteCripto",
+          "type": "string",
+          "description": "Proveedor de la moneda cripto"
+        },
+        {
+          "name": "OpeLatitud",
+          "type": "string",
+          "description": "Latitud de la operación"
+        },
+        {
+          "name": "OpeLongitud",
+          "type": "string",
+          "description": "longitud de la operación"
+        },
+        {
+          "name": "ClientePep",
+          "type": "string",
+          "description": "Si el cliente es una persona políticamente expuesta"
+        },
+        {
+          "name": "fcusuariocreacion",
+          "type": "string",
+          "description": "Usuario que proceso la ingesta del registro"
+        },
+        {
+          "name": "fdfechacreacion",
+          "type": "bigint",
+          "description": "Fecha en la que se proceso la ingesta del registro"
+        },
+        {
+          "name": "fifecha",
+          "type": "int",
+          "description": "Fecha en formato yyyyMMdd que sirve para el particionamiento de la tabla"
+        }
+      ]
+    }
+  ],
+  "canvasRel": [
+    {
+      "id": "c1",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "ClienteCriptoId",
+      "toNode": "n_model",
+      "toField": "ClienteCriptoId",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c2",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "FecOpe",
+      "toNode": "n_model",
+      "toField": "FecOpe",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c3",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "NumeroTransaccion",
+      "toNode": "n_model",
+      "toField": "NumeroTransaccion",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c4",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "ClienteProductoId",
+      "toNode": "n_model",
+      "toField": "ClienteProductoId",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c5",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "ComercioId",
+      "toNode": "n_model",
+      "toField": "ComercioId",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c6",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "ComisionCanal",
+      "toNode": "n_model",
+      "toField": "ComisionCanal",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c7",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "ComisionCarreteraDivisa",
+      "toNode": "n_model",
+      "toField": "ComisionCarreteraDivisa",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c8",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "ComisionEsquema",
+      "toNode": "n_model",
+      "toField": "ComisionEsquema",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c9",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "ComisionIva",
+      "toNode": "n_model",
+      "toField": "ComisionIva",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c10",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "ComisionIvaCana",
+      "toNode": "n_model",
+      "toField": "ComisionIvaCana",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c11",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "ComisionProveedorDivisa",
+      "toNode": "n_model",
+      "toField": "ComisionProveedorDivisa",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c12",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "ComisionSubtotalCanal",
+      "toNode": "n_model",
+      "toField": "ComisionSubtotalCanal",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c13",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "DescripcionOpe",
+      "toNode": "n_model",
+      "toField": "DescripcionOpe",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c14",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "CostoTxn",
+      "toNode": "n_model",
+      "toField": "CostoTxn",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c15",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "CotizacionId",
+      "toNode": "n_model",
+      "toField": "CotizacionId",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c16",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "CuentaDestino",
+      "toNode": "n_model",
+      "toField": "CuentaDestino",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c17",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "CuentaOrigen",
+      "toNode": "n_model",
+      "toField": "CuentaOrigen",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c18",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "HashBlockchain",
+      "toNode": "n_model",
+      "toField": "HashBlockchain",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c19",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "ImpuestoComision",
+      "toNode": "n_model",
+      "toField": "ImpuestoComision",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c20",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "ImpuestoPais",
+      "toNode": "n_model",
+      "toField": "ImpuestoPais",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c21",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "MonedaCripto",
+      "toNode": "n_model",
+      "toField": "MonedaCripto",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c22",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "MonedaDestinoId",
+      "toNode": "n_model",
+      "toField": "MonedaDestinoId",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c23",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "MonedaFiat",
+      "toNode": "n_model",
+      "toField": "MonedaFiat",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c24",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "MonedaOrigenId",
+      "toNode": "n_model",
+      "toField": "MonedaOrigenId",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c25",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "MonedaPuente",
+      "toNode": "n_model",
+      "toField": "MonedaPuente",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c26",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "MontoComision",
+      "toNode": "n_model",
+      "toField": "MontoComision",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c27",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "MontoComisionProveedor",
+      "toNode": "n_model",
+      "toField": "MontoComisionProveedor",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c28",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "MontoDestino",
+      "toNode": "n_model",
+      "toField": "MontoDestino",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c29",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "MontoIvaComision",
+      "toNode": "n_model",
+      "toField": "MontoIvaComision",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c30",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "MontoIvaProveedor",
+      "toNode": "n_model",
+      "toField": "MontoIvaProveedor",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c31",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "MontoMnx",
+      "toNode": "n_model",
+      "toField": "MontoMnx",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c32",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "MontoOrigen",
+      "toNode": "n_model",
+      "toField": "MontoOrigen",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c33",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "MontoSubtotalComision",
+      "toNode": "n_model",
+      "toField": "MontoSubtotalComision",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c34",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "MontoSubtotalProveedor",
+      "toNode": "n_model",
+      "toField": "MontoSubtotalProveedor",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c35",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "MontoUsd",
+      "toNode": "n_model",
+      "toField": "MontoUsd",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c36",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "OpeCanal",
+      "toNode": "n_model",
+      "toField": "OpeCanal",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c37",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "OpeEstatus",
+      "toNode": "n_model",
+      "toField": "OpeEstatus",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c38",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "OpeMedio",
+      "toNode": "n_model",
+      "toField": "OpeMedio",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c39",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "OpeMonto",
+      "toNode": "n_model",
+      "toField": "OpeMonto",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c40",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "Proveedor",
+      "toNode": "n_model",
+      "toField": "Proveedor",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c41",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "SucursalId",
+      "toNode": "n_model",
+      "toField": "SucursalId",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c42",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "TcPuenteCripto",
+      "toNode": "n_model",
+      "toField": "TcPuenteCripto",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c43",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "TcCanal",
+      "toNode": "n_model",
+      "toField": "TcCanal",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c44",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "TcCarretera",
+      "toNode": "n_model",
+      "toField": "TcCarretera",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c45",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "TcFiatCripto",
+      "toNode": "n_model",
+      "toField": "TcFiatCripto",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c46",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "TcFiatProveedor",
+      "toNode": "n_model",
+      "toField": "TcFiatProveedor",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c47",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "TcProveedor",
+      "toNode": "n_model",
+      "toField": "TcProveedor",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c48",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "TipoCambioDestino",
+      "toNode": "n_model",
+      "toField": "TipoCambioDestino",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c49",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "TipoCambioOrigen",
+      "toNode": "n_model",
+      "toField": "TipoCambioOrigen",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c50",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "TipoCambioSpotFix",
+      "toNode": "n_model",
+      "toField": "TipoCambioSpotFix",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c51",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "TipoDivisaComision",
+      "toNode": "n_model",
+      "toField": "TipoDivisaComision",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c52",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "TipoOpe",
+      "toNode": "n_model",
+      "toField": "TipoOpe",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c53",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "TipoRed",
+      "toNode": "n_model",
+      "toField": "TipoRed",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c54",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "TipoSpreadTxn",
+      "toNode": "n_model",
+      "toField": "TipoSpreadTxn",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c55",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "TipoTcFiatCripto",
+      "toNode": "n_model",
+      "toField": "TipoTcFiatCripto",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c56",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "TipoTcPuenteCripto",
+      "toNode": "n_model",
+      "toField": "TipoTcPuenteCripto",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c57",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "OpeLatitud",
+      "toNode": "n_model",
+      "toField": "OpeLatitud",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c58",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "OpeLongitud",
+      "toNode": "n_model",
+      "toField": "OpeLongitud",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c59",
+      "fromNode": "n_src_cd_bdpld_cd_cri_movimientos",
+      "fromField": "ClientePep",
+      "toNode": "n_model",
+      "toField": "ClientePep",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "active_upstream_field",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when a...",
+      "full": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c60",
+      "fromNode": "n_src_metadatos",
+      "fromField": "UBDF_APP_BAZ_COINPRO",
+      "toNode": "n_model",
+      "toField": "fcusuariocreacion",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "runtime_metadata",
+      "transform": "Constant lit(UBDF_APP_BAZ_COINPRO).",
+      "full": "Constant lit(UBDF_APP_BAZ_COINPRO).",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c61",
+      "fromNode": "n_src_metadatos",
+      "fromField": "datetime.now().timestamp() * 1000",
+      "toNode": "n_model",
+      "toField": "fdfechacreacion",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "runtime_metadata",
+      "transform": "Runtime processing timestamp cast BIGINT.",
+      "full": "Runtime processing timestamp cast BIGINT.",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "id": "c62",
+      "fromNode": "n_src_metadatos",
+      "fromField": "current date yyyyMMdd",
+      "toNode": "n_model",
+      "toField": "fifecha",
+      "color": "#0ea5a4",
+      "stroke": "solid",
+      "direction": "upstream",
+      "rtype": "runtime_metadata",
+      "transform": "Runtime current date cast INT.",
+      "full": "Runtime current date cast INT.",
+      "evidence": "/app/bancoazteca/crystal/baz-crystal-cd_cri_mov_cte_detalle-jnb/run.nb/cd_cri_operaciones_cripto.ipynb",
+      "path_index": "85094",
+      "notes": ""
+    }
+  ],
+  "all": [
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ClienteCriptoId",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "ClienteCriptoId",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "FecOpe",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "FecOpe",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "NumeroTransaccion",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "NumeroTransaccion",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ClienteProductoId",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "ClienteProductoId",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ComercioId",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "ComercioId",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ComisionCanal",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "ComisionCanal",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ComisionCarreteraDivisa",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "ComisionCarreteraDivisa",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ComisionEsquema",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "ComisionEsquema",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ComisionIva",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "ComisionIva",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ComisionIvaCana",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "ComisionIvaCana",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ComisionProveedorDivisa",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "ComisionProveedorDivisa",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ComisionSubtotalCanal",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "ComisionSubtotalCanal",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "DescripcionOpe",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "DescripcionOpe",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "CostoTxn",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "CostoTxn",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "CotizacionId",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "CotizacionId",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "CuentaDestino",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "CuentaDestino",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "CuentaOrigen",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "CuentaOrigen",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "HashBlockchain",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "HashBlockchain",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ImpuestoComision",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "ImpuestoComision",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ImpuestoPais",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "ImpuestoPais",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "MonedaCripto",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "MonedaCripto",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "MonedaDestinoId",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "MonedaDestinoId",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "MonedaFiat",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "MonedaFiat",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "MonedaOrigenId",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "MonedaOrigenId",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "MonedaPuente",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "MonedaPuente",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "MontoComision",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "MontoComision",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "MontoComisionProveedor",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "MontoComisionProveedor",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "MontoDestino",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "MontoDestino",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "MontoIvaComision",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "MontoIvaComision",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "MontoIvaProveedor",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "MontoIvaProveedor",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "MontoMnx",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "MontoMnx",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "MontoOrigen",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "MontoOrigen",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "MontoSubtotalComision",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "MontoSubtotalComision",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "MontoSubtotalProveedor",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "MontoSubtotalProveedor",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "MontoUsd",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "MontoUsd",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "OpeCanal",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "OpeCanal",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "OpeEstatus",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "OpeEstatus",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "OpeMedio",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "OpeMedio",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "OpeMonto",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "OpeMonto",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "Proveedor",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "Proveedor",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "SucursalId",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "SucursalId",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "TcPuenteCripto",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "TcPuenteCripto",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "TcCanal",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "TcCanal",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "TcCarretera",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "TcCarretera",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "TcFiatCripto",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "TcFiatCripto",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "TcFiatProveedor",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "TcFiatProveedor",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "TcProveedor",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "TcProveedor",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "TipoCambioDestino",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "TipoCambioDestino",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "TipoCambioOrigen",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "TipoCambioOrigen",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "TipoCambioSpotFix",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "TipoCambioSpotFix",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "TipoDivisaComision",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "TipoDivisaComision",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "TipoOpe",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "TipoOpe",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "TipoRed",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "TipoRed",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "TipoSpreadTxn",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "TipoSpreadTxn",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "TipoTcFiatCripto",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "TipoTcFiatCripto",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "TipoTcPuenteCripto",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "TipoTcPuenteCripto",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "OpeLatitud",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "OpeLatitud",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "OpeLongitud",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "OpeLongitud",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ClientePep",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "ClientePep",
+      "transform": "direct select; FecOpe converted/reformatted and MontoOrigen cast DecimalType(18,4) when applicable",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "ClienteCriptoId,NumeroTransaccion",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "_row_filter",
+      "transform": "Common downstream filter removes null/empty cliente and transaccion; most flows also remove ANONIMO.",
+      "relation_type": "active_upstream_field",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "metadatos",
+      "source_field": "UBDF_APP_BAZ_COINPRO",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "fcusuariocreacion",
+      "transform": "Constant lit(UBDF_APP_BAZ_COINPRO).",
+      "relation_type": "runtime_metadata",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "metadatos",
+      "source_field": "datetime.now().timestamp() * 1000",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "fdfechacreacion",
+      "transform": "Runtime processing timestamp cast BIGINT.",
+      "relation_type": "runtime_metadata",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "upstream",
+      "source_table": "metadatos",
+      "source_field": "current date yyyyMMdd",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "fifecha",
+      "transform": "Runtime current date cast INT.",
+      "relation_type": "runtime_metadata",
+      "path_index": "85094",
+      "notes": ""
+    },
+    {
+      "direction": "neighborhood",
+      "source_table": "cd_bdpld.cd_cri_movimientos",
+      "source_field": "*",
+      "target_table": "cd_bdpld.cd_cri_operaciones_cripto",
+      "target_field": "_related_object",
+      "transform": "Projection/detail table source.",
+      "relation_type": "related_object",
+      "path_index": "85094",
+      "notes": ""
+    }
+  ],
+  "counts": {
+    "upstream": 63,
+    "downstream": 0,
+    "neighborhood": 1
+  }
+}
