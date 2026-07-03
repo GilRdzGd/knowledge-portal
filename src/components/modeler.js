@@ -19,6 +19,7 @@ const zoomButtons = Array.from(document.querySelectorAll("[data-zoom-action]"));
 const zoomReadout = document.querySelector(".zoom-readout");
 const expandDiagramButton = document.querySelector("#expand-diagram-button");
 const editModeButton = document.querySelector("#edit-mode-button");
+const relationHighlightButton = document.querySelector("#relation-highlight-button");
 const colorControls = document.querySelector(".color-controls");
 const tableColorButton = document.querySelector("#table-color-button");
 const tableColorMenu = document.querySelector("#table-color-menu");
@@ -83,6 +84,7 @@ let erCards = [];
 let selectedCardId = null;
 const selectedCardIds = new Set();
 let selectedGroupId = null;
+let relationHighlightEnabled = false;
 const groups = [];
 const groupEls = [];
 const cardColors = {};
@@ -311,7 +313,9 @@ function renderCards(savedPositions) {
       const rows = (table.fields || [])
         .map((field) => {
           const badge = field.key ? `<strong>${escapeHtml(field.key)}</strong>` : "";
-          return `<span class="er-row" data-field="${fieldSlug(field.name)}">${badge}<span>${escapeHtml(
+          return `<span class="er-row" data-field="${fieldSlug(field.name)}" title="${escapeHtml(
+            field.note || "Sin comentario registrado."
+          )}">${badge}<span>${escapeHtml(
             field.name
           )}</span><em>${escapeHtml(field.type)}</em></span>`;
         })
@@ -320,7 +324,9 @@ function renderCards(savedPositions) {
       return `
         <div class="er-card" data-er-card="${escapeHtml(table.id)}" tabindex="0" role="button"
              style="left:${pos.left}px; top:${pos.top}px; width:${CARD_WIDTH}px;">
-          <span class="er-card-title">${escapeHtml(table.title)}</span>
+          <span class="er-card-title" title="${escapeHtml(
+            table.description || "Sin comentario registrado."
+          )}">${escapeHtml(table.title)}</span>
           <span class="er-card-meta">${escapeHtml(table.tag)}</span>
           <div class="er-card-fields${capped ? " is-field-capped" : ""}">${rows}</div>
         </div>`;
@@ -501,6 +507,7 @@ function rebuildRelationships() {
   relationships = currentRelationships();
   buildRelationElements();
   updateRelationships();
+  applyRelationHighlightMode();
 }
 
 function buildRelationElements() {
@@ -534,8 +541,6 @@ function buildRelationElements() {
     group.appendChild(marker);
     svg.appendChild(group);
 
-    group.addEventListener("mouseenter", () => highlightRelation(rel));
-    group.addEventListener("mouseleave", clearHighlight);
     group.addEventListener("click", (event) => {
       event.stopPropagation();
       if (editModeEnabled) {
@@ -875,9 +880,13 @@ function clearHighlight() {
   relationEls.forEach(({ group }) => group.classList.remove("is-active"));
   erCards.forEach((card) => card.classList.remove("is-active"));
   document.querySelectorAll(".er-row.is-linked").forEach((row) => row.classList.remove("is-linked"));
+  if (relationHighlightEnabled) {
+    applyRelationHighlightMode();
+  }
 }
 
 function highlightRelation(rel) {
+  diagramPanel?.classList.remove("is-relation-highlight-mode");
   clearHighlight();
   diagramPanel?.classList.add("is-focused");
   const target = relationEls.find((item) => item.rel.id === rel.id);
@@ -889,6 +898,7 @@ function highlightRelation(rel) {
 }
 
 function highlightTable(tableId) {
+  diagramPanel?.classList.remove("is-relation-highlight-mode");
   clearHighlight();
   diagramPanel?.classList.add("is-focused");
   cardEl(tableId)?.classList.add("is-active");
@@ -904,6 +914,34 @@ function highlightTable(tableId) {
     markRow(rel.childId, rel.childField, true);
     markRow(rel.parentId, rel.parentField, true);
   });
+}
+
+function applyRelationHighlightMode() {
+  diagramPanel?.classList.toggle("is-relation-highlight-mode", relationHighlightEnabled);
+  relationEls.forEach(({ group }) => group.classList.toggle("is-active", relationHighlightEnabled));
+  document.querySelectorAll(".er-row.is-linked").forEach((row) => row.classList.remove("is-linked"));
+  if (!relationHighlightEnabled) {
+    return;
+  }
+  relationships.forEach((rel) => {
+    markRow(rel.childId, rel.childField, true);
+    markRow(rel.parentId, rel.parentField, true);
+  });
+}
+
+function setRelationHighlightMode(enabled) {
+  relationHighlightEnabled = enabled;
+  relationHighlightButton?.setAttribute("aria-pressed", enabled ? "true" : "false");
+  if (relationHighlightButton) {
+    relationHighlightButton.textContent = enabled ? "Ocultar relaciones" : "Relaciones";
+  }
+  if (!enabled) {
+    diagramPanel?.classList.remove("is-relation-highlight-mode", "is-focused");
+    relationEls.forEach(({ group }) => group.classList.remove("is-active"));
+    document.querySelectorAll(".er-row.is-linked").forEach((row) => row.classList.remove("is-linked"));
+    return;
+  }
+  applyRelationHighlightMode();
 }
 
 // ------------------------------------------------------------------ dragging
@@ -966,19 +1004,6 @@ function enableDragging(card) {
 function bindCards() {
   erCards.forEach((card) => {
     const tableId = card.dataset.erCard;
-
-    card.addEventListener("mouseenter", () => {
-      if (!card.classList.contains("is-dragging")) {
-        highlightTable(tableId);
-      }
-    });
-    card.addEventListener("mouseleave", () => {
-      if (!card.classList.contains("is-dragging")) {
-        clearHighlight();
-      }
-    });
-    card.addEventListener("focus", () => highlightTable(tableId));
-    card.addEventListener("blur", clearHighlight);
 
     card.addEventListener("click", (event) => {
       if (card.dataset.dragMoved === "true") {
@@ -1601,6 +1626,9 @@ function bindToolbar() {
   groupTablesButton?.addEventListener("click", createGroupFromSelection);
   deleteGroupButton?.addEventListener("click", deleteSelectedGroup);
   deleteRelationButton?.addEventListener("click", deleteSelectedRelation);
+  relationHighlightButton?.addEventListener("click", () => {
+    setRelationHighlightMode(!relationHighlightEnabled);
+  });
 }
 
 // ---------------------------------------------------------------------- init

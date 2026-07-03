@@ -15,6 +15,9 @@ export function createModelDocument() {
           <button class="zoom-button edit-mode-button" id="edit-mode-button" type="button" aria-pressed="false">
             Edicion
           </button>
+          <button class="zoom-button relation-highlight-button" id="relation-highlight-button" type="button" aria-pressed="false">
+            Relaciones
+          </button>
           <div class="color-controls" aria-label="Table color controls">
             <button class="zoom-button color-button" id="table-color-button" type="button" aria-haspopup="true" aria-expanded="false">
               Color

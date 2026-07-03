@@ -486,6 +486,12 @@ body.diagram-expanded-mode {
   font-size: 0.72rem;
 }
 
+.relation-highlight-button {
+  min-width: 112px;
+  font-family: "IBM Plex Mono", "SFMono-Regular", monospace;
+  font-size: 0.72rem;
+}
+
 .group-button {
   min-width: 108px;
   font-family: "IBM Plex Mono", "SFMono-Regular", monospace;
@@ -1236,6 +1242,21 @@ td {
 .er-row.is-linked strong,
 .er-row.is-linked > span {
   color: var(--accent);
+}
+
+.diagram-panel.is-relation-highlight-mode .er-row {
+  opacity: 0.28;
+}
+
+.diagram-panel.is-relation-highlight-mode .er-row.is-linked {
+  opacity: 1;
+}
+
+.relation-highlight-button[aria-pressed="true"] {
+  border-color: rgba(37, 99, 235, 0.42);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.98), rgba(124, 58, 237, 0.9));
+  color: #fff;
+  box-shadow: 0 16px 34px rgba(37, 99, 235, 0.22);
 }
 
 .er-card.is-dimmed {
