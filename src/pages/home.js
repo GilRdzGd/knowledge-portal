@@ -12,7 +12,6 @@ function createHomeDocument() {
 <body class="home-doc">
   <main class="home-stage">
     <div class="home-mark">${cubeMarkup}</div>
-    <h1>Plataforma de Datos</h1>
   </main>
 </body>
 </html>`;

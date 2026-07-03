@@ -29,7 +29,7 @@ export function createLineagePage({ catalog, shell, viewer }) {
     currentItem = item;
     shell.setActive("linaje");
     shell.pageTitle.textContent = "Linaje de datos global";
-    shell.targetLabel.textContent = item.target;
+    shell.targetLabel.textContent = "Actualizado: 3 de julio de 2026";
     shell.relMode.textContent = `Vista linaje: ${item.key}`;
     shell.input.value = item.key;
     shell.setCounts(item.counts);
@@ -40,7 +40,7 @@ export function createLineagePage({ catalog, shell, viewer }) {
     currentItem = null;
     shell.setActive("linaje");
     shell.pageTitle.textContent = "Linaje de datos global";
-    shell.targetLabel.textContent = "Coinpro - grafo global de linaje";
+    shell.targetLabel.textContent = "Actualizado: 3 de julio de 2026";
     shell.relMode.textContent = "Vista global tabla-a-tabla";
     shell.input.value = "";
     shell.setCounts(catalog.overviewCounts);

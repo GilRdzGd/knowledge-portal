@@ -17,7 +17,7 @@ export function createShell(root) {
         <header class="header">
           <div>
             <h1 id="pageTitle">Linaje de datos global</h1>
-            <p class="subtitle">Tabla objetivo: <code id="targetLabel">Coinpro - visor global</code></p>
+            <p class="subtitle" id="targetLabel">Actualizado: 3 de julio de 2026</p>
           </div>
         </header>
         <section class="counts" aria-label="Conteos de relaciones">

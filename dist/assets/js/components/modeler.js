@@ -51,7 +51,7 @@ const SCENE_PADDING = 240;
 
 const STUB = 26; // horizontal length of the connector stub leaving a table
 const CORNER = 9; // radius of the rounded elbows
-const STORAGE_KEY = "data-modeler-state-v5";
+const STORAGE_KEY = "data-modeler-state-v7";
 
 // ------------------------------------------------------------------- schema
 const schemaTables = await fetch("assets/data/model-schema.json").then((response) => {
@@ -87,6 +87,8 @@ let selectedGroupId = null;
 let relationHighlightEnabled = false;
 const groups = [];
 const groupEls = [];
+const schemaGroups = [];
+const schemaGroupEls = [];
 const cardColors = {};
 let viewportCentered = false;
 
@@ -120,6 +122,77 @@ function cardEl(tableId) {
   return document.querySelector(`[data-er-card="${tableId}"]`);
 }
 
+let modelTooltip = null;
+
+function ensureModelTooltip() {
+  if (modelTooltip) {
+    return modelTooltip;
+  }
+  modelTooltip = document.createElement("div");
+  modelTooltip.className = "model-comment-tooltip";
+  modelTooltip.id = "model-comment-tooltip";
+  modelTooltip.hidden = true;
+  modelTooltip.setAttribute("role", "tooltip");
+  document.body.appendChild(modelTooltip);
+  return modelTooltip;
+}
+
+function positionModelTooltip(clientX, clientY) {
+  const tooltip = ensureModelTooltip();
+  const margin = 14;
+  const offset = 16;
+  const rect = tooltip.getBoundingClientRect();
+  let left = clientX + offset;
+  let top = clientY + offset;
+
+  if (left + rect.width > window.innerWidth - margin) {
+    left = Math.max(margin, clientX - rect.width - offset);
+  }
+  if (top + rect.height > window.innerHeight - margin) {
+    top = Math.max(margin, clientY - rect.height - offset);
+  }
+
+  tooltip.style.left = `${left}px`;
+  tooltip.style.top = `${top}px`;
+}
+
+function showModelTooltip(target, event) {
+  const comment = target.dataset.tooltipComment || "";
+  if (!comment.trim()) {
+    return;
+  }
+  target.classList.add("is-comment-hovered");
+  const tooltip = ensureModelTooltip();
+  const title = document.createElement("strong");
+  const body = document.createElement("span");
+  title.textContent = target.dataset.tooltipTitle || "Comentario";
+  body.textContent = comment;
+  tooltip.replaceChildren(title, body);
+  tooltip.hidden = false;
+
+  const rect = target.getBoundingClientRect();
+  const clientX = event?.clientX ?? rect.left + rect.width / 2;
+  const clientY = event?.clientY ?? rect.top + Math.min(rect.height, 18);
+  positionModelTooltip(clientX, clientY);
+}
+
+function hideModelTooltip() {
+  document.querySelectorAll(".is-comment-hovered").forEach((target) => target.classList.remove("is-comment-hovered"));
+  if (modelTooltip) {
+    modelTooltip.hidden = true;
+  }
+}
+
+function bindCommentTooltips() {
+  document.querySelectorAll("[data-model-tooltip]").forEach((target) => {
+    target.addEventListener("mouseenter", (event) => showModelTooltip(target, event));
+    target.addEventListener("mousemove", (event) => positionModelTooltip(event.clientX, event.clientY));
+    target.addEventListener("mouseleave", hideModelTooltip);
+    target.addEventListener("focus", (event) => showModelTooltip(target, event));
+    target.addEventListener("blur", hideModelTooltip);
+  });
+}
+
 function metrics(card) {
   return {
     left: Number.parseFloat(card.style.left || "0"),
@@ -138,13 +211,62 @@ function buildTablePageHref(tableId) {
 }
 
 // ----------------------------------------------------- relationship derivation
-// Foreign keys are declared inside each field note as "FK a <table>.<column>".
-// That gives us true column-level relationships instead of table-to-table links.
+function buildSchemaGroups() {
+  const grouped = new Map();
+  schemaTables.forEach((table) => {
+    if (!table.dbmlGroup) {
+      return;
+    }
+    if (!grouped.has(table.dbmlGroup)) {
+      grouped.set(table.dbmlGroup, {
+        id: `schema-group-${fieldSlug(table.dbmlGroup)}`,
+        name: table.dbmlGroup,
+        cardIds: [],
+        color: schemaGroupColor(grouped.size),
+        locked: true,
+      });
+    }
+    grouped.get(table.dbmlGroup).cardIds.push(table.id);
+  });
+  schemaGroups.splice(0, schemaGroups.length, ...grouped.values());
+}
+
+function schemaGroupColor(index) {
+  const colors = ["#2563eb", "#7c3aed", "#0891b2", "#059669", "#d97706", "#dc2626", "#4f46e5", "#0f766e"];
+  return colors[index % colors.length];
+}
+
+// Relationships can come from DBML-enriched modelRelations or, as fallback,
+// from field notes that mention "FK a <table>.<column>".
 function deriveRelationships() {
   const result = [];
   const seen = new Set();
 
   schemaTables.forEach((child) => {
+    (child.modelRelations || []).forEach((rel) => {
+      if (!tableById[rel.childId] || !tableById[rel.parentId]) {
+        return;
+      }
+      const id = rel.id || `${rel.childId}.${rel.childField}__${rel.parentId}.${rel.parentField}`;
+      if (seen.has(id)) {
+        return;
+      }
+      seen.add(id);
+      result.push({
+        id,
+        childId: rel.childId,
+        childField: rel.childField,
+        parentId: rel.parentId,
+        parentField: rel.parentField,
+        source: rel.source || "schema",
+        dbmlGroup: rel.dbmlGroup || child.dbmlGroup || "",
+      });
+    });
+
+    if (child.modelRelations?.length) {
+      return;
+    }
+
     (child.fields || []).forEach((field) => {
       const match = /FK a\s+([A-Za-z0-9_]+)\.([A-Za-z0-9_]+)/i.exec(field.note || "");
       if (!match) {
@@ -263,6 +385,50 @@ function computeColumn(table, satelliteParentTag) {
   return 1;
 }
 
+function tableKind(table) {
+  if (String(table.title || "").startsWith("fact_")) return "fact";
+  if (String(table.title || "").startsWith("dim_")) return "dim";
+  return "other";
+}
+
+function layoutStarGroup(group, top, positions) {
+  const members = group.cardIds.map((id) => tableById[id]).filter(Boolean);
+  const facts = members.filter((table) => tableKind(table) === "fact");
+  const dims = members.filter((table) => tableKind(table) === "dim");
+  const others = members.filter((table) => tableKind(table) === "other");
+  const leftX = 80;
+  const centerX = 720;
+  const rightX = 1360;
+  const dimGap = 54;
+  const factGap = 76;
+  const dimRows = [[], []];
+
+  dims.forEach((table, index) => dimRows[index % 2].push(table));
+  dimRows[0].forEach((table, index) => {
+    positions[table.id] = { left: leftX, top: top + index * (estimateHeight(table) + dimGap) };
+  });
+  dimRows[1].forEach((table, index) => {
+    positions[table.id] = { left: rightX, top: top + index * (estimateHeight(table) + dimGap) };
+  });
+
+  const dimHeight = Math.max(
+    ...dimRows.map((row) => row.reduce((sum, table) => sum + estimateHeight(table) + dimGap, 0)),
+    260
+  );
+  const factHeight = facts.reduce((sum, table) => sum + estimateHeight(table) + factGap, 0);
+  let factTop = top + Math.max(0, (dimHeight - factHeight) / 2);
+  facts.forEach((table) => {
+    positions[table.id] = { left: centerX, top: factTop };
+    factTop += estimateHeight(table) + factGap;
+  });
+  others.forEach((table, index) => {
+    positions[table.id] = { left: centerX, top: factTop + index * (estimateHeight(table) + factGap) };
+  });
+
+  const totalHeight = Math.max(dimHeight, factHeight, 260);
+  return top + totalHeight + 180;
+}
+
 function computeLayout(savedPositions) {
   const satelliteParentTag = {};
   relationships.forEach((rel) => {
@@ -272,20 +438,27 @@ function computeLayout(savedPositions) {
     }
   });
 
-  const columns = { 0: [], 1: [], 2: [], 3: [] };
-  schemaTables.forEach((table) => {
-    columns[computeColumn(table, satelliteParentTag)].push(table);
-  });
-
   const positions = {};
-  Object.keys(columns).forEach((key) => {
-    const column = Number(key);
-    let y = COLUMN_TOP;
-    columns[column].forEach((table) => {
-      positions[table.id] = { left: COLUMN_X[column], top: y };
-      y += estimateHeight(table) + CARD_GAP;
+  if (schemaGroups.length) {
+    let groupTop = COLUMN_TOP;
+    schemaGroups.forEach((group) => {
+      groupTop = layoutStarGroup(group, groupTop, positions);
     });
-  });
+  } else {
+    const columns = { 0: [], 1: [], 2: [], 3: [] };
+    schemaTables.forEach((table) => {
+      columns[computeColumn(table, satelliteParentTag)].push(table);
+    });
+
+    Object.keys(columns).forEach((key) => {
+      const column = Number(key);
+      let y = COLUMN_TOP;
+      columns[column].forEach((table) => {
+        positions[table.id] = { left: COLUMN_X[column], top: y };
+        y += estimateHeight(table) + CARD_GAP;
+      });
+    });
+  }
 
   if (savedPositions) {
     Object.entries(savedPositions).forEach(([id, pos]) => {
@@ -313,7 +486,9 @@ function renderCards(savedPositions) {
       const rows = (table.fields || [])
         .map((field) => {
           const badge = field.key ? `<strong>${escapeHtml(field.key)}</strong>` : "";
-          return `<span class="er-row" data-field="${fieldSlug(field.name)}" title="${escapeHtml(
+          return `<span class="er-row" data-field="${fieldSlug(field.name)}" data-model-tooltip="field" data-tooltip-title="${escapeHtml(
+            field.name
+          )}" data-tooltip-comment="${escapeHtml(
             field.note || "Sin comentario registrado."
           )}">${badge}<span>${escapeHtml(
             field.name
@@ -322,9 +497,11 @@ function renderCards(savedPositions) {
         .join("");
 
       return `
-        <div class="er-card" data-er-card="${escapeHtml(table.id)}" tabindex="0" role="button"
+        <div class="er-card is-${tableKind(table)}-table" data-er-card="${escapeHtml(table.id)}" tabindex="0" role="button"
              style="left:${pos.left}px; top:${pos.top}px; width:${CARD_WIDTH}px;">
-          <span class="er-card-title" title="${escapeHtml(
+          <span class="er-card-title" data-model-tooltip="table" data-tooltip-title="${escapeHtml(
+            table.title
+          )}" data-tooltip-comment="${escapeHtml(
             table.description || "Sin comentario registrado."
           )}">${escapeHtml(table.title)}</span>
           <span class="er-card-meta">${escapeHtml(table.tag)}</span>
@@ -1257,6 +1434,41 @@ function groupBounds(group) {
   };
 }
 
+function renderSchemaGroups() {
+  if (!diagramScene) {
+    return;
+  }
+  schemaGroupEls.splice(0).forEach((el) => el.remove());
+
+  schemaGroups.forEach((group) => {
+    const el = document.createElement("div");
+    el.className = "table-group schema-table-group";
+    el.dataset.schemaGroupId = group.id;
+    el.innerHTML = `<div class="table-group-header"><span>${escapeHtml(group.name)}</span></div>`;
+    el.style.setProperty("--group-color", group.color);
+    diagramScene.appendChild(el);
+    schemaGroupEls.push(el);
+  });
+
+  updateSchemaGroups();
+}
+
+function updateSchemaGroups() {
+  schemaGroupEls.forEach((el) => {
+    const group = schemaGroups.find((g) => g.id === el.dataset.schemaGroupId);
+    const bounds = group && groupBounds(group);
+    if (!bounds) {
+      el.style.display = "none";
+      return;
+    }
+    el.style.display = "";
+    el.style.left = `${bounds.left}px`;
+    el.style.top = `${bounds.top}px`;
+    el.style.width = `${bounds.width}px`;
+    el.style.height = `${bounds.height}px`;
+  });
+}
+
 function renderGroups() {
   if (!diagramScene) {
     return;
@@ -1295,6 +1507,7 @@ function renderGroups() {
 }
 
 function updateGroups() {
+  updateSchemaGroups();
   groupEls.forEach((el) => {
     const group = groups.find((g) => g.id === el.dataset.groupId);
     const bounds = group && groupBounds(group);
@@ -1647,6 +1860,7 @@ function initializeModeler() {
   }
 
   schemaRelationships = deriveRelationships();
+  buildSchemaGroups();
   const state = loadState();
 
   if (Array.isArray(state?.customRelationships)) {
@@ -1670,7 +1884,9 @@ function initializeModeler() {
   createFieldConnectors();
   rebuildRelationships();
   bindCards();
+  bindCommentTooltips();
   bindToolbar();
+  renderSchemaGroups();
   restoreGroups(state?.groups);
 
   if (typeof state?.zoom === "number") {

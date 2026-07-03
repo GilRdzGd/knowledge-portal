@@ -6,7 +6,7 @@ export function createModelPage({ catalog, shell, viewer }) {
       shell.setActive("modelo");
       shell.setModelExpanded(false);
       shell.pageTitle.textContent = "Modelo de datos";
-      shell.targetLabel.textContent = "Coinpro Data Vault - modelo de tablas";
+      shell.targetLabel.textContent = "Publicado: 3 de julio de 2026";
       shell.relMode.textContent = "Vista modelo";
       shell.setCounts({ upstream: 0, downstream: 0, neighborhood: 0 });
       viewer.showHtml(createModelDocument());

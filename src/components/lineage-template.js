@@ -28,7 +28,7 @@ export function createLineageDocument(dataPath) {
       <div class="header">
         <div>
           <h1>Linaje de datos a nivel de campo</h1>
-          <p class="subtitle">Tabla objetivo: <code>Coinpro - grafo global de linaje</code> · objeto de Coinpro</p>
+          <p class="subtitle">Actualizado: 3 de julio de 2026</p>
         </div>
         <div class="actions"></div>
       </div>
