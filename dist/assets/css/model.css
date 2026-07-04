@@ -902,7 +902,7 @@ body.diagram-expanded-mode {
 }
 
 .schema-table-group {
-  z-index: 6;
+  z-index: 1;
   pointer-events: none;
   opacity: 0.86;
   border-style: solid;
@@ -911,14 +911,18 @@ body.diagram-expanded-mode {
     rgba(255, 255, 255, 0.18);
 }
 
-.schema-table-group .table-group-header {
-  position: relative;
-  z-index: 7;
+.schema-group-drag-header {
+  position: absolute;
+  z-index: 6;
   pointer-events: auto;
   cursor: grab;
   touch-action: none;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+}
+
+.schema-group-drag-header:active {
+  cursor: grabbing;
 }
 
 .table-group-body {

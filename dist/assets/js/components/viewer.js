@@ -13,7 +13,7 @@ export function createViewer(shell) {
   }
 
   function setZoom(value) {
-    currentZoom = Math.max(0.35, Math.min(2.25, value));
+    currentZoom = Math.max(0.1, Math.min(2.25, value));
     shell.frameWrap.style.transform = `scale(${currentZoom})`;
     shell.frameWrap.style.width = `${100 / currentZoom}%`;
     shell.zoomPct.textContent = `${Math.round(currentZoom * 100)}%`;

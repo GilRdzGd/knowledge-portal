@@ -100,7 +100,7 @@ function hiRel(id){
 }
 function clearHi(){document.querySelectorAll('path.link').forEach(p=>p.classList.remove('active','faded'));document.querySelectorAll('.field').forEach(f=>f.classList.remove('route-active'))}
 function setZoom(value){
-  zoom=Math.max(.35,Math.min(2.25,value));
+  zoom=Math.max(.1,Math.min(2.25,value));
   canvas.style.zoom=zoom;
   document.getElementById('zoomPct').textContent=Math.round(zoom*100)+'%';
   ensureSize();draw();

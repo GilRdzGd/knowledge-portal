@@ -37,7 +37,7 @@ const SVG_NS = "http://www.w3.org/2000/svg";
 
 // ---------------------------------------------------------------- constants
 const DEFAULT_ZOOM = 0.6;
-const MIN_ZOOM = 0.3;
+const MIN_ZOOM = 0.1;
 const MAX_ZOOM = 1.8;
 const ZOOM_STEP = 0.15;
 
@@ -89,6 +89,7 @@ const groups = [];
 const groupEls = [];
 const schemaGroups = [];
 const schemaGroupEls = [];
+const schemaGroupHeaderEls = [];
 const cardColors = {};
 let viewportCentered = false;
 
@@ -1439,16 +1440,26 @@ function renderSchemaGroups() {
     return;
   }
   schemaGroupEls.splice(0).forEach((el) => el.remove());
+  schemaGroupHeaderEls.splice(0).forEach((el) => el.remove());
 
   schemaGroups.forEach((group) => {
     const el = document.createElement("div");
     el.className = "table-group schema-table-group";
     el.dataset.schemaGroupId = group.id;
-    el.innerHTML = `<div class="table-group-header"><span>${escapeHtml(group.name)}</span></div>`;
+    el.innerHTML = `<div class="table-group-body" aria-hidden="true"></div>`;
     el.style.setProperty("--group-color", group.color);
+
+    const header = document.createElement("div");
+    header.className = "table-group-header schema-group-drag-header";
+    header.dataset.schemaGroupId = group.id;
+    header.innerHTML = `<span>${escapeHtml(group.name)}</span>`;
+    header.style.setProperty("--group-color", group.color);
+
     diagramScene.appendChild(el);
+    diagramScene.appendChild(header);
     schemaGroupEls.push(el);
-    enableGroupDrag(group, el.querySelector(".table-group-header"));
+    schemaGroupHeaderEls.push(header);
+    enableGroupDrag(group, header);
   });
 
   updateSchemaGroups();
@@ -1457,9 +1468,13 @@ function renderSchemaGroups() {
 function updateSchemaGroups() {
   schemaGroupEls.forEach((el) => {
     const group = schemaGroups.find((g) => g.id === el.dataset.schemaGroupId);
+    const header = schemaGroupHeaderEls.find((item) => item.dataset.schemaGroupId === el.dataset.schemaGroupId);
     const bounds = group && groupBounds(group);
     if (!bounds) {
       el.style.display = "none";
+      if (header) {
+        header.style.display = "none";
+      }
       return;
     }
     el.style.display = "";
@@ -1467,6 +1482,12 @@ function updateSchemaGroups() {
     el.style.top = `${bounds.top}px`;
     el.style.width = `${bounds.width}px`;
     el.style.height = `${bounds.height}px`;
+    if (header) {
+      header.style.display = "";
+      header.style.left = `${bounds.left}px`;
+      header.style.top = `${bounds.top}px`;
+      header.style.width = `${bounds.width}px`;
+    }
   });
 }
 
