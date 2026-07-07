@@ -20,6 +20,14 @@ const zoomReadout = document.querySelector(".zoom-readout");
 const expandDiagramButton = document.querySelector("#expand-diagram-button");
 const editModeButton = document.querySelector("#edit-mode-button");
 const relationHighlightButton = document.querySelector("#relation-highlight-button");
+const viewControls = document.querySelector(".view-controls");
+const modelViewSelect = document.querySelector("#model-view-select");
+const newViewButton = document.querySelector("#new-view-button");
+const resetViewLayoutButton = document.querySelector("#reset-view-layout-button");
+const viewTableControls = document.querySelector(".view-table-controls");
+const viewTableButton = document.querySelector("#view-table-button");
+const viewTableMenu = document.querySelector("#view-table-menu");
+const viewTableOptions = document.querySelector("#view-table-options");
 const colorControls = document.querySelector(".color-controls");
 const tableColorButton = document.querySelector("#table-color-button");
 const tableColorMenu = document.querySelector("#table-color-menu");
@@ -52,6 +60,12 @@ const SCENE_PADDING = 240;
 const STUB = 26; // horizontal length of the connector stub leaving a table
 const CORNER = 9; // radius of the rounded elbows
 const STORAGE_KEY = "data-modeler-state-v7";
+const DEFAULT_VIEW_ID = "default";
+const DEFAULT_VIEWS = [
+  { id: DEFAULT_VIEW_ID, name: "Default view", tableIds: null },
+  { id: "productos-de-datos", name: "Productos de Datos", tableIds: [] },
+  { id: "crystal", name: "Crystal", tableIds: [] },
+];
 
 // ------------------------------------------------------------------- schema
 const schemaTables = await fetch("assets/data/model-schema.json").then((response) => {
@@ -91,6 +105,9 @@ const schemaGroups = [];
 const schemaGroupEls = [];
 const schemaGroupHeaderEls = [];
 const cardColors = {};
+let viewPositions = {};
+let modelViews = DEFAULT_VIEWS.map((view) => ({ ...view, tableIds: view.tableIds ? [...view.tableIds] : null }));
+let activeViewId = DEFAULT_VIEW_ID;
 let viewportCentered = false;
 
 // ---------------------------------------------------------------- utilities
@@ -523,6 +540,33 @@ function renderCards(savedPositions) {
   erCards = Array.from(document.querySelectorAll("[data-er-card]"));
 }
 
+function captureCurrentPositions() {
+  const positions = {};
+  erCards.forEach((card) => {
+    positions[card.dataset.erCard] = {
+      left: Number.parseFloat(card.style.left || "0"),
+      top: Number.parseFloat(card.style.top || "0"),
+    };
+  });
+  viewPositions[activeViewId] = positions;
+  return positions;
+}
+
+function applyCurrentViewPositions() {
+  const positions = computeLayout(viewPositions[activeViewId]);
+  erCards.forEach((card) => {
+    const pos = positions[card.dataset.erCard];
+    if (!pos) {
+      return;
+    }
+    card.style.left = `${pos.left}px`;
+    card.style.top = `${pos.top}px`;
+  });
+  resizeScene();
+  updateRelationships();
+  updateGroups();
+}
+
 function resizeScene() {
   if (!diagramScene) {
     return;
@@ -531,6 +575,9 @@ function resizeScene() {
   let maxRight = 1800;
   let maxBottom = 1200;
   erCards.forEach((card) => {
+    if (card.classList.contains("is-view-hidden")) {
+      return;
+    }
     const m = metrics(card);
     maxRight = Math.max(maxRight, m.left + m.width + SCENE_PADDING);
     maxBottom = Math.max(maxBottom, m.top + m.height + SCENE_PADDING);
@@ -538,6 +585,217 @@ function resizeScene() {
 
   diagramScene.style.width = `${maxRight}px`;
   diagramScene.style.height = `${maxBottom}px`;
+}
+
+// --------------------------------------------------------------- model views
+function createDefaultModelViews() {
+  return DEFAULT_VIEWS.map((view) => ({ ...view, tableIds: view.tableIds ? [...view.tableIds] : null }));
+}
+
+function currentView() {
+  return modelViews.find((view) => view.id === activeViewId) || modelViews[0];
+}
+
+function isDefaultView(view = currentView()) {
+  return !view || view.id === DEFAULT_VIEW_ID;
+}
+
+function sanitizeViewTableIds(tableIds) {
+  return Array.from(new Set((tableIds || []).filter((id) => tableById[id])));
+}
+
+function sanitizePositions(positions) {
+  const out = {};
+  if (!positions || typeof positions !== "object") {
+    return out;
+  }
+  Object.entries(positions).forEach(([id, pos]) => {
+    if (tableById[id] && pos && typeof pos.left === "number" && typeof pos.top === "number") {
+      out[id] = { left: pos.left, top: pos.top };
+    }
+  });
+  return out;
+}
+
+function restoreViewPositions(savedViewPositions, legacyPositions) {
+  viewPositions = {};
+  if (savedViewPositions && typeof savedViewPositions === "object") {
+    Object.entries(savedViewPositions).forEach(([viewId, positions]) => {
+      viewPositions[viewId] = sanitizePositions(positions);
+    });
+  }
+  if (!viewPositions[DEFAULT_VIEW_ID] && legacyPositions) {
+    viewPositions[DEFAULT_VIEW_ID] = sanitizePositions(legacyPositions);
+  }
+}
+
+function restoreModelViews(savedViews, savedActiveViewId, savedViewPositions, legacyPositions) {
+  const defaults = createDefaultModelViews();
+  const merged = new Map(defaults.map((view) => [view.id, view]));
+
+  if (Array.isArray(savedViews)) {
+    savedViews.forEach((view) => {
+      if (!view || !view.id || view.id === DEFAULT_VIEW_ID) {
+        return;
+      }
+      merged.set(view.id, {
+        id: String(view.id),
+        name: String(view.name || "Vista"),
+        tableIds: sanitizeViewTableIds(view.tableIds),
+      });
+    });
+  }
+
+  modelViews = Array.from(merged.values());
+  activeViewId = modelViews.some((view) => view.id === savedActiveViewId) ? savedActiveViewId : DEFAULT_VIEW_ID;
+  restoreViewPositions(savedViewPositions, legacyPositions);
+}
+
+function tableVisibleInCurrentView(tableId) {
+  const view = currentView();
+  return isDefaultView(view) || sanitizeViewTableIds(view.tableIds).includes(tableId);
+}
+
+function renderViewSelect() {
+  if (!modelViewSelect) {
+    return;
+  }
+  modelViewSelect.innerHTML = modelViews
+    .map((view) => `<option value="${escapeHtml(view.id)}">${escapeHtml(view.name)}</option>`)
+    .join("");
+  modelViewSelect.value = activeViewId;
+}
+
+function renderViewTableOptions() {
+  if (!viewTableOptions) {
+    return;
+  }
+  const view = currentView();
+  const selected = new Set(isDefaultView(view) ? schemaTables.map((table) => table.id) : sanitizeViewTableIds(view.tableIds));
+  const disabled = isDefaultView(view) || !editModeEnabled;
+  viewTableOptions.innerHTML = schemaTables
+    .map(
+      (table) => `
+        <label class="view-table-option">
+          <input type="checkbox" value="${escapeHtml(table.id)}" ${selected.has(table.id) ? "checked" : ""} ${
+        disabled ? "disabled" : ""
+      } />
+          <span>${escapeHtml(table.title)}</span>
+        </label>
+      `
+    )
+    .join("");
+}
+
+function closeViewTableMenu() {
+  if (viewTableMenu) {
+    viewTableMenu.hidden = true;
+    viewTableButton?.setAttribute("aria-expanded", "false");
+  }
+}
+
+function renderViewControls() {
+  renderViewSelect();
+  renderViewTableOptions();
+  const view = currentView();
+  const tableSelectionDisabled = isDefaultView(view) || !editModeEnabled;
+  if (newViewButton) {
+    newViewButton.hidden = !editModeEnabled;
+  }
+  if (viewTableControls) {
+    viewTableControls.hidden = !editModeEnabled;
+  }
+  if (viewTableButton) {
+    viewTableButton.disabled = tableSelectionDisabled;
+    viewTableButton.title = isDefaultView(view) ? "Default view muestra todas las tablas" : "Seleccionar tablas de la vista";
+  }
+  if (!editModeEnabled) {
+    closeViewTableMenu();
+  }
+}
+
+function applyViewVisibility() {
+  selectedGroupId = null;
+  selectedRelationId = null;
+  applyCurrentViewPositions();
+  erCards.forEach((card) => {
+    const hidden = !tableVisibleInCurrentView(card.dataset.erCard);
+    card.classList.toggle("is-view-hidden", hidden);
+    if (hidden) {
+      selectedCardIds.delete(card.dataset.erCard);
+      if (selectedCardId === card.dataset.erCard) {
+        selectedCardId = null;
+      }
+    }
+  });
+  updateCollapsedCards();
+  updateGroups();
+  resizeScene();
+  rebuildRelationships();
+  refreshSelectionStyles();
+  centerViewport({ force: true });
+}
+
+function createNewView() {
+  const index = modelViews.filter((view) => view.id.startsWith("vista-")).length + 1;
+  const id = `vista-${Date.now()}`;
+  modelViews.push({ id, name: `Nueva vista ${index}`, tableIds: [] });
+  viewPositions[id] = {};
+  activeViewId = id;
+  closeViewTableMenu();
+  renderViewControls();
+  applyViewVisibility();
+  saveState();
+}
+
+function updateCurrentViewTable(tableId, selected) {
+  const view = currentView();
+  if (isDefaultView(view) || !editModeEnabled) {
+    return;
+  }
+  const tableIds = new Set(sanitizeViewTableIds(view.tableIds));
+  if (selected) {
+    tableIds.add(tableId);
+  } else {
+    tableIds.delete(tableId);
+  }
+  view.tableIds = Array.from(tableIds);
+  applyViewVisibility();
+  saveState();
+}
+
+function resetCurrentViewLayout() {
+  viewPositions[activeViewId] = {};
+  applyCurrentViewPositions();
+  updateCollapsedCards();
+  updateGroups();
+  resizeScene();
+  rebuildRelationships();
+  refreshSelectionStyles();
+  centerViewport({ force: true });
+  captureCurrentPositions();
+  saveState();
+}
+
+function renameCurrentView() {
+  if (!editModeEnabled) {
+    return;
+  }
+  const view = currentView();
+  if (isDefaultView(view)) {
+    return;
+  }
+  const nextName = window.prompt("Nombre de la vista", view.name || "Vista");
+  if (nextName === null) {
+    return;
+  }
+  const trimmed = nextName.trim();
+  if (!trimmed || trimmed === view.name) {
+    return;
+  }
+  view.name = trimmed;
+  renderViewControls();
+  saveState();
 }
 
 // --------------------------------------------------- relationship geometry
@@ -666,9 +924,42 @@ function buildMarkerPath(child, childSide, parent, parentSide) {
   return d;
 }
 
-// Merge schema-derived relationships with user-created ones, dropping deleted.
+function scopedRelationshipId(baseId) {
+  return activeViewId === DEFAULT_VIEW_ID ? baseId : `${activeViewId}::${baseId}`;
+}
+
+function relationViewId(rel) {
+  return rel.viewId || DEFAULT_VIEW_ID;
+}
+
+function tableAccentColor(tableId) {
+  if (cardColors[tableId]) {
+    return cardColors[tableId];
+  }
+  const table = tableById[tableId];
+  if (tableKind(table) === "fact") {
+    return "#7c3aed";
+  }
+  if (tableKind(table) === "dim") {
+    return "#2563eb";
+  }
+  if (String(tableId || "").startsWith("h-")) {
+    return "#2563eb";
+  }
+  if (String(tableId || "").startsWith("l-")) {
+    return "#7c3aed";
+  }
+  if (String(tableId || "").startsWith("s-")) {
+    return "#059669";
+  }
+  return "#64748b";
+}
+
+// Merge relationships for the active view. Default keeps schema-derived
+// relationships; custom views start empty and only show view-local custom ones.
 function currentRelationships() {
-  const merged = [...schemaRelationships, ...customRelationships];
+  const activeCustomRelationships = customRelationships.filter((rel) => relationViewId(rel) === activeViewId);
+  const merged = isDefaultView() ? [...schemaRelationships, ...activeCustomRelationships] : activeCustomRelationships;
   const seen = new Set();
   const out = [];
   merged.forEach((rel) => {
@@ -701,6 +992,7 @@ function buildRelationElements() {
     const group = createSvg("g");
     group.setAttribute("class", "relation-group");
     group.dataset.relId = rel.id;
+    group.style.setProperty("--relation-color", tableAccentColor(rel.childId));
     if (rel.custom) {
       group.dataset.custom = "true";
     }
@@ -813,7 +1105,14 @@ function updateRelationships() {
   relationEls.forEach(({ rel, hit, path, marker, handle }) => {
     const childCard = cardEl(rel.childId);
     const parentCard = cardEl(rel.parentId);
-    if (!childCard || !parentCard) {
+    if (
+      !childCard ||
+      !parentCard ||
+      isCardViewHidden(rel.childId) ||
+      isCardViewHidden(rel.parentId) ||
+      isCardGroupCollapsed(rel.childId) ||
+      isCardGroupCollapsed(rel.parentId)
+    ) {
       hit.setAttribute("d", "");
       path.setAttribute("d", "");
       marker.setAttribute("d", "");
@@ -914,7 +1213,7 @@ function updateConnectorPositions() {
   fieldConnectors.forEach((connector) => {
     const card = cardEl(connector.dataset.tableId);
     const row = card?.querySelector(`.er-row[data-field="${connector.dataset.field}"]`);
-    if (!card || !row) {
+    if (!card || !row || isCardViewHidden(connector.dataset.tableId) || isCardGroupCollapsed(connector.dataset.tableId)) {
       connector.hidden = true;
       return;
     }
@@ -995,13 +1294,15 @@ function createCustomRelationship(sourceConnector, targetConnector) {
     parentField = bField;
   }
 
-  const id = `${child.id}.${childField.name}__${parent.id}.${parentField.name}`;
+  const baseId = `${child.id}.${childField.name}__${parent.id}.${parentField.name}`;
+  const id = scopedRelationshipId(baseId);
   deletedRelationIds.delete(id);
 
-  const exists = [...schemaRelationships, ...customRelationships].some((rel) => rel.id === id);
+  const exists = currentRelationships().some((rel) => rel.id === id);
   if (!exists) {
     customRelationships.push({
       id,
+      viewId: activeViewId,
       childId: child.id,
       childField: childField.name,
       parentId: parent.id,
@@ -1172,7 +1473,10 @@ function enableDragging(card) {
       card.releasePointerCapture(pointerId);
     }
     pointerId = null;
-    saveState();
+    if (moved && editModeEnabled) {
+      captureCurrentPositions();
+      saveState();
+    }
   }
 
   card.addEventListener("pointerup", stop);
@@ -1225,19 +1529,22 @@ function setZoom(next) {
   saveState();
 }
 
-function centerViewport() {
-  if (!diagramViewport || !diagramScene || viewportCentered || !erCards.length) {
+function centerViewport({ force = false } = {}) {
+  if (!diagramViewport || !diagramScene || (!force && viewportCentered) || !erCards.length) {
     return;
   }
 
   const bounds = erCards.reduce(
     (acc, card) => {
       const m = metrics(card);
+      const table = tableById[card.dataset.erCard];
+      const width = m.width || CARD_WIDTH;
+      const height = m.height || (table ? estimateHeight(table) : ROW_HEIGHT * 4);
       return {
         minLeft: Math.min(acc.minLeft, m.left),
         minTop: Math.min(acc.minTop, m.top),
-        maxRight: Math.max(acc.maxRight, m.left + m.width),
-        maxBottom: Math.max(acc.maxBottom, m.top + m.height),
+        maxRight: Math.max(acc.maxRight, m.left + width),
+        maxBottom: Math.max(acc.maxBottom, m.top + height),
       };
     },
     { minLeft: Infinity, minTop: Infinity, maxRight: -Infinity, maxBottom: -Infinity }
@@ -1364,6 +1671,7 @@ function applyColor(color) {
   if (selectedCardId) {
     cardColors[selectedCardId] = color;
     paintCards();
+    rebuildRelationships();
   } else if (selectedGroupId) {
     const group = groups.find((g) => g.id === selectedGroupId);
     if (group) {
@@ -1378,6 +1686,7 @@ function clearColor() {
   if (selectedCardId) {
     delete cardColors[selectedCardId];
     paintCards();
+    rebuildRelationships();
   } else if (selectedGroupId) {
     const group = groups.find((g) => g.id === selectedGroupId);
     if (group) {
@@ -1395,7 +1704,7 @@ function updateColorButton() {
   const target = activeColorTarget();
   tableColorButton.style.background = target ? target.color : "#ffffff";
   tableColorButton.style.color = target ? "#ffffff" : "var(--text)";
-  tableColorButton.textContent = target ? "Color" : "Select";
+  tableColorButton.textContent = "Color";
   if (tableColorHexInput) {
     tableColorHexInput.value = target ? target.color : "";
   }
@@ -1410,7 +1719,7 @@ function closeColorMenu() {
 
 // -------------------------------------------------------------------- groups
 function groupBounds(group) {
-  const members = group.cardIds.map(cardEl).filter(Boolean);
+  const members = group.cardIds.map(cardEl).filter((card) => card && !card.classList.contains("is-view-hidden"));
   if (!members.length) {
     return null;
   }
@@ -1435,6 +1744,73 @@ function groupBounds(group) {
   };
 }
 
+function groupHeaderMarkup(group) {
+  const collapsed = Boolean(group.collapsed);
+  const label = collapsed ? "Mostrar tablas del grupo" : "Ocultar tablas del grupo";
+  return `
+    <span>${escapeHtml(group.name)}</span>
+    <button class="group-collapse-button" type="button" aria-pressed="${collapsed}" aria-label="${label}" title="${label}">
+      ${collapsed ? "+" : "-"}
+    </button>
+  `;
+}
+
+function collapsedGroupWidth(group) {
+  const nameLength = String(group.name || "Grupo").length;
+  return clamp(nameLength * 8 + 64, 150, 340);
+}
+
+function updateCollapsedCards() {
+  const collapsedCardIds = new Set();
+  const activeGroups = groups.filter((group) => (group.viewId || DEFAULT_VIEW_ID) === activeViewId);
+  const collapsibleGroups = isDefaultView() ? [...schemaGroups, ...activeGroups] : activeGroups;
+  collapsibleGroups.forEach((group) => {
+    if (!group.collapsed) {
+      return;
+    }
+    group.cardIds.forEach((id) => collapsedCardIds.add(id));
+  });
+
+  erCards.forEach((card) => {
+    card.classList.toggle("is-group-collapsed", collapsedCardIds.has(card.dataset.erCard));
+  });
+}
+
+function isCardGroupCollapsed(tableId) {
+  return Boolean(cardEl(tableId)?.classList.contains("is-group-collapsed"));
+}
+
+function isCardViewHidden(tableId) {
+  return Boolean(cardEl(tableId)?.classList.contains("is-view-hidden"));
+}
+
+function toggleGroupCollapsed(group) {
+  const bounds = groupBounds(group);
+  if (bounds) {
+    group.collapsedBounds = bounds;
+  }
+  group.collapsed = !group.collapsed;
+  updateCollapsedCards();
+  updateGroups();
+  resizeScene();
+  updateRelationships();
+  saveState();
+}
+
+function bindGroupCollapseButton(group, header) {
+  const button = header?.querySelector(".group-collapse-button");
+  if (!button) {
+    return;
+  }
+  button.addEventListener("pointerdown", (event) => event.stopPropagation());
+  button.addEventListener("dblclick", (event) => event.stopPropagation());
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    toggleGroupCollapsed(group);
+  });
+}
+
 function renderSchemaGroups() {
   if (!diagramScene) {
     return;
@@ -1452,7 +1828,7 @@ function renderSchemaGroups() {
     const header = document.createElement("div");
     header.className = "table-group-header schema-group-drag-header";
     header.dataset.schemaGroupId = group.id;
-    header.innerHTML = `<span>${escapeHtml(group.name)}</span>`;
+    header.innerHTML = groupHeaderMarkup(group);
     header.style.setProperty("--group-color", group.color);
 
     diagramScene.appendChild(el);
@@ -1460,8 +1836,10 @@ function renderSchemaGroups() {
     schemaGroupEls.push(el);
     schemaGroupHeaderEls.push(header);
     enableGroupDrag(group, header);
+    bindGroupCollapseButton(group, header);
   });
 
+  updateCollapsedCards();
   updateSchemaGroups();
 }
 
@@ -1469,6 +1847,13 @@ function updateSchemaGroups() {
   schemaGroupEls.forEach((el) => {
     const group = schemaGroups.find((g) => g.id === el.dataset.schemaGroupId);
     const header = schemaGroupHeaderEls.find((item) => item.dataset.schemaGroupId === el.dataset.schemaGroupId);
+    if (!isDefaultView()) {
+      el.style.display = "none";
+      if (header) {
+        header.style.display = "none";
+      }
+      return;
+    }
     const bounds = group && groupBounds(group);
     if (!bounds) {
       el.style.display = "none";
@@ -1477,16 +1862,29 @@ function updateSchemaGroups() {
       }
       return;
     }
+    const collapsed = Boolean(group.collapsed);
+    const collapsedWidth = collapsedGroupWidth(group);
+    const visibleWidth = collapsed ? Math.min(bounds.width, collapsedWidth) : bounds.width;
     el.style.display = "";
+    el.classList.toggle("is-collapsed", collapsed);
     el.style.left = `${bounds.left}px`;
     el.style.top = `${bounds.top}px`;
-    el.style.width = `${bounds.width}px`;
-    el.style.height = `${bounds.height}px`;
+    el.style.width = `${visibleWidth}px`;
+    el.style.height = `${collapsed ? 34 : bounds.height}px`;
     if (header) {
       header.style.display = "";
+      header.classList.toggle("is-collapsed", collapsed);
       header.style.left = `${bounds.left}px`;
       header.style.top = `${bounds.top}px`;
-      header.style.width = `${bounds.width}px`;
+      header.style.width = `${visibleWidth}px`;
+      const button = header.querySelector(".group-collapse-button");
+      if (button) {
+        const label = collapsed ? "Mostrar tablas del grupo" : "Ocultar tablas del grupo";
+        button.textContent = collapsed ? "+" : "-";
+        button.setAttribute("aria-pressed", String(collapsed));
+        button.setAttribute("aria-label", label);
+        button.setAttribute("title", label);
+      }
     }
   });
 }
@@ -1501,7 +1899,7 @@ function renderGroups() {
     const el = document.createElement("div");
     el.className = "table-group";
     el.dataset.groupId = group.id;
-    el.innerHTML = `<div class="table-group-header"><span>${escapeHtml(group.name)}</span></div>`;
+    el.innerHTML = `<div class="table-group-header">${groupHeaderMarkup(group)}</div>`;
     if (group.color) {
       el.style.setProperty("--group-color", group.color);
     }
@@ -1510,6 +1908,7 @@ function renderGroups() {
 
     const header = el.querySelector(".table-group-header");
     enableGroupDrag(group, header);
+    bindGroupCollapseButton(group, header);
     header.addEventListener("dblclick", (event) => {
       event.stopPropagation();
       if (!editModeEnabled || header.dataset.dragMoved === "true") {
@@ -1532,16 +1931,32 @@ function updateGroups() {
   updateSchemaGroups();
   groupEls.forEach((el) => {
     const group = groups.find((g) => g.id === el.dataset.groupId);
+    if (!group || (group.viewId || DEFAULT_VIEW_ID) !== activeViewId) {
+      el.style.display = "none";
+      return;
+    }
     const bounds = group && groupBounds(group);
     if (!bounds) {
       el.style.display = "none";
       return;
     }
+    const collapsed = Boolean(group.collapsed);
+    const collapsedWidth = collapsedGroupWidth(group);
+    const visibleWidth = collapsed ? Math.min(bounds.width, collapsedWidth) : bounds.width;
     el.style.display = "";
+    el.classList.toggle("is-collapsed", collapsed);
     el.style.left = `${bounds.left}px`;
     el.style.top = `${bounds.top}px`;
-    el.style.width = `${bounds.width}px`;
-    el.style.height = `${bounds.height}px`;
+    el.style.width = `${visibleWidth}px`;
+    el.style.height = `${collapsed ? 34 : bounds.height}px`;
+    const button = el.querySelector(".group-collapse-button");
+    if (button) {
+      const label = collapsed ? "Mostrar tablas del grupo" : "Ocultar tablas del grupo";
+      button.textContent = collapsed ? "+" : "-";
+      button.setAttribute("aria-pressed", String(collapsed));
+      button.setAttribute("aria-label", label);
+      button.setAttribute("title", label);
+    }
   });
 }
 
@@ -1597,7 +2012,10 @@ function enableGroupDrag(group, header) {
     }
     header.dataset.dragMoved = moved ? "true" : "false";
     pointerId = null;
-    saveState();
+    if (moved && editModeEnabled) {
+      captureCurrentPositions();
+      saveState();
+    }
   }
 
   header.addEventListener("pointerup", stop);
@@ -1636,6 +2054,7 @@ function createGroupFromSelection() {
     name: "Grupo",
     cardIds: Array.from(selectedCardIds),
     color: "#ff5736",
+    viewId: activeViewId,
   };
   groups.push(group);
   clearSelection();
@@ -1648,7 +2067,7 @@ function deleteSelectedGroup() {
   if (!selectedGroupId) {
     return;
   }
-  const index = groups.findIndex((g) => g.id === selectedGroupId);
+  const index = groups.findIndex((g) => g.id === selectedGroupId && (g.viewId || DEFAULT_VIEW_ID) === activeViewId);
   if (index !== -1) {
     groups.splice(index, 1);
   }
@@ -1670,10 +2089,29 @@ function restoreGroups(saved) {
         name: group.name || "Grupo",
         cardIds,
         color: group.color || "#ff5736",
+        viewId: group.viewId || DEFAULT_VIEW_ID,
+        collapsed: Boolean(group.collapsed),
+        collapsedBounds: group.collapsedBounds || null,
       });
     }
   });
+  updateCollapsedCards();
   renderGroups();
+}
+
+function restoreSchemaGroups(saved) {
+  if (!Array.isArray(saved)) {
+    return;
+  }
+  const savedById = new Map(saved.map((group) => [group.id, group]));
+  schemaGroups.forEach((group) => {
+    const savedGroup = savedById.get(group.id);
+    if (!savedGroup) {
+      return;
+    }
+    group.collapsed = Boolean(savedGroup.collapsed);
+    group.collapsedBounds = savedGroup.collapsedBounds || null;
+  });
 }
 
 function updateGroupButtons() {
@@ -1699,9 +2137,11 @@ function updateEditModeUi() {
   }
   if (!editModeEnabled) {
     closeColorMenu();
+    closeViewTableMenu();
     clearSelection();
     setPendingConnector(null);
   }
+  renderViewControls();
   updateGroupButtons();
   updateRelationButtons();
   updateConnectorPositions();
@@ -1731,21 +2171,23 @@ function saveState() {
   if (!diagramScene) {
     return;
   }
-  const positions = {};
-  erCards.forEach((card) => {
-    positions[card.dataset.erCard] = {
-      left: Number.parseFloat(card.style.left || "0"),
-      top: Number.parseFloat(card.style.top || "0"),
-    };
-  });
+  const positions = viewPositions[DEFAULT_VIEW_ID] || {};
 
   const state = {
     version: 5,
     zoom,
+    activeViewId,
+    modelViews: modelViews.map((view) => ({
+      id: view.id,
+      name: view.name,
+      tableIds: view.tableIds ? sanitizeViewTableIds(view.tableIds) : null,
+    })),
     positions,
+    viewPositions,
     colors: cardColors,
     customRelationships: customRelationships.map((rel) => ({
       id: rel.id,
+      viewId: rel.viewId || DEFAULT_VIEW_ID,
       childId: rel.childId,
       childField: rel.childField,
       parentId: rel.parentId,
@@ -1759,6 +2201,14 @@ function saveState() {
       name: group.name,
       cardIds: group.cardIds,
       color: group.color,
+      viewId: group.viewId || DEFAULT_VIEW_ID,
+      collapsed: Boolean(group.collapsed),
+      collapsedBounds: group.collapsedBounds || null,
+    })),
+    schemaGroups: schemaGroups.map((group) => ({
+      id: group.id,
+      collapsed: Boolean(group.collapsed),
+      collapsedBounds: group.collapsedBounds || null,
     })),
   };
 
@@ -1790,6 +2240,47 @@ function bindToolbar() {
     editModeEnabled = !editModeEnabled;
     updateEditModeUi();
     clearHighlight();
+  });
+
+  modelViewSelect?.addEventListener("change", () => {
+    if (editModeEnabled) {
+      captureCurrentPositions();
+    }
+    activeViewId = modelViewSelect.value || DEFAULT_VIEW_ID;
+    closeViewTableMenu();
+    renderViewControls();
+    applyViewVisibility();
+    saveState();
+  });
+  modelViewSelect?.addEventListener("dblclick", (event) => {
+    event.preventDefault();
+    renameCurrentView();
+  });
+
+  newViewButton?.addEventListener("click", () => {
+    if (!editModeEnabled) {
+      return;
+    }
+    createNewView();
+  });
+
+  resetViewLayoutButton?.addEventListener("click", resetCurrentViewLayout);
+
+  viewTableButton?.addEventListener("click", (event) => {
+    if (!editModeEnabled || isDefaultView()) {
+      return;
+    }
+    event.stopPropagation();
+    viewTableMenu.hidden = !viewTableMenu.hidden;
+    viewTableButton.setAttribute("aria-expanded", viewTableMenu.hidden ? "false" : "true");
+  });
+
+  viewTableOptions?.addEventListener("change", (event) => {
+    const input = event.target.closest('input[type="checkbox"]');
+    if (!input) {
+      return;
+    }
+    updateCurrentViewTable(input.value, input.checked);
   });
 
   zoomButtons.forEach((button) => {
@@ -1858,6 +2349,13 @@ function bindToolbar() {
     }
   });
 
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (viewTableMenu && !viewTableMenu.contains(target) && !viewTableButton?.contains(target)) {
+      closeViewTableMenu();
+    }
+  });
+
   groupTablesButton?.addEventListener("click", createGroupFromSelection);
   deleteGroupButton?.addEventListener("click", deleteSelectedGroup);
   deleteRelationButton?.addEventListener("click", deleteSelectedRelation);
@@ -1886,9 +2384,9 @@ function initializeModeler() {
   const state = loadState();
 
   if (Array.isArray(state?.customRelationships)) {
-    customRelationships = state.customRelationships.filter(
-      (rel) => rel && tableById[rel.childId] && tableById[rel.parentId]
-    );
+    customRelationships = state.customRelationships
+      .filter((rel) => rel && tableById[rel.childId] && tableById[rel.parentId])
+      .map((rel) => ({ ...rel, viewId: rel.viewId || DEFAULT_VIEW_ID }));
   }
   if (Array.isArray(state?.deletedRelationIds)) {
     state.deletedRelationIds.forEach((id) => deletedRelationIds.add(id));
@@ -1901,12 +2399,16 @@ function initializeModeler() {
     });
   }
   renderCards(state?.positions);
+  restoreModelViews(state?.modelViews, state?.activeViewId, state?.viewPositions, state?.positions);
+  renderViewControls();
+  applyViewVisibility();
   applyColors(state?.colors);
   createFieldConnectors();
   rebuildRelationships();
   bindCards();
   bindCommentTooltips();
   bindToolbar();
+  restoreSchemaGroups(state?.schemaGroups);
   renderSchemaGroups();
   restoreGroups(state?.groups);
 

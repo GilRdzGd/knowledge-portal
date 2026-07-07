@@ -7,9 +7,12 @@ const canvas=document.getElementById('canvas'),svg=document.getElementById('link
 document.getElementById('cUp').textContent=DATA.counts.upstream;
 document.getElementById('cDown').textContent=DATA.counts.downstream;
 document.getElementById('cNb').textContent=DATA.counts.neighborhood;
+function escapeHtml(value){
+  return String(value??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
 
 // ---- layout por carriles ----
-const LANE_START_X=150;
+const LANE_START_X=220;
 const LANE_GAP_X=600;
 const LANES=[
  {role:'source',label:'Fuentes'},
@@ -27,11 +30,11 @@ const portMap={};
 function buildNode(n){
   const sec=document.createElement('section');
   sec.className='node '+n.role;sec.id=n.id;sec.setAttribute('data-tnode','1');
-  let h='<div class="head">'+n.label+' <span class="kind">'+n.kind+'</span></div>';
+  let h='<div class="head"><span class="node-title">'+escapeHtml(n.label)+'</span><span class="kind">'+escapeHtml(n.kind)+'</span></div>';
   h+='<div class="fields">';
   n.fields.forEach((f,i)=>{
-    h+='<div class="field" data-node="'+n.id+'" data-idx="'+i+'" data-field="'+f.name.replace(/"/g,'&quot;')+'">'+
-       '<i class="port left"></i><span class="nm">'+f.name+'</span><span class="type">'+(f.type||'')+'</span><i class="port right"></i></div>';
+    h+='<div class="field" data-node="'+escapeHtml(n.id)+'" data-idx="'+i+'" data-field="'+escapeHtml(f.name)+'">'+
+       '<i class="port left"></i><span class="nm">'+escapeHtml(f.name)+'</span><span class="type">'+escapeHtml(f.type||'')+'</span><i class="port right"></i></div>';
   });
   if(!n.fields.length)h+='<div class="field"><span class="nm" style="color:#94a3b8">(nivel tabla)</span></div>';
   h+='</div>';

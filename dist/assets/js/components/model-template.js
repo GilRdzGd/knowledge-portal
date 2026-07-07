@@ -12,6 +12,27 @@ export function createModelDocument() {
 <div class="diagram-panel" aria-label="Entity relationship diagram">
       <div class="diagram-toolbar">
         <div class="diagram-toolbar-right">
+          <div class="view-controls" aria-label="Vistas del modelo">
+            <label class="view-select-label">
+              <span>Vista</span>
+              <select id="model-view-select"></select>
+            </label>
+            <button class="zoom-button view-new-button" id="new-view-button" type="button">
+              Nueva vista
+            </button>
+            <button class="zoom-button view-reset-button" id="reset-view-layout-button" type="button">
+              Restablecer layout
+            </button>
+            <div class="view-table-controls">
+              <button class="zoom-button view-table-button" id="view-table-button" type="button" aria-haspopup="true" aria-expanded="false">
+                Tablas
+              </button>
+              <div class="view-table-menu" id="view-table-menu" hidden>
+                <div class="view-table-menu-head">Tablas de la vista</div>
+                <div class="view-table-options" id="view-table-options"></div>
+              </div>
+            </div>
+          </div>
           <button class="zoom-button edit-mode-button" id="edit-mode-button" type="button" aria-pressed="false">
             Edicion
           </button>

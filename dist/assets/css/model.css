@@ -457,6 +457,109 @@ body.diagram-expanded-mode {
   box-shadow: var(--shadow-soft);
 }
 
+.view-controls {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid var(--border);
+  pointer-events: auto;
+  box-shadow: var(--shadow-soft);
+}
+
+.view-select-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.045);
+  color: #475569;
+  font-size: 0.7rem;
+  font-weight: 850;
+}
+
+.view-select-label span {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.view-select-label select {
+  min-width: 164px;
+  max-width: 240px;
+  border: 0;
+  background: transparent;
+  color: #0f172a;
+  font: 850 0.78rem/1 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  outline: none;
+}
+
+.view-table-controls {
+  position: relative;
+}
+
+.view-table-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: 11;
+  width: 320px;
+  max-height: 420px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 24px 48px rgba(20, 27, 44, 0.12);
+}
+
+.view-table-menu[hidden] {
+  display: none !important;
+}
+
+.view-table-menu-head {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  color: #475569;
+  font-size: 0.72rem;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.view-table-options {
+  display: grid;
+  max-height: 362px;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.view-table-option {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  min-height: 34px;
+  padding: 7px 8px;
+  border-radius: 10px;
+  color: #334155;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.view-table-option:hover {
+  background: #eef5ff;
+}
+
+.view-table-option span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .zoom-button {
   min-width: 38px;
   height: 38px;
@@ -494,6 +597,12 @@ body.diagram-expanded-mode {
 
 .group-button {
   min-width: 108px;
+  font-family: "IBM Plex Mono", "SFMono-Regular", monospace;
+  font-size: 0.72rem;
+}
+
+.view-reset-button {
+  min-width: 136px;
   font-family: "IBM Plex Mono", "SFMono-Regular", monospace;
   font-size: 0.72rem;
 }
@@ -605,7 +714,7 @@ body.diagram-expanded-mode {
 
 .relation {
   fill: none;
-  stroke: #93a4b8;
+  stroke: var(--relation-color, #93a4b8);
   stroke-width: 1.75;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -614,7 +723,7 @@ body.diagram-expanded-mode {
 
 .relation-marker {
   fill: none;
-  stroke: #93a4b8;
+  stroke: var(--relation-color, #93a4b8);
   stroke-width: 1.75;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -637,7 +746,7 @@ body.diagram-expanded-mode {
 
 .relation-group.is-active .relation,
 .relation-group.is-active .relation-marker {
-  stroke: var(--accent);
+  stroke: var(--relation-color, var(--accent));
   stroke-width: 2.4;
 }
 
@@ -651,7 +760,7 @@ body.diagram-expanded-mode {
 
 .relation-group.is-selected .relation,
 .relation-group.is-selected .relation-marker {
-  stroke: #ff5736;
+  stroke: var(--relation-color, #ff5736);
   stroke-width: 2.8;
   opacity: 1;
 }
@@ -892,6 +1001,41 @@ body.diagram-expanded-mode {
   user-select: none;
 }
 
+.table-group-header > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.group-collapse-button {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  font: 850 15px/1 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  cursor: pointer;
+}
+
+.group-collapse-button:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.table-group-header.is-collapsed,
+.table-group.is-collapsed .table-group-header {
+  border-radius: 19px;
+}
+
+.table-group-header.is-collapsed > span,
+.table-group.is-collapsed .table-group-header > span {
+  max-width: calc(100% - 34px);
+}
+
 .table-group.is-dragging .table-group-header {
   cursor: grabbing;
 }
@@ -911,6 +1055,14 @@ body.diagram-expanded-mode {
     rgba(255, 255, 255, 0.18);
 }
 
+.table-group.is-collapsed,
+.schema-table-group.is-collapsed {
+  border-bottom-left-radius: 19px;
+  border-bottom-right-radius: 19px;
+  background: transparent;
+  box-shadow: none;
+}
+
 .schema-group-drag-header {
   position: absolute;
   z-index: 6;
@@ -923,6 +1075,11 @@ body.diagram-expanded-mode {
 
 .schema-group-drag-header:active {
   cursor: grabbing;
+}
+
+.table-group.is-collapsed .table-group-body,
+.schema-table-group.is-collapsed .table-group-body {
+  display: none;
 }
 
 .table-group-body {
@@ -1427,6 +1584,7 @@ body {
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 20px 52px rgba(15, 23, 42, 0.11), inset 0 1px 0 rgba(255, 255, 255, 0.78);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --table-accent: #94a3b8;
 }
 
 /* Barra de acento vertical a la izquierda, coloreada por tipo de tabla */
@@ -1444,6 +1602,21 @@ body {
 .er-card[data-er-card^="l-"]::before { background: linear-gradient(180deg, #a78bfa, #7c3aed); }
 .er-card[data-er-card^="s-"]::before { background: linear-gradient(180deg, #34d399, #059669); }
 .er-card.is-colored::before { display: block; background: var(--card-color); }
+.er-card.is-fact-table,
+.er-card[data-er-card^="l-"] { --table-accent: #7c3aed; }
+.er-card.is-dim-table,
+.er-card[data-er-card^="h-"] { --table-accent: #2563eb; }
+.er-card[data-er-card^="s-"] { --table-accent: #059669; }
+.er-card.is-colored { --table-accent: var(--card-color); }
+
+.er-card.is-group-collapsed {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.er-card.is-view-hidden {
+  display: none;
+}
 
 /* Encabezado (titulo + meta) como la barra .head del linaje */
 .er-card-title {
@@ -1483,7 +1656,11 @@ body {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 0.72rem;
   color: #334155;
-  border-bottom: 1px solid #edf2f7;
+  background: color-mix(in srgb, var(--table-accent) 5%, #ffffff);
+  border-bottom: 1px solid color-mix(in srgb, var(--table-accent) 13%, #edf2f7);
+}
+.er-row:nth-child(even) {
+  background: color-mix(in srgb, var(--table-accent) 8%, #ffffff);
 }
 .er-row strong {
   color: var(--accent);
@@ -1567,6 +1744,12 @@ body {
 .color-button,
 .relation-delete-button,
 .group-button,
+.view-select-label,
+.view-select-label select,
+.view-new-button,
+.view-reset-button,
+.view-table-button,
+.view-table-menu,
 .zoom-readout,
 .color-apply,
 .color-clear,
@@ -1581,7 +1764,8 @@ body {
 .zoom-controls,
 .color-controls,
 .relation-controls,
-.group-controls {
+.group-controls,
+.view-controls {
   padding: 0;
   gap: 8px;
   background: transparent;
@@ -1633,6 +1817,15 @@ body {
   color: #ffffff;
   border-color: transparent;
   box-shadow: 0 12px 24px rgba(37, 99, 235, 0.24);
+}
+
+.view-new-button[hidden] {
+  display: none !important;
+}
+
+.view-table-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
 }
 
 /* Botones dentro del menu de color */
