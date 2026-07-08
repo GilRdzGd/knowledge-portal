@@ -9,9 +9,6 @@
  */
 
 // ------------------------------------------------------------------ DOM refs
-const searchInput = document.querySelector("#table-search");
-const detailShell = document.querySelector("[data-detail-shell]");
-const detailTitle = document.querySelector("[data-detail-title]");
 const diagramPanel = document.querySelector(".diagram-panel");
 const diagramViewport = document.querySelector(".diagram-viewport");
 const diagramScene = document.querySelector(".diagram-scene");
@@ -72,6 +69,12 @@ const schemaTables = await fetch("assets/data/model-schema.json").then((response
   if (!response.ok) throw new Error(`No se pudo cargar model-schema.json: ${response.status}`);
   return response.json();
 });
+const sharedModelState = await fetch("assets/data/model-views.json")
+  .then((response) => (response.ok ? response.json() : null))
+  .catch((error) => {
+    console.warn("No se pudo cargar model-views.json", error);
+    return null;
+  });
 const tableById = {};
 const tableByName = {};
 schemaTables.forEach((table) => {
@@ -220,14 +223,6 @@ function metrics(card) {
   };
 }
 
-function getCurrentTableId() {
-  return new URLSearchParams(window.location.search).get("table") || "";
-}
-
-function buildTablePageHref(tableId) {
-  return `./table.html?table=${tableId}`;
-}
-
 // ----------------------------------------------------- relationship derivation
 function buildSchemaGroups() {
   const grouped = new Map();
@@ -313,79 +308,6 @@ function deriveRelationships() {
   });
 
   return result;
-}
-
-// -------------------------------------------------------------- sidebar / nav
-function renderSidebar() {
-  const nav = document.querySelector(".table-nav");
-  if (!nav) {
-    return;
-  }
-
-  nav.innerHTML = schemaTables
-    .map(
-      (table) =>
-        `<a href="${buildTablePageHref(table.id)}" data-table-link>${escapeHtml(table.title)}</a>`
-    )
-    .join("");
-}
-
-function setActiveLink() {
-  const currentTableId = getCurrentTableId();
-  document.querySelectorAll("[data-table-link]").forEach((link) => {
-    const href = link.getAttribute("href") || "";
-    const matches = currentTableId && href.includes(`table=${currentTableId}`);
-    link.classList.toggle("active", Boolean(matches));
-  });
-}
-
-// ---------------------------------------------------------------- detail page
-function renderDetail() {
-  if (!detailShell) {
-    return;
-  }
-
-  const table = tableById[getCurrentTableId()] || schemaTables[0];
-  if (!table) {
-    detailShell.innerHTML = "";
-    return;
-  }
-
-  if (detailTitle) {
-    detailTitle.textContent = table.title;
-  }
-  document.title = `${table.title} · Coinpro Data Vault`;
-
-  detailShell.innerHTML = `
-    <article class="table-card detail-table-card" id="${escapeHtml(table.id)}">
-      <div class="table-card-header">
-        <div>
-          <span class="table-tag">${escapeHtml(table.tag)}</span>
-          <h4>${escapeHtml(table.title)}</h4>
-        </div>
-        <span class="row-count">${table.fields.length} columns</span>
-      </div>
-      <p class="table-description">${escapeHtml(table.description)}</p>
-      <table>
-        <thead><tr><th>Field</th><th>Type</th><th>Notes</th></tr></thead>
-        <tbody>
-          ${table.fields
-            .map(
-              (field) => `
-                <tr>
-                  <td>${field.key ? `<strong>${escapeHtml(field.name)}</strong>` : escapeHtml(field.name)}</td>
-                  <td>${escapeHtml(field.type)}</td>
-                  <td>${escapeHtml(field.note)}</td>
-                </tr>`
-            )
-            .join("")}
-        </tbody>
-      </table>
-      <div class="relation-list">
-        ${(table.relations || []).map((relation) => `<span>${escapeHtml(relation)}</span>`).join("")}
-      </div>
-    </article>
-  `;
 }
 
 // ------------------------------------------------------------------- layout
@@ -1499,10 +1421,6 @@ function bindCards() {
       }
     });
 
-    card.addEventListener("dblclick", () => {
-      /* navegacion a table.html deshabilitada en el archivo unico */
-    });
-
     const fields = card.querySelector(".er-card-fields.is-field-capped");
     if (fields) {
       fields.addEventListener("scroll", () => updateRelationships(), { passive: true });
@@ -2150,23 +2068,75 @@ function updateEditModeUi() {
   });
 }
 
-// -------------------------------------------------------------------- search
-function filterTables(query) {
-  const normalized = query.trim().toLowerCase();
+// --------------------------------------------------------------- persistence
+function storageTargets() {
+  const targets = [];
+  try {
+    if (window.parent && window.parent !== window && window.parent.localStorage) {
+      targets.push(window.parent.localStorage);
+    }
+  } catch (_) {
+    /* Parent storage can be inaccessible in embedded contexts. */
+  }
+  try {
+    if (window.localStorage) {
+      targets.push(window.localStorage);
+    }
+  } catch (_) {
+    /* Local iframe storage can be unavailable for srcdoc documents. */
+  }
+  return Array.from(new Set(targets));
+}
 
-  document.querySelectorAll("[data-table-link]").forEach((link) => {
-    const matches = !normalized || link.textContent.toLowerCase().includes(normalized);
-    link.style.display = matches ? "" : "none";
-  });
-
-  erCards.forEach((card) => {
-    const table = tableById[card.dataset.erCard];
-    const matches = !normalized || (table && table.title.toLowerCase().includes(normalized));
-    card.classList.toggle("is-dimmed", Boolean(normalized) && !matches);
+function persistState(rawState) {
+  storageTargets().forEach((storage) => {
+    try {
+      storage.setItem(STORAGE_KEY, rawState);
+    } catch (error) {
+      console.warn("Unable to persist diagram state", error);
+    }
   });
 }
 
-// --------------------------------------------------------------- persistence
+function readPersistedState() {
+  for (const storage of storageTargets()) {
+    try {
+      const raw = storage.getItem(STORAGE_KEY);
+      if (raw) {
+        return raw;
+      }
+    } catch (error) {
+      console.warn("Unable to read saved diagram state", error);
+    }
+  }
+  return null;
+}
+
+function mergeModelState(sharedState, localState) {
+  if (!sharedState && !localState) {
+    return null;
+  }
+  if (!sharedState) {
+    return localState;
+  }
+  if (!localState) {
+    return sharedState;
+  }
+  return {
+    ...sharedState,
+    ...localState,
+    modelViews: localState.modelViews || sharedState.modelViews,
+    positions: localState.positions || sharedState.positions,
+    viewPositions: localState.viewPositions || sharedState.viewPositions,
+    colors: localState.colors || sharedState.colors,
+    customRelationships: localState.customRelationships || sharedState.customRelationships,
+    deletedRelationIds: localState.deletedRelationIds || sharedState.deletedRelationIds,
+    relationRoutes: localState.relationRoutes || sharedState.relationRoutes,
+    groups: localState.groups || sharedState.groups,
+    schemaGroups: localState.schemaGroups || sharedState.schemaGroups,
+  };
+}
+
 function saveState() {
   if (!diagramScene) {
     return;
@@ -2212,17 +2182,14 @@ function saveState() {
     })),
   };
 
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch (error) {
-    console.warn("Unable to persist diagram state", error);
-  }
+  persistState(JSON.stringify(state));
 }
 
 function loadState() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : null;
+    const raw = readPersistedState();
+    const localState = raw ? JSON.parse(raw) : null;
+    return mergeModelState(sharedModelState, localState);
   } catch (error) {
     console.warn("Unable to read saved diagram state", error);
     return null;
@@ -2231,11 +2198,6 @@ function loadState() {
 
 // -------------------------------------------------------------- toolbar wiring
 function bindToolbar() {
-  searchInput?.addEventListener("input", (event) => {
-    filterTables(event.target.value);
-    setActiveLink();
-  });
-
   editModeButton?.addEventListener("click", () => {
     editModeEnabled = !editModeEnabled;
     updateEditModeUi();
@@ -2366,16 +2328,7 @@ function bindToolbar() {
 
 // ---------------------------------------------------------------------- init
 function initializeModeler() {
-  renderSidebar();
-
-  if (detailShell) {
-    renderDetail();
-    setActiveLink();
-    return;
-  }
-
   if (!diagramScene) {
-    setActiveLink();
     return;
   }
 
@@ -2422,7 +2375,6 @@ function initializeModeler() {
   updateGroups();
   updateEditModeUi();
   centerViewport();
-  setActiveLink();
 
   if (!state) {
     saveState();

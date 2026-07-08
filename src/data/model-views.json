@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "activeViewId": "default",
+  "modelViews": [
+    {
+      "id": "default",
+      "name": "Default view",
+      "tableIds": null
+    },
+    {
+      "id": "productos-de-datos",
+      "name": "Productos de Datos",
+      "tableIds": []
+    },
+    {
+      "id": "crystal",
+      "name": "Crystal",
+      "tableIds": []
+    }
+  ],
+  "positions": {},
+  "viewPositions": {},
+  "colors": {},
+  "customRelationships": [],
+  "deletedRelationIds": [],
+  "relationRoutes": {},
+  "groups": [],
+  "schemaGroups": []
+}
