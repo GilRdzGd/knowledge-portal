@@ -14,13 +14,29 @@ async function loadCatalog() {
   return response.json();
 }
 
+async function loadAppMeta() {
+  const fallback = {
+    productName: "Plataforma de Datos",
+    versionMajor: 2,
+    versionBuild: 35,
+    updatedAt: "9 de julio de 2026",
+    modelPublishedAt: "3 de julio de 2026"
+  };
+  try {
+    const response = await fetch("assets/data/app-meta.json");
+    return response.ok ? { ...fallback, ...(await response.json()) } : fallback;
+  } catch (_) {
+    return fallback;
+  }
+}
+
 async function boot() {
-  const catalog = await loadCatalog();
+  const [catalog, appMeta] = await Promise.all([loadCatalog(), loadAppMeta()]);
   const shell = createShell(document.getElementById("app"));
   const viewer = createViewer(shell);
-  const homePage = createHomePage({ shell, viewer });
+  const homePage = createHomePage({ shell, viewer, appMeta });
   const lineagePage = createLineagePage({ catalog, shell, viewer });
-  const modelPage = createModelPage({ catalog, shell, viewer });
+  const modelPage = createModelPage({ catalog, shell, viewer, appMeta });
   const chat = createLineageChat({ catalog });
   const chatPage = createChatPage({ shell, viewer, chat });
 

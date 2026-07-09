@@ -2390,9 +2390,254 @@ async function saveViewToFiles() {
   }
 }
 
-// Exporta el diagrama completo (a tamano natural, sin importar zoom/scroll) a
-// una imagen PNG. Serializa la escena a un SVG con <foreignObject> incrustando
-// el CSS, lo dibuja en un canvas y descarga el resultado. Sin dependencias.
+function canvasRoundRect(ctx, x, y, width, height, radius = 8) {
+  const r = Math.max(0, Math.min(radius, width / 2, height / 2));
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + width - r, y);
+  ctx.quadraticCurveTo(x + width, y, x + width, y + r);
+  ctx.lineTo(x + width, y + height - r);
+  ctx.quadraticCurveTo(x + width, y + height, x + width - r, y + height);
+  ctx.lineTo(x + r, y + height);
+  ctx.quadraticCurveTo(x, y + height, x, y + height - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+function canvasText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 2) {
+  const words = String(text || "").split(/\s+/).filter(Boolean);
+  const lines = [];
+  let current = "";
+  words.forEach((word) => {
+    const next = current ? `${current} ${word}` : word;
+    if (ctx.measureText(next).width <= maxWidth || !current) {
+      current = next;
+    } else {
+      lines.push(current);
+      current = word;
+    }
+  });
+  if (current) lines.push(current);
+  lines.slice(0, maxLines).forEach((line, index) => {
+    const value = index === maxLines - 1 && lines.length > maxLines ? `${line.replace(/\s+\S*$/, "")}...` : line;
+    ctx.fillText(value, x, y + index * lineHeight);
+  });
+  return y + Math.min(lines.length, maxLines) * lineHeight;
+}
+
+function canvasElementBox(el) {
+  return {
+    x: Number.parseFloat(el.style.left || "0"),
+    y: Number.parseFloat(el.style.top || "0"),
+    width: el.offsetWidth,
+    height: el.offsetHeight,
+  };
+}
+
+function resolvedCustomColor(style, propertyName, fallback) {
+  const value = style.getPropertyValue(propertyName).trim();
+  if (value && !value.startsWith("var(")) {
+    return value;
+  }
+  const variableName = value.match(/var\((--[^),\s]+)/)?.[1];
+  if (variableName) {
+    const resolved = style.getPropertyValue(variableName).trim();
+    if (resolved && !resolved.startsWith("var(")) {
+      return resolved;
+    }
+  }
+  return fallback;
+}
+
+function downloadCanvasPng(canvas, filename) {
+  return new Promise((resolve, reject) => {
+    const clickLink = (href) => {
+      const link = document.createElement("a");
+      link.download = filename;
+      link.href = href;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      resolve();
+    };
+    if (canvas.toBlob) {
+      canvas.toBlob((blob) => {
+        if (!blob) {
+          reject(new Error("No se pudo crear el PNG"));
+          return;
+        }
+        const url = URL.createObjectURL(blob);
+        clickLink(url);
+        setTimeout(() => URL.revokeObjectURL(url), 1200);
+      }, "image/png");
+      return;
+    }
+    clickLink(canvas.toDataURL("image/png"));
+  });
+}
+
+function drawExportGroups(ctx) {
+  document.querySelectorAll(".table-group:not([hidden]), .schema-group-drag-header").forEach((group) => {
+    const style = getComputedStyle(group);
+    if (style.display === "none" || style.visibility === "hidden") return;
+    const { x, y, width, height } = canvasElementBox(group);
+    if (!width || !height) return;
+    const groupColor = style.getPropertyValue("--group-color").trim() || "#2563eb";
+    if (group.classList.contains("table-group")) {
+      ctx.save();
+      ctx.globalAlpha = 0.13;
+      ctx.fillStyle = groupColor;
+      canvasRoundRect(ctx, x, y, width, height, 10);
+      ctx.fill();
+      ctx.globalAlpha = 0.42;
+      ctx.strokeStyle = groupColor;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.restore();
+      return;
+    }
+    ctx.save();
+    ctx.fillStyle = groupColor;
+    canvasRoundRect(ctx, x, y, width, height, 9);
+    ctx.fill();
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "700 11px Inter, Arial, sans-serif";
+    ctx.textBaseline = "middle";
+    ctx.fillText(group.textContent.trim(), x + 12, y + height / 2);
+    ctx.restore();
+  });
+}
+
+function drawExportRelations(ctx) {
+  if (!svg || typeof Path2D === "undefined") return;
+  svg.querySelectorAll(".relation").forEach((path) => {
+    const d = path.getAttribute("d");
+    if (!d) return;
+    const style = getComputedStyle(path);
+    ctx.save();
+    ctx.strokeStyle = style.stroke && style.stroke !== "none" ? style.stroke : "#93a4b8";
+    ctx.lineWidth = Number.parseFloat(style.strokeWidth) || 1.75;
+    ctx.globalAlpha = Number.parseFloat(style.opacity) || 1;
+    const dash = (style.strokeDasharray || "").split(/[,\s]+/).map(Number).filter((value) => Number.isFinite(value) && value > 0);
+    if (dash.length) ctx.setLineDash(dash);
+    ctx.stroke(new Path2D(d));
+    ctx.restore();
+  });
+  svg.querySelectorAll(".relation-marker").forEach((path) => {
+    const d = path.getAttribute("d");
+    if (!d) return;
+    const group = path.closest(".relation-group");
+    const color = group ? getComputedStyle(group).getPropertyValue("--relation-color").trim() : "#93a4b8";
+    ctx.save();
+    ctx.fillStyle = color || "#93a4b8";
+    ctx.fill(new Path2D(d));
+    ctx.restore();
+  });
+}
+
+function drawExportCards(ctx) {
+  erCards.forEach((card) => {
+    if (card.classList.contains("is-view-hidden") || card.classList.contains("is-group-collapsed")) return;
+    const { x, y, width, height } = canvasElementBox(card);
+    if (!width || !height) return;
+    const style = getComputedStyle(card);
+    const accent = resolvedCustomColor(style, "--table-accent", style.getPropertyValue("--card-color").trim() || "#2563eb");
+    ctx.save();
+    ctx.shadowColor = "rgba(15, 23, 42, 0.09)";
+    ctx.shadowBlur = 26;
+    ctx.shadowOffsetY = 12;
+    ctx.fillStyle = style.backgroundColor || "#ffffff";
+    canvasRoundRect(ctx, x, y, width, height, 10);
+    ctx.fill();
+    ctx.shadowColor = "transparent";
+    ctx.strokeStyle = style.borderColor || "rgba(203, 213, 225, 0.92)";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.fillStyle = accent;
+    canvasRoundRect(ctx, x, y, 3, height, 2);
+    ctx.fill();
+
+    const title = card.querySelector(".er-card-title");
+    const meta = card.querySelector(".er-card-meta");
+    const titleHeight = (title?.offsetHeight || 28) + (meta?.offsetHeight || 22);
+    ctx.save();
+    canvasRoundRect(ctx, x + 3, y, width - 3, titleHeight, 10);
+    ctx.clip();
+    ctx.globalAlpha = 0.14;
+    ctx.fillStyle = accent;
+    ctx.fillRect(x + 3, y, width - 3, titleHeight);
+    ctx.restore();
+    ctx.strokeStyle = "rgba(203, 213, 225, 0.70)";
+    ctx.beginPath();
+    ctx.moveTo(x + 3, y + titleHeight);
+    ctx.lineTo(x + width, y + titleHeight);
+    ctx.stroke();
+
+    ctx.fillStyle = "#111827";
+    ctx.font = "850 13px Inter, Arial, sans-serif";
+    ctx.textBaseline = "top";
+    canvasText(ctx, title?.textContent || "", x + 14, y + 12, width - 28, 15, 2);
+    ctx.fillStyle = "#64748b";
+    ctx.font = "800 9px Inter, Arial, sans-serif";
+    ctx.fillText((meta?.textContent || "").toUpperCase(), x + 14, y + Math.max(32, titleHeight - 17));
+
+    const fields = card.querySelector(".er-card-fields");
+    const isFieldCapped = fields?.classList.contains("is-field-capped") && !card.classList.contains("is-expanded");
+    const fieldClip = isFieldCapped
+      ? {
+          top: fields.offsetTop,
+          bottom: fields.offsetTop + fields.clientHeight,
+          scrollTop: fields.scrollTop,
+        }
+      : null;
+    const rows = Array.from(card.querySelectorAll(".er-row"));
+    if (fieldClip) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(x + 3, y + fieldClip.top, width - 3, fieldClip.bottom - fieldClip.top);
+      ctx.clip();
+    }
+    rows.forEach((row) => {
+      const rowTop = row.offsetTop - (fieldClip?.scrollTop || 0);
+      const rowHeight = row.offsetHeight || 32;
+      if (fieldClip && (rowTop + rowHeight <= fieldClip.top || rowTop >= fieldClip.bottom)) {
+        return;
+      }
+      const rowY = y + rowTop;
+      const rowStyle = getComputedStyle(row);
+      ctx.fillStyle = rowStyle.backgroundColor || "#ffffff";
+      ctx.fillRect(x + 3, rowY, width - 3, rowHeight);
+      ctx.strokeStyle = rowStyle.borderBottomColor || "#e8eef6";
+      ctx.beginPath();
+      ctx.moveTo(x + 3, rowY + rowHeight);
+      ctx.lineTo(x + width, rowY + rowHeight);
+      ctx.stroke();
+      const key = row.querySelector("strong")?.textContent || "";
+      const name = row.querySelector("span")?.textContent || "";
+      const type = row.querySelector("em")?.textContent || "";
+      ctx.textBaseline = "middle";
+      ctx.font = "800 8px Inter, Arial, sans-serif";
+      ctx.fillStyle = accent;
+      if (key) ctx.fillText(key, x + 14, rowY + rowHeight / 2);
+      ctx.font = "680 11px Inter, Arial, sans-serif";
+      ctx.fillStyle = "#334155";
+      const nameX = x + 50;
+      const typeWidth = ctx.measureText(type).width;
+      ctx.fillText(name, nameX, rowY + rowHeight / 2, Math.max(40, width - 72 - typeWidth));
+      ctx.font = "800 8px Inter, Arial, sans-serif";
+      ctx.fillStyle = "#7f8da3";
+      ctx.fillText(type, x + width - typeWidth - 12, rowY + rowHeight / 2);
+    });
+    if (fieldClip) {
+      ctx.restore();
+    }
+    ctx.restore();
+  });
+}
+
+// Exporta el diagrama completo a PNG renderizando directamente en Canvas.
+// Evita <foreignObject>, que puede fallar en GitHub Pages al convertir SVG a canvas.
 async function exportDiagramPng() {
   if (!diagramScene) {
     return;
@@ -2402,62 +2647,35 @@ async function exportDiagramPng() {
     exportPngButton.disabled = true;
     exportPngButton.textContent = "Generando...";
   }
-  let svgUrl = null;
   try {
     const width = Math.ceil(Math.max(diagramScene.scrollWidth, Number.parseFloat(diagramScene.style.width) || 0, 800));
     const height = Math.ceil(Math.max(diagramScene.scrollHeight, Number.parseFloat(diagramScene.style.height) || 0, 600));
-
-    const clone = diagramScene.cloneNode(true);
-    clone.style.transform = "none";
-    clone.style.transformOrigin = "top left";
-    clone.style.width = `${width}px`;
-    clone.style.height = `${height}px`;
-    clone.style.margin = "0";
-    // Los tiradores de ruta son controles de edicion; no van en la imagen.
-    clone.querySelectorAll(".relation-handle").forEach((el) => el.remove());
-
-    const css = await fetch("assets/css/model.css")
-      .then((response) => (response.ok ? response.text() : ""))
-      .catch(() => "");
-
-    const serialized = new XMLSerializer().serializeToString(clone);
-    const svg =
-      `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
-      `<foreignObject x="0" y="0" width="${width}" height="${height}">` +
-      `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;background:#ffffff;">` +
-      `<style>${css}</style>${serialized}</div>` +
-      `</foreignObject></svg>`;
-
-    svgUrl = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml;charset=utf-8" }));
-
-    const scale = 2; // mayor nitidez
-    const image = await new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => resolve(img);
-      img.onerror = () => reject(new Error("No se pudo renderizar el SVG"));
-      img.src = svgUrl;
-    });
+    const maxPixels = 14000000;
+    const scale = Math.min(2, Math.max(0.5, Math.sqrt(maxPixels / Math.max(width * height, 1))));
 
     const canvas = document.createElement("canvas");
-    canvas.width = width * scale;
-    canvas.height = height * scale;
+    canvas.width = Math.ceil(width * scale);
+    canvas.height = Math.ceil(height * scale);
     const ctx = canvas.getContext("2d");
-    ctx.fillStyle = "#ffffff";
+    if (!ctx) {
+      throw new Error("Canvas no disponible");
+    }
+    ctx.fillStyle = "#fbfdff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.setTransform(scale, 0, 0, scale, 0, 0);
-    ctx.drawImage(image, 0, 0);
+    ctx.fillStyle = "#fbfdff";
+    ctx.fillRect(0, 0, width, height);
+    drawExportGroups(ctx);
+    drawExportRelations(ctx);
+    drawExportCards(ctx);
 
-    const link = document.createElement("a");
-    link.download = `modelo_${activeViewId}.png`;
-    link.href = canvas.toDataURL("image/png");
-    link.click();
+    await downloadCanvasPng(canvas, `modelo_${activeViewId}.png`);
 
     if (exportPngButton) exportPngButton.textContent = "PNG ✓";
   } catch (error) {
     console.error("No se pudo exportar el diagrama a PNG", error);
     if (exportPngButton) exportPngButton.textContent = "Error PNG";
   } finally {
-    if (svgUrl) URL.revokeObjectURL(svgUrl);
     if (exportPngButton) {
       setTimeout(() => {
         exportPngButton.textContent = original || "PNG";
