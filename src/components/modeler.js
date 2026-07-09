@@ -2182,7 +2182,20 @@ function updateEditModeUi() {
 }
 
 // --------------------------------------------------------------- persistence
+function isLocalHost() {
+  try {
+    const loc = (window.parent && window.parent !== window && window.parent.location) || window.location;
+    const host = loc.hostname;
+    return host === "localhost" || host === "127.0.0.1" || host === "0.0.0.0" || host === "" || host === "::1";
+  } catch (_) {
+    return false;
+  }
+}
+
 function storageTargets() {
+  if (!isLocalHost()) {
+    return [];
+  }
   const targets = [];
   try {
     if (window.parent && window.parent !== window && window.parent.localStorage) {
@@ -2343,19 +2356,6 @@ function saveState() {
   blob.views = blob.views || {};
   blob.views[activeViewId] = currentViewConfig();
   persistState(JSON.stringify(blob));
-}
-
-// El guardado a archivos solo aplica al servir en local (dev/preview). En el
-// sitio hosteado (GitHub Pages) no hay backend que escriba, y ademas el boton
-// se oculta.
-function isLocalHost() {
-  try {
-    const loc = (window.parent && window.parent !== window && window.parent.location) || window.location;
-    const host = loc.hostname;
-    return host === "localhost" || host === "127.0.0.1" || host === "0.0.0.0" || host === "";
-  } catch (_) {
-    return false;
-  }
 }
 
 async function saveViewToFiles() {
