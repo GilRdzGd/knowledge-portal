@@ -1,0 +1,1241 @@
+[
+  {
+    "id": "captacion-dim-tiempo",
+    "title": "dim_tiempo",
+    "tag": "dimension",
+    "description": "Dominio captacion. Calendario corporativo conformado. SCD estático. Reutilizado por todos los hechos.",
+    "relations": [
+      "Referenciado por `captacion.fact_movimiento_cap` mediante `sk_tiempo` → `sk_tiempo`",
+      "Referenciado por `captacion.fact_cuenta_cap_periodo` mediante `sk_tiempo` → `sk_tiempo`",
+      "Referenciado por `captacion.fact_cliente_cap_periodo` mediante `sk_tiempo` → `sk_tiempo`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_tiempo",
+        "type": "bigint",
+        "note": "Surrogate key del mart (derivada de fec_num)"
+      },
+      {
+        "key": "UK",
+        "name": "fec_num",
+        "type": "int",
+        "note": "Fecha en formato numérico AAAAMMDD (business key)"
+      },
+      {
+        "key": "",
+        "name": "fec_date",
+        "type": "timestamp",
+        "note": "Fecha calendario"
+      },
+      {
+        "key": "",
+        "name": "fec_string",
+        "type": "string",
+        "note": "Fecha en texto"
+      },
+      {
+        "key": "",
+        "name": "num_periodo_mes",
+        "type": "int",
+        "note": "Periodo mensual AAAAMM (partición de los hechos mensuales)"
+      },
+      {
+        "key": "",
+        "name": "num_periodo_sem",
+        "type": "int",
+        "note": "Periodo semanal (partición de los hechos semanales)"
+      },
+      {
+        "key": "",
+        "name": "num_anio",
+        "type": "int",
+        "note": "Año"
+      },
+      {
+        "key": "",
+        "name": "num_mes",
+        "type": "int",
+        "note": "Mes (1-12)"
+      },
+      {
+        "key": "",
+        "name": "num_dia",
+        "type": "int",
+        "note": "Día del mes"
+      },
+      {
+        "key": "",
+        "name": "num_sem",
+        "type": "int",
+        "note": "Número de semana"
+      },
+      {
+        "key": "",
+        "name": "num_dia_sem",
+        "type": "string",
+        "note": "Día de la semana (número)"
+      },
+      {
+        "key": "",
+        "name": "cod_dia_sem",
+        "type": "string",
+        "note": "Código/nombre del día de la semana"
+      },
+      {
+        "key": "",
+        "name": "num_dias",
+        "type": "int",
+        "note": "Días del periodo"
+      }
+    ],
+    "dbmlFile": "CAPTACION.dbml",
+    "dbmlGroup": "CAPTACION",
+    "dbmlProject": "captacion"
+  },
+  {
+    "id": "captacion-dim-cliente",
+    "title": "dim_cliente",
+    "tag": "dimension",
+    "description": "Dominio captacion. Cliente único conformado (golden record). SCD tipo 2. Ancla del bus dimensional. PII con ACL.",
+    "relations": [
+      "Referenciado por `captacion.fact_movimiento_cap` mediante `sk_cliente` → `sk_cliente`",
+      "Referenciado por `captacion.fact_cuenta_cap_periodo` mediante `sk_cliente` → `sk_cliente`",
+      "Referenciado por `captacion.fact_cliente_cap_periodo` mediante `sk_cliente` → `sk_cliente`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_cliente",
+        "type": "bigint",
+        "note": "Surrogate key del mart (soporta SCD tipo 2)"
+      },
+      {
+        "key": "",
+        "name": "id_master",
+        "type": "int",
+        "note": "Cliente único (business key). En origen: int (cte_master) / bigint en tablas de captación"
+      },
+      {
+        "key": "",
+        "name": "id_cliente",
+        "type": "string",
+        "note": "Identificador de cliente del sistema origen"
+      },
+      {
+        "key": "",
+        "name": "cod_empresa",
+        "type": "string",
+        "note": "Empresa/entidad del grupo"
+      },
+      {
+        "key": "",
+        "name": "cod_tipo_cliente",
+        "type": "string",
+        "note": "Tipo de cliente"
+      },
+      {
+        "key": "",
+        "name": "nombre_norm",
+        "type": "string",
+        "note": "PII. Nombre normalizado"
+      },
+      {
+        "key": "",
+        "name": "apellido_paterno_norm",
+        "type": "string",
+        "note": "PII. Apellido paterno normalizado"
+      },
+      {
+        "key": "",
+        "name": "apellido_materno_norm",
+        "type": "string",
+        "note": "PII. Apellido materno normalizado"
+      },
+      {
+        "key": "",
+        "name": "rfc",
+        "type": "string",
+        "note": "PII SENSIBLE. RFC (enmascarar/tokenizar)"
+      },
+      {
+        "key": "",
+        "name": "curp",
+        "type": "string",
+        "note": "PII SENSIBLE. CURP (enmascarar/tokenizar)"
+      },
+      {
+        "key": "",
+        "name": "ine",
+        "type": "string",
+        "note": "PII SENSIBLE. Clave INE (enmascarar/tokenizar)"
+      },
+      {
+        "key": "",
+        "name": "genero",
+        "type": "string",
+        "note": "Género"
+      },
+      {
+        "key": "",
+        "name": "tipo_persona",
+        "type": "string",
+        "note": "Tipo de persona (física/moral)"
+      },
+      {
+        "key": "",
+        "name": "fecha_nacimiento",
+        "type": "string",
+        "note": "PII. Fecha de nacimiento"
+      },
+      {
+        "key": "",
+        "name": "nacionalidad_norm",
+        "type": "string",
+        "note": "Nacionalidad normalizada"
+      },
+      {
+        "key": "",
+        "name": "estado_civil",
+        "type": "string",
+        "note": "Estado civil"
+      },
+      {
+        "key": "",
+        "name": "cposta",
+        "type": "bigint",
+        "note": "Código postal del domicilio"
+      },
+      {
+        "key": "",
+        "name": "lmunicipio",
+        "type": "string",
+        "note": "Municipio del domicilio"
+      },
+      {
+        "key": "",
+        "name": "lentidad",
+        "type": "string",
+        "note": "Entidad/estado del domicilio"
+      },
+      {
+        "key": "",
+        "name": "dir_email",
+        "type": "string",
+        "note": "PII. Correo electrónico"
+      },
+      {
+        "key": "",
+        "name": "icc_nombre",
+        "type": "string",
+        "note": "Indicador de calidad del dato: nombre"
+      },
+      {
+        "key": "",
+        "name": "icc_rfc",
+        "type": "string",
+        "note": "Indicador de calidad del dato: RFC"
+      },
+      {
+        "key": "",
+        "name": "fuente_nombre",
+        "type": "string",
+        "note": "Fuente/origen del atributo nombre"
+      },
+      {
+        "key": "",
+        "name": "fuente_rfc",
+        "type": "string",
+        "note": "Fuente/origen del atributo RFC (fuente_* del golden record)"
+      },
+      {
+        "key": "",
+        "name": "fec_ini_vig",
+        "type": "timestamp",
+        "note": "SCD2: inicio de vigencia del registro"
+      },
+      {
+        "key": "",
+        "name": "fec_fin_vig",
+        "type": "timestamp",
+        "note": "SCD2: fin de vigencia (NULL = vigente)"
+      },
+      {
+        "key": "",
+        "name": "ind_vigente",
+        "type": "tinyint",
+        "note": "SCD2: 1 si es la versión vigente"
+      }
+    ],
+    "dbmlFile": "CAPTACION.dbml",
+    "dbmlGroup": "CAPTACION",
+    "dbmlProject": "captacion"
+  },
+  {
+    "id": "captacion-dim-cuenta",
+    "title": "dim_cuenta",
+    "tag": "dimension",
+    "description": "Dominio captacion. Maestro/dimensión de cuenta de captación. SCD tipo 2. CLABE enmascarada.",
+    "relations": [
+      "Referenciado por `captacion.fact_movimiento_cap` mediante `sk_cuenta` → `sk_cuenta`",
+      "Referenciado por `captacion.fact_cuenta_cap_periodo` mediante `sk_cuenta` → `sk_cuenta`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_cuenta",
+        "type": "bigint",
+        "note": "Surrogate key del mart (soporta SCD tipo 2)"
+      },
+      {
+        "key": "",
+        "name": "id_cuenta",
+        "type": "varchar(14)",
+        "note": "Número de cuenta (business key)"
+      },
+      {
+        "key": "",
+        "name": "id_pais",
+        "type": "char(4)",
+        "note": "País de la cuenta"
+      },
+      {
+        "key": "",
+        "name": "id_sucursal",
+        "type": "varchar(5)",
+        "note": "Sucursal"
+      },
+      {
+        "key": "",
+        "name": "id_verificador",
+        "type": "char(2)",
+        "note": "Dígito verificador"
+      },
+      {
+        "key": "",
+        "name": "num_renov",
+        "type": "tinyint",
+        "note": "Número de renovación de la cuenta"
+      },
+      {
+        "key": "",
+        "name": "cod_producto",
+        "type": "varchar(2)",
+        "note": "Código de producto de captación"
+      },
+      {
+        "key": "",
+        "name": "cod_subprod",
+        "type": "varchar(5)",
+        "note": "Código de subproducto"
+      },
+      {
+        "key": "",
+        "name": "cod_titular",
+        "type": "varchar(3)",
+        "note": "Código de titularidad"
+      },
+      {
+        "key": "",
+        "name": "cod_tipo_persona",
+        "type": "varchar(10)",
+        "note": "Tipo de persona"
+      },
+      {
+        "key": "",
+        "name": "cod_estatus",
+        "type": "varchar(12)",
+        "note": "Estatus de la cuenta"
+      },
+      {
+        "key": "",
+        "name": "cod_tipo_moneda",
+        "type": "char(3)",
+        "note": "Tipo de moneda"
+      },
+      {
+        "key": "",
+        "name": "fec_apertura",
+        "type": "timestamp",
+        "note": "Fecha de apertura"
+      },
+      {
+        "key": "",
+        "name": "fec_cancelacion",
+        "type": "timestamp",
+        "note": "Fecha de cancelación"
+      },
+      {
+        "key": "",
+        "name": "num_clabe_inter_hash",
+        "type": "char(128)",
+        "note": "PII. CLABE interbancaria (versión hash; NO exponer la CLABE en claro)"
+      },
+      {
+        "key": "",
+        "name": "ind_apertura_disp_cred",
+        "type": "tinyint",
+        "note": "Indicador de apertura por disposición de crédito"
+      },
+      {
+        "key": "",
+        "name": "fec_ini_vig",
+        "type": "timestamp",
+        "note": "SCD2: inicio de vigencia"
+      },
+      {
+        "key": "",
+        "name": "fec_fin_vig",
+        "type": "timestamp",
+        "note": "SCD2: fin de vigencia (NULL = vigente)"
+      },
+      {
+        "key": "",
+        "name": "ind_vigente",
+        "type": "tinyint",
+        "note": "SCD2: 1 si es la versión vigente"
+      }
+    ],
+    "dbmlFile": "CAPTACION.dbml",
+    "dbmlGroup": "CAPTACION",
+    "dbmlProject": "captacion"
+  },
+  {
+    "id": "captacion-dim-producto-familia",
+    "title": "dim_producto_familia",
+    "tag": "dimension",
+    "description": "Dominio captacion. Catálogo maestro de familias/productos de captación (329 refs). Reference data con vigencias.",
+    "relations": [
+      "Referenciado por `captacion.fact_cuenta_cap_periodo` mediante `sk_producto_familia` → `sk_producto_familia`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_producto_familia",
+        "type": "bigint",
+        "note": "Surrogate key del mart"
+      },
+      {
+        "key": "",
+        "name": "cod_producto",
+        "type": "string",
+        "note": "Código de producto (business key compuesta)"
+      },
+      {
+        "key": "",
+        "name": "cod_subprod",
+        "type": "string",
+        "note": "Código de subproducto"
+      },
+      {
+        "key": "",
+        "name": "cod_tp_persona",
+        "type": "string",
+        "note": "Código de tipo de persona"
+      },
+      {
+        "key": "",
+        "name": "cod_familia",
+        "type": "string",
+        "note": "Familia del producto"
+      },
+      {
+        "key": "",
+        "name": "cod_prod_desc",
+        "type": "string",
+        "note": "Descripción del producto"
+      },
+      {
+        "key": "",
+        "name": "cod_subprod_desc",
+        "type": "string",
+        "note": "Descripción del subproducto"
+      },
+      {
+        "key": "",
+        "name": "cod_desc",
+        "type": "string",
+        "note": "Descripción de la familia"
+      },
+      {
+        "key": "",
+        "name": "ind_cta_n1",
+        "type": "tinyint",
+        "note": "Indicador de nivel de cuenta N1"
+      },
+      {
+        "key": "",
+        "name": "ind_cta_n2",
+        "type": "tinyint",
+        "note": "Indicador de nivel de cuenta N2"
+      },
+      {
+        "key": "",
+        "name": "ind_cta_n4",
+        "type": "tinyint",
+        "note": "Indicador de nivel de cuenta N4"
+      },
+      {
+        "key": "",
+        "name": "ind_prod_sie",
+        "type": "tinyint",
+        "note": "Indicador de producto SIE"
+      },
+      {
+        "key": "",
+        "name": "cod_status",
+        "type": "tinyint",
+        "note": "Estatus del registro de catálogo"
+      },
+      {
+        "key": "",
+        "name": "fec_alta_familias",
+        "type": "timestamp",
+        "note": "Vigencia: alta de la familia"
+      },
+      {
+        "key": "",
+        "name": "fec_baja_familias",
+        "type": "timestamp",
+        "note": "Vigencia: baja de la familia"
+      },
+      {
+        "key": "",
+        "name": "id_md5",
+        "type": "varchar(32)",
+        "note": "MD5 de la llave (control de cambios)"
+      }
+    ],
+    "dbmlFile": "CAPTACION.dbml",
+    "dbmlGroup": "CAPTACION",
+    "dbmlProject": "captacion"
+  },
+  {
+    "id": "captacion-dim-operacion-canal",
+    "title": "dim_operacion_canal",
+    "tag": "dimension",
+    "description": "Dominio captacion. Catálogo de clasificación de operación y canal. Decodifica los movimientos.",
+    "relations": [
+      "Referenciado por `captacion.fact_movimiento_cap` mediante `sk_operacion_canal` → `sk_operacion_canal`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_operacion_canal",
+        "type": "bigint",
+        "note": "Surrogate key del mart"
+      },
+      {
+        "key": "",
+        "name": "cod_operacion",
+        "type": "string",
+        "note": "Código de operación (business key)"
+      },
+      {
+        "key": "",
+        "name": "cod_nivel1",
+        "type": "string",
+        "note": "Nivel jerárquico 1 de la operación"
+      },
+      {
+        "key": "",
+        "name": "cod_nivel2",
+        "type": "string",
+        "note": "Nivel jerárquico 2"
+      },
+      {
+        "key": "",
+        "name": "cod_nivel3",
+        "type": "string",
+        "note": "Nivel jerárquico 3"
+      },
+      {
+        "key": "",
+        "name": "cod_nivelcanal",
+        "type": "string",
+        "note": "Canal de la operación"
+      },
+      {
+        "key": "",
+        "name": "cod_nivelsubcanal",
+        "type": "string",
+        "note": "Subcanal"
+      },
+      {
+        "key": "",
+        "name": "cod_descripcion",
+        "type": "string",
+        "note": "Descripción de la operación"
+      },
+      {
+        "key": "",
+        "name": "cod_status",
+        "type": "int",
+        "note": "Estatus del registro de catálogo"
+      }
+    ],
+    "dbmlFile": "CAPTACION.dbml",
+    "dbmlGroup": "CAPTACION",
+    "dbmlProject": "captacion"
+  },
+  {
+    "id": "captacion-fact-movimiento-cap",
+    "title": "fact_movimiento_cap",
+    "tag": "hecho",
+    "description": "Dominio captacion. Hecho atómico de movimientos de captación (~20B filas). Servido particionado + agregados materializados.",
+    "relations": [
+      "Referencia a `captacion.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "Referencia a `captacion.dim_cuenta` mediante `sk_cuenta` → `sk_cuenta`",
+      "Referencia a `captacion.dim_operacion_canal` mediante `sk_operacion_canal` → `sk_operacion_canal`",
+      "Referencia a `captacion.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`",
+      "FK a `captacion.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "FK a `captacion.dim_cuenta` mediante `sk_cuenta` → `sk_cuenta`",
+      "FK a `captacion.dim_operacion_canal` mediante `sk_operacion_canal` → `sk_operacion_canal`",
+      "FK a `captacion.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_movimiento",
+        "type": "bigint",
+        "note": "Surrogate key del movimiento"
+      },
+      {
+        "key": "",
+        "name": "id_operacion",
+        "type": "string",
+        "note": "Identificador de la operación (degenerate dimension)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_cliente",
+        "type": "bigint",
+        "note": "FK a dim_cliente"
+      },
+      {
+        "key": "FK",
+        "name": "sk_cuenta",
+        "type": "bigint",
+        "note": "FK a dim_cuenta"
+      },
+      {
+        "key": "FK",
+        "name": "sk_operacion_canal",
+        "type": "bigint",
+        "note": "FK a dim_operacion_canal (vía cod_operacion)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_tiempo",
+        "type": "bigint",
+        "note": "FK a dim_tiempo (fec_operacion)"
+      },
+      {
+        "key": "",
+        "name": "id_master",
+        "type": "bigint",
+        "note": "Cliente único (business key, degenerate)"
+      },
+      {
+        "key": "",
+        "name": "id_cuenta",
+        "type": "varchar(14)",
+        "note": "Cuenta (business key, degenerate)"
+      },
+      {
+        "key": "",
+        "name": "mto_operacion",
+        "type": "decimal(22,4)",
+        "note": "Monto de la operación"
+      },
+      {
+        "key": "",
+        "name": "sdo_anterior_operacion",
+        "type": "decimal(22,4)",
+        "note": "Saldo anterior a la operación"
+      },
+      {
+        "key": "",
+        "name": "cod_operacion",
+        "type": "varchar(4)",
+        "note": "Código de operación"
+      },
+      {
+        "key": "",
+        "name": "fec_operacion",
+        "type": "timestamp",
+        "note": "Fecha/hora de la operación"
+      },
+      {
+        "key": "",
+        "name": "fec_contable",
+        "type": "timestamp",
+        "note": "Fecha contable"
+      },
+      {
+        "key": "",
+        "name": "id_sucursal_operacion",
+        "type": "varchar(5)",
+        "note": "Sucursal donde se operó"
+      },
+      {
+        "key": "",
+        "name": "id_usuario_operacion",
+        "type": "varchar(10)",
+        "note": "Usuario que operó"
+      },
+      {
+        "key": "",
+        "name": "cod_tipo_moneda",
+        "type": "char(3)",
+        "note": "Tipo de moneda"
+      },
+      {
+        "key": "",
+        "name": "cod_auto_manual",
+        "type": "char(1)",
+        "note": "Automático (A) / manual (M)"
+      },
+      {
+        "key": "",
+        "name": "cod_domiciliado",
+        "type": "char(1)",
+        "note": "Indicador de domiciliado"
+      },
+      {
+        "key": "",
+        "name": "cod_referencia",
+        "type": "varchar(15)",
+        "note": "Referencia de la operación"
+      },
+      {
+        "key": "",
+        "name": "cod_terminal",
+        "type": "varchar(22)",
+        "note": "Terminal"
+      },
+      {
+        "key": "",
+        "name": "cod_desc_operacion",
+        "type": "varchar(50)",
+        "note": "Descripción de la operación"
+      },
+      {
+        "key": "",
+        "name": "id_master_traspaso",
+        "type": "bigint",
+        "note": "Cliente contraparte en traspaso"
+      },
+      {
+        "key": "",
+        "name": "num_cta_traspaso_hash",
+        "type": "char(128)",
+        "note": "PII. Cuenta de traspaso (hash; no exponer en claro)"
+      },
+      {
+        "key": "",
+        "name": "cod_tipo_traspaso",
+        "type": "varchar(25)",
+        "note": "Tipo de traspaso"
+      },
+      {
+        "key": "",
+        "name": "num_periodo_mes",
+        "type": "int",
+        "note": "Partición: periodo mensual AAAAMM"
+      }
+    ],
+    "dbmlFile": "CAPTACION.dbml",
+    "dbmlGroup": "CAPTACION",
+    "dbmlProject": "captacion",
+    "modelRelations": [
+      {
+        "id": "captacion-fact-movimiento-cap.sk_cliente__captacion-dim-cliente.sk_cliente",
+        "childId": "captacion-fact-movimiento-cap",
+        "childField": "sk_cliente",
+        "parentId": "captacion-dim-cliente",
+        "parentField": "sk_cliente",
+        "source": "dbml",
+        "dbmlFile": "CAPTACION.dbml",
+        "dbmlGroup": "CAPTACION"
+      },
+      {
+        "id": "captacion-fact-movimiento-cap.sk_cuenta__captacion-dim-cuenta.sk_cuenta",
+        "childId": "captacion-fact-movimiento-cap",
+        "childField": "sk_cuenta",
+        "parentId": "captacion-dim-cuenta",
+        "parentField": "sk_cuenta",
+        "source": "dbml",
+        "dbmlFile": "CAPTACION.dbml",
+        "dbmlGroup": "CAPTACION"
+      },
+      {
+        "id": "captacion-fact-movimiento-cap.sk_operacion_canal__captacion-dim-operacion-canal.sk_operacion_canal",
+        "childId": "captacion-fact-movimiento-cap",
+        "childField": "sk_operacion_canal",
+        "parentId": "captacion-dim-operacion-canal",
+        "parentField": "sk_operacion_canal",
+        "source": "dbml",
+        "dbmlFile": "CAPTACION.dbml",
+        "dbmlGroup": "CAPTACION"
+      },
+      {
+        "id": "captacion-fact-movimiento-cap.sk_tiempo__captacion-dim-tiempo.sk_tiempo",
+        "childId": "captacion-fact-movimiento-cap",
+        "childField": "sk_tiempo",
+        "parentId": "captacion-dim-tiempo",
+        "parentField": "sk_tiempo",
+        "source": "dbml",
+        "dbmlFile": "CAPTACION.dbml",
+        "dbmlGroup": "CAPTACION"
+      }
+    ],
+    "dbmlRelationCount": 4
+  },
+  {
+    "id": "captacion-fact-cuenta-cap-periodo",
+    "title": "fact_cuenta_cap_periodo",
+    "tag": "hecho",
+    "description": "Dominio captacion. Instantánea periódica por cuenta. Consolida cuenta_hist/_hist_sem/_mes (4 tablas -> 1 particionada). Paquetes: saldos, canal, tipo de operación (patrón mto_/num_ en el origen, ~120 col).",
+    "relations": [
+      "Referencia a `captacion.dim_cuenta` mediante `sk_cuenta` → `sk_cuenta`",
+      "Referencia a `captacion.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "Referencia a `captacion.dim_producto_familia` mediante `sk_producto_familia` → `sk_producto_familia`",
+      "Referencia a `captacion.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`",
+      "FK a `captacion.dim_cuenta` mediante `sk_cuenta` → `sk_cuenta`",
+      "FK a `captacion.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "FK a `captacion.dim_producto_familia` mediante `sk_producto_familia` → `sk_producto_familia`",
+      "FK a `captacion.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_cuenta_periodo",
+        "type": "bigint",
+        "note": "Surrogate key (cuenta + periodo)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_cuenta",
+        "type": "bigint",
+        "note": "FK a dim_cuenta"
+      },
+      {
+        "key": "FK",
+        "name": "sk_cliente",
+        "type": "bigint",
+        "note": "FK a dim_cliente"
+      },
+      {
+        "key": "FK",
+        "name": "sk_producto_familia",
+        "type": "bigint",
+        "note": "FK a dim_producto_familia (cod_producto/subprod)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_tiempo",
+        "type": "bigint",
+        "note": "FK a dim_tiempo"
+      },
+      {
+        "key": "",
+        "name": "id_cuenta",
+        "type": "varchar(14)",
+        "note": "Cuenta (business key, degenerate)"
+      },
+      {
+        "key": "",
+        "name": "id_master",
+        "type": "bigint",
+        "note": "Cliente único (business key, degenerate)"
+      },
+      {
+        "key": "",
+        "name": "cod_tipo_periodo",
+        "type": "string",
+        "note": "Periodicidad: SEM / MES (unifica _hist/_sem/_mes)"
+      },
+      {
+        "key": "",
+        "name": "num_periodo_mes",
+        "type": "int",
+        "note": "Partición: periodo mensual AAAAMM"
+      },
+      {
+        "key": "",
+        "name": "sld_fin_mes",
+        "type": "decimal(20,4)",
+        "note": "Saldo al cierre del periodo (semi-aditivo)"
+      },
+      {
+        "key": "",
+        "name": "sld_prom_mensual",
+        "type": "decimal(20,4)",
+        "note": "Saldo promedio del periodo (semi-aditivo)"
+      },
+      {
+        "key": "",
+        "name": "mto_dep_total",
+        "type": "decimal(20,4)",
+        "note": "Monto total de depósitos del periodo"
+      },
+      {
+        "key": "",
+        "name": "num_dep_total",
+        "type": "int",
+        "note": "Número total de depósitos"
+      },
+      {
+        "key": "",
+        "name": "mto_ret_total",
+        "type": "decimal(20,4)",
+        "note": "Monto total de retiros del periodo"
+      },
+      {
+        "key": "",
+        "name": "num_ret_total",
+        "type": "int",
+        "note": "Número total de retiros"
+      },
+      {
+        "key": "",
+        "name": "mto_canal_adquirente",
+        "type": "decimal(20,4)",
+        "note": "Monto por canal adquirente"
+      },
+      {
+        "key": "",
+        "name": "num_canal_adquirente",
+        "type": "int",
+        "note": "Número de operaciones canal adquirente"
+      },
+      {
+        "key": "",
+        "name": "mto_canal_cajero",
+        "type": "decimal(20,4)",
+        "note": "Monto por canal cajero"
+      },
+      {
+        "key": "",
+        "name": "num_canal_cajero",
+        "type": "int",
+        "note": "Número de operaciones canal cajero"
+      },
+      {
+        "key": "",
+        "name": "mto_canal_sucursal",
+        "type": "decimal(20,4)",
+        "note": "Monto por canal sucursal"
+      },
+      {
+        "key": "",
+        "name": "num_canal_sucursal",
+        "type": "int",
+        "note": "Número de operaciones canal sucursal"
+      },
+      {
+        "key": "",
+        "name": "mto_canal_corresponsal",
+        "type": "decimal(20,4)",
+        "note": "Monto por canal corresponsal"
+      },
+      {
+        "key": "",
+        "name": "num_canal_corresponsal",
+        "type": "int",
+        "note": "Número de operaciones canal corresponsal"
+      },
+      {
+        "key": "",
+        "name": "mto_canal_digital",
+        "type": "decimal(20,4)",
+        "note": "Monto por canal digital"
+      },
+      {
+        "key": "",
+        "name": "num_canal_digital",
+        "type": "int",
+        "note": "Número de operaciones canal digital"
+      },
+      {
+        "key": "",
+        "name": "mto_dep_nomina",
+        "type": "decimal(20,4)",
+        "note": "Monto de depósitos de nómina"
+      },
+      {
+        "key": "",
+        "name": "num_dep_nomina",
+        "type": "int",
+        "note": "Número de depósitos de nómina"
+      },
+      {
+        "key": "",
+        "name": "mto_dep_efectivo",
+        "type": "decimal(20,4)",
+        "note": "Monto de depósitos en efectivo"
+      },
+      {
+        "key": "",
+        "name": "mto_ret_efectivo",
+        "type": "decimal(20,4)",
+        "note": "Monto de retiros en efectivo"
+      }
+    ],
+    "dbmlFile": "CAPTACION.dbml",
+    "dbmlGroup": "CAPTACION",
+    "dbmlProject": "captacion",
+    "modelRelations": [
+      {
+        "id": "captacion-fact-cuenta-cap-periodo.sk_cuenta__captacion-dim-cuenta.sk_cuenta",
+        "childId": "captacion-fact-cuenta-cap-periodo",
+        "childField": "sk_cuenta",
+        "parentId": "captacion-dim-cuenta",
+        "parentField": "sk_cuenta",
+        "source": "dbml",
+        "dbmlFile": "CAPTACION.dbml",
+        "dbmlGroup": "CAPTACION"
+      },
+      {
+        "id": "captacion-fact-cuenta-cap-periodo.sk_cliente__captacion-dim-cliente.sk_cliente",
+        "childId": "captacion-fact-cuenta-cap-periodo",
+        "childField": "sk_cliente",
+        "parentId": "captacion-dim-cliente",
+        "parentField": "sk_cliente",
+        "source": "dbml",
+        "dbmlFile": "CAPTACION.dbml",
+        "dbmlGroup": "CAPTACION"
+      },
+      {
+        "id": "captacion-fact-cuenta-cap-periodo.sk_producto_familia__captacion-dim-producto-familia.sk_producto_familia",
+        "childId": "captacion-fact-cuenta-cap-periodo",
+        "childField": "sk_producto_familia",
+        "parentId": "captacion-dim-producto-familia",
+        "parentField": "sk_producto_familia",
+        "source": "dbml",
+        "dbmlFile": "CAPTACION.dbml",
+        "dbmlGroup": "CAPTACION"
+      },
+      {
+        "id": "captacion-fact-cuenta-cap-periodo.sk_tiempo__captacion-dim-tiempo.sk_tiempo",
+        "childId": "captacion-fact-cuenta-cap-periodo",
+        "childField": "sk_tiempo",
+        "parentId": "captacion-dim-tiempo",
+        "parentField": "sk_tiempo",
+        "source": "dbml",
+        "dbmlFile": "CAPTACION.dbml",
+        "dbmlGroup": "CAPTACION"
+      }
+    ],
+    "dbmlRelationCount": 4
+  },
+  {
+    "id": "captacion-fact-cliente-cap-periodo",
+    "title": "fact_cliente_cap_periodo",
+    "tag": "hecho",
+    "description": "Dominio captacion. DP-CAP-1 Captación Cliente 360. Instantánea periódica agregada a cliente. Modularizado (evita el monolito de 245 col). Por cada familia de producto se repite el patrón {num_|sld_|mto_txn_|num_txn_|mto_dep_|num_dep_|mto_ret_|num_ret_}_<producto> (int / decimal(20,4)).",
+    "relations": [
+      "Referencia a `captacion.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "Referencia a `captacion.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`",
+      "FK a `captacion.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "FK a `captacion.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_cliente_periodo",
+        "type": "bigint",
+        "note": "Surrogate key (cliente + periodo)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_cliente",
+        "type": "bigint",
+        "note": "FK a dim_cliente"
+      },
+      {
+        "key": "FK",
+        "name": "sk_tiempo",
+        "type": "bigint",
+        "note": "FK a dim_tiempo"
+      },
+      {
+        "key": "",
+        "name": "id_master",
+        "type": "bigint",
+        "note": "Cliente único (business key, degenerate)"
+      },
+      {
+        "key": "",
+        "name": "cod_tipo_persona",
+        "type": "varchar(2)",
+        "note": "Tipo de persona"
+      },
+      {
+        "key": "",
+        "name": "cod_tipo_periodo",
+        "type": "string",
+        "note": "Periodicidad: SEM / MES (partición)"
+      },
+      {
+        "key": "",
+        "name": "num_periodo_mes",
+        "type": "int",
+        "note": "Partición: periodo mensual AAAAMM"
+      },
+      {
+        "key": "",
+        "name": "num_tot_prod_cap",
+        "type": "int",
+        "note": "Número total de productos de captación del cliente"
+      },
+      {
+        "key": "",
+        "name": "sld_tot_prod_cap",
+        "type": "decimal(20,4)",
+        "note": "Saldo total en captación (semi-aditivo)"
+      },
+      {
+        "key": "",
+        "name": "mto_txn_tot_prod_cap",
+        "type": "decimal(20,4)",
+        "note": "Monto total transaccionado"
+      },
+      {
+        "key": "",
+        "name": "num_txn_tot_prod_cap",
+        "type": "int",
+        "note": "Número total de transacciones"
+      },
+      {
+        "key": "",
+        "name": "mto_dep_tot_prod_cap",
+        "type": "decimal(20,4)",
+        "note": "Monto total de depósitos"
+      },
+      {
+        "key": "",
+        "name": "num_dep_tot_prod_cap",
+        "type": "int",
+        "note": "Número total de depósitos"
+      },
+      {
+        "key": "",
+        "name": "mto_ret_tot_prod_cap",
+        "type": "decimal(20,4)",
+        "note": "Monto total de retiros"
+      },
+      {
+        "key": "",
+        "name": "num_ret_tot_prod_cap",
+        "type": "int",
+        "note": "Número total de retiros"
+      },
+      {
+        "key": "",
+        "name": "mto_canal_adquirente",
+        "type": "decimal(20,4)",
+        "note": "Monto por canal adquirente"
+      },
+      {
+        "key": "",
+        "name": "mto_canal_cajero",
+        "type": "decimal(20,4)",
+        "note": "Monto por canal cajero"
+      },
+      {
+        "key": "",
+        "name": "mto_canal_sucursal",
+        "type": "decimal(20,4)",
+        "note": "Monto por canal sucursal"
+      },
+      {
+        "key": "",
+        "name": "mto_canal_corresponsal",
+        "type": "decimal(20,4)",
+        "note": "Monto por canal corresponsal"
+      },
+      {
+        "key": "",
+        "name": "mto_canal_digital",
+        "type": "decimal(20,4)",
+        "note": "Monto por canal digital"
+      },
+      {
+        "key": "",
+        "name": "num_inv_corto_pzo",
+        "type": "int",
+        "note": "Tenencia: número de inversiones a corto plazo"
+      },
+      {
+        "key": "",
+        "name": "sld_inv_corto_pzo",
+        "type": "decimal(20,4)",
+        "note": "Saldo en inversión corto plazo"
+      },
+      {
+        "key": "",
+        "name": "num_inv_largo_pzo",
+        "type": "int",
+        "note": "Tenencia: número de inversiones a largo plazo"
+      },
+      {
+        "key": "",
+        "name": "sld_inv_largo_pzo",
+        "type": "decimal(20,4)",
+        "note": "Saldo en inversión largo plazo"
+      },
+      {
+        "key": "",
+        "name": "num_cta_ejecutiva",
+        "type": "int",
+        "note": "Tenencia: número de cuentas ejecutivas"
+      },
+      {
+        "key": "",
+        "name": "sld_cta_ejecutiva",
+        "type": "decimal(20,4)",
+        "note": "Saldo en cuenta ejecutiva"
+      },
+      {
+        "key": "",
+        "name": "num_cta_socio_plus",
+        "type": "int",
+        "note": "Tenencia: número de cuentas socio plus"
+      },
+      {
+        "key": "",
+        "name": "sld_cta_socio_plus",
+        "type": "decimal(20,4)",
+        "note": "Saldo en cuenta socio plus"
+      }
+    ],
+    "dbmlFile": "CAPTACION.dbml",
+    "dbmlGroup": "CAPTACION",
+    "dbmlProject": "captacion",
+    "modelRelations": [
+      {
+        "id": "captacion-fact-cliente-cap-periodo.sk_cliente__captacion-dim-cliente.sk_cliente",
+        "childId": "captacion-fact-cliente-cap-periodo",
+        "childField": "sk_cliente",
+        "parentId": "captacion-dim-cliente",
+        "parentField": "sk_cliente",
+        "source": "dbml",
+        "dbmlFile": "CAPTACION.dbml",
+        "dbmlGroup": "CAPTACION"
+      },
+      {
+        "id": "captacion-fact-cliente-cap-periodo.sk_tiempo__captacion-dim-tiempo.sk_tiempo",
+        "childId": "captacion-fact-cliente-cap-periodo",
+        "childField": "sk_tiempo",
+        "parentId": "captacion-dim-tiempo",
+        "parentField": "sk_tiempo",
+        "source": "dbml",
+        "dbmlFile": "CAPTACION.dbml",
+        "dbmlGroup": "CAPTACION"
+      }
+    ],
+    "dbmlRelationCount": 2
+  }
+]

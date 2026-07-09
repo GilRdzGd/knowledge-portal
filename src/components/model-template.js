@@ -23,6 +23,9 @@ export function createModelDocument() {
             <button class="zoom-button view-reset-button" id="reset-view-layout-button" type="button">
               Restablecer layout
             </button>
+            <button class="zoom-button view-save-button" id="save-view-button" type="button" hidden>
+              Guardar
+            </button>
             <div class="view-table-controls">
               <button class="zoom-button view-table-button" id="view-table-button" type="button" aria-haspopup="true" aria-expanded="false">
                 Tablas

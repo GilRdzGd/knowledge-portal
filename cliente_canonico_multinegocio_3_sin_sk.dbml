@@ -1,0 +1,150 @@
+// ============================================================================
+//  MODELO CANÓNICO — CLIENTE MULTINEGOCIO Y MULTIEMPRESA
+//  VERSIÓN 3 — SIN SURROGATE KEYS · SOLO DATOS QUE EXISTEN HOY
+//  Grupo Salinas · Migración AWS
+// ----------------------------------------------------------------------------
+//  Alcance: SOLO campos extraíbles hoy del subsistema master en Cloudera.
+//  Se excluyen: catálogo de negocio, perfil (origen externo), relaciones
+//  parte-parte, consentimiento, persona moral, survivorship y toda variable
+//  derivada/sin origen. Todos los campos aquí tienen [ORIGEN: tabla.campo].
+//
+//  Fuentes: A=cd_cte_datos_contacto_master_diaria_cifrada · B=cd_cte_master_minimo_cifrada
+//           C=cd_cte_master_diaria_cifrada · D=cd_d_rem_master_cliente · E=cd_d_div_master_cliente
+//  Grano validado (PySpark + población real):
+//   - cd_dim_cliente : 1 x id_master (99,536,413 = únicos)
+//   - cd_br_cliente_fuente : N x id_master (~6 en promedio)
+//  PII cifrado con bdf_voltage (descifrar en migración).
+// ============================================================================
+
+Project cliente_canonico_multinegocio_v3 {
+  database_type: 'AWS (Glue/Athena/Iceberg)'
+  Note: '''
+  # Cliente canónico v3 — sin sk, solo lo que existe hoy
+
+  Conexión por llaves naturales (`id_master`). Contiene únicamente datos
+  extraíbles del master actual. Catálogos y atributos sin origen quedan fuera.
+  '''
+}
+
+// ===========================  ENUMS  ========================================
+
+Enum tipo_persona {
+  FISICA
+  MORAL
+}
+
+Enum tipo_contacto {
+  TELEFONO
+  CELULAR
+  EMAIL
+  DOMICILIO
+}
+
+// =====================  NÚCLEO DE IDENTIDAD  ===============================
+
+Table cd_dim_cliente {
+  id_master            bigint         [pk, note: 'NK durable = grano (1 x persona). [ORIGEN: A/B/C.id_master, D/E.masterid]']
+  tipo_persona         tipo_persona   [note: '[ORIGEN: A.tipo_persona]']
+  icc_tipo_persona     varchar        [note: '[ORIGEN: A.icc_tpersona]']
+  fuente_tipo_persona  varchar        [note: '[ORIGEN: A.fuente_tpersona]']
+  nombre               varchar        [note: '[ORIGEN: A.nombre_norm] (descifrar)']
+  apellido_paterno     varchar        [note: '[ORIGEN: A.apellido_paterno_norm + A.nexos_apellido_paterno]']
+  apellido_materno     varchar        [note: '[ORIGEN: A.apellido_materno_norm + A.nexos_apellido_materno]']
+  icc_nombre           varchar        [note: '[ORIGEN: A.icc_nombre]']
+  fuente_nombre        varchar        [note: '[ORIGEN: A.fuente_nombre]']
+  fecha_nacimiento     date           [note: '[ORIGEN: A.fecha_nacimiento] (descifrar + cast)']
+  icc_fecha_nacimiento varchar        [note: '[ORIGEN: A.icc_fecnacimiento]']
+  fuente_fecha_nac     varchar        [note: '[ORIGEN: A.fuente_fecnacimiento]']
+  genero               varchar        [note: '[ORIGEN: A.genero]']
+  icc_genero           varchar        [note: '[ORIGEN: A.icc_genero]']
+  fuente_genero        varchar        [note: '[ORIGEN: A.fuente_genero]']
+  rfc                  varchar        [note: '[ORIGEN: A.rfc] (descifrar)']
+  codrfc               varchar        [note: 'Homoclave. [ORIGEN: A.codrfc]']
+  icc_rfc              varchar        [note: '[ORIGEN: A.icc_rfc]']
+  curp                 varchar        [note: '[ORIGEN: A.curp] (descifrar)']
+  icc_curp             varchar        [note: '[ORIGEN: A.icc_curp]']
+  fuente_curp          varchar        [note: '[ORIGEN: A.fuente_curp]']
+  ine                  varchar        [note: 'ID oficial. [ORIGEN: A.ine] (descifrar)']
+  icc_ine              varchar        [note: '[ORIGEN: A.icc_ine]']
+  fuente_ine           varchar        [note: '[ORIGEN: A.fuente_ine]']
+  nacionalidad         varchar        [note: '[ORIGEN: A.nacionalidad_norm]']
+  icc_nacionalidad     varchar        [note: '[ORIGEN: A.icc_nacionalidad]']
+  fuente_nacionalidad  varchar        [note: '[ORIGEN: A.fuente_nacionalidad]']
+  estado_civil         varchar        [note: '[ORIGEN: A.estado_civil]']
+  icc_estado_civil     varchar        [note: '[ORIGEN: A.icc_edocivil]']
+  fuente_estado_civil  varchar        [note: '[ORIGEN: A.fuente_edocivil]']
+  ocupacion            varchar        [note: '[ORIGEN: A.actividad_laboral_norm]']
+  icc_ocupacion        varchar        [note: '[ORIGEN: A.icc_actlaboral]']
+  fuente_ocupacion     varchar        [note: '[ORIGEN: A.fuente_actlaboral]']
+  fc_actualizacion     timestamp      [note: '[ORIGEN: A.fc_actualizacion]']
+
+  Note: 'DIMENSIÓN party. Grano 1 x id_master. Solo atributos extraíbles hoy.'
+}
+
+Table cd_br_cliente_fuente {
+  id_master            bigint         [not null, note: 'FK -> cd_dim_cliente. [ORIGEN: B/C.id_master, D/E.masterid]']
+  cod_empresa          varchar        [not null, note: 'Empresa dueña de la cuenta. [ORIGEN: C.cod_empresa]']
+  cod_tipo_cliente     varchar        [not null, note: 'Sistema/tipo de origen (evita colisiones). [ORIGEN: B/C.cod_tipo_cliente]']
+  id_cliente           varchar        [not null, note: 'Cuenta nativa en origen. [ORIGEN: B/C.id_cliente, D.clienteid, E.clientedivisaid] (descifrar)']
+  fc_carga             int            [note: '[ORIGEN: C.fc_carga]']
+
+  indexes {
+    (id_master, cod_empresa, cod_tipo_cliente, id_cliente) [pk]
+    (cod_empresa, cod_tipo_cliente, id_cliente) [name: 'ix_resolucion_origen']
+  }
+  Note: 'BRIDGE de resolución de llaves de negocio. Grano N x id_master. Solo datos reales.'
+}
+
+// ==================  CONTACTO  =============================================
+
+Table cd_dim_contacto {
+  id_master            bigint         [not null, note: 'FK -> cd_dim_cliente. [ORIGEN: A.id_master]']
+  tipo_contacto        tipo_contacto  [note: 'TELEFONO<-tel1, CELULAR<-tel2, EMAIL<-dir_email, DOMICILIO<-domicilio']
+  valor_normalizado    varchar        [note: 'Valor del medio. [ORIGEN: A.tel1_norm / A.tel2_norm / A.dir_email] (descifrar)']
+  calle                varchar        [note: 'Solo DOMICILIO. [ORIGEN: A.nomvia] (descifrar)']
+  tipo_via             varchar        [note: '[ORIGEN: A.tipvia]']
+  num_ext              varchar        [note: '[ORIGEN: A.numext] (descifrar)']
+  num_int              varchar        [note: '[ORIGEN: A.numint] (descifrar)']
+  cp                   varchar        [note: 'FK -> cd_dim_geografia. [ORIGEN: A.cposta]']
+  latitud              decimal(9,6)   [note: '[ORIGEN: A.coorgy] (descifrar; validar eje)']
+  longitud             decimal(9,6)   [note: '[ORIGEN: A.coorgx] (descifrar; validar eje)']
+  icc                  varchar        [note: 'Índice calidad del medio. [ORIGEN: A.icc_telefono/icc_celular/icc_email/icc_domicilio]']
+  fuente_dato          varchar        [note: 'Fuente del medio. [ORIGEN: A.fuente_telefono/celular/email/domicilio]']
+  fc_actualizacion     timestamp      [note: '[ORIGEN: A.fc_actualizacion]']
+
+  indexes {
+    (id_master, tipo_contacto, valor_normalizado) [pk]
+  }
+  Note: 'DIMENSIÓN de contacto multivalor por id_master (pivote de tel1/tel2/email/domicilio del master aplanado).'
+}
+
+// ====================  OUTRIGGER GEOGRÁFICO  ==============================
+
+Table cd_dim_geografia {
+  cp                   varchar        [pk, note: 'NK natural. [ORIGEN: A.cposta]']
+  colonia              varchar        [note: '[ORIGEN: A.loc_oficial]']
+  tipo_asentamiento    varchar        [note: '[ORIGEN: A.tip_asentamiento]']
+  resto_localidad      varchar        [note: '[ORIGEN: A.resto_loc_of]']
+  municipio            varchar        [note: '[ORIGEN: A.lmunicipio]']
+  estado               varchar        [note: '[ORIGEN: A.lentidad]']
+
+  Note: 'DIMENSIÓN geográfica derivada del domicilio del master. PK natural cp.'
+}
+
+// =============================  RELACIONES  =================================
+
+Ref: cd_br_cliente_fuente.id_master > cd_dim_cliente.id_master
+Ref: cd_dim_contacto.id_master > cd_dim_cliente.id_master
+Ref: cd_dim_contacto.cp > cd_dim_geografia.cp
+
+// ===========================  AGRUPACIÓN  ==================================
+
+TableGroup nucleo_identidad [color: #8B5CF6] {
+  cd_dim_cliente
+  cd_br_cliente_fuente
+}
+
+TableGroup contacto [color: #14B8A6] {
+  cd_dim_contacto
+  cd_dim_geografia
+}

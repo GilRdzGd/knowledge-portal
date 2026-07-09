@@ -1,0 +1,527 @@
+[
+  {
+    "id": "riesgo-crediticio-dim-tiempo",
+    "title": "dim_tiempo",
+    "tag": "dimension",
+    "description": "Dominio riesgo_crediticio. Conformada. El monitoreo de buró es mensual.",
+    "relations": [
+      "Referenciado por `riesgo_crediticio.fact_rsg_buro_cuenta` mediante `sk_tiempo` → `sk_tiempo`",
+      "Referenciado por `riesgo_crediticio.fact_rsg_cdc` mediante `sk_tiempo` → `sk_tiempo`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_tiempo",
+        "type": "bigint",
+        "note": "Surrogate key"
+      },
+      {
+        "key": "",
+        "name": "num_periodo_mes",
+        "type": "int",
+        "note": "Periodo mensual AAAAMM (ciclo de reporte de buró)"
+      },
+      {
+        "key": "",
+        "name": "fec_num",
+        "type": "int",
+        "note": "Fecha AAAAMMDD"
+      }
+    ],
+    "dbmlFile": "RIESGO_CREDITICIO.dbml",
+    "dbmlGroup": "RIESGO_CREDITICIO",
+    "dbmlProject": "riesgo_crediticio"
+  },
+  {
+    "id": "riesgo-crediticio-dim-cliente",
+    "title": "dim_cliente",
+    "tag": "dimension",
+    "description": "Dominio riesgo_crediticio. Conformada. PII gobernada en Cliente Consolidado.",
+    "relations": [
+      "Referenciado por `riesgo_crediticio.fact_rsg_buro_cuenta` mediante `sk_cliente` → `sk_cliente`",
+      "Referenciado por `riesgo_crediticio.fact_rsg_cdc` mediante `sk_cliente` → `sk_cliente`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_cliente",
+        "type": "bigint",
+        "note": "Surrogate key (SCD2)"
+      },
+      {
+        "key": "",
+        "name": "id_master",
+        "type": "int",
+        "note": "Cliente único (business key). Vínculo vía l_baz_credito_cliente_cdc"
+      }
+    ],
+    "dbmlFile": "RIESGO_CREDITICIO.dbml",
+    "dbmlGroup": "RIESGO_CREDITICIO",
+    "dbmlProject": "riesgo_crediticio"
+  },
+  {
+    "id": "riesgo-crediticio-dim-cuenta-buro",
+    "title": "dim_cuenta_buro",
+    "tag": "dimension",
+    "description": "Dominio riesgo_crediticio. Cuenta/crédito reportado a buró. Equivale al hub h_baz_credito_buro_cuenta. SCD tipo 2.",
+    "relations": [
+      "Referenciado por `riesgo_crediticio.fact_rsg_buro_cuenta` mediante `sk_cuenta_buro` → `sk_cuenta_buro`",
+      "Referenciado por `riesgo_crediticio.fact_rsg_cdc` mediante `sk_cuenta_buro` → `sk_cuenta_buro`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_cuenta_buro",
+        "type": "bigint",
+        "note": "Surrogate key (SCD tipo 2)"
+      },
+      {
+        "key": "",
+        "name": "cuentaid",
+        "type": "string",
+        "note": "Identificador de cuenta reportada a buró (business key)"
+      },
+      {
+        "key": "",
+        "name": "numerofolio",
+        "type": "string",
+        "note": "Número de folio"
+      },
+      {
+        "key": "",
+        "name": "foliootorgante",
+        "type": "string",
+        "note": "Folio del otorgante"
+      },
+      {
+        "key": "",
+        "name": "paisid",
+        "type": "int",
+        "note": "País"
+      },
+      {
+        "key": "",
+        "name": "canalid",
+        "type": "int",
+        "note": "Canal"
+      },
+      {
+        "key": "",
+        "name": "sucursalid",
+        "type": "int",
+        "note": "Sucursal"
+      },
+      {
+        "key": "",
+        "name": "fec_ini_vig",
+        "type": "timestamp",
+        "note": "SCD2: inicio de vigencia"
+      },
+      {
+        "key": "",
+        "name": "fec_fin_vig",
+        "type": "timestamp",
+        "note": "SCD2: fin de vigencia (NULL=vigente)"
+      },
+      {
+        "key": "",
+        "name": "ind_vigente",
+        "type": "tinyint",
+        "note": "SCD2: 1 si es la versión vigente"
+      }
+    ],
+    "dbmlFile": "RIESGO_CREDITICIO.dbml",
+    "dbmlGroup": "RIESGO_CREDITICIO",
+    "dbmlProject": "riesgo_crediticio"
+  },
+  {
+    "id": "riesgo-crediticio-dim-tipo-credito-buro",
+    "title": "dim_tipo_credito_buro",
+    "tag": "dimension",
+    "description": "Dominio riesgo_crediticio. Unifica cd_cdc_monitorea_bc_dep/consumos/microfinanza/otro_sal en una dimensión.",
+    "relations": [
+      "Referenciado por `riesgo_crediticio.fact_rsg_buro_cuenta` mediante `sk_tipo_credito_buro` → `sk_tipo_credito_buro`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_tipo_credito_buro",
+        "type": "bigint",
+        "note": "Surrogate key"
+      },
+      {
+        "key": "",
+        "name": "cod_tipo_credito",
+        "type": "string",
+        "note": "Tipo: tarjeta departamental/bancaria+depósito / consumo / microfinanzas / otros"
+      },
+      {
+        "key": "",
+        "name": "nom_tipo_credito",
+        "type": "string",
+        "note": "Descripción del tipo de crédito reportado"
+      }
+    ],
+    "dbmlFile": "RIESGO_CREDITICIO.dbml",
+    "dbmlGroup": "RIESGO_CREDITICIO",
+    "dbmlProject": "riesgo_crediticio"
+  },
+  {
+    "id": "riesgo-crediticio-dim-cubeta-atraso",
+    "title": "dim_cubeta_atraso",
+    "tag": "dimension",
+    "description": "Dominio riesgo_crediticio. Normaliza las cubetas de atraso (hoy columnas). Habilita roll rates / matrices de transición.",
+    "relations": [
+      "Referenciado por `riesgo_crediticio.fact_rsg_buro_cuenta` mediante `sk_cubeta_atraso` → `sk_cubeta_atraso`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_cubeta_atraso",
+        "type": "bigint",
+        "note": "Surrogate key"
+      },
+      {
+        "key": "",
+        "name": "cod_cubeta",
+        "type": "string",
+        "note": "Rango de atraso: 1a29 / 30a59 / 60a89 / 90a119 / 120a149 / 150+ (business key)"
+      },
+      {
+        "key": "",
+        "name": "num_dias_min",
+        "type": "int",
+        "note": "Días de atraso mínimos del rango"
+      },
+      {
+        "key": "",
+        "name": "num_dias_max",
+        "type": "int",
+        "note": "Días de atraso máximos del rango"
+      }
+    ],
+    "dbmlFile": "RIESGO_CREDITICIO.dbml",
+    "dbmlGroup": "RIESGO_CREDITICIO",
+    "dbmlProject": "riesgo_crediticio"
+  },
+  {
+    "id": "riesgo-crediticio-fact-rsg-buro-cuenta",
+    "title": "fact_rsg_buro_cuenta",
+    "tag": "hecho",
+    "description": "Dominio riesgo_crediticio. DP-RSG-1 Monitoreo de Buró. Reemplaza los 4 cd_cdc_monitorea_* (222-686 col). MODULAR: los paquetes replican los ~18 satélites de h_baz_credito_buro_cuenta. Las métricas por tipo de tarjeta y cubeta se normalizan con dim_tipo_credito_buro + dim_cubeta_atraso (patrón real total<metrica><tarjeta_dep|banc><cubeta> decimal(18,4)). DATO REGULADO: ACL estricta.",
+    "relations": [
+      "Referencia a `riesgo_crediticio.dim_cuenta_buro` mediante `sk_cuenta_buro` → `sk_cuenta_buro`",
+      "Referencia a `riesgo_crediticio.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "Referencia a `riesgo_crediticio.dim_tipo_credito_buro` mediante `sk_tipo_credito_buro` → `sk_tipo_credito_buro`",
+      "Referencia a `riesgo_crediticio.dim_cubeta_atraso` mediante `sk_cubeta_atraso` → `sk_cubeta_atraso`",
+      "Referencia a `riesgo_crediticio.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`",
+      "FK a `riesgo_crediticio.dim_cuenta_buro` mediante `sk_cuenta_buro` → `sk_cuenta_buro`",
+      "FK a `riesgo_crediticio.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "FK a `riesgo_crediticio.dim_tipo_credito_buro` mediante `sk_tipo_credito_buro` → `sk_tipo_credito_buro`",
+      "FK a `riesgo_crediticio.dim_cubeta_atraso` mediante `sk_cubeta_atraso` → `sk_cubeta_atraso`",
+      "FK a `riesgo_crediticio.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_rsg_buro_cuenta",
+        "type": "bigint",
+        "note": "Surrogate key (cuenta + periodo + tipo)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_cuenta_buro",
+        "type": "bigint",
+        "note": "FK a dim_cuenta_buro"
+      },
+      {
+        "key": "FK",
+        "name": "sk_cliente",
+        "type": "bigint",
+        "note": "FK a dim_cliente"
+      },
+      {
+        "key": "FK",
+        "name": "sk_tipo_credito_buro",
+        "type": "bigint",
+        "note": "FK a dim_tipo_credito_buro"
+      },
+      {
+        "key": "FK",
+        "name": "sk_cubeta_atraso",
+        "type": "bigint",
+        "note": "FK a dim_cubeta_atraso (para las métricas por cubeta)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_tiempo",
+        "type": "bigint",
+        "note": "FK a dim_tiempo"
+      },
+      {
+        "key": "",
+        "name": "masterid",
+        "type": "int",
+        "note": "Cliente único (business key)"
+      },
+      {
+        "key": "",
+        "name": "num_periodo_mes",
+        "type": "int",
+        "note": "Partición: periodo mensual (reporte de buró)"
+      },
+      {
+        "key": "",
+        "name": "total_saldo_insoluto_vigente",
+        "type": "decimal(18,4)",
+        "note": "Saldo insoluto vigente"
+      },
+      {
+        "key": "",
+        "name": "total_saldo_actual_vigente",
+        "type": "decimal(18,4)",
+        "note": "Saldo actual vigente"
+      },
+      {
+        "key": "",
+        "name": "total_saldo_vencido",
+        "type": "decimal(18,4)",
+        "note": "Saldo vencido (por cubeta vía dim_cubeta_atraso)"
+      },
+      {
+        "key": "",
+        "name": "total_saldo_insoluto",
+        "type": "decimal(18,4)",
+        "note": "Saldo insoluto (por cubeta)"
+      },
+      {
+        "key": "",
+        "name": "total_saldo_actual",
+        "type": "decimal(18,4)",
+        "note": "Saldo actual (por cubeta)"
+      },
+      {
+        "key": "",
+        "name": "total_saldo_reestructura",
+        "type": "decimal(18,4)",
+        "note": "Saldo en reestructura"
+      },
+      {
+        "key": "",
+        "name": "total_saldo_fraude_quita",
+        "type": "decimal(18,4)",
+        "note": "Saldo por fraude/quita"
+      },
+      {
+        "key": "",
+        "name": "total_limite_credito",
+        "type": "decimal(18,4)",
+        "note": "Límite de crédito otorgado"
+      },
+      {
+        "key": "",
+        "name": "total_maximo_saldo",
+        "type": "decimal(18,4)",
+        "note": "Máximo saldo histórico"
+      },
+      {
+        "key": "",
+        "name": "pct_endeudamiento",
+        "type": "decimal(18,4)",
+        "note": "Porcentaje de endeudamiento"
+      },
+      {
+        "key": "",
+        "name": "num_consultas",
+        "type": "int",
+        "note": "Número de consultas al buró"
+      },
+      {
+        "key": "",
+        "name": "num_cuentas_abiertas",
+        "type": "int",
+        "note": "Número de cuentas abiertas"
+      },
+      {
+        "key": "",
+        "name": "num_cuentas_cerradas",
+        "type": "int",
+        "note": "Número de cuentas cerradas"
+      },
+      {
+        "key": "",
+        "name": "num_cuentas_nuevas",
+        "type": "int",
+        "note": "Número de cuentas nuevas"
+      },
+      {
+        "key": "",
+        "name": "num_cuentas_observacion",
+        "type": "int",
+        "note": "Número de cuentas en observación"
+      },
+      {
+        "key": "",
+        "name": "num_score_buro",
+        "type": "int",
+        "note": "Score de buró de crédito"
+      }
+    ],
+    "dbmlFile": "RIESGO_CREDITICIO.dbml",
+    "dbmlGroup": "RIESGO_CREDITICIO",
+    "dbmlProject": "riesgo_crediticio",
+    "modelRelations": [
+      {
+        "id": "riesgo-crediticio-fact-rsg-buro-cuenta.sk_cuenta_buro__riesgo-crediticio-dim-cuenta-buro.sk_cuenta_buro",
+        "childId": "riesgo-crediticio-fact-rsg-buro-cuenta",
+        "childField": "sk_cuenta_buro",
+        "parentId": "riesgo-crediticio-dim-cuenta-buro",
+        "parentField": "sk_cuenta_buro",
+        "source": "dbml",
+        "dbmlFile": "RIESGO_CREDITICIO.dbml",
+        "dbmlGroup": "RIESGO_CREDITICIO"
+      },
+      {
+        "id": "riesgo-crediticio-fact-rsg-buro-cuenta.sk_cliente__riesgo-crediticio-dim-cliente.sk_cliente",
+        "childId": "riesgo-crediticio-fact-rsg-buro-cuenta",
+        "childField": "sk_cliente",
+        "parentId": "riesgo-crediticio-dim-cliente",
+        "parentField": "sk_cliente",
+        "source": "dbml",
+        "dbmlFile": "RIESGO_CREDITICIO.dbml",
+        "dbmlGroup": "RIESGO_CREDITICIO"
+      },
+      {
+        "id": "riesgo-crediticio-fact-rsg-buro-cuenta.sk_tipo_credito_buro__riesgo-crediticio-dim-tipo-credito-buro.sk_tipo_credito_buro",
+        "childId": "riesgo-crediticio-fact-rsg-buro-cuenta",
+        "childField": "sk_tipo_credito_buro",
+        "parentId": "riesgo-crediticio-dim-tipo-credito-buro",
+        "parentField": "sk_tipo_credito_buro",
+        "source": "dbml",
+        "dbmlFile": "RIESGO_CREDITICIO.dbml",
+        "dbmlGroup": "RIESGO_CREDITICIO"
+      },
+      {
+        "id": "riesgo-crediticio-fact-rsg-buro-cuenta.sk_cubeta_atraso__riesgo-crediticio-dim-cubeta-atraso.sk_cubeta_atraso",
+        "childId": "riesgo-crediticio-fact-rsg-buro-cuenta",
+        "childField": "sk_cubeta_atraso",
+        "parentId": "riesgo-crediticio-dim-cubeta-atraso",
+        "parentField": "sk_cubeta_atraso",
+        "source": "dbml",
+        "dbmlFile": "RIESGO_CREDITICIO.dbml",
+        "dbmlGroup": "RIESGO_CREDITICIO"
+      },
+      {
+        "id": "riesgo-crediticio-fact-rsg-buro-cuenta.sk_tiempo__riesgo-crediticio-dim-tiempo.sk_tiempo",
+        "childId": "riesgo-crediticio-fact-rsg-buro-cuenta",
+        "childField": "sk_tiempo",
+        "parentId": "riesgo-crediticio-dim-tiempo",
+        "parentField": "sk_tiempo",
+        "source": "dbml",
+        "dbmlFile": "RIESGO_CREDITICIO.dbml",
+        "dbmlGroup": "RIESGO_CREDITICIO"
+      }
+    ],
+    "dbmlRelationCount": 5
+  },
+  {
+    "id": "riesgo-crediticio-fact-rsg-cdc",
+    "title": "fact_rsg_cdc",
+    "tag": "hecho",
+    "description": "Dominio riesgo_crediticio. DP-RSG-2 Determinación/Retroalimentación CDC (regulatorio). Fuente: Data Vault (h_baz_credito_cdccuenta + cdc_datos + retroalim_cdc). Sin crystal de origen.",
+    "relations": [
+      "Referencia a `riesgo_crediticio.dim_cuenta_buro` mediante `sk_cuenta_buro` → `sk_cuenta_buro`",
+      "Referencia a `riesgo_crediticio.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "Referencia a `riesgo_crediticio.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`",
+      "FK a `riesgo_crediticio.dim_cuenta_buro` mediante `sk_cuenta_buro` → `sk_cuenta_buro`",
+      "FK a `riesgo_crediticio.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "FK a `riesgo_crediticio.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_rsg_cdc",
+        "type": "bigint",
+        "note": "Surrogate key (cuenta CDC + periodo)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_cuenta_buro",
+        "type": "bigint",
+        "note": "FK a dim_cuenta_buro"
+      },
+      {
+        "key": "FK",
+        "name": "sk_cliente",
+        "type": "bigint",
+        "note": "FK a dim_cliente"
+      },
+      {
+        "key": "FK",
+        "name": "sk_tiempo",
+        "type": "bigint",
+        "note": "FK a dim_tiempo"
+      },
+      {
+        "key": "",
+        "name": "id_cdccuenta",
+        "type": "string",
+        "note": "Identificador de cuenta CDC (business key, del DV)"
+      },
+      {
+        "key": "",
+        "name": "cod_varcnr",
+        "type": "string",
+        "note": "Variable de determinación CDC (varcnr)"
+      },
+      {
+        "key": "",
+        "name": "ind_retroalim",
+        "type": "tinyint",
+        "note": "Indicador de retroalimentación enviada"
+      },
+      {
+        "key": "",
+        "name": "fec_determinacion",
+        "type": "timestamp",
+        "note": "Fecha de determinación CDC"
+      }
+    ],
+    "dbmlFile": "RIESGO_CREDITICIO.dbml",
+    "dbmlGroup": "RIESGO_CREDITICIO",
+    "dbmlProject": "riesgo_crediticio",
+    "modelRelations": [
+      {
+        "id": "riesgo-crediticio-fact-rsg-cdc.sk_cuenta_buro__riesgo-crediticio-dim-cuenta-buro.sk_cuenta_buro",
+        "childId": "riesgo-crediticio-fact-rsg-cdc",
+        "childField": "sk_cuenta_buro",
+        "parentId": "riesgo-crediticio-dim-cuenta-buro",
+        "parentField": "sk_cuenta_buro",
+        "source": "dbml",
+        "dbmlFile": "RIESGO_CREDITICIO.dbml",
+        "dbmlGroup": "RIESGO_CREDITICIO"
+      },
+      {
+        "id": "riesgo-crediticio-fact-rsg-cdc.sk_cliente__riesgo-crediticio-dim-cliente.sk_cliente",
+        "childId": "riesgo-crediticio-fact-rsg-cdc",
+        "childField": "sk_cliente",
+        "parentId": "riesgo-crediticio-dim-cliente",
+        "parentField": "sk_cliente",
+        "source": "dbml",
+        "dbmlFile": "RIESGO_CREDITICIO.dbml",
+        "dbmlGroup": "RIESGO_CREDITICIO"
+      },
+      {
+        "id": "riesgo-crediticio-fact-rsg-cdc.sk_tiempo__riesgo-crediticio-dim-tiempo.sk_tiempo",
+        "childId": "riesgo-crediticio-fact-rsg-cdc",
+        "childField": "sk_tiempo",
+        "parentId": "riesgo-crediticio-dim-tiempo",
+        "parentField": "sk_tiempo",
+        "source": "dbml",
+        "dbmlFile": "RIESGO_CREDITICIO.dbml",
+        "dbmlGroup": "RIESGO_CREDITICIO"
+      }
+    ],
+    "dbmlRelationCount": 3
+  }
+]

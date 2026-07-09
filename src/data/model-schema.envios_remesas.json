@@ -1,0 +1,682 @@
+[
+  {
+    "id": "envios-remesas-dim-tiempo",
+    "title": "dim_tiempo",
+    "tag": "dimension",
+    "description": "Dominio envios_remesas. Conformada.",
+    "relations": [
+      "Referenciado por `envios_remesas.fact_env_movimiento` mediante `sk_tiempo` → `sk_tiempo`",
+      "Referenciado por `envios_remesas.fact_env_remesa_cliente` mediante `sk_tiempo` → `sk_tiempo`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_tiempo",
+        "type": "bigint",
+        "note": "Surrogate key"
+      },
+      {
+        "key": "",
+        "name": "num_periodo_mes",
+        "type": "int",
+        "note": "Periodo mensual AAAAMM"
+      },
+      {
+        "key": "",
+        "name": "fec_num",
+        "type": "int",
+        "note": "Fecha AAAAMMDD"
+      }
+    ],
+    "dbmlFile": "ENVIOS_REMESAS.dbml",
+    "dbmlGroup": "ENVIOS_REMESAS",
+    "dbmlProject": "envios_remesas"
+  },
+  {
+    "id": "envios-remesas-dim-cliente",
+    "title": "dim_cliente",
+    "tag": "dimension",
+    "description": "Dominio envios_remesas. Conformada. PII gobernada en Cliente Consolidado.",
+    "relations": [
+      "Referenciado por `envios_remesas.fact_env_movimiento` mediante `sk_cliente` → `sk_cliente`",
+      "Referenciado por `envios_remesas.fact_env_remesa_cliente` mediante `sk_cliente` → `sk_cliente`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_cliente",
+        "type": "bigint",
+        "note": "Surrogate key (SCD2)"
+      },
+      {
+        "key": "",
+        "name": "id_master",
+        "type": "bigint",
+        "note": "Cliente único (business key)"
+      }
+    ],
+    "dbmlFile": "ENVIOS_REMESAS.dbml",
+    "dbmlGroup": "ENVIOS_REMESAS",
+    "dbmlProject": "envios_remesas"
+  },
+  {
+    "id": "envios-remesas-dim-pais",
+    "title": "dim_pais",
+    "tag": "dimension",
+    "description": "Dominio envios_remesas. Normaliza el pivoteo país (México/otro) del origen. SCD estático.",
+    "relations": [
+      "Referenciado por `envios_remesas.fact_env_movimiento` mediante `sk_pais_origen` → `sk_pais`",
+      "Referenciado por `envios_remesas.fact_env_movimiento` mediante `sk_pais_destino` → `sk_pais`",
+      "Referenciado por `envios_remesas.fact_env_remesa_cliente` mediante `sk_pais` → `sk_pais`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_pais",
+        "type": "bigint",
+        "note": "Surrogate key"
+      },
+      {
+        "key": "",
+        "name": "cod_pais",
+        "type": "varchar(6)",
+        "note": "Código de país/corredor (business key)"
+      },
+      {
+        "key": "",
+        "name": "nom_pais",
+        "type": "string",
+        "note": "Nombre del país"
+      },
+      {
+        "key": "",
+        "name": "ind_mexico",
+        "type": "tinyint",
+        "note": "1 si es México (vs. otro país)"
+      },
+      {
+        "key": "",
+        "name": "cod_region",
+        "type": "string",
+        "note": "Región/corredor (ej. USA-CAN)"
+      }
+    ],
+    "dbmlFile": "ENVIOS_REMESAS.dbml",
+    "dbmlGroup": "ENVIOS_REMESAS",
+    "dbmlProject": "envios_remesas"
+  },
+  {
+    "id": "envios-remesas-dim-tipo-operacion",
+    "title": "dim_tipo_operacion",
+    "tag": "dimension",
+    "description": "Dominio envios_remesas. Normaliza envío vs. pago (hoy columnas en el crystal).",
+    "relations": [
+      "Referenciado por `envios_remesas.fact_env_movimiento` mediante `sk_tipo_operacion` → `sk_tipo_operacion`",
+      "Referenciado por `envios_remesas.fact_env_remesa_cliente` mediante `sk_tipo_operacion` → `sk_tipo_operacion`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_tipo_operacion",
+        "type": "bigint",
+        "note": "Surrogate key"
+      },
+      {
+        "key": "",
+        "name": "cod_tipo",
+        "type": "string",
+        "note": "Tipo de operación: envío / pago (business key)"
+      },
+      {
+        "key": "",
+        "name": "nom_tipo",
+        "type": "string",
+        "note": "Descripción del tipo de operación"
+      }
+    ],
+    "dbmlFile": "ENVIOS_REMESAS.dbml",
+    "dbmlGroup": "ENVIOS_REMESAS",
+    "dbmlProject": "envios_remesas"
+  },
+  {
+    "id": "envios-remesas-dim-instrumento-envio",
+    "title": "dim_instrumento_envio",
+    "tag": "dimension",
+    "description": "Dominio envios_remesas. Normaliza remesa vs. DEX (hoy columnas en el crystal).",
+    "relations": [
+      "Referenciado por `envios_remesas.fact_env_movimiento` mediante `sk_instrumento_envio` → `sk_instrumento_envio`",
+      "Referenciado por `envios_remesas.fact_env_remesa_cliente` mediante `sk_instrumento_envio` → `sk_instrumento_envio`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_instrumento_envio",
+        "type": "bigint",
+        "note": "Surrogate key"
+      },
+      {
+        "key": "",
+        "name": "cod_instrumento",
+        "type": "varchar(13)",
+        "note": "Instrumento: remesa / DEX (Dinero Express)"
+      },
+      {
+        "key": "",
+        "name": "nom_instrumento",
+        "type": "string",
+        "note": "Descripción del instrumento"
+      }
+    ],
+    "dbmlFile": "ENVIOS_REMESAS.dbml",
+    "dbmlGroup": "ENVIOS_REMESAS",
+    "dbmlProject": "envios_remesas"
+  },
+  {
+    "id": "envios-remesas-dim-canal-sucursal",
+    "title": "dim_canal_sucursal",
+    "tag": "dimension",
+    "description": "Dominio envios_remesas. Punto de atención donde se cobra/envía la remesa. SCD tipo 2.",
+    "relations": [
+      "Referenciado por `envios_remesas.fact_env_movimiento` mediante `sk_canal_sucursal` → `sk_canal_sucursal`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_canal_sucursal",
+        "type": "bigint",
+        "note": "Surrogate key (SCD tipo 2)"
+      },
+      {
+        "key": "",
+        "name": "cod_suc_movimiento",
+        "type": "varchar(7)",
+        "note": "Sucursal del movimiento (business key)"
+      },
+      {
+        "key": "",
+        "name": "cod_canal_movimiento",
+        "type": "varchar(3)",
+        "note": "Canal del movimiento"
+      },
+      {
+        "key": "",
+        "name": "cod_origen_movimiento",
+        "type": "varchar(18)",
+        "note": "Origen del movimiento"
+      },
+      {
+        "key": "",
+        "name": "fec_ini_vig",
+        "type": "timestamp",
+        "note": "SCD2: inicio de vigencia"
+      },
+      {
+        "key": "",
+        "name": "fec_fin_vig",
+        "type": "timestamp",
+        "note": "SCD2: fin de vigencia (NULL=vigente)"
+      },
+      {
+        "key": "",
+        "name": "ind_vigente",
+        "type": "tinyint",
+        "note": "SCD2: 1 si es la versión vigente"
+      }
+    ],
+    "dbmlFile": "ENVIOS_REMESAS.dbml",
+    "dbmlGroup": "ENVIOS_REMESAS",
+    "dbmlProject": "envios_remesas"
+  },
+  {
+    "id": "envios-remesas-fact-env-movimiento",
+    "title": "fact_env_movimiento",
+    "tag": "hecho",
+    "description": "Dominio envios_remesas. DP-ENV-1 Movimientos de Remesas. Reemplaza cd_env_movimientos. MTCN/contraparte TOKENIZADOS. Materia prima + PLD.",
+    "relations": [
+      "Referencia a `envios_remesas.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "Referencia a `envios_remesas.dim_pais` mediante `sk_pais_origen` → `sk_pais`",
+      "Referencia a `envios_remesas.dim_pais` mediante `sk_pais_destino` → `sk_pais`",
+      "Referencia a `envios_remesas.dim_tipo_operacion` mediante `sk_tipo_operacion` → `sk_tipo_operacion`",
+      "Referencia a `envios_remesas.dim_instrumento_envio` mediante `sk_instrumento_envio` → `sk_instrumento_envio`",
+      "Referencia a `envios_remesas.dim_canal_sucursal` mediante `sk_canal_sucursal` → `sk_canal_sucursal`",
+      "Referencia a `envios_remesas.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`",
+      "FK a `envios_remesas.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "FK a `envios_remesas.dim_pais` mediante `sk_pais_origen` → `sk_pais`",
+      "FK a `envios_remesas.dim_pais` mediante `sk_pais_destino` → `sk_pais`",
+      "FK a `envios_remesas.dim_tipo_operacion` mediante `sk_tipo_operacion` → `sk_tipo_operacion`",
+      "FK a `envios_remesas.dim_instrumento_envio` mediante `sk_instrumento_envio` → `sk_instrumento_envio`",
+      "FK a `envios_remesas.dim_canal_sucursal` mediante `sk_canal_sucursal` → `sk_canal_sucursal`",
+      "FK a `envios_remesas.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_env_movimiento",
+        "type": "bigint",
+        "note": "Surrogate key del movimiento"
+      },
+      {
+        "key": "FK",
+        "name": "sk_cliente",
+        "type": "bigint",
+        "note": "FK a dim_cliente"
+      },
+      {
+        "key": "FK",
+        "name": "sk_pais_origen",
+        "type": "bigint",
+        "note": "FK a dim_pais (país origen)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_pais_destino",
+        "type": "bigint",
+        "note": "FK a dim_pais (país destino)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_tipo_operacion",
+        "type": "bigint",
+        "note": "FK a dim_tipo_operacion"
+      },
+      {
+        "key": "FK",
+        "name": "sk_instrumento_envio",
+        "type": "bigint",
+        "note": "FK a dim_instrumento_envio"
+      },
+      {
+        "key": "FK",
+        "name": "sk_canal_sucursal",
+        "type": "bigint",
+        "note": "FK a dim_canal_sucursal"
+      },
+      {
+        "key": "FK",
+        "name": "sk_tiempo",
+        "type": "bigint",
+        "note": "FK a dim_tiempo (fec_operacion)"
+      },
+      {
+        "key": "",
+        "name": "id_master",
+        "type": "bigint",
+        "note": "Cliente único (business key)"
+      },
+      {
+        "key": "",
+        "name": "id_num_movimiento",
+        "type": "int",
+        "note": "Número de movimiento (degenerate)"
+      },
+      {
+        "key": "",
+        "name": "id_mtcn_movimiento_tok",
+        "type": "varchar(20)",
+        "note": "PII ALTO RIESGO. MTCN TOKENIZADO (identificador de remesa)"
+      },
+      {
+        "key": "",
+        "name": "fec_operacion",
+        "type": "timestamp",
+        "note": "Fecha/hora de la operación"
+      },
+      {
+        "key": "",
+        "name": "cod_instrumento_movimiento",
+        "type": "varchar(13)",
+        "note": "Instrumento del movimiento"
+      },
+      {
+        "key": "",
+        "name": "cod_tipo_movimiento",
+        "type": "varchar(5)",
+        "note": "Tipo de movimiento"
+      },
+      {
+        "key": "",
+        "name": "id_contraparte_tok",
+        "type": "string",
+        "note": "PII ALTO RIESGO. Contraparte TOKENIZADA"
+      },
+      {
+        "key": "",
+        "name": "id_cuenta_hash",
+        "type": "char(128)",
+        "note": "PII. Cuenta (hash; no exponer en claro)"
+      },
+      {
+        "key": "",
+        "name": "cod_bancarizado",
+        "type": "tinyint",
+        "note": "Indicador de bancarizado"
+      },
+      {
+        "key": "",
+        "name": "cod_producto",
+        "type": "varchar(30)",
+        "note": "Producto"
+      },
+      {
+        "key": "",
+        "name": "cod_subproducto",
+        "type": "varchar(14)",
+        "note": "Subproducto"
+      },
+      {
+        "key": "",
+        "name": "mto_caja",
+        "type": "decimal(22,4)",
+        "note": "Monto en caja"
+      },
+      {
+        "key": "",
+        "name": "mto_cte",
+        "type": "decimal(22,4)",
+        "note": "Monto del cliente"
+      },
+      {
+        "key": "",
+        "name": "mto_cargo",
+        "type": "decimal(22,4)",
+        "note": "Monto de cargo/comisión"
+      },
+      {
+        "key": "",
+        "name": "mto_impuesto",
+        "type": "decimal(22,4)",
+        "note": "Impuesto"
+      },
+      {
+        "key": "",
+        "name": "cod_paisorigen_estand",
+        "type": "string",
+        "note": "País origen estandarizado"
+      },
+      {
+        "key": "",
+        "name": "cod_paisdestino_estand",
+        "type": "string",
+        "note": "País destino estandarizado"
+      },
+      {
+        "key": "",
+        "name": "num_periodo_sem",
+        "type": "int",
+        "note": "Partición: periodo semanal"
+      }
+    ],
+    "dbmlFile": "ENVIOS_REMESAS.dbml",
+    "dbmlGroup": "ENVIOS_REMESAS",
+    "dbmlProject": "envios_remesas",
+    "modelRelations": [
+      {
+        "id": "envios-remesas-fact-env-movimiento.sk_cliente__envios-remesas-dim-cliente.sk_cliente",
+        "childId": "envios-remesas-fact-env-movimiento",
+        "childField": "sk_cliente",
+        "parentId": "envios-remesas-dim-cliente",
+        "parentField": "sk_cliente",
+        "source": "dbml",
+        "dbmlFile": "ENVIOS_REMESAS.dbml",
+        "dbmlGroup": "ENVIOS_REMESAS"
+      },
+      {
+        "id": "envios-remesas-fact-env-movimiento.sk_pais_origen__envios-remesas-dim-pais.sk_pais",
+        "childId": "envios-remesas-fact-env-movimiento",
+        "childField": "sk_pais_origen",
+        "parentId": "envios-remesas-dim-pais",
+        "parentField": "sk_pais",
+        "source": "dbml",
+        "dbmlFile": "ENVIOS_REMESAS.dbml",
+        "dbmlGroup": "ENVIOS_REMESAS"
+      },
+      {
+        "id": "envios-remesas-fact-env-movimiento.sk_pais_destino__envios-remesas-dim-pais.sk_pais",
+        "childId": "envios-remesas-fact-env-movimiento",
+        "childField": "sk_pais_destino",
+        "parentId": "envios-remesas-dim-pais",
+        "parentField": "sk_pais",
+        "source": "dbml",
+        "dbmlFile": "ENVIOS_REMESAS.dbml",
+        "dbmlGroup": "ENVIOS_REMESAS"
+      },
+      {
+        "id": "envios-remesas-fact-env-movimiento.sk_tipo_operacion__envios-remesas-dim-tipo-operacion.sk_tipo_operacion",
+        "childId": "envios-remesas-fact-env-movimiento",
+        "childField": "sk_tipo_operacion",
+        "parentId": "envios-remesas-dim-tipo-operacion",
+        "parentField": "sk_tipo_operacion",
+        "source": "dbml",
+        "dbmlFile": "ENVIOS_REMESAS.dbml",
+        "dbmlGroup": "ENVIOS_REMESAS"
+      },
+      {
+        "id": "envios-remesas-fact-env-movimiento.sk_instrumento_envio__envios-remesas-dim-instrumento-envio.sk_instrumento_envio",
+        "childId": "envios-remesas-fact-env-movimiento",
+        "childField": "sk_instrumento_envio",
+        "parentId": "envios-remesas-dim-instrumento-envio",
+        "parentField": "sk_instrumento_envio",
+        "source": "dbml",
+        "dbmlFile": "ENVIOS_REMESAS.dbml",
+        "dbmlGroup": "ENVIOS_REMESAS"
+      },
+      {
+        "id": "envios-remesas-fact-env-movimiento.sk_canal_sucursal__envios-remesas-dim-canal-sucursal.sk_canal_sucursal",
+        "childId": "envios-remesas-fact-env-movimiento",
+        "childField": "sk_canal_sucursal",
+        "parentId": "envios-remesas-dim-canal-sucursal",
+        "parentField": "sk_canal_sucursal",
+        "source": "dbml",
+        "dbmlFile": "ENVIOS_REMESAS.dbml",
+        "dbmlGroup": "ENVIOS_REMESAS"
+      },
+      {
+        "id": "envios-remesas-fact-env-movimiento.sk_tiempo__envios-remesas-dim-tiempo.sk_tiempo",
+        "childId": "envios-remesas-fact-env-movimiento",
+        "childField": "sk_tiempo",
+        "parentId": "envios-remesas-dim-tiempo",
+        "parentField": "sk_tiempo",
+        "source": "dbml",
+        "dbmlFile": "ENVIOS_REMESAS.dbml",
+        "dbmlGroup": "ENVIOS_REMESAS"
+      }
+    ],
+    "dbmlRelationCount": 7
+  },
+  {
+    "id": "envios-remesas-fact-env-remesa-cliente",
+    "title": "fact_env_remesa_cliente",
+    "tag": "hecho",
+    "description": "Dominio envios_remesas. DP-ENV-2 Comportamiento de Remesas. Reemplaza cd_env_cte_hist. Des-pivotea país/tipo/instrumento a dimensiones (de 122 col a fila cliente x periodo x país x tipo). Se deriva de fact_env_movimiento.",
+    "relations": [
+      "Referencia a `envios_remesas.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "Referencia a `envios_remesas.dim_pais` mediante `sk_pais` → `sk_pais`",
+      "Referencia a `envios_remesas.dim_tipo_operacion` mediante `sk_tipo_operacion` → `sk_tipo_operacion`",
+      "Referencia a `envios_remesas.dim_instrumento_envio` mediante `sk_instrumento_envio` → `sk_instrumento_envio`",
+      "Referencia a `envios_remesas.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`",
+      "FK a `envios_remesas.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "FK a `envios_remesas.dim_pais` mediante `sk_pais` → `sk_pais`",
+      "FK a `envios_remesas.dim_tipo_operacion` mediante `sk_tipo_operacion` → `sk_tipo_operacion`",
+      "FK a `envios_remesas.dim_instrumento_envio` mediante `sk_instrumento_envio` → `sk_instrumento_envio`",
+      "FK a `envios_remesas.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_env_remesa_cliente",
+        "type": "bigint",
+        "note": "Surrogate key (cliente + periodo + país + tipo)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_cliente",
+        "type": "bigint",
+        "note": "FK a dim_cliente"
+      },
+      {
+        "key": "FK",
+        "name": "sk_pais",
+        "type": "bigint",
+        "note": "FK a dim_pais (México/otro)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_tipo_operacion",
+        "type": "bigint",
+        "note": "FK a dim_tipo_operacion (envío/pago)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_instrumento_envio",
+        "type": "bigint",
+        "note": "FK a dim_instrumento_envio (remesa/DEX)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_tiempo",
+        "type": "bigint",
+        "note": "FK a dim_tiempo"
+      },
+      {
+        "key": "",
+        "name": "id_master",
+        "type": "bigint",
+        "note": "Cliente único (business key)"
+      },
+      {
+        "key": "",
+        "name": "num_periodo_mes",
+        "type": "int",
+        "note": "Partición: periodo mensual"
+      },
+      {
+        "key": "",
+        "name": "num_env",
+        "type": "int",
+        "note": "Número de envíos"
+      },
+      {
+        "key": "",
+        "name": "mto_env",
+        "type": "decimal(38,4)",
+        "note": "Monto de envíos"
+      },
+      {
+        "key": "",
+        "name": "num_pag",
+        "type": "int",
+        "note": "Número de pagos (cobros de remesa)"
+      },
+      {
+        "key": "",
+        "name": "mto_pag",
+        "type": "decimal(38,4)",
+        "note": "Monto de pagos"
+      },
+      {
+        "key": "",
+        "name": "num_dex",
+        "type": "int",
+        "note": "Número de operaciones DEX"
+      },
+      {
+        "key": "",
+        "name": "mto_dex",
+        "type": "decimal(38,4)",
+        "note": "Monto DEX"
+      },
+      {
+        "key": "",
+        "name": "num_rem",
+        "type": "int",
+        "note": "Número de remesas"
+      },
+      {
+        "key": "",
+        "name": "mto_rem",
+        "type": "decimal(38,4)",
+        "note": "Monto de remesas"
+      },
+      {
+        "key": "",
+        "name": "num_env_3m",
+        "type": "int",
+        "note": "Número de envíos ventana 3m"
+      },
+      {
+        "key": "",
+        "name": "mto_env_3m",
+        "type": "decimal(38,4)",
+        "note": "Monto de envíos ventana 3m"
+      },
+      {
+        "key": "",
+        "name": "num_pag_3m",
+        "type": "int",
+        "note": "Número de pagos ventana 3m"
+      },
+      {
+        "key": "",
+        "name": "mto_pag_3m",
+        "type": "decimal(38,4)",
+        "note": "Monto de pagos ventana 3m"
+      }
+    ],
+    "dbmlFile": "ENVIOS_REMESAS.dbml",
+    "dbmlGroup": "ENVIOS_REMESAS",
+    "dbmlProject": "envios_remesas",
+    "modelRelations": [
+      {
+        "id": "envios-remesas-fact-env-remesa-cliente.sk_cliente__envios-remesas-dim-cliente.sk_cliente",
+        "childId": "envios-remesas-fact-env-remesa-cliente",
+        "childField": "sk_cliente",
+        "parentId": "envios-remesas-dim-cliente",
+        "parentField": "sk_cliente",
+        "source": "dbml",
+        "dbmlFile": "ENVIOS_REMESAS.dbml",
+        "dbmlGroup": "ENVIOS_REMESAS"
+      },
+      {
+        "id": "envios-remesas-fact-env-remesa-cliente.sk_pais__envios-remesas-dim-pais.sk_pais",
+        "childId": "envios-remesas-fact-env-remesa-cliente",
+        "childField": "sk_pais",
+        "parentId": "envios-remesas-dim-pais",
+        "parentField": "sk_pais",
+        "source": "dbml",
+        "dbmlFile": "ENVIOS_REMESAS.dbml",
+        "dbmlGroup": "ENVIOS_REMESAS"
+      },
+      {
+        "id": "envios-remesas-fact-env-remesa-cliente.sk_tipo_operacion__envios-remesas-dim-tipo-operacion.sk_tipo_operacion",
+        "childId": "envios-remesas-fact-env-remesa-cliente",
+        "childField": "sk_tipo_operacion",
+        "parentId": "envios-remesas-dim-tipo-operacion",
+        "parentField": "sk_tipo_operacion",
+        "source": "dbml",
+        "dbmlFile": "ENVIOS_REMESAS.dbml",
+        "dbmlGroup": "ENVIOS_REMESAS"
+      },
+      {
+        "id": "envios-remesas-fact-env-remesa-cliente.sk_instrumento_envio__envios-remesas-dim-instrumento-envio.sk_instrumento_envio",
+        "childId": "envios-remesas-fact-env-remesa-cliente",
+        "childField": "sk_instrumento_envio",
+        "parentId": "envios-remesas-dim-instrumento-envio",
+        "parentField": "sk_instrumento_envio",
+        "source": "dbml",
+        "dbmlFile": "ENVIOS_REMESAS.dbml",
+        "dbmlGroup": "ENVIOS_REMESAS"
+      },
+      {
+        "id": "envios-remesas-fact-env-remesa-cliente.sk_tiempo__envios-remesas-dim-tiempo.sk_tiempo",
+        "childId": "envios-remesas-fact-env-remesa-cliente",
+        "childField": "sk_tiempo",
+        "parentId": "envios-remesas-dim-tiempo",
+        "parentField": "sk_tiempo",
+        "source": "dbml",
+        "dbmlFile": "ENVIOS_REMESAS.dbml",
+        "dbmlGroup": "ENVIOS_REMESAS"
+      }
+    ],
+    "dbmlRelationCount": 5
+  }
+]

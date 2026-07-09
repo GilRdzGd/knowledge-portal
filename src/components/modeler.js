@@ -21,6 +21,7 @@ const viewControls = document.querySelector(".view-controls");
 const modelViewSelect = document.querySelector("#model-view-select");
 const newViewButton = document.querySelector("#new-view-button");
 const resetViewLayoutButton = document.querySelector("#reset-view-layout-button");
+const saveViewButton = document.querySelector("#save-view-button");
 const viewTableControls = document.querySelector(".view-table-controls");
 const viewTableButton = document.querySelector("#view-table-button");
 const viewTableMenu = document.querySelector("#view-table-menu");
@@ -56,31 +57,44 @@ const SCENE_PADDING = 240;
 
 const STUB = 26; // horizontal length of the connector stub leaving a table
 const CORNER = 9; // radius of the rounded elbows
-const STORAGE_KEY = "data-modeler-state-v7";
+const STORAGE_KEY = "data-modeler-state-v8";
 const DEFAULT_VIEW_ID = "default";
-const DEFAULT_VIEWS = [
-  { id: DEFAULT_VIEW_ID, name: "Default view", tableIds: null },
-  { id: "productos-de-datos", name: "Productos de Datos", tableIds: [] },
-  { id: "crystal", name: "Crystal", tableIds: [] },
+// Cada archivo assets/data/model-schema*.json es una vista. El build genera un
+// manifiesto (model-schemas.json) listando los esquemas disponibles y, por
+// convencion, su archivo de configuracion/posiciones model-views*.json.
+const SCHEMA_MANIFEST_PATH = "assets/data/model-schemas.json";
+const FALLBACK_SCHEMAS = [
+  { id: DEFAULT_VIEW_ID, name: "Modelo base", file: "model-schema.json", viewsFile: "model-views.json" },
 ];
 
 // ------------------------------------------------------------------- schema
-const schemaTables = await fetch("assets/data/model-schema.json").then((response) => {
-  if (!response.ok) throw new Error(`No se pudo cargar model-schema.json: ${response.status}`);
-  return response.json();
-});
-const sharedModelState = await fetch("assets/data/model-views.json")
-  .then((response) => (response.ok ? response.json() : null))
-  .catch((error) => {
-    console.warn("No se pudo cargar model-views.json", error);
-    return null;
-  });
+// El esquema activo se carga bajo demanda al abrir/cambiar de vista.
+let schemaTables = [];
 const tableById = {};
 const tableByName = {};
-schemaTables.forEach((table) => {
-  tableById[table.id] = table;
-  tableByName[table.title.trim().toLowerCase()] = table;
-});
+
+async function fetchModelJson(path) {
+  const response = await fetch(path);
+  if (!response.ok) {
+    throw new Error(`No se pudo cargar ${path}: ${response.status}`);
+  }
+  return response.json();
+}
+
+function rebuildSchemaLookups() {
+  Object.keys(tableById).forEach((key) => delete tableById[key]);
+  Object.keys(tableByName).forEach((key) => delete tableByName[key]);
+  schemaTables.forEach((table) => {
+    tableById[table.id] = table;
+    tableByName[table.title.trim().toLowerCase()] = table;
+  });
+}
+
+async function loadSchemaFile(file) {
+  const data = await fetchModelJson(`assets/data/${file}`);
+  schemaTables = Array.isArray(data) ? data : [];
+  rebuildSchemaLookups();
+}
 
 // -------------------------------------------------------------- runtime state
 let zoom = DEFAULT_ZOOM;
@@ -109,9 +123,15 @@ const schemaGroupEls = [];
 const schemaGroupHeaderEls = [];
 const cardColors = {};
 let viewPositions = {};
-let modelViews = DEFAULT_VIEWS.map((view) => ({ ...view, tableIds: view.tableIds ? [...view.tableIds] : null }));
+let modelViews = FALLBACK_SCHEMAS.map((view) => ({ ...view }));
 let activeViewId = DEFAULT_VIEW_ID;
 let viewportCentered = false;
+// Desplazamiento de la escena para centrar el contenido cuando cabe en el
+// viewport (el scroll por sí solo no puede centrar contenido más chico).
+let sceneOffsetX = 0;
+let sceneOffsetY = 0;
+// Cache de las semillas de configuracion por vista (archivos model-views*.json).
+const viewSeeds = {};
 
 // ---------------------------------------------------------------- utilities
 function escapeHtml(value) {
@@ -510,20 +530,14 @@ function resizeScene() {
 }
 
 // --------------------------------------------------------------- model views
-function createDefaultModelViews() {
-  return DEFAULT_VIEWS.map((view) => ({ ...view, tableIds: view.tableIds ? [...view.tableIds] : null }));
-}
-
 function currentView() {
   return modelViews.find((view) => view.id === activeViewId) || modelViews[0];
 }
 
-function isDefaultView(view = currentView()) {
-  return !view || view.id === DEFAULT_VIEW_ID;
-}
-
-function sanitizeViewTableIds(tableIds) {
-  return Array.from(new Set((tableIds || []).filter((id) => tableById[id])));
+// Con vistas basadas en archivo, cada vista es un esquema completo, por lo que
+// siempre se muestran las relaciones y grupos derivados del esquema activo.
+function isDefaultView() {
+  return true;
 }
 
 function sanitizePositions(positions) {
@@ -532,50 +546,11 @@ function sanitizePositions(positions) {
     return out;
   }
   Object.entries(positions).forEach(([id, pos]) => {
-    if (tableById[id] && pos && typeof pos.left === "number" && typeof pos.top === "number") {
+    if (pos && typeof pos.left === "number" && typeof pos.top === "number") {
       out[id] = { left: pos.left, top: pos.top };
     }
   });
   return out;
-}
-
-function restoreViewPositions(savedViewPositions, legacyPositions) {
-  viewPositions = {};
-  if (savedViewPositions && typeof savedViewPositions === "object") {
-    Object.entries(savedViewPositions).forEach(([viewId, positions]) => {
-      viewPositions[viewId] = sanitizePositions(positions);
-    });
-  }
-  if (!viewPositions[DEFAULT_VIEW_ID] && legacyPositions) {
-    viewPositions[DEFAULT_VIEW_ID] = sanitizePositions(legacyPositions);
-  }
-}
-
-function restoreModelViews(savedViews, savedActiveViewId, savedViewPositions, legacyPositions) {
-  const defaults = createDefaultModelViews();
-  const merged = new Map(defaults.map((view) => [view.id, view]));
-
-  if (Array.isArray(savedViews)) {
-    savedViews.forEach((view) => {
-      if (!view || !view.id || view.id === DEFAULT_VIEW_ID) {
-        return;
-      }
-      merged.set(view.id, {
-        id: String(view.id),
-        name: String(view.name || "Vista"),
-        tableIds: sanitizeViewTableIds(view.tableIds),
-      });
-    });
-  }
-
-  modelViews = Array.from(merged.values());
-  activeViewId = modelViews.some((view) => view.id === savedActiveViewId) ? savedActiveViewId : DEFAULT_VIEW_ID;
-  restoreViewPositions(savedViewPositions, legacyPositions);
-}
-
-function tableVisibleInCurrentView(tableId) {
-  const view = currentView();
-  return isDefaultView(view) || sanitizeViewTableIds(view.tableIds).includes(tableId);
 }
 
 function renderViewSelect() {
@@ -588,27 +563,6 @@ function renderViewSelect() {
   modelViewSelect.value = activeViewId;
 }
 
-function renderViewTableOptions() {
-  if (!viewTableOptions) {
-    return;
-  }
-  const view = currentView();
-  const selected = new Set(isDefaultView(view) ? schemaTables.map((table) => table.id) : sanitizeViewTableIds(view.tableIds));
-  const disabled = isDefaultView(view) || !editModeEnabled;
-  viewTableOptions.innerHTML = schemaTables
-    .map(
-      (table) => `
-        <label class="view-table-option">
-          <input type="checkbox" value="${escapeHtml(table.id)}" ${selected.has(table.id) ? "checked" : ""} ${
-        disabled ? "disabled" : ""
-      } />
-          <span>${escapeHtml(table.title)}</span>
-        </label>
-      `
-    )
-    .join("");
-}
-
 function closeViewTableMenu() {
   if (viewTableMenu) {
     viewTableMenu.hidden = true;
@@ -616,74 +570,22 @@ function closeViewTableMenu() {
   }
 }
 
+// Las vistas ahora provienen de archivos model-schema*.json; los controles para
+// componer vistas por subconjunto de tablas ya no aplican y quedan ocultos.
 function renderViewControls() {
   renderViewSelect();
-  renderViewTableOptions();
-  const view = currentView();
-  const tableSelectionDisabled = isDefaultView(view) || !editModeEnabled;
+  closeViewTableMenu();
   if (newViewButton) {
-    newViewButton.hidden = !editModeEnabled;
+    newViewButton.hidden = true;
   }
   if (viewTableControls) {
-    viewTableControls.hidden = !editModeEnabled;
+    viewTableControls.hidden = true;
   }
-  if (viewTableButton) {
-    viewTableButton.disabled = tableSelectionDisabled;
-    viewTableButton.title = isDefaultView(view) ? "Default view muestra todas las tablas" : "Seleccionar tablas de la vista";
+  // "Guardar" solo en modo edicion y cuando se sirve en local (puede escribir
+  // los archivos model-schema/model-views de la vista).
+  if (saveViewButton) {
+    saveViewButton.hidden = !(editModeEnabled && isLocalHost());
   }
-  if (!editModeEnabled) {
-    closeViewTableMenu();
-  }
-}
-
-function applyViewVisibility() {
-  selectedGroupId = null;
-  selectedRelationId = null;
-  applyCurrentViewPositions();
-  erCards.forEach((card) => {
-    const hidden = !tableVisibleInCurrentView(card.dataset.erCard);
-    card.classList.toggle("is-view-hidden", hidden);
-    if (hidden) {
-      selectedCardIds.delete(card.dataset.erCard);
-      if (selectedCardId === card.dataset.erCard) {
-        selectedCardId = null;
-      }
-    }
-  });
-  updateCollapsedCards();
-  updateGroups();
-  resizeScene();
-  rebuildRelationships();
-  refreshSelectionStyles();
-  centerViewport({ force: true });
-}
-
-function createNewView() {
-  const index = modelViews.filter((view) => view.id.startsWith("vista-")).length + 1;
-  const id = `vista-${Date.now()}`;
-  modelViews.push({ id, name: `Nueva vista ${index}`, tableIds: [] });
-  viewPositions[id] = {};
-  activeViewId = id;
-  closeViewTableMenu();
-  renderViewControls();
-  applyViewVisibility();
-  saveState();
-}
-
-function updateCurrentViewTable(tableId, selected) {
-  const view = currentView();
-  if (isDefaultView(view) || !editModeEnabled) {
-    return;
-  }
-  const tableIds = new Set(sanitizeViewTableIds(view.tableIds));
-  if (selected) {
-    tableIds.add(tableId);
-  } else {
-    tableIds.delete(tableId);
-  }
-  view.tableIds = Array.from(tableIds);
-  applyViewVisibility();
-  saveState();
 }
 
 function resetCurrentViewLayout() {
@@ -699,25 +601,99 @@ function resetCurrentViewLayout() {
   saveState();
 }
 
-function renameCurrentView() {
-  if (!editModeEnabled) {
+// ---------------------------------------------- vistas por archivo de esquema
+async function loadSchemaManifest() {
+  const manifest = await fetchModelJson(SCHEMA_MANIFEST_PATH).catch(() => null);
+  const schemas = Array.isArray(manifest?.schemas)
+    ? manifest.schemas
+        .filter((entry) => entry && entry.id && entry.file)
+        .map((entry) => ({
+          id: String(entry.id),
+          name: String(entry.name || entry.id),
+          file: String(entry.file),
+          viewsFile: entry.viewsFile ? String(entry.viewsFile) : null,
+        }))
+    : [];
+
+  modelViews = schemas.length ? schemas : FALLBACK_SCHEMAS.map((view) => ({ ...view }));
+
+  const preferred = manifest?.defaultId && modelViews.some((view) => view.id === manifest.defaultId)
+    ? manifest.defaultId
+    : modelViews[0].id;
+  return preferred;
+}
+
+// Reconstruye por completo el diagrama para el esquema de la vista activa.
+function renderActiveSchema(state) {
+  relationships = [];
+  schemaRelationships = deriveRelationships();
+  customRelationships = [];
+  deletedRelationIds.clear();
+  Object.keys(relationRoutes).forEach((key) => delete relationRoutes[key]);
+  groups.length = 0;
+  Object.keys(cardColors).forEach((key) => delete cardColors[key]);
+  selectedCardIds.clear();
+  selectedCardId = null;
+  selectedGroupId = null;
+  selectedRelationId = null;
+  pendingConnectorId = null;
+  buildSchemaGroups();
+
+  // Posiciones y zoom provienen de la configuracion de la vista activa.
+  viewPositions[activeViewId] = sanitizePositions(state?.positions || {});
+  if (typeof state?.zoom === "number") {
+    zoom = clamp(state.zoom, MIN_ZOOM, MAX_ZOOM);
+  }
+
+  if (Array.isArray(state?.customRelationships)) {
+    customRelationships = state.customRelationships
+      .filter((rel) => rel && tableById[rel.childId] && tableById[rel.parentId])
+      .map((rel) => ({ ...rel, viewId: activeViewId }));
+  }
+  if (Array.isArray(state?.deletedRelationIds)) {
+    state.deletedRelationIds.forEach((id) => deletedRelationIds.add(id));
+  }
+  if (state?.relationRoutes && typeof state.relationRoutes === "object") {
+    Object.entries(state.relationRoutes).forEach(([id, wp]) => {
+      if (wp && Number.isFinite(wp.x) && Number.isFinite(wp.y)) {
+        relationRoutes[id] = { x: wp.x, y: wp.y };
+      }
+    });
+  }
+
+  renderCards(viewPositions[activeViewId]);
+  applyColors(state?.colors);
+  createFieldConnectors();
+  rebuildRelationships();
+  bindCards();
+  bindCommentTooltips();
+  restoreSchemaGroups(state?.schemaGroups);
+  renderSchemaGroups();
+  restoreGroups(state?.groups);
+  resizeScene();
+  applyZoom();
+  updateRelationships();
+  updateGroups();
+  updateEditModeUi();
+  centerViewport({ force: true });
+}
+
+async function activateView(viewId) {
+  const view = modelViews.find((entry) => entry.id === viewId) || currentView();
+  if (!view) {
     return;
   }
-  const view = currentView();
-  if (isDefaultView(view)) {
+  activeViewId = view.id;
+  try {
+    await loadSchemaFile(view.file);
+  } catch (error) {
+    console.error(error);
     return;
   }
-  const nextName = window.prompt("Nombre de la vista", view.name || "Vista");
-  if (nextName === null) {
-    return;
-  }
-  const trimmed = nextName.trim();
-  if (!trimmed || trimmed === view.name) {
-    return;
-  }
-  view.name = trimmed;
-  renderViewControls();
-  saveState();
+  const seed = await loadViewSeed(view);
+  const state = effectiveViewState(activeViewId, seed, readLocalBlob());
+  renderViewSelect();
+  renderActiveSchema(state);
 }
 
 // --------------------------------------------------- relationship geometry
@@ -1435,7 +1411,7 @@ function applyZoom() {
   if (!diagramScene || !zoomReadout) {
     return;
   }
-  diagramScene.style.transform = `scale(${zoom})`;
+  diagramScene.style.transform = `translate(${sceneOffsetX}px, ${sceneOffsetY}px) scale(${zoom})`;
   diagramScene.style.transformOrigin = "top left";
   zoomReadout.textContent = `${Math.round(zoom * 100)}%`;
 }
@@ -1452,7 +1428,21 @@ function centerViewport({ force = false } = {}) {
     return;
   }
 
-  const bounds = erCards.reduce(
+  const visibleCards = erCards.filter((card) => !card.classList.contains("is-view-hidden"));
+  if (!visibleCards.length) {
+    return;
+  }
+
+  const vw = diagramViewport.clientWidth;
+  const vh = diagramViewport.clientHeight;
+  // Si el viewport todavia no tiene dimensiones (iframe recien montado),
+  // reintentar en el siguiente frame para centrar con medidas reales.
+  if (!vw || !vh) {
+    requestAnimationFrame(() => centerViewport({ force: true }));
+    return;
+  }
+
+  const bounds = visibleCards.reduce(
     (acc, card) => {
       const m = metrics(card);
       const table = tableById[card.dataset.erCard];
@@ -1468,10 +1458,42 @@ function centerViewport({ force = false } = {}) {
     { minLeft: Infinity, minTop: Infinity, maxRight: -Infinity, maxBottom: -Infinity }
   );
 
+  // El encabezado de grupo se dibuja ~56px por encima de las tarjetas y es la
+  // zona para arrastrarlo; se reserva esa holgura al medir el contenido para
+  // que quede dentro del area visible.
+  const hasGroups =
+    schemaGroups.length > 0 ||
+    groups.some((group) => (group.viewId || DEFAULT_VIEW_ID) === activeViewId);
+  const topBound = bounds.minTop - (hasGroups ? 62 : 0);
+
+  const contentWidth = (bounds.maxRight - bounds.minLeft) * zoom;
+  const contentHeight = (bounds.maxBottom - topBound) * zoom;
+
+  // La barra de herramientas flota sobre el viewport (position:absolute), por lo
+  // que se reserva su altura real como margen superior para que el contenido y
+  // el encabezado del grupo nunca queden debajo de ella y sigan accesibles.
+  const toolbarEl = diagramPanel?.querySelector(".diagram-toolbar");
+  const topSafe = toolbarEl
+    ? Math.min(vh * 0.5, toolbarEl.offsetTop + toolbarEl.offsetHeight + 16)
+    : 76;
+  const availableHeight = Math.max(80, vh - topSafe);
+
+  // Eje X: si el contenido cabe, se centra con un desplazamiento de la escena;
+  // si desborda, el desplazamiento es 0 y se centra por scroll.
+  sceneOffsetX = contentWidth <= vw ? (vw - contentWidth) / 2 - bounds.minLeft * zoom : 0;
+  // Eje Y: se centra dentro del area util (por debajo de la barra).
+  sceneOffsetY = contentHeight <= availableHeight
+    ? topSafe + (availableHeight - contentHeight) / 2 - topBound * zoom
+    : 0;
+
+  applyZoom();
+
   const centerX = (bounds.minLeft + bounds.maxRight) / 2;
-  const centerY = (bounds.minTop + bounds.maxBottom) / 2;
-  diagramViewport.scrollLeft = Math.max(0, centerX * zoom - diagramViewport.clientWidth / 2);
-  diagramViewport.scrollTop = Math.max(0, centerY * zoom - diagramViewport.clientHeight / 2);
+  const centerY = (topBound + bounds.maxBottom) / 2;
+  diagramViewport.scrollLeft = contentWidth > vw ? Math.max(0, centerX * zoom - vw / 2) : 0;
+  diagramViewport.scrollTop = contentHeight > availableHeight
+    ? Math.max(0, centerY * zoom - (topSafe + availableHeight / 2))
+    : 0;
   viewportCentered = true;
 }
 
@@ -2007,7 +2029,7 @@ function restoreGroups(saved) {
         name: group.name || "Grupo",
         cardIds,
         color: group.color || "#ff5736",
-        viewId: group.viewId || DEFAULT_VIEW_ID,
+        viewId: activeViewId,
         collapsed: Boolean(group.collapsed),
         collapsedBounds: group.collapsedBounds || null,
       });
@@ -2112,52 +2134,86 @@ function readPersistedState() {
   return null;
 }
 
-function mergeModelState(sharedState, localState) {
-  if (!sharedState && !localState) {
+// Blob de localStorage con el estado editado por el usuario, separado por vista:
+// { version, activeViewId, views: { [viewId]: { positions, colors, ... } } }.
+function readLocalBlob() {
+  try {
+    const raw = readPersistedState();
+    if (!raw) {
+      return null;
+    }
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object") {
+      return null;
+    }
+    if (!parsed.views || typeof parsed.views !== "object") {
+      parsed.views = {};
+    }
+    return parsed;
+  } catch (error) {
+    console.warn("Unable to read saved diagram state", error);
     return null;
   }
-  if (!sharedState) {
-    return localState;
+}
+
+// Carga la semilla de configuracion de una vista desde su archivo
+// model-views*.json (posiciones/colores/relaciones/grupos por defecto). Es
+// opcional: si no existe, la vista arranca con el layout calculado.
+async function loadViewSeed(view) {
+  if (Object.prototype.hasOwnProperty.call(viewSeeds, view.id)) {
+    return viewSeeds[view.id];
   }
-  if (!localState) {
-    return sharedState;
+  let seed = null;
+  if (view?.viewsFile) {
+    try {
+      const raw = await fetchModelJson(`assets/data/${view.viewsFile}`);
+      seed = raw && typeof raw === "object" && !Array.isArray(raw) ? raw : null;
+    } catch (_) {
+      seed = null;
+    }
   }
+  viewSeeds[view.id] = seed;
+  return seed;
+}
+
+// Estado efectivo de una vista: lo guardado en el navegador tiene prioridad
+// sobre la semilla del archivo (misma logica que los esquemas: el archivo es el
+// valor por defecto y el usuario lo sobreescribe localmente).
+function effectiveViewState(viewId, seed, blob) {
+  const localView = blob && blob.views ? blob.views[viewId] : null;
+  const base = seed || {};
+  const pick = (key, fallback) => {
+    if (localView && localView[key] !== undefined) {
+      return localView[key];
+    }
+    if (base[key] !== undefined) {
+      return base[key];
+    }
+    return fallback;
+  };
+  const zoomValue = pick("zoom", undefined);
   return {
-    ...sharedState,
-    ...localState,
-    modelViews: localState.modelViews || sharedState.modelViews,
-    positions: localState.positions || sharedState.positions,
-    viewPositions: localState.viewPositions || sharedState.viewPositions,
-    colors: localState.colors || sharedState.colors,
-    customRelationships: localState.customRelationships || sharedState.customRelationships,
-    deletedRelationIds: localState.deletedRelationIds || sharedState.deletedRelationIds,
-    relationRoutes: localState.relationRoutes || sharedState.relationRoutes,
-    groups: localState.groups || sharedState.groups,
-    schemaGroups: localState.schemaGroups || sharedState.schemaGroups,
+    positions: pick("positions", {}) || {},
+    colors: pick("colors", {}) || {},
+    customRelationships: Array.isArray(pick("customRelationships", [])) ? pick("customRelationships", []) : [],
+    deletedRelationIds: Array.isArray(pick("deletedRelationIds", [])) ? pick("deletedRelationIds", []) : [],
+    relationRoutes: pick("relationRoutes", {}) || {},
+    groups: Array.isArray(pick("groups", [])) ? pick("groups", []) : [],
+    schemaGroups: Array.isArray(pick("schemaGroups", [])) ? pick("schemaGroups", []) : [],
+    zoom: typeof zoomValue === "number" ? zoomValue : undefined,
   };
 }
 
-function saveState() {
-  if (!diagramScene) {
-    return;
-  }
-  const positions = viewPositions[DEFAULT_VIEW_ID] || {};
-
-  const state = {
-    version: 5,
-    zoom,
-    activeViewId,
-    modelViews: modelViews.map((view) => ({
-      id: view.id,
-      name: view.name,
-      tableIds: view.tableIds ? sanitizeViewTableIds(view.tableIds) : null,
-    })),
-    positions,
-    viewPositions,
-    colors: cardColors,
+// Configuracion (plana) de la vista activa: posiciones, colores, relaciones,
+// grupos y zoom. Es lo que se guarda por vista, tanto en localStorage como en
+// el archivo model-views.<vista>.json al usar "Guardar".
+function currentViewConfig() {
+  return {
+    positions: viewPositions[activeViewId] || {},
+    colors: { ...cardColors },
     customRelationships: customRelationships.map((rel) => ({
       id: rel.id,
-      viewId: rel.viewId || DEFAULT_VIEW_ID,
+      viewId: activeViewId,
       childId: rel.childId,
       childField: rel.childField,
       parentId: rel.parentId,
@@ -2165,34 +2221,84 @@ function saveState() {
       custom: true,
     })),
     deletedRelationIds: Array.from(deletedRelationIds),
-    relationRoutes,
-    groups: groups.map((group) => ({
-      id: group.id,
-      name: group.name,
-      cardIds: group.cardIds,
-      color: group.color,
-      viewId: group.viewId || DEFAULT_VIEW_ID,
-      collapsed: Boolean(group.collapsed),
-      collapsedBounds: group.collapsedBounds || null,
-    })),
+    relationRoutes: { ...relationRoutes },
+    groups: groups
+      .filter((group) => (group.viewId || DEFAULT_VIEW_ID) === activeViewId)
+      .map((group) => ({
+        id: group.id,
+        name: group.name,
+        cardIds: group.cardIds,
+        color: group.color,
+        collapsed: Boolean(group.collapsed),
+        collapsedBounds: group.collapsedBounds || null,
+      })),
     schemaGroups: schemaGroups.map((group) => ({
       id: group.id,
       collapsed: Boolean(group.collapsed),
       collapsedBounds: group.collapsedBounds || null,
     })),
+    zoom,
   };
-
-  persistState(JSON.stringify(state));
 }
 
-function loadState() {
+function saveState() {
+  if (!diagramScene) {
+    return;
+  }
+  const blob = readLocalBlob() || { version: 8, views: {} };
+  blob.version = 8;
+  blob.activeViewId = activeViewId;
+  blob.views = blob.views || {};
+  blob.views[activeViewId] = currentViewConfig();
+  persistState(JSON.stringify(blob));
+}
+
+// El guardado a archivos solo aplica al servir en local (dev/preview). En el
+// sitio hosteado (GitHub Pages) no hay backend que escriba, y ademas el boton
+// se oculta.
+function isLocalHost() {
   try {
-    const raw = readPersistedState();
-    const localState = raw ? JSON.parse(raw) : null;
-    return mergeModelState(sharedModelState, localState);
+    const loc = (window.parent && window.parent !== window && window.parent.location) || window.location;
+    const host = loc.hostname;
+    return host === "localhost" || host === "127.0.0.1" || host === "0.0.0.0" || host === "";
+  } catch (_) {
+    return false;
+  }
+}
+
+async function saveViewToFiles() {
+  if (!isLocalHost() || !saveViewButton) {
+    return;
+  }
+  const view = currentView();
+  captureCurrentPositions();
+  const payload = {
+    schemaFile: view.file,
+    viewsFile: view.viewsFile || `model-views.${view.id}.json`,
+    schema: schemaTables,
+    views: currentViewConfig(),
+  };
+  const original = saveViewButton.textContent;
+  saveViewButton.disabled = true;
+  try {
+    const response = await fetch("save-view", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    saveState();
+    saveViewButton.textContent = "Guardado ✓";
   } catch (error) {
-    console.warn("Unable to read saved diagram state", error);
-    return null;
+    console.error("No se pudo guardar la vista en archivos", error);
+    saveViewButton.textContent = "Error al guardar";
+  } finally {
+    setTimeout(() => {
+      saveViewButton.textContent = original || "Guardar";
+      saveViewButton.disabled = false;
+    }, 2000);
   }
 }
 
@@ -2204,46 +2310,16 @@ function bindToolbar() {
     clearHighlight();
   });
 
-  modelViewSelect?.addEventListener("change", () => {
-    if (editModeEnabled) {
-      captureCurrentPositions();
-    }
-    activeViewId = modelViewSelect.value || DEFAULT_VIEW_ID;
-    closeViewTableMenu();
-    renderViewControls();
-    applyViewVisibility();
+  modelViewSelect?.addEventListener("change", async () => {
+    captureCurrentPositions();
     saveState();
-  });
-  modelViewSelect?.addEventListener("dblclick", (event) => {
-    event.preventDefault();
-    renameCurrentView();
-  });
-
-  newViewButton?.addEventListener("click", () => {
-    if (!editModeEnabled) {
-      return;
-    }
-    createNewView();
+    closeViewTableMenu();
+    await activateView(modelViewSelect.value || DEFAULT_VIEW_ID);
+    saveState();
   });
 
   resetViewLayoutButton?.addEventListener("click", resetCurrentViewLayout);
-
-  viewTableButton?.addEventListener("click", (event) => {
-    if (!editModeEnabled || isDefaultView()) {
-      return;
-    }
-    event.stopPropagation();
-    viewTableMenu.hidden = !viewTableMenu.hidden;
-    viewTableButton.setAttribute("aria-expanded", viewTableMenu.hidden ? "false" : "true");
-  });
-
-  viewTableOptions?.addEventListener("change", (event) => {
-    const input = event.target.closest('input[type="checkbox"]');
-    if (!input) {
-      return;
-    }
-    updateCurrentViewTable(input.value, input.checked);
-  });
+  saveViewButton?.addEventListener("click", saveViewToFiles);
 
   zoomButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -2327,56 +2403,34 @@ function bindToolbar() {
 }
 
 // ---------------------------------------------------------------------- init
-function initializeModeler() {
+async function initializeModeler() {
   if (!diagramScene) {
     return;
   }
 
-  schemaRelationships = deriveRelationships();
-  buildSchemaGroups();
-  const state = loadState();
+  const blob = readLocalBlob();
 
-  if (Array.isArray(state?.customRelationships)) {
-    customRelationships = state.customRelationships
-      .filter((rel) => rel && tableById[rel.childId] && tableById[rel.parentId])
-      .map((rel) => ({ ...rel, viewId: rel.viewId || DEFAULT_VIEW_ID }));
+  const preferredViewId = await loadSchemaManifest();
+  activeViewId = blob?.activeViewId && modelViews.some((view) => view.id === blob.activeViewId)
+    ? blob.activeViewId
+    : preferredViewId;
+
+  const view = currentView();
+  const seed = await loadViewSeed(view);
+  const state = effectiveViewState(activeViewId, seed, blob);
+
+  try {
+    await loadSchemaFile(view.file);
+  } catch (error) {
+    console.error(error);
+    return;
   }
-  if (Array.isArray(state?.deletedRelationIds)) {
-    state.deletedRelationIds.forEach((id) => deletedRelationIds.add(id));
-  }
-  if (state?.relationRoutes && typeof state.relationRoutes === "object") {
-    Object.entries(state.relationRoutes).forEach(([id, wp]) => {
-      if (wp && Number.isFinite(wp.x) && Number.isFinite(wp.y)) {
-        relationRoutes[id] = { x: wp.x, y: wp.y };
-      }
-    });
-  }
-  renderCards(state?.positions);
-  restoreModelViews(state?.modelViews, state?.activeViewId, state?.viewPositions, state?.positions);
-  renderViewControls();
-  applyViewVisibility();
-  applyColors(state?.colors);
-  createFieldConnectors();
-  rebuildRelationships();
-  bindCards();
-  bindCommentTooltips();
+
+  renderViewSelect();
+  renderActiveSchema(state);
   bindToolbar();
-  restoreSchemaGroups(state?.schemaGroups);
-  renderSchemaGroups();
-  restoreGroups(state?.groups);
 
-  if (typeof state?.zoom === "number") {
-    zoom = clamp(state.zoom, MIN_ZOOM, MAX_ZOOM);
-  }
-
-  resizeScene();
-  applyZoom();
-  updateRelationships();
-  updateGroups();
-  updateEditModeUi();
-  centerViewport();
-
-  if (!state) {
+  if (!blob) {
     saveState();
   }
 }

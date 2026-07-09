@@ -1,3 +1,6 @@
 node_modules/
 .DS_Store
 npm-debug.log*
+
+# Salida del build: se regenera con `npm run build` y en CI (deploy.yml)
+dist/

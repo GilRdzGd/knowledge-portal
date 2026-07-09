@@ -1,0 +1,1223 @@
+[
+  {
+    "id": "cliente-consolidado-dim-tiempo",
+    "title": "dim_tiempo",
+    "tag": "dimension",
+    "description": "Dominio cliente_consolidado. Conformada.",
+    "relations": [
+      "Referenciado por `cliente_consolidado.fact_cte_segmentacion` mediante `sk_tiempo` → `sk_tiempo`",
+      "Referenciado por `cliente_consolidado.fact_cte_actividad` mediante `sk_tiempo` → `sk_tiempo`",
+      "Referenciado por `cliente_consolidado.fact_cte_vinculacion_valor` mediante `sk_tiempo` → `sk_tiempo`",
+      "Referenciado por `cliente_consolidado.fact_cte_recomendacion` mediante `sk_tiempo` → `sk_tiempo`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_tiempo",
+        "type": "bigint",
+        "note": "Surrogate key"
+      },
+      {
+        "key": "",
+        "name": "num_periodo_mes",
+        "type": "int",
+        "note": "Periodo mensual AAAAMM"
+      },
+      {
+        "key": "",
+        "name": "fec_num",
+        "type": "int",
+        "note": "Fecha AAAAMMDD"
+      }
+    ],
+    "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+    "dbmlGroup": "CLIENTE_CONSOLIDADO",
+    "dbmlProject": "cliente_consolidado"
+  },
+  {
+    "id": "cliente-consolidado-dim-cliente",
+    "title": "dim_cliente",
+    "tag": "dimension",
+    "description": "Dominio cliente_consolidado. DP-CTE-1 Cliente 360 / MDM. Golden record. SCD tipo 2. Dimensión conformada usada por TODOS los dominios. Consolida 3 copias de la llave (master/diaria/nombre) + golden record + flag empleado. Cadencia diaria.",
+    "relations": [
+      "Referenciado por `cliente_consolidado.fact_cte_segmentacion` mediante `sk_cliente` → `sk_cliente`",
+      "Referenciado por `cliente_consolidado.fact_cte_actividad` mediante `sk_cliente` → `sk_cliente`",
+      "Referenciado por `cliente_consolidado.fact_cte_vinculacion_valor` mediante `sk_cliente` → `sk_cliente`",
+      "Referenciado por `cliente_consolidado.fact_cte_recomendacion` mediante `sk_cliente` → `sk_cliente`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_cliente",
+        "type": "bigint",
+        "note": "Surrogate key del mart (SCD tipo 2)"
+      },
+      {
+        "key": "",
+        "name": "id_master",
+        "type": "int",
+        "note": "Cliente único (business key) - join key universal del ecosistema"
+      },
+      {
+        "key": "",
+        "name": "id_cliente",
+        "type": "string",
+        "note": "Identificador de cliente del sistema origen"
+      },
+      {
+        "key": "",
+        "name": "cod_empresa",
+        "type": "string",
+        "note": "Empresa/entidad del grupo"
+      },
+      {
+        "key": "",
+        "name": "cod_tipo_cliente",
+        "type": "string",
+        "note": "Tipo de cliente"
+      },
+      {
+        "key": "",
+        "name": "ind_empleado",
+        "type": "tinyint",
+        "note": "Indicador de cliente-empleado del grupo (de cd_cte_empleado_master)"
+      },
+      {
+        "key": "",
+        "name": "nombre_norm",
+        "type": "string",
+        "note": "PII. Nombre normalizado"
+      },
+      {
+        "key": "",
+        "name": "apellido_paterno_norm",
+        "type": "string",
+        "note": "PII. Apellido paterno normalizado"
+      },
+      {
+        "key": "",
+        "name": "apellido_materno_norm",
+        "type": "string",
+        "note": "PII. Apellido materno normalizado"
+      },
+      {
+        "key": "",
+        "name": "icc_nombre",
+        "type": "string",
+        "note": "Indicador de calidad del nombre"
+      },
+      {
+        "key": "",
+        "name": "fuente_nombre",
+        "type": "string",
+        "note": "Fuente del atributo nombre"
+      },
+      {
+        "key": "",
+        "name": "rfc",
+        "type": "string",
+        "note": "PII SENSIBLE. RFC (tokenizar/enmascarar)"
+      },
+      {
+        "key": "",
+        "name": "codrfc",
+        "type": "string",
+        "note": "Código RFC"
+      },
+      {
+        "key": "",
+        "name": "icc_rfc",
+        "type": "string",
+        "note": "Indicador de calidad del RFC"
+      },
+      {
+        "key": "",
+        "name": "curp",
+        "type": "string",
+        "note": "PII SENSIBLE. CURP (tokenizar/enmascarar)"
+      },
+      {
+        "key": "",
+        "name": "icc_curp",
+        "type": "string",
+        "note": "Indicador de calidad de la CURP"
+      },
+      {
+        "key": "",
+        "name": "ine",
+        "type": "string",
+        "note": "PII SENSIBLE. Clave INE (tokenizar/enmascarar)"
+      },
+      {
+        "key": "",
+        "name": "icc_ine",
+        "type": "string",
+        "note": "Indicador de calidad del INE"
+      },
+      {
+        "key": "",
+        "name": "genero",
+        "type": "string",
+        "note": "Género"
+      },
+      {
+        "key": "",
+        "name": "tipo_persona",
+        "type": "string",
+        "note": "Tipo de persona (física/moral)"
+      },
+      {
+        "key": "",
+        "name": "fecha_nacimiento",
+        "type": "string",
+        "note": "PII. Fecha de nacimiento"
+      },
+      {
+        "key": "",
+        "name": "nacionalidad_norm",
+        "type": "string",
+        "note": "Nacionalidad normalizada"
+      },
+      {
+        "key": "",
+        "name": "estado_civil",
+        "type": "string",
+        "note": "Estado civil"
+      },
+      {
+        "key": "",
+        "name": "actividad_laboral_norm",
+        "type": "string",
+        "note": "Actividad laboral normalizada"
+      },
+      {
+        "key": "",
+        "name": "tipvia",
+        "type": "string",
+        "note": "Tipo de vía del domicilio"
+      },
+      {
+        "key": "",
+        "name": "nomvia",
+        "type": "string",
+        "note": "Nombre de vía"
+      },
+      {
+        "key": "",
+        "name": "numext",
+        "type": "string",
+        "note": "Número exterior"
+      },
+      {
+        "key": "",
+        "name": "numint",
+        "type": "string",
+        "note": "Número interior"
+      },
+      {
+        "key": "",
+        "name": "cposta",
+        "type": "bigint",
+        "note": "Código postal"
+      },
+      {
+        "key": "",
+        "name": "tip_asentamiento",
+        "type": "string",
+        "note": "Tipo de asentamiento"
+      },
+      {
+        "key": "",
+        "name": "loc_oficial",
+        "type": "string",
+        "note": "Localidad oficial"
+      },
+      {
+        "key": "",
+        "name": "lmunicipio",
+        "type": "string",
+        "note": "Municipio"
+      },
+      {
+        "key": "",
+        "name": "lentidad",
+        "type": "string",
+        "note": "Entidad/estado"
+      },
+      {
+        "key": "",
+        "name": "icc_domicilio",
+        "type": "string",
+        "note": "Indicador de calidad del domicilio"
+      },
+      {
+        "key": "",
+        "name": "tel1_norm",
+        "type": "string",
+        "note": "PII. Teléfono 1 normalizado"
+      },
+      {
+        "key": "",
+        "name": "tel2_norm",
+        "type": "string",
+        "note": "PII. Teléfono 2 normalizado"
+      },
+      {
+        "key": "",
+        "name": "dir_email",
+        "type": "string",
+        "note": "PII. Correo electrónico"
+      },
+      {
+        "key": "",
+        "name": "icc_email",
+        "type": "string",
+        "note": "Indicador de calidad del email"
+      },
+      {
+        "key": "",
+        "name": "coorgx",
+        "type": "float",
+        "note": "PII. Coordenada geográfica X del domicilio"
+      },
+      {
+        "key": "",
+        "name": "coorgy",
+        "type": "float",
+        "note": "PII. Coordenada geográfica Y del domicilio"
+      },
+      {
+        "key": "",
+        "name": "fec_ini_vig",
+        "type": "timestamp",
+        "note": "SCD2: inicio de vigencia"
+      },
+      {
+        "key": "",
+        "name": "fec_fin_vig",
+        "type": "timestamp",
+        "note": "SCD2: fin de vigencia (NULL=vigente)"
+      },
+      {
+        "key": "",
+        "name": "ind_vigente",
+        "type": "tinyint",
+        "note": "SCD2: 1 si es la versión vigente"
+      }
+    ],
+    "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+    "dbmlGroup": "CLIENTE_CONSOLIDADO",
+    "dbmlProject": "cliente_consolidado"
+  },
+  {
+    "id": "cliente-consolidado-dim-segmento",
+    "title": "dim_segmento",
+    "tag": "dimension",
+    "description": "Dominio cliente_consolidado. Diccionario de segmentación (de Catálogos Generales). SCD tipo 2. Publica los códigos hoy tribales.",
+    "relations": [
+      "Referenciado por `cliente_consolidado.fact_cte_segmentacion` mediante `sk_segmento` → `sk_segmento`",
+      "Referenciado por `cliente_consolidado.fact_cte_recomendacion` mediante `sk_segmento` → `sk_segmento`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_segmento",
+        "type": "bigint",
+        "note": "Surrogate key (SCD tipo 2)"
+      },
+      {
+        "key": "",
+        "name": "cod_seg",
+        "type": "string",
+        "note": "Código de segmento (business key)"
+      },
+      {
+        "key": "",
+        "name": "cod_nivel0",
+        "type": "string",
+        "note": "Nivel jerárquico 0"
+      },
+      {
+        "key": "",
+        "name": "cod_nivel1",
+        "type": "string",
+        "note": "Nivel jerárquico 1"
+      },
+      {
+        "key": "",
+        "name": "cod_nivel1_desc",
+        "type": "string",
+        "note": "Descripción del nivel 1"
+      },
+      {
+        "key": "",
+        "name": "cod_nivel1_ordinal",
+        "type": "string",
+        "note": "Ordinal del nivel 1"
+      },
+      {
+        "key": "",
+        "name": "cod_nivel2",
+        "type": "string",
+        "note": "Nivel jerárquico 2"
+      },
+      {
+        "key": "",
+        "name": "cod_nivel2_desc",
+        "type": "string",
+        "note": "Descripción del nivel 2"
+      },
+      {
+        "key": "",
+        "name": "cod_nivel3",
+        "type": "string",
+        "note": "Nivel jerárquico 3"
+      },
+      {
+        "key": "",
+        "name": "cod_nivel3_desc",
+        "type": "string",
+        "note": "Descripción del nivel 3"
+      }
+    ],
+    "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+    "dbmlGroup": "CLIENTE_CONSOLIDADO",
+    "dbmlProject": "cliente_consolidado"
+  },
+  {
+    "id": "cliente-consolidado-dim-microsegmento",
+    "title": "dim_microsegmento",
+    "tag": "dimension",
+    "description": "Dominio cliente_consolidado. Perfil/microsegmento del cliente. Publica el catálogo de códigos de recorrido. SCD tipo 2.",
+    "relations": [
+      "Referenciado por `cliente_consolidado.fact_cte_segmentacion` mediante `sk_microsegmento` → `sk_microsegmento`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_microsegmento",
+        "type": "bigint",
+        "note": "Surrogate key (SCD tipo 2)"
+      },
+      {
+        "key": "",
+        "name": "id_microseg",
+        "type": "int",
+        "note": "Identificador de microsegmento (business key)"
+      },
+      {
+        "key": "",
+        "name": "cod_edad",
+        "type": "string",
+        "note": "Código de rango de edad"
+      },
+      {
+        "key": "",
+        "name": "cod_renta",
+        "type": "string",
+        "note": "Código de renta"
+      },
+      {
+        "key": "",
+        "name": "cod_cre_inv",
+        "type": "string",
+        "note": "Código perfil crédito/inversión"
+      },
+      {
+        "key": "",
+        "name": "cod_ant_cap",
+        "type": "string",
+        "note": "Código antigüedad en captación"
+      },
+      {
+        "key": "",
+        "name": "cod_num_prod",
+        "type": "string",
+        "note": "Código número de productos"
+      },
+      {
+        "key": "",
+        "name": "cod_perfil_trx",
+        "type": "string",
+        "note": "Código perfil transaccional"
+      },
+      {
+        "key": "",
+        "name": "num_cat",
+        "type": "int",
+        "note": "Categoría del microsegmento"
+      }
+    ],
+    "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+    "dbmlGroup": "CLIENTE_CONSOLIDADO",
+    "dbmlProject": "cliente_consolidado"
+  },
+  {
+    "id": "cliente-consolidado-dim-linea-negocio",
+    "title": "dim_linea_negocio",
+    "tag": "dimension",
+    "description": "Dominio cliente_consolidado. Normaliza las decenas de columnas por producto de los monolitos (actividad/vinculación). Conformada.",
+    "relations": [
+      "Referenciado por `cliente_consolidado.fact_cte_actividad` mediante `sk_linea_negocio` → `sk_linea_negocio`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_linea_negocio",
+        "type": "bigint",
+        "note": "Surrogate key"
+      },
+      {
+        "key": "",
+        "name": "cod_linea",
+        "type": "string",
+        "note": "Código de línea (cap/cre/pre/rem/div/dex/nom/tdc/afr/env/pgs/dig...)"
+      },
+      {
+        "key": "",
+        "name": "nom_linea",
+        "type": "string",
+        "note": "Nombre de la línea de negocio"
+      },
+      {
+        "key": "",
+        "name": "cod_familia",
+        "type": "string",
+        "note": "Familia/agrupador de la línea"
+      }
+    ],
+    "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+    "dbmlGroup": "CLIENTE_CONSOLIDADO",
+    "dbmlProject": "cliente_consolidado"
+  },
+  {
+    "id": "cliente-consolidado-fact-cte-segmentacion",
+    "title": "fact_cte_segmentacion",
+    "tag": "hecho",
+    "description": "Dominio cliente_consolidado. DP-CTE-2 Segmentación. Reemplaza cd_con_cte_segmentacion (+vista) + cd_con_cte_recorrido. Códigos -> dim_segmento/dim_microsegmento.",
+    "relations": [
+      "Referencia a `cliente_consolidado.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "Referencia a `cliente_consolidado.dim_segmento` mediante `sk_segmento` → `sk_segmento`",
+      "Referencia a `cliente_consolidado.dim_microsegmento` mediante `sk_microsegmento` → `sk_microsegmento`",
+      "Referencia a `cliente_consolidado.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`",
+      "FK a `cliente_consolidado.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "FK a `cliente_consolidado.dim_segmento` mediante `sk_segmento` → `sk_segmento`",
+      "FK a `cliente_consolidado.dim_microsegmento` mediante `sk_microsegmento` → `sk_microsegmento`",
+      "FK a `cliente_consolidado.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_cte_segmentacion",
+        "type": "bigint",
+        "note": "Surrogate key (cliente + periodo)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_cliente",
+        "type": "bigint",
+        "note": "FK a dim_cliente"
+      },
+      {
+        "key": "FK",
+        "name": "sk_segmento",
+        "type": "bigint",
+        "note": "FK a dim_segmento (seg_integral)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_microsegmento",
+        "type": "bigint",
+        "note": "FK a dim_microsegmento"
+      },
+      {
+        "key": "FK",
+        "name": "sk_tiempo",
+        "type": "bigint",
+        "note": "FK a dim_tiempo"
+      },
+      {
+        "key": "",
+        "name": "id_master",
+        "type": "bigint",
+        "note": "Cliente único (business key)"
+      },
+      {
+        "key": "",
+        "name": "num_periodo_mes",
+        "type": "int",
+        "note": "Partición: periodo mensual"
+      },
+      {
+        "key": "",
+        "name": "seg_integral",
+        "type": "string",
+        "note": "Segmento integral del cliente"
+      },
+      {
+        "key": "",
+        "name": "seg_cap",
+        "type": "string",
+        "note": "Segmento en captación"
+      },
+      {
+        "key": "",
+        "name": "seg_cre",
+        "type": "string",
+        "note": "Segmento en crédito"
+      },
+      {
+        "key": "",
+        "name": "seg_pre",
+        "type": "string",
+        "note": "Segmento en préstamos/prendario"
+      },
+      {
+        "key": "",
+        "name": "seg_rem",
+        "type": "string",
+        "note": "Segmento en remesas"
+      },
+      {
+        "key": "",
+        "name": "seg_div",
+        "type": "string",
+        "note": "Segmento en divisas"
+      },
+      {
+        "key": "",
+        "name": "seg_dex",
+        "type": "string",
+        "note": "Segmento en DEX"
+      },
+      {
+        "key": "",
+        "name": "seg_estu",
+        "type": "string",
+        "note": "Segmento estudiante"
+      },
+      {
+        "key": "",
+        "name": "cod_status_cap",
+        "type": "string",
+        "note": "Estatus de captación"
+      },
+      {
+        "key": "",
+        "name": "ind_activo_cap",
+        "type": "tinyint",
+        "note": "Activo en captación"
+      },
+      {
+        "key": "",
+        "name": "ind_activo_cre",
+        "type": "tinyint",
+        "note": "Activo en crédito"
+      },
+      {
+        "key": "",
+        "name": "ind_afr",
+        "type": "tinyint",
+        "note": "Indicador afore"
+      },
+      {
+        "key": "",
+        "name": "saldo",
+        "type": "decimal(22,4)",
+        "note": "Saldo del cliente"
+      },
+      {
+        "key": "",
+        "name": "max_saldo_6m",
+        "type": "decimal(22,4)",
+        "note": "Saldo máximo en 6 meses"
+      },
+      {
+        "key": "",
+        "name": "p10_sld",
+        "type": "decimal(22,4)",
+        "note": "Percentil 10 de saldo"
+      },
+      {
+        "key": "",
+        "name": "p25_sld",
+        "type": "decimal(22,4)",
+        "note": "Percentil 25 de saldo"
+      },
+      {
+        "key": "",
+        "name": "p75_sld",
+        "type": "decimal(22,4)",
+        "note": "Percentil 75 de saldo"
+      },
+      {
+        "key": "",
+        "name": "potencial",
+        "type": "decimal(22,4)",
+        "note": "Potencial estimado"
+      },
+      {
+        "key": "",
+        "name": "nivel_saldo",
+        "type": "tinyint",
+        "note": "Nivel de saldo"
+      }
+    ],
+    "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+    "dbmlGroup": "CLIENTE_CONSOLIDADO",
+    "dbmlProject": "cliente_consolidado",
+    "modelRelations": [
+      {
+        "id": "cliente-consolidado-fact-cte-segmentacion.sk_cliente__cliente-consolidado-dim-cliente.sk_cliente",
+        "childId": "cliente-consolidado-fact-cte-segmentacion",
+        "childField": "sk_cliente",
+        "parentId": "cliente-consolidado-dim-cliente",
+        "parentField": "sk_cliente",
+        "source": "dbml",
+        "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+        "dbmlGroup": "CLIENTE_CONSOLIDADO"
+      },
+      {
+        "id": "cliente-consolidado-fact-cte-segmentacion.sk_segmento__cliente-consolidado-dim-segmento.sk_segmento",
+        "childId": "cliente-consolidado-fact-cte-segmentacion",
+        "childField": "sk_segmento",
+        "parentId": "cliente-consolidado-dim-segmento",
+        "parentField": "sk_segmento",
+        "source": "dbml",
+        "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+        "dbmlGroup": "CLIENTE_CONSOLIDADO"
+      },
+      {
+        "id": "cliente-consolidado-fact-cte-segmentacion.sk_microsegmento__cliente-consolidado-dim-microsegmento.sk_microsegmento",
+        "childId": "cliente-consolidado-fact-cte-segmentacion",
+        "childField": "sk_microsegmento",
+        "parentId": "cliente-consolidado-dim-microsegmento",
+        "parentField": "sk_microsegmento",
+        "source": "dbml",
+        "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+        "dbmlGroup": "CLIENTE_CONSOLIDADO"
+      },
+      {
+        "id": "cliente-consolidado-fact-cte-segmentacion.sk_tiempo__cliente-consolidado-dim-tiempo.sk_tiempo",
+        "childId": "cliente-consolidado-fact-cte-segmentacion",
+        "childField": "sk_tiempo",
+        "parentId": "cliente-consolidado-dim-tiempo",
+        "parentField": "sk_tiempo",
+        "source": "dbml",
+        "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+        "dbmlGroup": "CLIENTE_CONSOLIDADO"
+      }
+    ],
+    "dbmlRelationCount": 4
+  },
+  {
+    "id": "cliente-consolidado-fact-cte-actividad",
+    "title": "fact_cte_actividad",
+    "tag": "hecho",
+    "description": "Dominio cliente_consolidado. DP-CTE-3 Actividad. Reemplaza cd_con_cte_actividad (+_sem, +_cap_sem). Rompe el monolito (183 col) normalizando la línea. Grano cliente x periodo x línea.",
+    "relations": [
+      "Referencia a `cliente_consolidado.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "Referencia a `cliente_consolidado.dim_linea_negocio` mediante `sk_linea_negocio` → `sk_linea_negocio`",
+      "Referencia a `cliente_consolidado.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`",
+      "FK a `cliente_consolidado.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "FK a `cliente_consolidado.dim_linea_negocio` mediante `sk_linea_negocio` → `sk_linea_negocio`",
+      "FK a `cliente_consolidado.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_cte_actividad",
+        "type": "bigint",
+        "note": "Surrogate key (cliente + periodo + linea)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_cliente",
+        "type": "bigint",
+        "note": "FK a dim_cliente"
+      },
+      {
+        "key": "FK",
+        "name": "sk_linea_negocio",
+        "type": "bigint",
+        "note": "FK a dim_linea_negocio"
+      },
+      {
+        "key": "FK",
+        "name": "sk_tiempo",
+        "type": "bigint",
+        "note": "FK a dim_tiempo"
+      },
+      {
+        "key": "",
+        "name": "id_master",
+        "type": "bigint",
+        "note": "Cliente único (business key)"
+      },
+      {
+        "key": "",
+        "name": "cod_tipo_periodo",
+        "type": "string",
+        "note": "Periodicidad: MES / SEM (unifica actividad/_sem/_cap_sem)"
+      },
+      {
+        "key": "",
+        "name": "num_periodo_mes",
+        "type": "int",
+        "note": "Partición: periodo"
+      },
+      {
+        "key": "",
+        "name": "ind_activo",
+        "type": "int",
+        "note": "Indicador de actividad en la línea"
+      },
+      {
+        "key": "",
+        "name": "ind_inactivo",
+        "type": "int",
+        "note": "Indicador de inactividad en la línea"
+      },
+      {
+        "key": "",
+        "name": "num_sem_inact",
+        "type": "int",
+        "note": "Semanas de inactividad (versión semanal)"
+      },
+      {
+        "key": "",
+        "name": "ind_activo_solo_ctes",
+        "type": "int",
+        "note": "Consolidado: activo solo como cliente"
+      },
+      {
+        "key": "",
+        "name": "ind_activo_solo_usua",
+        "type": "int",
+        "note": "Consolidado: activo solo como usuario"
+      },
+      {
+        "key": "",
+        "name": "ind_activo_ctes_usua",
+        "type": "int",
+        "note": "Consolidado: activo como cliente y usuario"
+      }
+    ],
+    "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+    "dbmlGroup": "CLIENTE_CONSOLIDADO",
+    "dbmlProject": "cliente_consolidado",
+    "modelRelations": [
+      {
+        "id": "cliente-consolidado-fact-cte-actividad.sk_cliente__cliente-consolidado-dim-cliente.sk_cliente",
+        "childId": "cliente-consolidado-fact-cte-actividad",
+        "childField": "sk_cliente",
+        "parentId": "cliente-consolidado-dim-cliente",
+        "parentField": "sk_cliente",
+        "source": "dbml",
+        "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+        "dbmlGroup": "CLIENTE_CONSOLIDADO"
+      },
+      {
+        "id": "cliente-consolidado-fact-cte-actividad.sk_linea_negocio__cliente-consolidado-dim-linea-negocio.sk_linea_negocio",
+        "childId": "cliente-consolidado-fact-cte-actividad",
+        "childField": "sk_linea_negocio",
+        "parentId": "cliente-consolidado-dim-linea-negocio",
+        "parentField": "sk_linea_negocio",
+        "source": "dbml",
+        "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+        "dbmlGroup": "CLIENTE_CONSOLIDADO"
+      },
+      {
+        "id": "cliente-consolidado-fact-cte-actividad.sk_tiempo__cliente-consolidado-dim-tiempo.sk_tiempo",
+        "childId": "cliente-consolidado-fact-cte-actividad",
+        "childField": "sk_tiempo",
+        "parentId": "cliente-consolidado-dim-tiempo",
+        "parentField": "sk_tiempo",
+        "source": "dbml",
+        "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+        "dbmlGroup": "CLIENTE_CONSOLIDADO"
+      }
+    ],
+    "dbmlRelationCount": 3
+  },
+  {
+    "id": "cliente-consolidado-fact-cte-vinculacion-valor",
+    "title": "fact_cte_vinculacion_valor",
+    "tag": "hecho",
+    "description": "Dominio cliente_consolidado. DP-CTE-4 Vinculación y Valor. Consolida vinculacion + fidelizacion (205 col) + antiguedad + ingresos. La tenencia por producto se normaliza con dim_linea_negocio. Ingreso = PII sensible.",
+    "relations": [
+      "Referencia a `cliente_consolidado.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "Referencia a `cliente_consolidado.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`",
+      "FK a `cliente_consolidado.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "FK a `cliente_consolidado.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_cte_vinc_valor",
+        "type": "bigint",
+        "note": "Surrogate key (cliente + periodo)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_cliente",
+        "type": "bigint",
+        "note": "FK a dim_cliente"
+      },
+      {
+        "key": "FK",
+        "name": "sk_tiempo",
+        "type": "bigint",
+        "note": "FK a dim_tiempo"
+      },
+      {
+        "key": "",
+        "name": "id_master",
+        "type": "bigint",
+        "note": "Cliente único (business key)"
+      },
+      {
+        "key": "",
+        "name": "num_periodo_mes",
+        "type": "int",
+        "note": "Partición: periodo mensual"
+      },
+      {
+        "key": "",
+        "name": "fec_ant",
+        "type": "timestamp",
+        "note": "Fecha de antigüedad general"
+      },
+      {
+        "key": "",
+        "name": "negocio_ant",
+        "type": "char(3)",
+        "note": "Negocio de la antigüedad"
+      },
+      {
+        "key": "",
+        "name": "fec_cap",
+        "type": "timestamp",
+        "note": "Fecha primera actividad en captación"
+      },
+      {
+        "key": "",
+        "name": "fec_cre",
+        "type": "timestamp",
+        "note": "Fecha primera actividad en crédito"
+      },
+      {
+        "key": "",
+        "name": "fec_pre",
+        "type": "timestamp",
+        "note": "Fecha primera actividad en préstamos"
+      },
+      {
+        "key": "",
+        "name": "fec_afr",
+        "type": "timestamp",
+        "note": "Fecha primera actividad en afore"
+      },
+      {
+        "key": "",
+        "name": "fec_env",
+        "type": "timestamp",
+        "note": "Fecha primera actividad en envíos/remesas"
+      },
+      {
+        "key": "",
+        "name": "fec_dvs",
+        "type": "timestamp",
+        "note": "Fecha primera actividad en divisas"
+      },
+      {
+        "key": "",
+        "name": "fec_dig",
+        "type": "timestamp",
+        "note": "Fecha primera actividad digital"
+      },
+      {
+        "key": "",
+        "name": "cod_flujo",
+        "type": "varchar(20)",
+        "note": "Código de flujo de ingreso"
+      },
+      {
+        "key": "",
+        "name": "num_flujos",
+        "type": "int",
+        "note": "Número de flujos de ingreso"
+      },
+      {
+        "key": "",
+        "name": "ind_nom",
+        "type": "int",
+        "note": "Indicador de nómina"
+      },
+      {
+        "key": "",
+        "name": "ind_pen",
+        "type": "int",
+        "note": "Indicador de pensión"
+      },
+      {
+        "key": "",
+        "name": "ind_afr",
+        "type": "int",
+        "note": "Indicador de afore"
+      },
+      {
+        "key": "",
+        "name": "ind_cre",
+        "type": "tinyint",
+        "note": "Indicador de crédito"
+      },
+      {
+        "key": "",
+        "name": "ind_est",
+        "type": "tinyint",
+        "note": "Indicador de estabilidad"
+      },
+      {
+        "key": "",
+        "name": "mto_ing_mes",
+        "type": "decimal(22,4)",
+        "note": "PII SENSIBLE. Monto de ingreso mensual (enmascarar)"
+      },
+      {
+        "key": "",
+        "name": "num_dep_avg",
+        "type": "decimal(22,4)",
+        "note": "Promedio de depósitos"
+      },
+      {
+        "key": "",
+        "name": "dt_mes",
+        "type": "decimal(22,4)",
+        "note": "Desviación estándar mensual (estabilidad)"
+      },
+      {
+        "key": "",
+        "name": "cod_estabilidad_mto",
+        "type": "varchar(35)",
+        "note": "Código de estabilidad del monto"
+      },
+      {
+        "key": "",
+        "name": "seg_nom",
+        "type": "varchar(35)",
+        "note": "Segmento de nómina"
+      }
+    ],
+    "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+    "dbmlGroup": "CLIENTE_CONSOLIDADO",
+    "dbmlProject": "cliente_consolidado",
+    "modelRelations": [
+      {
+        "id": "cliente-consolidado-fact-cte-vinculacion-valor.sk_cliente__cliente-consolidado-dim-cliente.sk_cliente",
+        "childId": "cliente-consolidado-fact-cte-vinculacion-valor",
+        "childField": "sk_cliente",
+        "parentId": "cliente-consolidado-dim-cliente",
+        "parentField": "sk_cliente",
+        "source": "dbml",
+        "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+        "dbmlGroup": "CLIENTE_CONSOLIDADO"
+      },
+      {
+        "id": "cliente-consolidado-fact-cte-vinculacion-valor.sk_tiempo__cliente-consolidado-dim-tiempo.sk_tiempo",
+        "childId": "cliente-consolidado-fact-cte-vinculacion-valor",
+        "childField": "sk_tiempo",
+        "parentId": "cliente-consolidado-dim-tiempo",
+        "parentField": "sk_tiempo",
+        "source": "dbml",
+        "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+        "dbmlGroup": "CLIENTE_CONSOLIDADO"
+      }
+    ],
+    "dbmlRelationCount": 2
+  },
+  {
+    "id": "cliente-consolidado-fact-cte-recomendacion",
+    "title": "fact_cte_recomendacion",
+    "tag": "hecho",
+    "description": "Dominio cliente_consolidado. DP-CTE-5 Recomendación / NBA. Reemplaza cd_con_cte_sendas. Se construye sobre DP-CTE-1/2/3.",
+    "relations": [
+      "Referencia a `cliente_consolidado.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "Referencia a `cliente_consolidado.dim_segmento` mediante `sk_segmento` → `sk_segmento`",
+      "Referencia a `cliente_consolidado.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`",
+      "FK a `cliente_consolidado.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "FK a `cliente_consolidado.dim_segmento` mediante `sk_segmento` → `sk_segmento`",
+      "FK a `cliente_consolidado.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_cte_recomendacion",
+        "type": "bigint",
+        "note": "Surrogate key (cliente + periodo)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_cliente",
+        "type": "bigint",
+        "note": "FK a dim_cliente"
+      },
+      {
+        "key": "FK",
+        "name": "sk_segmento",
+        "type": "bigint",
+        "note": "FK a dim_segmento"
+      },
+      {
+        "key": "FK",
+        "name": "sk_tiempo",
+        "type": "bigint",
+        "note": "FK a dim_tiempo"
+      },
+      {
+        "key": "",
+        "name": "id_master",
+        "type": "int",
+        "note": "Cliente único (business key)"
+      },
+      {
+        "key": "",
+        "name": "num_periodo_mes",
+        "type": "int",
+        "note": "Partición: periodo mensual"
+      },
+      {
+        "key": "",
+        "name": "edad",
+        "type": "string",
+        "note": "Rango de edad (contexto)"
+      },
+      {
+        "key": "",
+        "name": "region",
+        "type": "string",
+        "note": "Región (contexto)"
+      },
+      {
+        "key": "",
+        "name": "primer_cont",
+        "type": "string",
+        "note": "Primer contacto"
+      },
+      {
+        "key": "",
+        "name": "negocio_ant",
+        "type": "string",
+        "note": "Negocio de antigüedad"
+      },
+      {
+        "key": "",
+        "name": "ind_activo_cap_cre",
+        "type": "tinyint",
+        "note": "Activo en captación y/o crédito"
+      },
+      {
+        "key": "",
+        "name": "cte_segmento",
+        "type": "string",
+        "note": "Segmento del cliente"
+      },
+      {
+        "key": "",
+        "name": "cte_subsegmento",
+        "type": "string",
+        "note": "Subsegmento del cliente"
+      },
+      {
+        "key": "",
+        "name": "rec1_ch",
+        "type": "string",
+        "note": "Recomendación 1 (canal ch)"
+      },
+      {
+        "key": "",
+        "name": "rec2_ch",
+        "type": "string",
+        "note": "Recomendación 2 (canal ch)"
+      },
+      {
+        "key": "",
+        "name": "rec3_ch",
+        "type": "string",
+        "note": "Recomendación 3 (canal ch)"
+      },
+      {
+        "key": "",
+        "name": "rec1_lh",
+        "type": "string",
+        "note": "Recomendación 1 (canal lh)"
+      },
+      {
+        "key": "",
+        "name": "rec2_lh",
+        "type": "string",
+        "note": "Recomendación 2 (canal lh)"
+      },
+      {
+        "key": "",
+        "name": "rec3_lh",
+        "type": "string",
+        "note": "Recomendación 3 (canal lh)"
+      },
+      {
+        "key": "",
+        "name": "rec1_exh",
+        "type": "string",
+        "note": "Recomendación 1 (canal exh)"
+      },
+      {
+        "key": "",
+        "name": "rec2_exh",
+        "type": "string",
+        "note": "Recomendación 2 (canal exh)"
+      },
+      {
+        "key": "",
+        "name": "rec3_exh",
+        "type": "string",
+        "note": "Recomendación 3 (canal exh)"
+      }
+    ],
+    "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+    "dbmlGroup": "CLIENTE_CONSOLIDADO",
+    "dbmlProject": "cliente_consolidado",
+    "modelRelations": [
+      {
+        "id": "cliente-consolidado-fact-cte-recomendacion.sk_cliente__cliente-consolidado-dim-cliente.sk_cliente",
+        "childId": "cliente-consolidado-fact-cte-recomendacion",
+        "childField": "sk_cliente",
+        "parentId": "cliente-consolidado-dim-cliente",
+        "parentField": "sk_cliente",
+        "source": "dbml",
+        "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+        "dbmlGroup": "CLIENTE_CONSOLIDADO"
+      },
+      {
+        "id": "cliente-consolidado-fact-cte-recomendacion.sk_segmento__cliente-consolidado-dim-segmento.sk_segmento",
+        "childId": "cliente-consolidado-fact-cte-recomendacion",
+        "childField": "sk_segmento",
+        "parentId": "cliente-consolidado-dim-segmento",
+        "parentField": "sk_segmento",
+        "source": "dbml",
+        "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+        "dbmlGroup": "CLIENTE_CONSOLIDADO"
+      },
+      {
+        "id": "cliente-consolidado-fact-cte-recomendacion.sk_tiempo__cliente-consolidado-dim-tiempo.sk_tiempo",
+        "childId": "cliente-consolidado-fact-cte-recomendacion",
+        "childField": "sk_tiempo",
+        "parentId": "cliente-consolidado-dim-tiempo",
+        "parentField": "sk_tiempo",
+        "source": "dbml",
+        "dbmlFile": "CLIENTE_CONSOLIDADO.dbml",
+        "dbmlGroup": "CLIENTE_CONSOLIDADO"
+      }
+    ],
+    "dbmlRelationCount": 3
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "positions": {
+    "otros-dominios-dim-tiempo": {
+      "left": 80,
+      "top": 120
+    },
+    "otros-dominios-dim-cliente": {
+      "left": 1330,
+      "top": 263.333
+    },
+    "otros-dominios-dim-sucursal": {
+      "left": 80,
+      "top": 830
+    },
+    "otros-dominios-fact-afr-cliente": {
+      "left": 720,
+      "top": 120
+    },
+    "otros-dominios-fact-rem-recurrencia-cliente": {
+      "left": 720,
+      "top": 852
+    },
+    "otros-dominios-dim-campana": {
+      "left": 1360,
+      "top": 438
+    },
+    "otros-dominios-fact-crm-contacto": {
+      "left": 720,
+      "top": 1584
+    },
+    "otros-dominios-fact-pgs-transaccion": {
+      "left": 720,
+      "top": 2036
+    },
+    "otros-dominios-fact-wll-uso": {
+      "left": 720,
+      "top": 2768
+    }
+  },
+  "colors": {},
+  "customRelationships": [],
+  "deletedRelationIds": [],
+  "relationRoutes": {},
+  "groups": [],
+  "schemaGroups": [
+    {
+      "id": "schema-group-otros-dominios",
+      "collapsed": false,
+      "collapsedBounds": null
+    }
+  ],
+  "zoom": 0.6
+}

@@ -1,0 +1,465 @@
+[
+  {
+    "id": "divisas-dim-tiempo",
+    "title": "dim_tiempo",
+    "tag": "dimension",
+    "description": "Dominio divisas. Conformada.",
+    "relations": [
+      "Referenciado por `divisas.fact_div_operacion` mediante `sk_tiempo` → `sk_tiempo`",
+      "Referenciado por `divisas.fact_div_fx_cliente` mediante `sk_tiempo` → `sk_tiempo`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_tiempo",
+        "type": "bigint",
+        "note": "Surrogate key"
+      },
+      {
+        "key": "",
+        "name": "num_periodo_mes",
+        "type": "int",
+        "note": "Periodo mensual AAAAMM"
+      },
+      {
+        "key": "",
+        "name": "fec_num",
+        "type": "int",
+        "note": "Fecha AAAAMMDD"
+      }
+    ],
+    "dbmlFile": "DIVISAS.dbml",
+    "dbmlGroup": "DIVISAS",
+    "dbmlProject": "divisas"
+  },
+  {
+    "id": "divisas-dim-cliente",
+    "title": "dim_cliente",
+    "tag": "dimension",
+    "description": "Dominio divisas. Conformada. PII gobernada en Cliente Consolidado.",
+    "relations": [
+      "Referenciado por `divisas.fact_div_operacion` mediante `sk_cliente` → `sk_cliente`",
+      "Referenciado por `divisas.fact_div_fx_cliente` mediante `sk_cliente` → `sk_cliente`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_cliente",
+        "type": "bigint",
+        "note": "Surrogate key (SCD2)"
+      },
+      {
+        "key": "",
+        "name": "id_master",
+        "type": "bigint",
+        "note": "Cliente único (business key)"
+      }
+    ],
+    "dbmlFile": "DIVISAS.dbml",
+    "dbmlGroup": "DIVISAS",
+    "dbmlProject": "divisas"
+  },
+  {
+    "id": "divisas-dim-moneda",
+    "title": "dim_moneda",
+    "tag": "dimension",
+    "description": "Dominio divisas. Rompe el monolito de 76 col: la divisa deja de ser columnas y pasa a ser dimensión. SCD estático.",
+    "relations": [
+      "Referenciado por `divisas.fact_div_operacion` mediante `sk_moneda` → `sk_moneda`",
+      "Referenciado por `divisas.fact_div_fx_cliente` mediante `sk_moneda` → `sk_moneda`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_moneda",
+        "type": "bigint",
+        "note": "Surrogate key"
+      },
+      {
+        "key": "",
+        "name": "cod_moneda",
+        "type": "char(3)",
+        "note": "Código ISO de moneda (USD/CAD/EUR/OLP...) (business key)"
+      },
+      {
+        "key": "",
+        "name": "nom_moneda",
+        "type": "string",
+        "note": "Nombre de la moneda"
+      },
+      {
+        "key": "",
+        "name": "ind_otras",
+        "type": "tinyint",
+        "note": "1 si agrupa otras monedas (OLP)"
+      }
+    ],
+    "dbmlFile": "DIVISAS.dbml",
+    "dbmlGroup": "DIVISAS",
+    "dbmlProject": "divisas"
+  },
+  {
+    "id": "divisas-dim-caja-sucursal",
+    "title": "dim_caja_sucursal",
+    "tag": "dimension",
+    "description": "Dominio divisas. Punto de atención donde se opera la divisa. Relevante para PLD. SCD tipo 2.",
+    "relations": [
+      "Referenciado por `divisas.fact_div_operacion` mediante `sk_caja_sucursal` → `sk_caja_sucursal`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_caja_sucursal",
+        "type": "bigint",
+        "note": "Surrogate key (SCD tipo 2)"
+      },
+      {
+        "key": "",
+        "name": "id_caja_operacion",
+        "type": "varchar(4)",
+        "note": "Caja de operación (business key)"
+      },
+      {
+        "key": "",
+        "name": "id_sucursal",
+        "type": "varchar(4)",
+        "note": "Sucursal"
+      },
+      {
+        "key": "",
+        "name": "id_pais",
+        "type": "char(4)",
+        "note": "País"
+      },
+      {
+        "key": "",
+        "name": "id_usuario_operacion",
+        "type": "varchar(10)",
+        "note": "Usuario que operó"
+      },
+      {
+        "key": "",
+        "name": "fec_ini_vig",
+        "type": "timestamp",
+        "note": "SCD2: inicio de vigencia"
+      },
+      {
+        "key": "",
+        "name": "fec_fin_vig",
+        "type": "timestamp",
+        "note": "SCD2: fin de vigencia (NULL=vigente)"
+      },
+      {
+        "key": "",
+        "name": "ind_vigente",
+        "type": "tinyint",
+        "note": "SCD2: 1 si es la versión vigente"
+      }
+    ],
+    "dbmlFile": "DIVISAS.dbml",
+    "dbmlGroup": "DIVISAS",
+    "dbmlProject": "divisas"
+  },
+  {
+    "id": "divisas-fact-div-operacion",
+    "title": "fact_div_operacion",
+    "tag": "hecho",
+    "description": "Dominio divisas. DP-DIV-1 Operaciones de Divisas. Reemplaza cd_div_movimientos. Materia prima + trazabilidad PLD.",
+    "relations": [
+      "Referencia a `divisas.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "Referencia a `divisas.dim_moneda` mediante `sk_moneda` → `sk_moneda`",
+      "Referencia a `divisas.dim_caja_sucursal` mediante `sk_caja_sucursal` → `sk_caja_sucursal`",
+      "Referencia a `divisas.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`",
+      "FK a `divisas.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "FK a `divisas.dim_moneda` mediante `sk_moneda` → `sk_moneda`",
+      "FK a `divisas.dim_caja_sucursal` mediante `sk_caja_sucursal` → `sk_caja_sucursal`",
+      "FK a `divisas.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_div_operacion",
+        "type": "bigint",
+        "note": "Surrogate key de la operación"
+      },
+      {
+        "key": "FK",
+        "name": "sk_cliente",
+        "type": "bigint",
+        "note": "FK a dim_cliente"
+      },
+      {
+        "key": "FK",
+        "name": "sk_moneda",
+        "type": "bigint",
+        "note": "FK a dim_moneda (cod_tipo_moneda)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_caja_sucursal",
+        "type": "bigint",
+        "note": "FK a dim_caja_sucursal"
+      },
+      {
+        "key": "FK",
+        "name": "sk_tiempo",
+        "type": "bigint",
+        "note": "FK a dim_tiempo (fec_operacion)"
+      },
+      {
+        "key": "",
+        "name": "id_master",
+        "type": "bigint",
+        "note": "Cliente único (business key)"
+      },
+      {
+        "key": "",
+        "name": "id_operacion",
+        "type": "int",
+        "note": "Identificador de la operación (degenerate)"
+      },
+      {
+        "key": "",
+        "name": "fec_operacion",
+        "type": "timestamp",
+        "note": "Fecha/hora de la operación"
+      },
+      {
+        "key": "",
+        "name": "cod_tipo_operacion",
+        "type": "varchar(15)",
+        "note": "Tipo de operación (compra/venta)"
+      },
+      {
+        "key": "",
+        "name": "cod_mod_operacion",
+        "type": "varchar(15)",
+        "note": "Modalidad de la operación"
+      },
+      {
+        "key": "",
+        "name": "cod_negocio",
+        "type": "varchar(15)",
+        "note": "Negocio"
+      },
+      {
+        "key": "",
+        "name": "cod_tipo_persona",
+        "type": "varchar(10)",
+        "note": "Tipo de persona"
+      },
+      {
+        "key": "",
+        "name": "id_cuenta_hash",
+        "type": "char(128)",
+        "note": "PII. Cuenta ligada (hash; no exponer en claro)"
+      },
+      {
+        "key": "",
+        "name": "mto_pesos",
+        "type": "decimal(22,4)",
+        "note": "Monto equivalente en pesos"
+      },
+      {
+        "key": "",
+        "name": "mto_moneda_ext",
+        "type": "decimal(22,4)",
+        "note": "Monto en moneda extranjera"
+      },
+      {
+        "key": "",
+        "name": "tpo_de_cambio",
+        "type": "decimal(22,4)",
+        "note": "Tipo de cambio aplicado"
+      },
+      {
+        "key": "",
+        "name": "num_periodo_sem",
+        "type": "int",
+        "note": "Partición: periodo semanal"
+      }
+    ],
+    "dbmlFile": "DIVISAS.dbml",
+    "dbmlGroup": "DIVISAS",
+    "dbmlProject": "divisas",
+    "modelRelations": [
+      {
+        "id": "divisas-fact-div-operacion.sk_cliente__divisas-dim-cliente.sk_cliente",
+        "childId": "divisas-fact-div-operacion",
+        "childField": "sk_cliente",
+        "parentId": "divisas-dim-cliente",
+        "parentField": "sk_cliente",
+        "source": "dbml",
+        "dbmlFile": "DIVISAS.dbml",
+        "dbmlGroup": "DIVISAS"
+      },
+      {
+        "id": "divisas-fact-div-operacion.sk_moneda__divisas-dim-moneda.sk_moneda",
+        "childId": "divisas-fact-div-operacion",
+        "childField": "sk_moneda",
+        "parentId": "divisas-dim-moneda",
+        "parentField": "sk_moneda",
+        "source": "dbml",
+        "dbmlFile": "DIVISAS.dbml",
+        "dbmlGroup": "DIVISAS"
+      },
+      {
+        "id": "divisas-fact-div-operacion.sk_caja_sucursal__divisas-dim-caja-sucursal.sk_caja_sucursal",
+        "childId": "divisas-fact-div-operacion",
+        "childField": "sk_caja_sucursal",
+        "parentId": "divisas-dim-caja-sucursal",
+        "parentField": "sk_caja_sucursal",
+        "source": "dbml",
+        "dbmlFile": "DIVISAS.dbml",
+        "dbmlGroup": "DIVISAS"
+      },
+      {
+        "id": "divisas-fact-div-operacion.sk_tiempo__divisas-dim-tiempo.sk_tiempo",
+        "childId": "divisas-fact-div-operacion",
+        "childField": "sk_tiempo",
+        "parentId": "divisas-dim-tiempo",
+        "parentField": "sk_tiempo",
+        "source": "dbml",
+        "dbmlFile": "DIVISAS.dbml",
+        "dbmlGroup": "DIVISAS"
+      }
+    ],
+    "dbmlRelationCount": 4
+  },
+  {
+    "id": "divisas-fact-div-fx-cliente",
+    "title": "fact_div_fx_cliente",
+    "tag": "hecho",
+    "description": "Dominio divisas. DP-DIV-2 Comportamiento FX. Reemplaza cd_div_cte_hist. Des-pivotea la moneda a dim_moneda (de 76 col a fila cliente x periodo x moneda). Se deriva de fact_div_operacion.",
+    "relations": [
+      "Referencia a `divisas.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "Referencia a `divisas.dim_moneda` mediante `sk_moneda` → `sk_moneda`",
+      "Referencia a `divisas.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`",
+      "FK a `divisas.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
+      "FK a `divisas.dim_moneda` mediante `sk_moneda` → `sk_moneda`",
+      "FK a `divisas.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "sk_div_fx_cliente",
+        "type": "bigint",
+        "note": "Surrogate key (cliente + periodo + moneda)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_cliente",
+        "type": "bigint",
+        "note": "FK a dim_cliente"
+      },
+      {
+        "key": "FK",
+        "name": "sk_moneda",
+        "type": "bigint",
+        "note": "FK a dim_moneda (des-pivoteada del origen)"
+      },
+      {
+        "key": "FK",
+        "name": "sk_tiempo",
+        "type": "bigint",
+        "note": "FK a dim_tiempo"
+      },
+      {
+        "key": "",
+        "name": "id_master",
+        "type": "bigint",
+        "note": "Cliente único (business key)"
+      },
+      {
+        "key": "",
+        "name": "num_periodo_mes",
+        "type": "int",
+        "note": "Partición: periodo mensual"
+      },
+      {
+        "key": "",
+        "name": "num_div_cpa",
+        "type": "smallint",
+        "note": "Número de operaciones de compra en la moneda"
+      },
+      {
+        "key": "",
+        "name": "mto_div_cpa",
+        "type": "decimal(38,4)",
+        "note": "Monto de compra (equivalente)"
+      },
+      {
+        "key": "",
+        "name": "num_div_vta",
+        "type": "smallint",
+        "note": "Número de operaciones de venta en la moneda"
+      },
+      {
+        "key": "",
+        "name": "mto_div_vta",
+        "type": "decimal(38,4)",
+        "note": "Monto de venta (equivalente)"
+      },
+      {
+        "key": "",
+        "name": "num_div_cpa_3m",
+        "type": "smallint",
+        "note": "Número de compras ventana 3m"
+      },
+      {
+        "key": "",
+        "name": "mto_div_cpa_3m",
+        "type": "decimal(38,4)",
+        "note": "Monto de compras ventana 3m"
+      },
+      {
+        "key": "",
+        "name": "num_div_vta_3m",
+        "type": "smallint",
+        "note": "Número de ventas ventana 3m"
+      },
+      {
+        "key": "",
+        "name": "mto_div_vta_3m",
+        "type": "decimal(38,4)",
+        "note": "Monto de ventas ventana 3m"
+      }
+    ],
+    "dbmlFile": "DIVISAS.dbml",
+    "dbmlGroup": "DIVISAS",
+    "dbmlProject": "divisas",
+    "modelRelations": [
+      {
+        "id": "divisas-fact-div-fx-cliente.sk_cliente__divisas-dim-cliente.sk_cliente",
+        "childId": "divisas-fact-div-fx-cliente",
+        "childField": "sk_cliente",
+        "parentId": "divisas-dim-cliente",
+        "parentField": "sk_cliente",
+        "source": "dbml",
+        "dbmlFile": "DIVISAS.dbml",
+        "dbmlGroup": "DIVISAS"
+      },
+      {
+        "id": "divisas-fact-div-fx-cliente.sk_moneda__divisas-dim-moneda.sk_moneda",
+        "childId": "divisas-fact-div-fx-cliente",
+        "childField": "sk_moneda",
+        "parentId": "divisas-dim-moneda",
+        "parentField": "sk_moneda",
+        "source": "dbml",
+        "dbmlFile": "DIVISAS.dbml",
+        "dbmlGroup": "DIVISAS"
+      },
+      {
+        "id": "divisas-fact-div-fx-cliente.sk_tiempo__divisas-dim-tiempo.sk_tiempo",
+        "childId": "divisas-fact-div-fx-cliente",
+        "childField": "sk_tiempo",
+        "parentId": "divisas-dim-tiempo",
+        "parentField": "sk_tiempo",
+        "source": "dbml",
+        "dbmlFile": "DIVISAS.dbml",
+        "dbmlGroup": "DIVISAS"
+      }
+    ],
+    "dbmlRelationCount": 3
+  }
+]

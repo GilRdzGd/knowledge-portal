@@ -1,0 +1,436 @@
+[
+  {
+    "id": "cd_dim_cliente",
+    "title": "cd_dim_cliente",
+    "tag": "dimension",
+    "description": "DIMENSIÓN party. Grano 1 x id_master. Solo atributos extraíbles hoy.",
+    "relations": [],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "id_master",
+        "type": "bigint",
+        "note": "NK durable = grano (1 x persona). [ORIGEN: A/B/C.id_master, D/E.masterid]"
+      },
+      {
+        "key": "",
+        "name": "tipo_persona",
+        "type": "tipo_persona",
+        "note": "[ORIGEN: A.tipo_persona]"
+      },
+      {
+        "key": "",
+        "name": "icc_tipo_persona",
+        "type": "varchar",
+        "note": "[ORIGEN: A.icc_tpersona]"
+      },
+      {
+        "key": "",
+        "name": "fuente_tipo_persona",
+        "type": "varchar",
+        "note": "[ORIGEN: A.fuente_tpersona]"
+      },
+      {
+        "key": "",
+        "name": "nombre",
+        "type": "varchar",
+        "note": "[ORIGEN: A.nombre_norm] (descifrar)"
+      },
+      {
+        "key": "",
+        "name": "apellido_paterno",
+        "type": "varchar",
+        "note": "[ORIGEN: A.apellido_paterno_norm + A.nexos_apellido_paterno]"
+      },
+      {
+        "key": "",
+        "name": "apellido_materno",
+        "type": "varchar",
+        "note": "[ORIGEN: A.apellido_materno_norm + A.nexos_apellido_materno]"
+      },
+      {
+        "key": "",
+        "name": "icc_nombre",
+        "type": "varchar",
+        "note": "[ORIGEN: A.icc_nombre]"
+      },
+      {
+        "key": "",
+        "name": "fuente_nombre",
+        "type": "varchar",
+        "note": "[ORIGEN: A.fuente_nombre]"
+      },
+      {
+        "key": "",
+        "name": "fecha_nacimiento",
+        "type": "date",
+        "note": "[ORIGEN: A.fecha_nacimiento] (descifrar + cast)"
+      },
+      {
+        "key": "",
+        "name": "icc_fecha_nacimiento",
+        "type": "varchar",
+        "note": "[ORIGEN: A.icc_fecnacimiento]"
+      },
+      {
+        "key": "",
+        "name": "fuente_fecha_nac",
+        "type": "varchar",
+        "note": "[ORIGEN: A.fuente_fecnacimiento]"
+      },
+      {
+        "key": "",
+        "name": "genero",
+        "type": "varchar",
+        "note": "[ORIGEN: A.genero]"
+      },
+      {
+        "key": "",
+        "name": "icc_genero",
+        "type": "varchar",
+        "note": "[ORIGEN: A.icc_genero]"
+      },
+      {
+        "key": "",
+        "name": "fuente_genero",
+        "type": "varchar",
+        "note": "[ORIGEN: A.fuente_genero]"
+      },
+      {
+        "key": "",
+        "name": "rfc",
+        "type": "varchar",
+        "note": "[ORIGEN: A.rfc] (descifrar)"
+      },
+      {
+        "key": "",
+        "name": "codrfc",
+        "type": "varchar",
+        "note": "Homoclave. [ORIGEN: A.codrfc]"
+      },
+      {
+        "key": "",
+        "name": "icc_rfc",
+        "type": "varchar",
+        "note": "[ORIGEN: A.icc_rfc]"
+      },
+      {
+        "key": "",
+        "name": "curp",
+        "type": "varchar",
+        "note": "[ORIGEN: A.curp] (descifrar)"
+      },
+      {
+        "key": "",
+        "name": "icc_curp",
+        "type": "varchar",
+        "note": "[ORIGEN: A.icc_curp]"
+      },
+      {
+        "key": "",
+        "name": "fuente_curp",
+        "type": "varchar",
+        "note": "[ORIGEN: A.fuente_curp]"
+      },
+      {
+        "key": "",
+        "name": "ine",
+        "type": "varchar",
+        "note": "ID oficial. [ORIGEN: A.ine] (descifrar)"
+      },
+      {
+        "key": "",
+        "name": "icc_ine",
+        "type": "varchar",
+        "note": "[ORIGEN: A.icc_ine]"
+      },
+      {
+        "key": "",
+        "name": "fuente_ine",
+        "type": "varchar",
+        "note": "[ORIGEN: A.fuente_ine]"
+      },
+      {
+        "key": "",
+        "name": "nacionalidad",
+        "type": "varchar",
+        "note": "[ORIGEN: A.nacionalidad_norm]"
+      },
+      {
+        "key": "",
+        "name": "icc_nacionalidad",
+        "type": "varchar",
+        "note": "[ORIGEN: A.icc_nacionalidad]"
+      },
+      {
+        "key": "",
+        "name": "fuente_nacionalidad",
+        "type": "varchar",
+        "note": "[ORIGEN: A.fuente_nacionalidad]"
+      },
+      {
+        "key": "",
+        "name": "estado_civil",
+        "type": "varchar",
+        "note": "[ORIGEN: A.estado_civil]"
+      },
+      {
+        "key": "",
+        "name": "icc_estado_civil",
+        "type": "varchar",
+        "note": "[ORIGEN: A.icc_edocivil]"
+      },
+      {
+        "key": "",
+        "name": "fuente_estado_civil",
+        "type": "varchar",
+        "note": "[ORIGEN: A.fuente_edocivil]"
+      },
+      {
+        "key": "",
+        "name": "ocupacion",
+        "type": "varchar",
+        "note": "[ORIGEN: A.actividad_laboral_norm]"
+      },
+      {
+        "key": "",
+        "name": "icc_ocupacion",
+        "type": "varchar",
+        "note": "[ORIGEN: A.icc_actlaboral]"
+      },
+      {
+        "key": "",
+        "name": "fuente_ocupacion",
+        "type": "varchar",
+        "note": "[ORIGEN: A.fuente_actlaboral]"
+      },
+      {
+        "key": "",
+        "name": "fc_actualizacion",
+        "type": "timestamp",
+        "note": "[ORIGEN: A.fc_actualizacion]"
+      }
+    ],
+    "dbmlFile": "cliente_canonico_multinegocio_3_sin_sk.dbml",
+    "dbmlProject": "cliente_canonico",
+    "modelRelations": [],
+    "dbmlRelationCount": 0
+  },
+  {
+    "id": "cd_br_cliente_fuente",
+    "title": "cd_br_cliente_fuente",
+    "tag": "hecho",
+    "description": "BRIDGE de resolución de llaves de negocio. Grano N x id_master. Solo datos reales.",
+    "relations": [
+      "FK a `cd_dim_cliente`.`id_master` mediante `id_master`"
+    ],
+    "fields": [
+      {
+        "key": "FK",
+        "name": "id_master",
+        "type": "bigint",
+        "note": "FK -> cd_dim_cliente. [ORIGEN: B/C.id_master, D/E.masterid]"
+      },
+      {
+        "key": "PK",
+        "name": "cod_empresa",
+        "type": "varchar",
+        "note": "Empresa dueña de la cuenta. [ORIGEN: C.cod_empresa]"
+      },
+      {
+        "key": "PK",
+        "name": "cod_tipo_cliente",
+        "type": "varchar",
+        "note": "Sistema/tipo de origen (evita colisiones). [ORIGEN: B/C.cod_tipo_cliente]"
+      },
+      {
+        "key": "PK",
+        "name": "id_cliente",
+        "type": "varchar",
+        "note": "Cuenta nativa en origen. [ORIGEN: B/C.id_cliente, D.clienteid, E.clientedivisaid] (descifrar)"
+      },
+      {
+        "key": "",
+        "name": "fc_carga",
+        "type": "int",
+        "note": "[ORIGEN: C.fc_carga]"
+      }
+    ],
+    "dbmlFile": "cliente_canonico_multinegocio_3_sin_sk.dbml",
+    "dbmlProject": "cliente_canonico",
+    "modelRelations": [
+      {
+        "id": "cd_br_cliente_fuente.id_master__cd_dim_cliente.id_master",
+        "childId": "cd_br_cliente_fuente",
+        "childField": "id_master",
+        "parentId": "cd_dim_cliente",
+        "parentField": "id_master",
+        "source": "dbml",
+        "dbmlFile": "cliente_canonico_multinegocio_3_sin_sk.dbml"
+      }
+    ],
+    "dbmlRelationCount": 1
+  },
+  {
+    "id": "cd_dim_contacto",
+    "title": "cd_dim_contacto",
+    "tag": "dimension",
+    "description": "DIMENSIÓN de contacto multivalor por id_master (pivote de tel1/tel2/email/domicilio del master aplanado).",
+    "relations": [
+      "FK a `cd_dim_cliente`.`id_master` mediante `id_master`",
+      "FK a `cd_dim_geografia`.`cp` mediante `cp`"
+    ],
+    "fields": [
+      {
+        "key": "FK",
+        "name": "id_master",
+        "type": "bigint",
+        "note": "FK -> cd_dim_cliente. [ORIGEN: A.id_master]"
+      },
+      {
+        "key": "PK",
+        "name": "tipo_contacto",
+        "type": "tipo_contacto",
+        "note": "TELEFONO<-tel1, CELULAR<-tel2, EMAIL<-dir_email, DOMICILIO<-domicilio"
+      },
+      {
+        "key": "PK",
+        "name": "valor_normalizado",
+        "type": "varchar",
+        "note": "Valor del medio. [ORIGEN: A.tel1_norm / A.tel2_norm / A.dir_email] (descifrar)"
+      },
+      {
+        "key": "",
+        "name": "calle",
+        "type": "varchar",
+        "note": "Solo DOMICILIO. [ORIGEN: A.nomvia] (descifrar)"
+      },
+      {
+        "key": "",
+        "name": "tipo_via",
+        "type": "varchar",
+        "note": "[ORIGEN: A.tipvia]"
+      },
+      {
+        "key": "",
+        "name": "num_ext",
+        "type": "varchar",
+        "note": "[ORIGEN: A.numext] (descifrar)"
+      },
+      {
+        "key": "",
+        "name": "num_int",
+        "type": "varchar",
+        "note": "[ORIGEN: A.numint] (descifrar)"
+      },
+      {
+        "key": "FK",
+        "name": "cp",
+        "type": "varchar",
+        "note": "FK -> cd_dim_geografia. [ORIGEN: A.cposta]"
+      },
+      {
+        "key": "",
+        "name": "latitud",
+        "type": "decimal(9,6)",
+        "note": "[ORIGEN: A.coorgy] (descifrar; validar eje)"
+      },
+      {
+        "key": "",
+        "name": "longitud",
+        "type": "decimal(9,6)",
+        "note": "[ORIGEN: A.coorgx] (descifrar; validar eje)"
+      },
+      {
+        "key": "",
+        "name": "icc",
+        "type": "varchar",
+        "note": "Índice calidad del medio. [ORIGEN: A.icc_telefono/icc_celular/icc_email/icc_domicilio]"
+      },
+      {
+        "key": "",
+        "name": "fuente_dato",
+        "type": "varchar",
+        "note": "Fuente del medio. [ORIGEN: A.fuente_telefono/celular/email/domicilio]"
+      },
+      {
+        "key": "",
+        "name": "fc_actualizacion",
+        "type": "timestamp",
+        "note": "[ORIGEN: A.fc_actualizacion]"
+      }
+    ],
+    "dbmlFile": "cliente_canonico_multinegocio_3_sin_sk.dbml",
+    "dbmlProject": "cliente_canonico",
+    "modelRelations": [
+      {
+        "id": "cd_dim_contacto.id_master__cd_dim_cliente.id_master",
+        "childId": "cd_dim_contacto",
+        "childField": "id_master",
+        "parentId": "cd_dim_cliente",
+        "parentField": "id_master",
+        "source": "dbml",
+        "dbmlFile": "cliente_canonico_multinegocio_3_sin_sk.dbml"
+      },
+      {
+        "id": "cd_dim_contacto.cp__cd_dim_geografia.cp",
+        "childId": "cd_dim_contacto",
+        "childField": "cp",
+        "parentId": "cd_dim_geografia",
+        "parentField": "cp",
+        "source": "dbml",
+        "dbmlFile": "cliente_canonico_multinegocio_3_sin_sk.dbml"
+      }
+    ],
+    "dbmlRelationCount": 2
+  },
+  {
+    "id": "cd_dim_geografia",
+    "title": "cd_dim_geografia",
+    "tag": "dimension",
+    "description": "DIMENSIÓN geográfica derivada del domicilio del master. PK natural cp.",
+    "relations": [],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "cp",
+        "type": "varchar",
+        "note": "NK natural. [ORIGEN: A.cposta]"
+      },
+      {
+        "key": "",
+        "name": "colonia",
+        "type": "varchar",
+        "note": "[ORIGEN: A.loc_oficial]"
+      },
+      {
+        "key": "",
+        "name": "tipo_asentamiento",
+        "type": "varchar",
+        "note": "[ORIGEN: A.tip_asentamiento]"
+      },
+      {
+        "key": "",
+        "name": "resto_localidad",
+        "type": "varchar",
+        "note": "[ORIGEN: A.resto_loc_of]"
+      },
+      {
+        "key": "",
+        "name": "municipio",
+        "type": "varchar",
+        "note": "[ORIGEN: A.lmunicipio]"
+      },
+      {
+        "key": "",
+        "name": "estado",
+        "type": "varchar",
+        "note": "[ORIGEN: A.lentidad]"
+      }
+    ],
+    "dbmlFile": "cliente_canonico_multinegocio_3_sin_sk.dbml",
+    "dbmlProject": "cliente_canonico",
+    "modelRelations": [],
+    "dbmlRelationCount": 0
+  }
+]
