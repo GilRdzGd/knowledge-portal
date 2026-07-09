@@ -719,7 +719,40 @@ body.diagram-expanded-mode {
 .relation-group.is-active .relation,
 .relation-group.is-active .relation-marker {
   stroke: var(--relation-color, var(--accent));
-  stroke-width: 2.4;
+  stroke-width: 3.4;
+  /* Brillo: la relacion resplandece al estar activa. */
+  filter: drop-shadow(0 0 5px rgba(37, 99, 235, 0.85)) drop-shadow(0 0 2px rgba(37, 99, 235, 0.6));
+}
+
+/* Capa de flujo: puntos que recorren la relacion del hijo (FK) al padre (PK). */
+.relation-flow {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 3.6;
+  stroke-linecap: round;
+  stroke-dasharray: 0.1 16;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.relation-group.is-flowing .relation-flow {
+  opacity: 0.95;
+  animation: relation-flow-dots 900ms linear infinite;
+}
+
+/* El trazado se dibuja hijo(FK) -> padre(PK). Con desplazamiento positivo los
+   puntos recorren el trazado en sentido inverso: del padre (uno) hacia el hijo
+   (muchos), es decir de "uno a muchos". */
+@keyframes relation-flow-dots {
+  to {
+    stroke-dashoffset: 32.2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .relation-group.is-flowing .relation-flow {
+    animation: none;
+  }
 }
 
 .diagram-panel.is-focused .relation-group {
@@ -1408,6 +1441,35 @@ body.diagram-expanded-mode {
   background: transparent;
 }
 
+/* Tarjeta expandida: muestra todas las columnas sin tope ni scroll. */
+.er-card.is-expanded .er-card-fields.is-field-capped {
+  max-height: none;
+  overflow: visible;
+}
+
+/* Boton de expandir/comprimir la tabla completa. */
+.er-expand-toggle {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-top: 1px solid color-mix(in srgb, var(--table-accent, #2563eb) 14%, #e2e8f0);
+  background: color-mix(in srgb, var(--table-accent, #2563eb) 7%, #f8fafc);
+  color: var(--accent, #2563eb);
+  font-family: "IBM Plex Mono", "SFMono-Regular", monospace;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  padding: 6px 8px;
+  cursor: pointer;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+
+.er-expand-toggle:hover {
+  background: color-mix(in srgb, var(--table-accent, #2563eb) 14%, #f1f5f9);
+}
+
 /* ---- Standalone overrides: only the model panel, full viewport ---- */
 html,
 body {
@@ -1534,9 +1596,9 @@ body {
   font-weight: 700;
 }
 .er-row em {
-  padding: 3px 7px;
-  border-radius: 999px;
-  background: #f1f5f9;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
   color: #7f8da3;
   font-size: 0.56rem;
   font-weight: 800;

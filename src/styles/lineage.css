@@ -69,7 +69,7 @@ h1{margin:0 0 6px;font-size:25px;letter-spacing:-.03em}
 .field:nth-child(even){background:color-mix(in srgb,var(--node-accent) 8%,#fff)}
 .field:last-child{border-bottom:0}
 .field .nm{font-weight:700;color:#334155;min-width:0}
-.type{margin-left:0;color:#7f8da3;font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:.02em;flex:none;padding:3px 7px;border-radius:999px;background:#f1f5f9}
+.type{margin-left:0;color:#7f8da3;font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:.02em;flex:none;padding:0;border-radius:0;background:transparent}
 .route-active{outline:2px solid color-mix(in srgb,var(--node-accent) 28%,transparent);z-index:2}
 .field-selected-active{outline:2px solid color-mix(in srgb,var(--node-accent) 60%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--node-accent) 25%,transparent);z-index:3;background:color-mix(in srgb,var(--node-accent) 16%,#fff)}
 .port{width:8px;height:8px;border-radius:999px;position:absolute;top:50%;transform:translateY(-50%);background:currentColor;box-shadow:0 0 0 3px #fff;z-index:4}

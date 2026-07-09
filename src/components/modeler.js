@@ -22,6 +22,7 @@ const modelViewSelect = document.querySelector("#model-view-select");
 const newViewButton = document.querySelector("#new-view-button");
 const resetViewLayoutButton = document.querySelector("#reset-view-layout-button");
 const saveViewButton = document.querySelector("#save-view-button");
+const exportPngButton = document.querySelector("#export-png-button");
 const viewTableControls = document.querySelector(".view-table-controls");
 const viewTableButton = document.querySelector("#view-table-button");
 const viewTableMenu = document.querySelector("#view-table-menu");
@@ -456,6 +457,11 @@ function renderCards(savedPositions) {
         })
         .join("");
 
+      const totalFields = (table.fields || []).length;
+      const expandToggle = capped
+        ? `<button type="button" class="er-expand-toggle" data-expand-toggle aria-expanded="false" title="Expandir tabla completa">Ver todo (${totalFields})</button>`
+        : "";
+
       return `
         <div class="er-card is-${tableKind(table)}-table" data-er-card="${escapeHtml(table.id)}" tabindex="0" role="button"
              style="left:${pos.left}px; top:${pos.top}px; width:${CARD_WIDTH}px;">
@@ -466,6 +472,7 @@ function renderCards(savedPositions) {
           )}">${escapeHtml(table.title)}</span>
           <span class="er-card-meta">${escapeHtml(table.tag)}</span>
           <div class="er-card-fields${capped ? " is-field-capped" : ""}">${rows}</div>
+          ${expandToggle}
         </div>`;
     })
     .join("");
@@ -904,9 +911,15 @@ function buildRelationElements() {
     const marker = createSvg("path");
     marker.setAttribute("class", "relation-marker");
 
+    // Capa de "flujo": puntos que se animan a lo largo de la relacion (del hijo
+    // FK hacia el padre PK) cuando la relacion esta activa por hover.
+    const flow = createSvg("path");
+    flow.setAttribute("class", "relation-flow");
+
     group.appendChild(hit);
     group.appendChild(path);
     group.appendChild(marker);
+    group.appendChild(flow);
     svg.appendChild(group);
 
     group.addEventListener("click", (event) => {
@@ -921,7 +934,7 @@ function buildRelationElements() {
     }
 
     const handle = createRouteHandle(rel);
-    relationEls.push({ rel, group, hit, path, marker, handle });
+    relationEls.push({ rel, group, hit, path, marker, flow, handle });
   });
 }
 
@@ -1000,7 +1013,7 @@ function updateRelationships() {
   svg.setAttribute("width", width);
   svg.setAttribute("height", height);
 
-  relationEls.forEach(({ rel, hit, path, marker, handle }) => {
+  relationEls.forEach(({ rel, hit, path, marker, flow, handle }) => {
     const childCard = cardEl(rel.childId);
     const parentCard = cardEl(rel.parentId);
     if (
@@ -1014,6 +1027,7 @@ function updateRelationships() {
       hit.setAttribute("d", "");
       path.setAttribute("d", "");
       marker.setAttribute("d", "");
+      if (flow) flow.setAttribute("d", "");
       if (handle) handle.hidden = true;
       return;
     }
@@ -1042,6 +1056,7 @@ function updateRelationships() {
       hit.setAttribute("d", "");
       path.setAttribute("d", "");
       marker.setAttribute("d", "");
+      if (flow) flow.setAttribute("d", "");
       if (handle) handle.hidden = true;
       return;
     }
@@ -1051,6 +1066,7 @@ function updateRelationships() {
     hit.setAttribute("d", connectorPath);
     path.setAttribute("d", connectorPath);
     marker.setAttribute("d", buildMarkerPath(childAnchor, childSide, parentAnchor, parentSide));
+    if (flow) flow.setAttribute("d", connectorPath);
 
     if (handle) {
       handle.style.left = `${routed.elbow.x}px`;
@@ -1254,7 +1270,7 @@ function markRow(tableId, fieldName, on) {
 
 function clearHighlight() {
   diagramPanel?.classList.remove("is-focused");
-  relationEls.forEach(({ group }) => group.classList.remove("is-active"));
+  relationEls.forEach(({ group }) => group.classList.remove("is-active", "is-flowing"));
   erCards.forEach((card) => card.classList.remove("is-active"));
   document.querySelectorAll(".er-row.is-linked").forEach((row) => row.classList.remove("is-linked"));
   if (relationHighlightEnabled) {
@@ -1274,28 +1290,23 @@ function highlightRelation(rel) {
   markRow(rel.parentId, rel.parentField, true);
 }
 
+// Al pasar el cursor por una tabla solo se afecta a sus relaciones (brillo +
+// grosor + flujo de puntos). Las tablas NO se difuminan ni cambian de estilo.
 function highlightTable(tableId) {
-  diagramPanel?.classList.remove("is-relation-highlight-mode");
   clearHighlight();
-  diagramPanel?.classList.add("is-focused");
-  cardEl(tableId)?.classList.add("is-active");
-
   relationEls.forEach(({ rel, group }) => {
-    const touches = rel.childId === tableId || rel.parentId === tableId;
-    if (!touches) {
-      return;
+    if (rel.childId === tableId || rel.parentId === tableId) {
+      group.classList.add("is-active", "is-flowing");
     }
-    group.classList.add("is-active");
-    cardEl(rel.childId)?.classList.add("is-active");
-    cardEl(rel.parentId)?.classList.add("is-active");
-    markRow(rel.childId, rel.childField, true);
-    markRow(rel.parentId, rel.parentField, true);
   });
 }
 
 function applyRelationHighlightMode() {
   diagramPanel?.classList.toggle("is-relation-highlight-mode", relationHighlightEnabled);
-  relationEls.forEach(({ group }) => group.classList.toggle("is-active", relationHighlightEnabled));
+  relationEls.forEach(({ group }) => {
+    group.classList.toggle("is-active", relationHighlightEnabled);
+    group.classList.toggle("is-flowing", relationHighlightEnabled);
+  });
   document.querySelectorAll(".er-row.is-linked").forEach((row) => row.classList.remove("is-linked"));
   if (!relationHighlightEnabled) {
     return;
@@ -1314,7 +1325,7 @@ function setRelationHighlightMode(enabled) {
   }
   if (!enabled) {
     diagramPanel?.classList.remove("is-relation-highlight-mode", "is-focused");
-    relationEls.forEach(({ group }) => group.classList.remove("is-active"));
+    relationEls.forEach(({ group }) => group.classList.remove("is-active", "is-flowing"));
     document.querySelectorAll(".er-row.is-linked").forEach((row) => row.classList.remove("is-linked"));
     return;
   }
@@ -1322,25 +1333,65 @@ function setRelationHighlightMode(enabled) {
 }
 
 // ------------------------------------------------------------------ dragging
+// Captura los waypoints (codos) de las relaciones cuyos DOS extremos estan en
+// el conjunto que se movera, para trasladarlos con el mismo delta y que la
+// relacion se mueva rigida junto con la caja/seleccion (no quede estatica).
+function captureIntraRoutes(movedIds) {
+  const map = {};
+  relationEls.forEach(({ rel }) => {
+    const wp = relationRoutes[rel.id];
+    if (wp && movedIds.has(rel.childId) && movedIds.has(rel.parentId)) {
+      map[rel.id] = { x: wp.x, y: wp.y };
+    }
+  });
+  return map;
+}
+
+function applyRouteDelta(startRoutes, dx, dy) {
+  Object.entries(startRoutes).forEach(([id, wp]) => {
+    relationRoutes[id] = { x: wp.x + dx, y: wp.y + dy };
+  });
+}
+
 function enableDragging(card) {
   let pointerId = null;
   let moved = false;
-  let startLeft = 0;
-  let startTop = 0;
   let startX = 0;
   let startY = 0;
+  let dragItems = []; // [{ el, left, top }]
+  let startRoutes = {};
+  let minLeft = 0;
+  let minTop = 0;
 
   card.addEventListener("pointerdown", (event) => {
     if (event.button !== 0) {
       return;
     }
     pointerId = event.pointerId;
-    startLeft = Number.parseFloat(card.style.left || "0");
-    startTop = Number.parseFloat(card.style.top || "0");
     startX = event.clientX;
     startY = event.clientY;
     moved = false;
-    card.classList.add("is-dragging");
+
+    // Si la tarjeta forma parte de una multi-seleccion, se arrastran todas las
+    // seleccionadas juntas; si no, solo esta.
+    const tableId = card.dataset.erCard;
+    const ids =
+      selectedCardIds.size > 1 && selectedCardIds.has(tableId)
+        ? Array.from(selectedCardIds)
+        : [tableId];
+    dragItems = ids
+      .map((id) => cardEl(id))
+      .filter(Boolean)
+      .map((el) => ({
+        el,
+        left: Number.parseFloat(el.style.left || "0"),
+        top: Number.parseFloat(el.style.top || "0"),
+      }));
+    minLeft = Math.min(...dragItems.map((d) => d.left));
+    minTop = Math.min(...dragItems.map((d) => d.top));
+    startRoutes = captureIntraRoutes(new Set(dragItems.map((d) => d.el.dataset.erCard)));
+
+    dragItems.forEach((d) => d.el.classList.add("is-dragging"));
     card.setPointerCapture(pointerId);
     event.preventDefault();
   });
@@ -1351,10 +1402,18 @@ function enableDragging(card) {
     }
     moved = moved || Math.abs(event.clientX - startX) > 4 || Math.abs(event.clientY - startY) > 4;
 
-    const nextLeft = Math.max(24, startLeft + (event.clientX - startX) / zoom);
-    const nextTop = Math.max(72, startTop + (event.clientY - startY) / zoom);
-    card.style.left = `${nextLeft}px`;
-    card.style.top = `${nextTop}px`;
+    // Delta comun, acotado para que ninguna tarjeta cruce los limites y se
+    // conserven las posiciones relativas del grupo seleccionado.
+    let dx = (event.clientX - startX) / zoom;
+    let dy = (event.clientY - startY) / zoom;
+    dx = Math.max(dx, 24 - minLeft);
+    dy = Math.max(dy, 72 - minTop);
+
+    dragItems.forEach((d) => {
+      d.el.style.left = `${d.left + dx}px`;
+      d.el.style.top = `${d.top + dy}px`;
+    });
+    applyRouteDelta(startRoutes, dx, dy);
 
     resizeScene();
     updateRelationships();
@@ -1365,7 +1424,7 @@ function enableDragging(card) {
     if (event.pointerId !== pointerId) {
       return;
     }
-    card.classList.remove("is-dragging");
+    dragItems.forEach((d) => d.el.classList.remove("is-dragging"));
     card.dataset.dragMoved = moved ? "true" : "false";
     if (card.hasPointerCapture(pointerId)) {
       card.releasePointerCapture(pointerId);
@@ -1375,6 +1434,7 @@ function enableDragging(card) {
       captureCurrentPositions();
       saveState();
     }
+    dragItems = [];
   }
 
   card.addEventListener("pointerup", stop);
@@ -1397,9 +1457,37 @@ function bindCards() {
       }
     });
 
+    // Hover sobre cualquier parte de la tabla: resalta y anima el flujo de
+    // puntos sobre sus relaciones (respetando la direccion FK -> PK).
+    card.addEventListener("mouseenter", () => {
+      if (card.classList.contains("is-dragging")) {
+        return;
+      }
+      highlightTable(tableId);
+    });
+    card.addEventListener("mouseleave", () => {
+      clearHighlight();
+    });
+
     const fields = card.querySelector(".er-card-fields.is-field-capped");
     if (fields) {
       fields.addEventListener("scroll", () => updateRelationships(), { passive: true });
+    }
+
+    // Boton para expandir la tabla completa / volver al tope de columnas.
+    const expandToggle = card.querySelector("[data-expand-toggle]");
+    if (expandToggle) {
+      expandToggle.addEventListener("pointerdown", (event) => event.stopPropagation());
+      expandToggle.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const expanded = card.classList.toggle("is-expanded");
+        expandToggle.setAttribute("aria-expanded", expanded ? "true" : "false");
+        const total = (tableById[tableId]?.fields || []).length;
+        expandToggle.textContent = expanded ? "Ver menos" : `Ver todo (${total})`;
+        resizeScene();
+        updateRelationships();
+        updateGroups();
+      });
     }
 
     enableDragging(card);
@@ -1906,6 +1994,7 @@ function enableGroupDrag(group, header) {
   let startX = 0;
   let startY = 0;
   let startPositions = [];
+  let startRoutes = {};
 
   header.addEventListener("pointerdown", (event) => {
     if (event.button !== 0) {
@@ -1922,6 +2011,7 @@ function enableGroupDrag(group, header) {
         return card ? { card, left: metrics(card).left, top: metrics(card).top } : null;
       })
       .filter(Boolean);
+    startRoutes = captureIntraRoutes(new Set(group.cardIds));
     header.setPointerCapture(pointerId);
     event.preventDefault();
     event.stopPropagation();
@@ -1938,6 +2028,7 @@ function enableGroupDrag(group, header) {
       card.style.left = `${Math.max(24, left + dx)}px`;
       card.style.top = `${Math.max(72, top + dy)}px`;
     });
+    applyRouteDelta(startRoutes, dx, dy);
     resizeScene();
     updateRelationships();
     updateGroups();
@@ -2176,18 +2267,19 @@ async function loadViewSeed(view) {
   return seed;
 }
 
-// Estado efectivo de una vista: lo guardado en el navegador tiene prioridad
-// sobre la semilla del archivo (misma logica que los esquemas: el archivo es el
-// valor por defecto y el usuario lo sobreescribe localmente).
+// Estado efectivo de una vista: el ARCHIVO SEMILLA (model-views.<vista>.json)
+// tiene prioridad. Solo se recurre a lo guardado en el navegador para las
+// claves que el archivo no define, o cuando no existe archivo semilla.
 function effectiveViewState(viewId, seed, blob) {
   const localView = blob && blob.views ? blob.views[viewId] : null;
-  const base = seed || {};
+  const hasSeed = seed && typeof seed === "object";
+  const base = hasSeed ? seed : {};
   const pick = (key, fallback) => {
+    if (hasSeed && base[key] !== undefined) {
+      return base[key];
+    }
     if (localView && localView[key] !== undefined) {
       return localView[key];
-    }
-    if (base[key] !== undefined) {
-      return base[key];
     }
     return fallback;
   };
@@ -2302,6 +2394,83 @@ async function saveViewToFiles() {
   }
 }
 
+// Exporta el diagrama completo (a tamano natural, sin importar zoom/scroll) a
+// una imagen PNG. Serializa la escena a un SVG con <foreignObject> incrustando
+// el CSS, lo dibuja en un canvas y descarga el resultado. Sin dependencias.
+async function exportDiagramPng() {
+  if (!diagramScene) {
+    return;
+  }
+  const original = exportPngButton ? exportPngButton.textContent : "";
+  if (exportPngButton) {
+    exportPngButton.disabled = true;
+    exportPngButton.textContent = "Generando...";
+  }
+  let svgUrl = null;
+  try {
+    const width = Math.ceil(Math.max(diagramScene.scrollWidth, Number.parseFloat(diagramScene.style.width) || 0, 800));
+    const height = Math.ceil(Math.max(diagramScene.scrollHeight, Number.parseFloat(diagramScene.style.height) || 0, 600));
+
+    const clone = diagramScene.cloneNode(true);
+    clone.style.transform = "none";
+    clone.style.transformOrigin = "top left";
+    clone.style.width = `${width}px`;
+    clone.style.height = `${height}px`;
+    clone.style.margin = "0";
+    // Los tiradores de ruta son controles de edicion; no van en la imagen.
+    clone.querySelectorAll(".relation-handle").forEach((el) => el.remove());
+
+    const css = await fetch("assets/css/model.css")
+      .then((response) => (response.ok ? response.text() : ""))
+      .catch(() => "");
+
+    const serialized = new XMLSerializer().serializeToString(clone);
+    const svg =
+      `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
+      `<foreignObject x="0" y="0" width="${width}" height="${height}">` +
+      `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;background:#ffffff;">` +
+      `<style>${css}</style>${serialized}</div>` +
+      `</foreignObject></svg>`;
+
+    svgUrl = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml;charset=utf-8" }));
+
+    const scale = 2; // mayor nitidez
+    const image = await new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = () => reject(new Error("No se pudo renderizar el SVG"));
+      img.src = svgUrl;
+    });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = width * scale;
+    canvas.height = height * scale;
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.setTransform(scale, 0, 0, scale, 0, 0);
+    ctx.drawImage(image, 0, 0);
+
+    const link = document.createElement("a");
+    link.download = `modelo_${activeViewId}.png`;
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+
+    if (exportPngButton) exportPngButton.textContent = "PNG ✓";
+  } catch (error) {
+    console.error("No se pudo exportar el diagrama a PNG", error);
+    if (exportPngButton) exportPngButton.textContent = "Error PNG";
+  } finally {
+    if (svgUrl) URL.revokeObjectURL(svgUrl);
+    if (exportPngButton) {
+      setTimeout(() => {
+        exportPngButton.textContent = original || "PNG";
+        exportPngButton.disabled = false;
+      }, 1800);
+    }
+  }
+}
+
 // -------------------------------------------------------------- toolbar wiring
 function bindToolbar() {
   editModeButton?.addEventListener("click", () => {
@@ -2320,6 +2489,7 @@ function bindToolbar() {
 
   resetViewLayoutButton?.addEventListener("click", resetCurrentViewLayout);
   saveViewButton?.addEventListener("click", saveViewToFiles);
+  exportPngButton?.addEventListener("click", exportDiagramPng);
 
   zoomButtons.forEach((button) => {
     button.addEventListener("click", () => {

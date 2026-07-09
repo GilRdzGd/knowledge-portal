@@ -1,9 +1,88 @@
 {
-  "positions": {},
-  "colors": {},
+  "positions": {
+    "captacion-dim-tiempo": {
+      "left": 101.539,
+      "top": 1440
+    },
+    "captacion-dim-cliente": {
+      "left": 1360,
+      "top": 120
+    },
+    "captacion-dim-cuenta": {
+      "left": 83.0769,
+      "top": 177.385
+    },
+    "captacion-dim-producto-familia": {
+      "left": 1361.85,
+      "top": 953.692
+    },
+    "captacion-dim-operacion-canal": {
+      "left": 88,
+      "top": 966.462
+    },
+    "captacion-fact-movimiento-cap": {
+      "left": 716,
+      "top": 140
+    },
+    "captacion-fact-cuenta-cap-periodo": {
+      "left": 720,
+      "top": 852
+    },
+    "captacion-fact-cliente-cap-periodo": {
+      "left": 735.077,
+      "top": 1576.31
+    }
+  },
+  "colors": {
+    "captacion-fact-movimiento-cap": "#1db954"
+  },
   "customRelationships": [],
   "deletedRelationIds": [],
-  "relationRoutes": {},
+  "relationRoutes": {
+    "captacion-fact-movimiento-cap.sk_tiempo__captacion-dim-tiempo.sk_tiempo": {
+      "x": 599.2307692307692,
+      "y": 1529.6153846153845
+    },
+    "captacion-fact-movimiento-cap.sk_cuenta__captacion-dim-cuenta.sk_cuenta": {
+      "x": 682.3076923076923,
+      "y": 258.8461538461538
+    },
+    "captacion-fact-cuenta-cap-periodo.sk_tiempo__captacion-dim-tiempo.sk_tiempo": {
+      "x": 666.9230769230769,
+      "y": 1646.5384615384614
+    },
+    "captacion-fact-movimiento-cap.sk_operacion_canal__captacion-dim-operacion-canal.sk_operacion_canal": {
+      "x": 525.3846153846154,
+      "y": 1043.4615384615383
+    },
+    "captacion-fact-cuenta-cap-periodo.sk_cuenta__captacion-dim-cuenta.sk_cuenta": {
+      "x": 488.46153846153845,
+      "y": 963.4615384615385
+    },
+    "captacion-fact-cliente-cap-periodo.sk_tiempo__captacion-dim-tiempo.sk_tiempo": {
+      "x": 457.6923076923077,
+      "y": 1671.1538461538462
+    },
+    "captacion-fact-movimiento-cap.sk_cliente__captacion-dim-cliente.sk_cliente": {
+      "x": 1119.2307692307693,
+      "y": 157.3076923076923
+    },
+    "captacion-fact-cliente-cap-periodo.sk_cliente__captacion-dim-cliente.sk_cliente": {
+      "x": 1266.923076923077,
+      "y": 249.6153846153846
+    },
+    "captacion-fact-cuenta-cap-periodo.sk_cliente__captacion-dim-cliente.sk_cliente": {
+      "x": 1165.3846153846152,
+      "y": 203.46153846153845
+    }
+  },
   "groups": [],
-  "schemaGroups": []
+  "schemaGroups": [
+    {
+      "id": "schema-group-captacion",
+      "collapsed": false,
+      "collapsedBounds": null
+    }
+  ],
+  "zoom": 0.65
 }

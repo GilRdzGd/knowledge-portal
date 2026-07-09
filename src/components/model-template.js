@@ -69,6 +69,7 @@ export function createModelDocument() {
             <button class="zoom-button zoom-readout" data-zoom-action="reset" type="button" aria-label="Reset zoom">100%</button>
             <button class="zoom-button" data-zoom-action="in" type="button" aria-label="Zoom in">+</button>
           </div>
+          <button class="zoom-button export-png-button" id="export-png-button" type="button" title="Descargar imagen PNG del diagrama">PNG</button>
           <div class="relation-controls" aria-label="Relation controls">
             <button class="zoom-button relation-delete-button" id="delete-relation-button" type="button" disabled>
               Borrar relacion

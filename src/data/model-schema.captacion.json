@@ -739,7 +739,7 @@
         "note": "Tipo de traspaso"
       },
       {
-        "key": "",
+        "key": "PR",
         "name": "num_periodo_mes",
         "type": "int",
         "note": "Partición: periodo mensual AAAAMM"
