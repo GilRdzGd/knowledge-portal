@@ -12,14 +12,13 @@ function createChatDocument(status) {
     <section class="chat-thread" id="thread" aria-live="polite">
       <div class="chat-welcome" id="welcome">
         <div class="chat-logo" aria-hidden="true"><span class="chat-cube"><i></i><i></i><i></i></span></div>
-        <h1>Chat</h1>
-        <p id="chatStatus">${status}</p>
         <div class="prompt-grid">
           <button type="button">De donde proviene ClienteOperacionLnkHashKey?</button>
           <button type="button">Cuales son las tablas raw?</button>
           <button type="button">A donde impacta rd_baz_bdclientes.rd_cripto_trans?</button>
           <button type="button">Resume el linaje global</button>
         </div>
+        <div class="chat-messages" id="messages" aria-live="polite"></div>
       </div>
     </section>
     <form class="chat-composer" id="composer">
@@ -30,13 +29,13 @@ function createChatDocument(status) {
   <script>
     const thread = document.getElementById("thread");
     const welcome = document.getElementById("welcome");
+    const messages = document.getElementById("messages");
     const composer = document.getElementById("composer");
     const question = document.getElementById("question");
     const promptButtons = Array.from(document.querySelectorAll(".prompt-grid button"));
     let requestId = 0;
 
-    function addMessage(role, text) {
-      welcome.hidden = true;
+    function createMessage(role, text) {
       const row = document.createElement("article");
       row.className = "message " + role;
       const avatar = document.createElement("div");
@@ -46,21 +45,25 @@ function createChatDocument(status) {
       bubble.className = "bubble";
       bubble.textContent = text;
       row.append(avatar, bubble);
-      thread.appendChild(row);
-      thread.scrollTop = thread.scrollHeight;
-      return bubble;
+      return { row, bubble };
     }
 
     function ask(text) {
       const value = text.trim();
       if (!value) return;
-      addMessage("user", value);
-      const pending = addMessage("assistant", "Analizando metadata...");
+      const turn = document.createElement("div");
+      turn.className = "chat-turn";
+      const userMessage = createMessage("user", value);
+      const assistantMessage = createMessage("assistant", "Analizando metadata...");
+      turn.append(userMessage.row, assistantMessage.row);
+      messages.prepend(turn);
+      const pending = assistantMessage.bubble;
       const id = String(++requestId);
       pending.dataset.requestId = id;
       window.parent.postMessage({ type: "chat-question", id, question: value }, "*");
       question.value = "";
       question.style.height = "auto";
+      thread.scrollTop = 0;
     }
 
     promptButtons.forEach((button) => button.addEventListener("click", () => ask(button.textContent || "")));

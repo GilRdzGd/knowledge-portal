@@ -4,10 +4,10 @@ export function createShell(root) {
       <aside class="sidebar">
         <div class="brand"><div class="mark" aria-hidden="true"><span class="data-cube"><i></i><i></i><i></i></span></div><span class="brand-name">Plataforma de Datos</span></div>
         <nav class="nav" aria-label="Navegacion principal">
-          <a class="active" href="#" data-view="inicio"><span>⌂</span><span>Inicio</span></a>
-          <a href="#" data-view="modelo"><span>▣</span><span>Modelo</span></a>
-          <a href="#" data-view="linaje"><span>⌘</span><span>Linaje</span></a>
-          <a href="#" data-view="chat"><span>✦</span><span>Chat</span></a>
+          <a class="active" href="#" data-view="inicio"><span class="nav-icon">⌂</span><span>Inicio</span></a>
+          <a href="#" data-view="modelo"><span class="nav-icon">▣</span><span>Modelo de datos</span></a>
+          <a href="#" data-view="linaje"><span class="nav-icon">⌘</span><span>Relaciones</span></a>
+          <a href="#" data-view="chat"><span class="nav-icon">✦</span><span>Asistente</span></a>
         </nav>
         <div class="sidebar-footer">
           <button id="toggleSidebar" class="sidebar-toggle" title="Ocultar menu">‹</button>
@@ -20,11 +20,6 @@ export function createShell(root) {
             <p class="subtitle" id="targetLabel">Actualizado: 3 de julio de 2026</p>
           </div>
         </header>
-        <section class="counts" aria-label="Conteos de relaciones">
-          <div class="count up"><b id="cUp">0</b><span>Upstream</span></div>
-          <div class="count down"><b id="cDown">0</b><span>Downstream</span></div>
-          <div class="count nb"><b id="cNb">0</b><span>Neighborhood</span></div>
-        </section>
         <section class="workspace">
           <div class="viewer-shell" id="scrollArea">
             <div class="toolbar global-toolbar">
@@ -44,12 +39,12 @@ export function createShell(root) {
                 <button class="toolbar-button" id="downloadCsv" title="Descargar linaje CSV">CSV</button>
               </div>
               <div class="legend">
-                <span><i class="pill green"></i>Origen raw</span>
-                <span><i class="pill blue"></i>Staging DV</span>
-                <span><i class="pill purple"></i>Delta / Satelite</span>
-                <span><i class="line-sample"></i>Mapeo directo</span>
-                <span><i class="line-sample dashed"></i>Hash / transformacion</span>
                 <span class="mode-pill" id="relMode">Vista linaje</span>
+                <section class="counts" aria-label="Conteos de relaciones">
+                  <div class="count up"><b id="cUp">0</b><span>Upstream</span></div>
+                  <div class="count down"><b id="cDown">0</b><span>Downstream</span></div>
+                  <div class="count nb"><b id="cNb">0</b><span>Neighborhood</span></div>
+                </section>
               </div>
             </div>
             <div class="frame-wrap" id="frameWrap"><iframe id="viewer" title="Vista seleccionada"></iframe></div>
@@ -92,6 +87,7 @@ export function createShell(root) {
     setActive(view) {
       elements.navLinks.forEach((link) => link.classList.toggle("active", link.dataset.view === view));
       elements.app.classList.toggle("mode-model", view === "modelo");
+      elements.app.classList.toggle("mode-lineage", view === "linaje");
       elements.app.classList.toggle("mode-home", view === "inicio");
       elements.app.classList.toggle("mode-chat", view === "chat");
       if (view !== "modelo") {

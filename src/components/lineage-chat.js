@@ -158,8 +158,8 @@ export function createLineageChat({ catalog }) {
   panel.innerHTML = `
     <div class="llc-head">
       <div class="llc-title">
-        <div class="llc-mark" aria-hidden="true">⌘</div>
-        <div><strong>Chat de linaje</strong><span id="llcStatus">Indexando metadata...</span></div>
+        <span class="nav-icon" aria-hidden="true">✦</span>
+        <div><strong>Asistente</strong></div>
       </div>
       <button class="llc-icon-btn" id="llcMinimize" title="Minimizar">+</button>
     </div>
@@ -178,10 +178,6 @@ export function createLineageChat({ catalog }) {
     "Cuales son las tablas raw?",
     "A donde impacta rd_baz_bdclientes.rd_cripto_trans?"
   ];
-
-  ready.then(() => {
-    $("llcStatus").textContent = `${state.rows.length} relaciones - ${state.fields.length} campos - ${state.tables.length} tablas`;
-  });
 
   async function askMiniChat(question) {
     const text = String(question || "").trim();

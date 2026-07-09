@@ -1389,15 +1389,15 @@ body.diagram-expanded-mode {
 .model-comment-tooltip {
   position: fixed;
   z-index: 10000;
-  width: min(340px, calc(100vw - 28px));
-  padding: 12px 14px;
-  border: 1px solid rgba(59, 130, 246, 0.22);
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.96);
-  color: #0f172a;
-  box-shadow: 0 22px 58px rgba(15, 23, 42, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.92);
+  width: min(170px, calc(100vw - 28px));
+  padding: 9px 10px;
+  border: 1px solid #d4deea;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #111827;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
   pointer-events: none;
-  backdrop-filter: blur(14px);
+  backdrop-filter: none;
 }
 
 .model-comment-tooltip[hidden] {
@@ -1406,17 +1406,19 @@ body.diagram-expanded-mode {
 
 .model-comment-tooltip strong {
   display: block;
-  margin-bottom: 5px;
-  color: #0b55d9;
-  font-size: 12px;
-  font-weight: 900;
+  margin-bottom: 4px;
+  color: #1e293b;
+  font-size: 11px;
+  font-weight: 850;
+  line-height: 1.25;
 }
 
 .model-comment-tooltip span {
   display: block;
   color: #475569;
-  font-size: 12px;
-  line-height: 1.45;
+  font-size: 11px;
+  line-height: 1.38;
+  overflow-wrap: anywhere;
 }
 
 /* Internal scroll for wide tables (more than 20 fields) */
@@ -1779,4 +1781,251 @@ body {
     radial-gradient(circle at 18% 18%, rgba(59, 130, 246, 0.08), transparent 28rem),
     radial-gradient(circle at 80% 12%, rgba(139, 92, 246, 0.07), transparent 32rem),
     linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(246, 249, 255, 0.94));
+}
+
+/* Dashboard model refresh: sober controls, sharper cards and a clearer canvas */
+.diagram-panel {
+  --toolbar-safe-space: 88px;
+  width: 100vw;
+  height: 100vh;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: #f8fafc;
+  box-shadow: none;
+}
+
+.diagram-toolbar {
+  top: 18px;
+  left: 22px;
+  right: 22px;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.diagram-toolbar-right {
+  width: 100%;
+  min-height: 52px;
+  align-items: center;
+  gap: 8px;
+  padding: 9px;
+  border: 1px solid rgba(203, 213, 225, 0.84);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.view-controls,
+.zoom-controls,
+.color-controls,
+.relation-controls,
+.group-controls {
+  min-height: 36px;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.zoom-button,
+.view-select-label,
+.view-select-label select,
+.color-apply,
+.color-clear,
+.hex-color-field input {
+  border-radius: 7px;
+}
+
+.zoom-button,
+.color-apply,
+.color-clear {
+  height: 34px;
+  min-width: 34px;
+  padding: 0 11px;
+  border: 1px solid #d4deea;
+  background: #ffffff;
+  color: #1e293b;
+  font-size: 12px;
+  font-weight: 760;
+  box-shadow: none;
+}
+
+.zoom-button:hover,
+.color-apply:hover,
+.color-clear:hover {
+  border-color: #b8c6d8;
+  background: #f8fafc;
+  transform: none;
+  box-shadow: none;
+}
+
+.edit-mode-button[aria-pressed="true"],
+.relation-highlight-button[aria-pressed="true"] {
+  border-color: #2563eb;
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 10px 18px rgba(37, 99, 235, 0.20);
+}
+
+.expand-diagram-button,
+.export-png-button {
+  font-weight: 850;
+}
+
+.zoom-readout,
+.zoom-readout:hover {
+  min-width: 56px;
+  border-color: transparent;
+  background: #eef4fb;
+  color: #334155;
+}
+
+.view-select-label {
+  min-height: 34px;
+  padding: 0 0 0 10px;
+  border: 1px solid #d4deea;
+  background: #ffffff;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  box-shadow: none;
+}
+
+.view-select-label select {
+  min-height: 32px;
+  padding: 0 26px 0 8px;
+  border: 0;
+  background-color: transparent;
+  color: #111827;
+  font-size: 12px;
+  font-weight: 780;
+}
+
+.color-menu,
+.view-table-menu {
+  border-radius: 8px;
+  border: 1px solid #d4deea;
+  background: #ffffff;
+  box-shadow: 0 18px 38px rgba(15, 23, 42, 0.14);
+}
+
+.color-swatch {
+  border-radius: 6px;
+}
+
+.diagram-viewport {
+  inset: var(--toolbar-safe-space) 0 0;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  background:
+    radial-gradient(circle at 1px 1px, rgba(37, 99, 235, 0.13) 1px, transparent 0) 0 0 / 24px 24px,
+    linear-gradient(180deg, #fbfdff 0%, #f5f8fc 100%);
+}
+
+.er-card {
+  border-radius: 10px;
+  border: 1px solid rgba(203, 213, 225, 0.92);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.09);
+}
+
+.er-card::before {
+  width: 3px;
+}
+
+.er-card:not(.is-dragging):hover {
+  border-color: rgba(96, 165, 250, 0.72);
+  box-shadow: 0 16px 30px rgba(15, 23, 42, 0.12);
+}
+
+.er-card-title {
+  padding-top: 12px;
+  padding-bottom: 4px;
+  color: #111827;
+  font-size: 0.88rem;
+  font-weight: 850;
+}
+
+.er-card-meta {
+  padding-bottom: 9px;
+  color: #64748b;
+  border-bottom-color: rgba(203, 213, 225, 0.7);
+}
+
+.er-row {
+  min-height: 32px;
+  color: #334155;
+  border-bottom-color: color-mix(in srgb, var(--table-accent) 10%, #e8eef6);
+}
+
+.er-row > span {
+  font-weight: 680;
+}
+
+.table-group {
+  border-radius: 10px;
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--group-color) 16%, transparent),
+    0 14px 24px rgba(15, 23, 42, 0.045);
+}
+
+.table-group-header {
+  height: 32px;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+  font-size: 0.78rem;
+  letter-spacing: 0.01em;
+}
+
+.table-group-header.is-collapsed,
+.table-group.is-collapsed .table-group-header,
+.table-group.is-collapsed,
+.schema-table-group.is-collapsed {
+  border-radius: 9px;
+}
+
+.table-group-body {
+  inset: 32px 0 0;
+  border-bottom-left-radius: 9px;
+  border-bottom-right-radius: 9px;
+}
+
+.group-collapse-button {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+}
+
+.zoom-button:focus-visible,
+.view-select-label select:focus-visible,
+.color-apply:focus-visible,
+.color-clear:focus-visible,
+.group-collapse-button:focus-visible,
+.field-connector:focus-visible,
+.relation-handle:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.26);
+  outline-offset: 2px;
+}
+
+@media (max-width: 980px) {
+  .diagram-panel {
+    --toolbar-safe-space: 78px;
+  }
+
+  .diagram-toolbar {
+    top: 14px;
+    left: 14px;
+    right: 14px;
+  }
+
+  .diagram-toolbar-right {
+    max-height: 40vh;
+    align-items: flex-start;
+    overflow: auto;
+  }
 }

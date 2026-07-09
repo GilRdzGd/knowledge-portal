@@ -126,3 +126,78 @@ table.nbt code{background:#eef2f9;padding:1px 5px;border-radius:5px;font-size:10
   .content>.workspace{height:100vh!important;min-height:100vh!important;border:0!important;border-radius:0!important;box-shadow:none!important}
   .canvas-shell{height:100vh!important}
   .canvas-shell>.toolbar{display:none!important}
+
+/* Dashboard refresh para el iframe de linaje */
+.canvas-shell{
+  background:
+    radial-gradient(circle at 1px 1px,rgba(37,99,235,.13) 1px,transparent 0) 0 0/24px 24px,
+    linear-gradient(180deg,#fbfdff 0%,#f5f8fc 100%)!important;
+}
+.node{
+  border-radius:10px;
+  border:1px solid rgba(203,213,225,.92);
+  background:rgba(255,255,255,.96);
+  box-shadow:0 12px 26px rgba(15,23,42,.09);
+  --table-accent:var(--node-accent);
+}
+.node::before{width:3px}
+.node:hover{
+  border-color:rgba(96,165,250,.72);
+  box-shadow:0 16px 30px rgba(15,23,42,.12);
+}
+.head{
+  border-bottom-color:rgba(203,213,225,.7);
+  background:linear-gradient(135deg,color-mix(in srgb,var(--node-accent) 16%,#fff),rgba(255,255,255,.84));
+}
+.node-title{
+  padding-top:12px;
+  padding-bottom:4px;
+  color:#111827;
+  font-size:.88rem;
+  font-weight:850;
+}
+.kind{
+  padding-bottom:9px;
+  color:#64748b;
+}
+.field{
+  min-height:32px;
+  color:#334155;
+  border-bottom-color:color-mix(in srgb,var(--table-accent) 10%,#e8eef6);
+  background:color-mix(in srgb,var(--table-accent) 5%,#fff);
+}
+.field:nth-child(even){
+  background:color-mix(in srgb,var(--table-accent) 8%,#fff);
+}
+.field .nm{font-weight:680}
+.type{
+  color:#7f8da3;
+  font-size:.56rem;
+  font-weight:800;
+  letter-spacing:.02em;
+}
+.lane{
+  border-radius:6px;
+  border-left:3px solid #2563eb;
+  color:#2563eb;
+  background:rgba(255,255,255,.92);
+  box-shadow:0 10px 22px rgba(15,23,42,.08);
+}
+.detail-toggle{
+  border-radius:8px;
+  box-shadow:0 10px 20px rgba(15,23,42,.12);
+}
+.side{
+  border-left-color:#dce5ef;
+  background:#fff;
+}
+.side-head{
+  background:rgba(255,255,255,.95);
+}
+.field-card,
+.path-item,
+.formula{
+  border-radius:8px;
+  border-color:#dce5ef;
+  box-shadow:none;
+}

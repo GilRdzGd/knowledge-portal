@@ -179,26 +179,25 @@ function ensureModelTooltip() {
   return modelTooltip;
 }
 
-function positionModelTooltip(clientX, clientY) {
+function positionModelTooltip(target) {
   const tooltip = ensureModelTooltip();
   const margin = 14;
-  const offset = 16;
+  const offset = 10;
+  const targetRect = target.getBoundingClientRect();
   const rect = tooltip.getBoundingClientRect();
-  let left = clientX + offset;
-  let top = clientY + offset;
+  const left = Math.min(targetRect.right + offset, Math.max(margin, window.innerWidth - rect.width - margin));
+  let top = targetRect.top + targetRect.height / 2 - rect.height / 2;
 
-  if (left + rect.width > window.innerWidth - margin) {
-    left = Math.max(margin, clientX - rect.width - offset);
-  }
   if (top + rect.height > window.innerHeight - margin) {
-    top = Math.max(margin, clientY - rect.height - offset);
+    top = window.innerHeight - rect.height - margin;
   }
+  top = Math.max(margin, top);
 
   tooltip.style.left = `${left}px`;
   tooltip.style.top = `${top}px`;
 }
 
-function showModelTooltip(target, event) {
+function showModelTooltip(target) {
   const comment = target.dataset.tooltipComment || "";
   if (!comment.trim()) {
     return;
@@ -212,10 +211,7 @@ function showModelTooltip(target, event) {
   tooltip.replaceChildren(title, body);
   tooltip.hidden = false;
 
-  const rect = target.getBoundingClientRect();
-  const clientX = event?.clientX ?? rect.left + rect.width / 2;
-  const clientY = event?.clientY ?? rect.top + Math.min(rect.height, 18);
-  positionModelTooltip(clientX, clientY);
+  positionModelTooltip(target);
 }
 
 function hideModelTooltip() {
@@ -227,10 +223,10 @@ function hideModelTooltip() {
 
 function bindCommentTooltips() {
   document.querySelectorAll("[data-model-tooltip]").forEach((target) => {
-    target.addEventListener("mouseenter", (event) => showModelTooltip(target, event));
-    target.addEventListener("mousemove", (event) => positionModelTooltip(event.clientX, event.clientY));
+    target.addEventListener("mouseenter", () => showModelTooltip(target));
+    target.addEventListener("mousemove", () => positionModelTooltip(target));
     target.addEventListener("mouseleave", hideModelTooltip);
-    target.addEventListener("focus", (event) => showModelTooltip(target, event));
+    target.addEventListener("focus", () => showModelTooltip(target));
     target.addEventListener("blur", hideModelTooltip);
   });
 }
