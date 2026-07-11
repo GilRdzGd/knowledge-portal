@@ -1,4 +1,4 @@
-:root {
+.doc-app {
   color-scheme: light;
   --bg: #f6f8fc;
   --panel: #ffffff;
@@ -10,33 +10,24 @@
   --blue-soft: #eaf2ff;
   --shadow: 0 14px 30px rgba(15, 23, 42, 0.07);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-* { box-sizing: border-box; }
-
-html,
-body {
-  min-height: 100%;
-  margin: 0;
-  background: var(--bg);
   color: var(--text);
+  min-height: 0;
+  padding: 0;
+  background: transparent;
 }
 
-button,
-input {
+.doc-app,
+.doc-app * {
+  box-sizing: border-box;
+}
+
+.doc-app button,
+.doc-app input {
   font: inherit;
 }
 
-.doc-app {
-  min-height: 100vh;
-  padding: 26px;
-  background:
-    radial-gradient(circle at 1px 1px, rgba(37, 99, 235, 0.09) 1px, transparent 0) 0 0 / 28px 28px,
-    linear-gradient(180deg, #fbfdff, #f6f8fc);
-}
-
 .doc-loading {
-  min-height: 100vh;
+  min-height: 100%;
   display: grid;
   place-items: center;
   color: var(--muted);
@@ -44,54 +35,58 @@ input {
 }
 
 .doc-secondary {
-  height: 38px;
+  height: 30px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0 13px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: #fff;
-  color: #1e293b;
-  font-size: 12px;
+  padding: 0 10px;
+  border: 1px solid rgba(37, 99, 235, 0.36);
+  border-radius: 6px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 11px;
   font-weight: 800;
   cursor: pointer;
   box-shadow: none;
 }
 
-.doc-secondary:hover,
 .doc-object:hover {
-  border-color: #b8c6d8;
-  background: #f8fafc;
+  border-color: rgba(37, 99, 235, 0.24);
+  background: rgba(37, 99, 235, 0.06);
+}
+
+.doc-secondary:hover {
+  border-color: #1d4ed8;
+  background: #1d4ed8;
 }
 
 .doc-layout {
   display: grid;
   grid-template-columns: 280px minmax(0, 1fr);
-  gap: 22px;
+  gap: 36px;
   align-items: start;
 }
 
 .doc-index,
 .doc-panel {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: var(--shadow);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .doc-index {
   position: sticky;
   top: 24px;
   max-height: calc(100vh - 52px);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .doc-index-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 16px 12px;
+  padding: 0 0 12px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -112,7 +107,7 @@ input {
 .doc-index-groups {
   max-height: calc(100vh - 112px);
   overflow: auto;
-  padding: 10px;
+  padding: 12px 0 0;
 }
 
 .doc-group {
@@ -157,7 +152,7 @@ input {
   align-items: center;
   gap: 7px;
   border: 1px solid transparent;
-  border-radius: 7px;
+  border-radius: 6px;
   background: transparent;
   color: #334155;
   text-align: left;
@@ -178,24 +173,31 @@ input {
 }
 
 .doc-object.is-active {
-  border-color: rgba(37, 99, 235, 0.16);
-  background: var(--blue-soft);
+  border-color: rgba(37, 99, 235, 0.24);
+  background: rgba(37, 99, 235, 0.08);
   color: #0b55d9;
 }
 
 .doc-main {
   display: grid;
-  gap: 22px;
+  gap: 34px;
   min-width: 0;
+  padding-left: 36px;
+  border-left: 1px solid var(--border);
 }
 
 .doc-panel {
-  padding: 22px;
+  padding: 0;
 }
 
 .doc-overview {
   display: grid;
   gap: 18px;
+}
+
+.doc-structure {
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
 }
 
 .doc-overview h2 {
@@ -229,10 +231,11 @@ input {
   display: grid;
   align-content: center;
   gap: 6px;
-  padding: 12px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: #fbfdff;
+  padding: 0 0 12px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
 }
 
 .doc-meta-item strong {
@@ -258,8 +261,8 @@ input {
 
 .doc-table-wrap {
   overflow: auto;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border: 0;
+  border-radius: 0;
 }
 
 .doc-table {
@@ -273,7 +276,7 @@ input {
   height: 42px;
   padding: 0 14px;
   color: #334155;
-  background: #f8fafc;
+  background: transparent;
   border-bottom: 1px solid var(--border);
   text-align: left;
   font-size: 11px;
@@ -323,17 +326,21 @@ input {
 }
 
 @media (max-width: 900px) {
-  .doc-app {
-    padding: 18px;
-  }
-
   .doc-layout {
     grid-template-columns: 1fr;
+    gap: 28px;
   }
 
   .doc-index {
     position: static;
     max-height: 320px;
+  }
+
+  .doc-main {
+    padding-top: 28px;
+    padding-left: 0;
+    border-top: 1px solid var(--border);
+    border-left: 0;
   }
 
   .doc-meta-grid {

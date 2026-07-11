@@ -1,11 +1,11 @@
-const app = document.querySelector("#docApp");
-
 const state = {
   groups: [],
   objects: [],
   selectedKey: "",
   query: "",
 };
+
+let app = null;
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -88,7 +88,7 @@ async function loadDocumentation() {
         groupName: name,
       };
       if (!groups.has(id)) {
-        groups.set(id, { id, name, open: true, objects: [] });
+        groups.set(id, { id, name, open: false, objects: [] });
       }
       groups.get(id).objects.push(object);
     });
@@ -186,7 +186,7 @@ function renderStructure(object) {
           <h2>Estructura del objeto</h2>
           <span>${fields.length} columnas</span>
         </div>
-        <button class="doc-secondary" type="button" data-export-object>Exportar JSON</button>
+        <button class="doc-secondary" type="button" data-export-object>Exportar MD</button>
       </div>
       <div class="doc-table-wrap">
         <table class="doc-table">
@@ -238,11 +238,41 @@ function render() {
   bindEvents(object);
 }
 
+function markdownTableRow(values) {
+  return `| ${values.map((value) => String(value ?? "-").replace(/\|/g, "\\|")).join(" | ")} |`;
+}
+
+function objectMarkdown(object) {
+  const fields = object.fields || [];
+  const lines = [
+    `# ${object.title}`,
+    "",
+    object.description || "No hay descripcion registrada para este objeto.",
+    "",
+    "## Resumen",
+    "",
+    markdownTableRow(["Campo", "Valor"]),
+    markdownTableRow(["---", "---"]),
+    markdownTableRow(["Tipo", objectType(object)]),
+    markdownTableRow(["Esquema", object.groupName]),
+    markdownTableRow(["Columnas", fields.length]),
+    markdownTableRow(["Relaciones", object.relations?.length || 0]),
+    "",
+    "## Estructura",
+    "",
+    markdownTableRow(["Columna", "Tipo de dato", "Clave", "Descripcion"]),
+    markdownTableRow(["---", "---", "---", "---"]),
+    ...fields.map((field) => markdownTableRow([field.name, field.type || "-", field.key || "-", field.note || "-"])),
+    "",
+  ];
+  return `${lines.join("\n")}\n`;
+}
+
 function exportObject(object) {
-  const blob = new Blob([`${JSON.stringify(object, null, 2)}\n`], { type: "application/json;charset=utf-8" });
+  const blob = new Blob([objectMarkdown(object)], { type: "text/markdown;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
-  link.download = `documentacion_${slug(object.title)}.json`;
+  link.download = `documentacion_${slug(object.title)}.md`;
   link.href = url;
   document.body.appendChild(link);
   link.click();
@@ -251,27 +281,38 @@ function exportObject(object) {
 }
 
 function bindEvents(object) {
-  document.querySelectorAll("[data-object-key]").forEach((button) => {
+  app.querySelectorAll("[data-object-key]").forEach((button) => {
     button.addEventListener("click", () => {
       state.selectedKey = button.dataset.objectKey || "";
       window.location.hash = new URLSearchParams({ object: state.selectedKey }).toString();
       render();
     });
   });
-  document.querySelectorAll(".doc-group").forEach((details) => {
+  app.querySelectorAll(".doc-group").forEach((details) => {
     details.addEventListener("toggle", () => {
       const group = state.groups.find((item) => item.id === details.dataset.groupId);
       if (group) group.open = details.open;
     });
   });
-  document.querySelectorAll("[data-export-object]").forEach((button) => {
+  app.querySelectorAll("[data-export-object]").forEach((button) => {
     button.addEventListener("click", () => exportObject(object));
   });
 }
 
-loadDocumentation()
-  .then(render)
-  .catch((error) => {
+export async function mountDocumentation(target) {
+  app = target;
+  app.classList.add("doc-app");
+  app.innerHTML = `<section class="doc-loading">Cargando documentacion...</section>`;
+  try {
+    await loadDocumentation();
+    render();
+  } catch (error) {
     console.error(error);
     app.innerHTML = `<section class="doc-loading">No se pudo cargar la documentacion.</section>`;
-  });
+  }
+}
+
+const standaloneApp = document.querySelector("#docApp");
+if (standaloneApp) {
+  mountDocumentation(standaloneApp);
+}
