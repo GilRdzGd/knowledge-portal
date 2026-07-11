@@ -291,6 +291,26 @@ iframe { width: 100%; height: calc(100vh - 292px); min-height: 540px; border: 0;
   min-height: 100%;
 }
 
+.app.mode-documentation .counts,
+.app.mode-documentation .global-toolbar { display: none; }
+.app.mode-documentation .content {
+  padding: 28px;
+}
+.app.mode-documentation .workspace {
+  height: calc(100vh - 132px);
+  min-height: 620px;
+  border-radius: 10px;
+  border: 1px solid #dce5ef;
+  background: #ffffff;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+}
+.app.mode-documentation .viewer-shell,
+.app.mode-documentation .frame-wrap,
+.app.mode-documentation iframe {
+  height: 100%;
+  min-height: 100%;
+}
+
 .app.mode-model .counts,
 .app.mode-model .global-toolbar { display: none; }
 .app.mode-model .workspace { height: calc(100vh - 140px); min-height: 620px; }
@@ -364,7 +384,8 @@ iframe { width: 100%; height: calc(100vh - 292px); min-height: 540px; border: 0;
 }
 
 .app.mode-model .header,
-.app.mode-lineage .header {
+.app.mode-lineage .header,
+.app.mode-documentation .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -377,7 +398,8 @@ iframe { width: 100%; height: calc(100vh - 292px); min-height: 540px; border: 0;
 }
 
 .app.mode-model .header h1,
-.app.mode-lineage .header h1 {
+.app.mode-lineage .header h1,
+.app.mode-documentation .header h1 {
   margin: 0 0 7px;
   color: #111827;
   font-size: clamp(30px, 2.4vw, 44px);
@@ -387,7 +409,8 @@ iframe { width: 100%; height: calc(100vh - 292px); min-height: 540px; border: 0;
 }
 
 .app.mode-model .subtitle,
-.app.mode-lineage .subtitle {
+.app.mode-lineage .subtitle,
+.app.mode-documentation .subtitle {
   color: #64748b;
   font-size: 14px;
 }

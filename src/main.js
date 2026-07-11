@@ -2,6 +2,7 @@ import { createShell } from "./components/shell.js";
 import { createViewer } from "./components/viewer.js";
 import { createLineagePage } from "./pages/lineage.js";
 import { createModelPage } from "./pages/model.js";
+import { createDocumentationPage } from "./pages/documentation.js";
 import { createHomePage } from "./pages/home.js";
 import { createChatPage } from "./pages/chat.js";
 import { createLineageChat } from "./components/lineage-chat.js";
@@ -37,6 +38,7 @@ async function boot() {
   const homePage = createHomePage({ shell, viewer, appMeta });
   const lineagePage = createLineagePage({ catalog, shell, viewer });
   const modelPage = createModelPage({ catalog, shell, viewer, appMeta });
+  const documentationPage = createDocumentationPage({ shell, viewer });
   const chat = createLineageChat({ catalog });
   const chatPage = createChatPage({ shell, viewer, chat });
 
@@ -52,6 +54,10 @@ async function boot() {
     linaje: () => {
       lineagePage.showAll();
       chat.setVisible(true);
+    },
+    documentacion: () => {
+      chat.setVisible(true);
+      documentationPage.show();
     },
     chat: () => {
       chat.setVisible(false);
