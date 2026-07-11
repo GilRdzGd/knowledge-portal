@@ -51,6 +51,8 @@ export function createShell(root) {
             <div class="frame-wrap" id="frameWrap"><iframe id="viewer" title="Vista seleccionada"></iframe></div>
           </div>
         </section>
+        <div class="home-mount" id="homeMount" hidden></div>
+        <div class="documentation-mount" id="documentationMount" hidden></div>
       </main>
     </div>`;
 
@@ -66,7 +68,10 @@ export function createShell(root) {
     input: root.querySelector("#tableSearch"),
     options: root.querySelector("#tableOptions"),
     relMode: root.querySelector("#relMode"),
+    workspace: root.querySelector(".workspace"),
+    homeMount: root.querySelector("#homeMount"),
     frameWrap: root.querySelector("#frameWrap"),
+    documentationMount: root.querySelector("#documentationMount"),
     viewer: root.querySelector("#viewer"),
     scrollArea: root.querySelector("#scrollArea"),
     navLinks: Array.from(root.querySelectorAll(".nav a[data-view]")),
@@ -92,6 +97,10 @@ export function createShell(root) {
       elements.app.classList.toggle("mode-documentation", view === "documentacion");
       elements.app.classList.toggle("mode-home", view === "inicio");
       elements.app.classList.toggle("mode-chat", view === "chat");
+      elements.workspace.hidden = view === "documentacion" || view === "inicio";
+      elements.scrollArea.hidden = view === "documentacion" || view === "inicio";
+      elements.homeMount.hidden = view !== "inicio";
+      elements.documentationMount.hidden = view !== "documentacion";
       if (view !== "modelo") {
         elements.app.classList.remove("model-expanded");
       }
