@@ -7,6 +7,7 @@ export function createShell(root) {
           <a class="active" href="#" data-view="inicio"><span class="nav-icon">⌂</span><span>Inicio</span></a>
           <a href="#" data-view="modelo"><span class="nav-icon">▣</span><span>Modelo de datos</span></a>
           <a href="#" data-view="linaje"><span class="nav-icon">⌘</span><span>Relaciones</span></a>
+          <a href="#" data-view="documentacion"><span class="nav-icon">▤</span><span>Documentacion</span></a>
           <a href="#" data-view="chat"><span class="nav-icon">✦</span><span>Asistente</span></a>
         </nav>
         <div class="sidebar-footer">
@@ -88,6 +89,7 @@ export function createShell(root) {
       elements.navLinks.forEach((link) => link.classList.toggle("active", link.dataset.view === view));
       elements.app.classList.toggle("mode-model", view === "modelo");
       elements.app.classList.toggle("mode-lineage", view === "linaje");
+      elements.app.classList.toggle("mode-documentation", view === "documentacion");
       elements.app.classList.toggle("mode-home", view === "inicio");
       elements.app.classList.toggle("mode-chat", view === "chat");
       if (view !== "modelo") {
