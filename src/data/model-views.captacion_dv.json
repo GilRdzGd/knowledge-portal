@@ -100,6 +100,10 @@
       "left": 2320,
       "top": 2864
     },
+    "l_baz_captacion_cliente_finacle": {
+      "left": 2680,
+      "top": 2864
+    },
     "h_baz_captacion_cuenta": {
       "left": 1600,
       "top": 5298
@@ -351,7 +355,8 @@
     "s_nh_l_baz_captacion_transaccion_fin_conciliada_operacion": "#E67E22",
     "s_st_l_baz_captacion_cliente_conversion_cu_estatus": "#AF7AC5",
     "s_st_l_baz_captacion_cuenta_fin_estatus": "#E67E22",
-    "s_nh_l_baz_captacion_traspaso": "#9b59b6"
+    "s_nh_l_baz_captacion_traspaso": "#9b59b6",
+    "l_baz_captacion_cliente_finacle": "#1ABC9C"
   },
   "customRelationships": [],
   "deletedRelationIds": [],
@@ -385,7 +390,8 @@
         "s_h_baz_captacion_cliente_fin_pm_fiscal",
         "s_l_baz_captacion_cliente_clientefinacle_segmentacion",
         "s_st_l_baz_captacion_cliente_conversion_cu_estatus",
-        "ref_baz_captacion_codigos_persona"
+        "ref_baz_captacion_codigos_persona",
+        "l_baz_captacion_cliente_finacle"
       ],
       "color": "#3498db",
       "collapsed": false,

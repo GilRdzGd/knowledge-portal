@@ -1320,67 +1320,67 @@
       {
         "key": "",
         "name": "CentroContableCliente",
-        "type": "string",
+        "type": "STRING",
         "note": "Centro Contable o Gestor màs antiguo del cliente"
       },
       {
         "key": "",
         "name": "CampoLibreCaracter1",
-        "type": "string",
+        "type": "STRING",
         "note": "Campo carácter libre 1"
       },
       {
         "key": "",
         "name": "CampoLibreCaracter2",
-        "type": "string",
+        "type": "STRING",
         "note": "Campo carácter libre 2"
       },
       {
         "key": "",
         "name": "CampoLibreMonto1",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Campo monto libre 1"
       },
       {
         "key": "",
         "name": "CampoLibreMonto2",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Campo monto libre 2"
       },
       {
         "key": "",
         "name": "CampoLibreBandera1",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera libre 1"
       },
       {
         "key": "",
         "name": "CampoLibreBandera2",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera libre 2"
       },
       {
         "key": "",
         "name": "EntidadUltModificacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Última Entidad que modificó el registro"
       },
       {
         "key": "",
         "name": "CentroUltModificacionEntidad",
-        "type": "string",
+        "type": "STRING",
         "note": "Último Centro donde se modificó el registro"
       },
       {
         "key": "",
         "name": "UsuarioUltModificacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Último usuario que modificó el registro"
       },
       {
         "key": "",
         "name": "FechaUltActualizacion",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Timestamp de última modificación"
       },
       {
@@ -1525,19 +1525,19 @@
       {
         "key": "",
         "name": "FechaResidencia",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de residencia"
       },
       {
         "key": "",
         "name": "JustificacionResidencia",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Maxima justificacion de residencia"
       },
       {
         "key": "",
         "name": "FechaCambioResidencia",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de ultimo cambio de residencia"
       },
       {
@@ -1585,13 +1585,13 @@
       {
         "key": "",
         "name": "Lada",
-        "type": "decimal(6,0)",
+        "type": "DECIMAL(6,0)",
         "note": "Lada"
       },
       {
         "key": "",
         "name": "Celular",
-        "type": "decimal(15,0)",
+        "type": "DECIMAL(15,0)",
         "note": "Celular"
       },
       {
@@ -1603,7 +1603,7 @@
       {
         "key": "",
         "name": "TelefonoOficina",
-        "type": "decimal(15,0)",
+        "type": "DECIMAL(15,0)",
         "note": "Teléfono oficina"
       },
       {
@@ -1694,7 +1694,7 @@
       {
         "key": "",
         "name": "FechaMuerte",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de muerte"
       },
       {
@@ -1724,7 +1724,7 @@
       {
         "key": "",
         "name": "FechaAutorizacion",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de autorizacion"
       },
       {
@@ -1742,7 +1742,7 @@
       {
         "key": "",
         "name": "FechaRegistro",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de registro"
       },
       {
@@ -1754,7 +1754,7 @@
       {
         "key": "",
         "name": "MarcaTiempo",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Timestamp"
       },
       {
@@ -1784,13 +1784,13 @@
       {
         "key": "",
         "name": "FechaLibre1",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha libre"
       },
       {
         "key": "",
         "name": "FechaLibre2",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha libre"
       },
       {
@@ -1802,7 +1802,7 @@
       {
         "key": "",
         "name": "MarcaTiempo2",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Timestamp"
       },
       {
@@ -3821,337 +3821,337 @@
       {
         "key": "",
         "name": "BanderaBono1",
-        "type": "string",
+        "type": "STRING",
         "note": "Banca de bonificación 1"
       },
       {
         "key": "",
         "name": "BanderaBono2",
-        "type": "string",
+        "type": "STRING",
         "note": "Banca de bonificación 2"
       },
       {
         "key": "",
         "name": "BanderaBono3",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de bonificación 3"
       },
       {
         "key": "",
         "name": "BanderaBono4",
-        "type": "string",
+        "type": "STRING",
         "note": "Banca de bonificación 4"
       },
       {
         "key": "",
         "name": "BanderaBono5",
-        "type": "string",
+        "type": "STRING",
         "note": "Banca de bonificación 5"
       },
       {
         "key": "",
         "name": "BanderaCancelacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de cancelación"
       },
       {
         "key": "",
         "name": "BanderaCuentaPeriodicidad",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de estado de la cuenta periódica y/n"
       },
       {
         "key": "",
         "name": "BanderaOperacionTransaccion",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera para comunicar transacciones"
       },
       {
         "key": "",
         "name": "BanderaRetencionFiscal",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de retención fiscal (s/n)"
       },
       {
         "key": "",
         "name": "BanderaRevisionCredito",
-        "type": "string",
+        "type": "STRING",
         "note": "Envío de la bandera de carta de revisión de tasa, cred. accado"
       },
       {
         "key": "",
         "name": "BanderaSoporteCuenta",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de soporte de estado de la cuenta: <'p'> - paper. <'b'> - strip. <'d'> - diskette"
       },
       {
         "key": "",
         "name": "BanderaTipoCuenta",
-        "type": "string",
+        "type": "STRING",
         "note": "Tipo de cuenta bandera: <'n'> - normal. <'m'> - cuenta de madre. <'h'> - cuenta de hija"
       },
       {
         "key": "",
         "name": "BanderaTransferenciaAutomatica",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de cuenta de transferencia automática"
       },
       {
         "key": "",
         "name": "BanderaVariacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Y ' - si hay una variación acordada"
       },
       {
         "key": "",
         "name": "DiaLiquidacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Asentamiento día natural"
       },
       {
         "key": "",
         "name": "PeriodicidadEstadoCuentaDiario",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de periodicidad de estado de la cuenta: <'d'> - diario. <'w'> - semanal. <'q'> - quincenal. <'m'> - mensual. <'b'> - dos veces monthly. <t '> - trimestralmente. <' s '> - medio año. <' a '> - anual"
       },
       {
         "key": "",
         "name": "SignoVariacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Signo de variación (+, -)"
       },
       {
         "key": "",
         "name": "SignoVariacionNegativo",
-        "type": "string",
+        "type": "STRING",
         "note": "Signo de variación"
       },
       {
         "key": "",
         "name": "SignoVariacionPositivo",
-        "type": "string",
+        "type": "STRING",
         "note": "Signo de variación"
       },
       {
         "key": "",
         "name": "SignoVariacionSobregiro",
-        "type": "string",
+        "type": "STRING",
         "note": "Signo de variación"
       },
       {
         "key": "",
         "name": "BanderaInteresNoCompuesto",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de intereses no compuestos"
       },
       {
         "key": "",
         "name": "BanderaCuentaConjunta",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de cuentas conjuntas"
       },
       {
         "key": "",
         "name": "BanderaCuentaClasificadaManual",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de cuenta clasificada manual"
       },
       {
         "key": "",
         "name": "BanderaIncrementoProrrogacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Incremento aplicable a la bandera de prorogaciones"
       },
       {
         "key": "",
         "name": "BanderaLibretaPerdida",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de libreta perdida"
       },
       {
         "key": "",
         "name": "BanderaNoCreacionPendiente",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera no crear pendiente"
       },
       {
         "key": "",
         "name": "BanderaCuentaPensionado",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de cuenta de pensionista"
       },
       {
         "key": "",
         "name": "BanderaRestringidaEmpleado",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de cuenta restringida (del empleado)"
       },
       {
         "key": "",
         "name": "BanderaCuentaCentro",
-        "type": "string",
+        "type": "STRING",
         "note": "Cuenta que solo opera en su sucursal"
       },
       {
         "key": "",
         "name": "BanderaCuentaChequePetrolB",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera cuentas de cheques de gasolina-b"
       },
       {
         "key": "",
         "name": "BanderaBloqueo",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de código bloqueado"
       },
       {
         "key": "",
         "name": "BanderaCuentaInmovilizada",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de cuenta inmovolizada"
       },
       {
         "key": "",
         "name": "BanderaCuentaComprometida",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de cuenta comprometida"
       },
       {
         "key": "",
         "name": "BanderaCancelacionAutomatica",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de cancelación automática"
       },
       {
         "key": "",
         "name": "BanderaBloqueoJudicial",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de bloqueo judicial"
       },
       {
         "key": "",
         "name": "BanderaBloqueoAdministrativo",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de bloqueo administrativo"
       },
       {
         "key": "",
         "name": "BanderaCuentaSinTIN",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera cuenta sin identificación número de contribuyente"
       },
       {
         "key": "",
         "name": "BanderaExcedenteAutorizado",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera autorizado excedido"
       },
       {
         "key": "",
         "name": "BanderaObservacionValidacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Cuenta con el indicador de observaciones de validación"
       },
       {
         "key": "",
         "name": "BanderaLenguajeCuenta",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de lenguaje de cuenta"
       },
       {
         "key": "",
         "name": "BanderaCuentaInteresReciproco",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera cuenta con intereses recíprocos"
       },
       {
         "key": "",
         "name": "BanderaCuentaAviso",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera cuenta con advertencias"
       },
       {
         "key": "",
         "name": "BanderaLibretaDiligencia",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de libreta diligida"
       },
       {
         "key": "",
         "name": "BanderaConformidadPendiente",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera conformidades pendientes para igualar"
       },
       {
         "key": "",
         "name": "BanderaLibretaObsoleta",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de libreta vieja"
       },
       {
         "key": "",
         "name": "BanderaCuentaAhorroHogar",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera cuenta de ahorro de la casa"
       },
       {
         "key": "",
         "name": "BanderaCuentaSoporte",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de soporte de cuentas (l/e)"
       },
       {
         "key": "",
         "name": "BanderaDocumentoImpresoPago",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de documento de pago impreso"
       },
       {
         "key": "",
         "name": "BanderaPinActual",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de pin actual"
       },
       {
         "key": "",
         "name": "BanderaBloqueoRetiro",
-        "type": "string",
+        "type": "STRING",
         "note": "Limité, autom. retray. bloqueo (cash di)"
       },
       {
         "key": "",
         "name": "BanderaLimitacionBloqueoRetiro",
-        "type": "string",
+        "type": "STRING",
         "note": "Limité, bloqueo de retiro en off"
       },
       {
         "key": "",
         "name": "BanderaRetencionLibreta",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera retención de la libreta"
       },
       {
         "key": "",
         "name": "BanderaEstatusCuenta",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Bandera de estado de la cuenta"
       },
       {
         "key": "",
         "name": "BanderaEstatusObjetivoCuenta",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de estado objetivo de la cuenta: <'n'>-normal 00. <'v'>-expirado (<3 meses) 10. <'m'>-defauter 20. <'d'>-dudoso 21. <'u' > -doubtful (> 1 año) 22. <'p'>-propuesta para el valor predeterminado 40"
       },
       {
         "key": "",
         "name": "BanderaEstatusSubjetivoCuenta",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de estado subjetivo de cuenta: <'n'>-normal 00. <'o'>-no documentado 32. <'d'>-dudoso 31. <'l'>-dudoso (en requisito) 34. <'p' > -doubtful (en procedimiento) 35. <'f'>-predeterminado 42"
       },
       {
         "key": "",
         "name": "BanderaEstadoInducidoCuenta",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de estado inducido por la cuenta: <'n'>-normal. <'r'>-riesgo del cliente"
       },
       {
@@ -4689,55 +4689,55 @@
       {
         "key": "",
         "name": "CodigoOperacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Código de operación. r01 - bloqueo a todos los cargos, i01 - bloqueo a todos los abonos, ó campo t100_code de la bldt001 where t100_language = 'e'. el campo t100_bigalp contiene la"
       },
       {
         "key": "",
         "name": "Observacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Comentarios"
       },
       {
         "key": "",
         "name": "BanderaTipoRegistro",
-        "type": "string",
+        "type": "STRING",
         "note": "Manual - m         automático - a"
       },
       {
         "key": "",
         "name": "FechaVencimiento",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de vencimiento."
       },
       {
         "key": "",
         "name": "EntidadUltimaModificacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Entidad de última modificación"
       },
       {
         "key": "",
         "name": "CentroUltimaModificacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Ultima modificación de centro de registro de cuen"
       },
       {
         "key": "",
         "name": "UsuarioUltimaModificacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Ultima modificación de usuario."
       },
       {
         "key": "",
         "name": "T099_LASTMODNTNM",
-        "type": "string",
+        "type": "STRING",
         "note": ""
       },
       {
         "key": "",
         "name": "MarcaTiempo",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": ""
       },
       {
@@ -5745,145 +5745,145 @@
       {
         "key": "",
         "name": "ConcentracionFondo",
-        "type": "string",
+        "type": "STRING",
         "note": "Concentración de fondos"
       },
       {
         "key": "",
         "name": "AdministracionGasto",
-        "type": "string",
+        "type": "STRING",
         "note": "Administración de gastos"
       },
       {
         "key": "",
         "name": "PagoNomina",
-        "type": "string",
+        "type": "STRING",
         "note": "Pago de nómina"
       },
       {
         "key": "",
         "name": "PagoCredito",
-        "type": "string",
+        "type": "STRING",
         "note": "Pago  de créditos"
       },
       {
         "key": "",
         "name": "CuentaEjeInversion",
-        "type": "string",
+        "type": "STRING",
         "note": "Cuenta eje para inversion"
       },
       {
         "key": "",
         "name": "PagoComision",
-        "type": "string",
+        "type": "STRING",
         "note": "Pago de comisiones"
       },
       {
         "key": "",
         "name": "PagoProveedor",
-        "type": "string",
+        "type": "STRING",
         "note": "Pago de proveedores"
       },
       {
         "key": "",
         "name": "OtroUso1",
-        "type": "string",
+        "type": "STRING",
         "note": "Otro uso1"
       },
       {
         "key": "",
         "name": "OtroUso2",
-        "type": "string",
+        "type": "STRING",
         "note": "Otro uso2"
       },
       {
         "key": "",
         "name": "OtroUso3",
-        "type": "string",
+        "type": "STRING",
         "note": "Otro uso3"
       },
       {
         "key": "",
         "name": "TransaccionExtranjero",
-        "type": "string",
+        "type": "STRING",
         "note": "Transacciones al extranjero"
       },
       {
         "key": "",
         "name": "ChequeViajero",
-        "type": "string",
+        "type": "STRING",
         "note": "Cheques de viajero"
       },
       {
         "key": "",
         "name": "OperacionDivisa",
-        "type": "string",
+        "type": "STRING",
         "note": "Operaciones de divisas"
       },
       {
         "key": "",
         "name": "OtraOperacion1",
-        "type": "string",
+        "type": "STRING",
         "note": "Otro  tipo  de operacion"
       },
       {
         "key": "",
         "name": "OtraOperacion2",
-        "type": "string",
+        "type": "STRING",
         "note": "Otro  tipo  de operacion"
       },
       {
         "key": "",
         "name": "OtraOperacion3",
-        "type": "string",
+        "type": "STRING",
         "note": "Otro  tipo  de operacion"
       },
       {
         "key": "",
         "name": "NumeroCargoMes",
-        "type": "decimal(4,0)",
+        "type": "DECIMAL(4,0)",
         "note": "Número de cargos al mes"
       },
       {
         "key": "",
         "name": "MontoCargoMes",
-        "type": "decimal(13,2)",
+        "type": "DECIMAL(13,2)",
         "note": "Monto de cargos al mes"
       },
       {
         "key": "",
         "name": "NumeroAbonoMes",
-        "type": "decimal(4,0)",
+        "type": "DECIMAL(4,0)",
         "note": "Numero de abonos al mes"
       },
       {
         "key": "",
         "name": "MontoAbonoMes",
-        "type": "decimal(13,2)",
+        "type": "DECIMAL(13,2)",
         "note": "Monto de abonos al mes"
       },
       {
         "key": "",
         "name": "NumeroOperacionMes",
-        "type": "decimal(4,0)",
+        "type": "DECIMAL(4,0)",
         "note": "Numero de operaciones al mes"
       },
       {
         "key": "",
         "name": "MontoOperacionMes",
-        "type": "decimal(13,2)",
+        "type": "DECIMAL(13,2)",
         "note": "Monto total de operaciones al mes"
       },
       {
         "key": "",
         "name": "FuenteRecurso",
-        "type": "string",
+        "type": "STRING",
         "note": "Principal fuente de recursos"
       },
       {
         "key": "",
         "name": "FuenteIngreso",
-        "type": "string",
+        "type": "STRING",
         "note": "Principal fuente de ingresos"
       },
       {
@@ -5962,517 +5962,517 @@
       {
         "key": "",
         "name": "CapitalAcreedor",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Capital acreedor"
       },
       {
         "key": "",
         "name": "CapitalDemanda",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Capital no exigible no en demora"
       },
       {
         "key": "",
         "name": "CapitalExcedidoExigencia",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Demandable excedido/predeterminado no en retraso"
       },
       {
         "key": "",
         "name": "CapitalExcedidoPredeterminada",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Demandable excedido/predeterminado en retraso"
       },
       {
         "key": "",
         "name": "CapitalExigencia",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Capital no exigible en retraso"
       },
       {
         "key": "",
         "name": "CapitalExpirado",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Capital vencido no en demora"
       },
       {
         "key": "",
         "name": "CapitalExpiradoAtraso",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Capital vencido en retraso"
       },
       {
         "key": "",
         "name": "DiaCalculoLiquidacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Muestra números en el cálculo del asentamiento: <'n'> - natural. <'c'> - trabajo"
       },
       {
         "key": "",
         "name": "DisposicionObjetivaDefecto",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Provisión objetiva por valor predeterminado"
       },
       {
         "key": "",
         "name": "DisposicionObjetivaPercapita",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Provisión objetiva por capital"
       },
       {
         "key": "",
         "name": "DisposicionObjetivaSobregirado",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Provisión objetiva por excedida"
       },
       {
         "key": "",
         "name": "DisposicionSubjetivaDefecto",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Provisión subjetiva por valor predeterminado"
       },
       {
         "key": "",
         "name": "DisposicionSubjetivaPercapita",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Provisión subjetiva por capital"
       },
       {
         "key": "",
         "name": "DisposicionSubjetivaSobregiro",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Provisión subjetiva por excedida"
       },
       {
         "key": "",
         "name": "EstadoLimiteSobregiroFavorable",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Límite de estado favour.- desfavorable. sobregiro"
       },
       {
         "key": "",
         "name": "Excepcion",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Excepción de cuenta"
       },
       {
         "key": "",
         "name": "GastoAsesoramientoJuridico",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Gastos de asesoramiento legal"
       },
       {
         "key": "",
         "name": "ImpuestoTotalRetenido",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Total de impuesto retenido"
       },
       {
         "key": "",
         "name": "InteresEfectivoPositivo",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Tasa de interés efectiva positiva"
       },
       {
         "key": "",
         "name": "InteresNegativoNoCapitalizado",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Intereses negativos no capitaliz. de inmob."
       },
       {
         "key": "",
         "name": "InteresPagadoNoDevengado",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Intereses pagados no acumulados"
       },
       {
         "key": "",
         "name": "InteresPositivoNoCapitalizado",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Intereses positivos no capitaliz. de inmob."
       },
       {
         "key": "",
         "name": "LimiteMontoOriginal",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Límite inicial de la cuenta"
       },
       {
         "key": "",
         "name": "MaximoLimiteVariable",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Límite máximo para alcanzar en variaciones"
       },
       {
         "key": "",
         "name": "MaximoTransferenciaAutomatica",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Saldo máximo para la transferencia automática"
       },
       {
         "key": "",
         "name": "MinimoLimiteVariable",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Límite mínimo para alcanzar en variaciones"
       },
       {
         "key": "",
         "name": "MinimoTransferenciaAutomatica",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Saldo mínimo para la transferencia automática"
       },
       {
         "key": "",
         "name": "MontoAportadoPlanAhorro",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Contribución total al plan de ahorro de hogar"
       },
       {
         "key": "",
         "name": "MontoInteresPeriodoAjustado",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Monto de interés positivo ajustado de período"
       },
       {
         "key": "",
         "name": "MontoLibre10",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre11",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre12",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre13",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre14",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre15",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre16",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre17",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre18",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre19",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre2",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre20",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre3",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre4_2",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre5_2",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre6",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre7",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre8",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre9",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoVariacion",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Cantidad de variación (a 0 si porcentaje)"
       },
       {
         "key": "",
         "name": "PuntoCoeficienteNegativo",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Puntos más o po. menos para aplicar a coeff."
       },
       {
         "key": "",
         "name": "PuntoCoeficientePositivo",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Puntos más o po. menos para aplicar a coeff."
       },
       {
         "key": "",
         "name": "PuntoCoeficienteSobregiro",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Puntos más o po. menos para aplicar a coeff."
       },
       {
         "key": "",
         "name": "SaldoExtraAplica",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Equilibrio en fondos de los cuales se aplica"
       },
       {
         "key": "",
         "name": "SaldoLiquidacionInicial",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Saldo para iniciar el acuerdo"
       },
       {
         "key": "",
         "name": "SaldoMotivoExcepcionAnulacion",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Balance para el cual se anula la exención"
       },
       {
         "key": "",
         "name": "TotalComisionAdministracion",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Comisiones de administración recolectadas totales"
       },
       {
         "key": "",
         "name": "TotalComisionCambioGarantia",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Comisiones de cambio de garantía total recolectada"
       },
       {
         "key": "",
         "name": "TotalComisionCancelacion",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Total recolectó la comisión de cancelación temprana."
       },
       {
         "key": "",
         "name": "TotalComisionExcedido",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Total recolectado excedió las comisiones"
       },
       {
         "key": "",
         "name": "TotalComisionInmovilidad",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Total de mantenimiento recolectado immob. comisos."
       },
       {
         "key": "",
         "name": "TotalComisionMantenimiento",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Ley de mantenimiento total recolectado. comisiones"
       },
       {
         "key": "",
         "name": "TotalComisionMontoLibre3",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Total recolectado 3 comisiones gratuitas"
       },
       {
         "key": "",
         "name": "TotalComisionOperacion",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Número total de comisiones de movimientos"
       },
       {
         "key": "",
         "name": "TotalComisionRecaudada",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Comisiones de apertura recolectadas totales"
       },
       {
         "key": "",
         "name": "TotalGastoAgregado",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Gastos agregados totales"
       },
       {
         "key": "",
         "name": "TotalGastoCobrado",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Total gasto cobrado"
       },
       {
         "key": "",
         "name": "TotalInteresCobrado",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Total de intereses recolectados"
       },
       {
         "key": "",
         "name": "TotalInteresPagado",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Total de intereses pagados"
       },
       {
         "key": "",
         "name": "TotalRecaudadoComisionRetiro",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Comisiones no retiradas recolectadas totales"
       },
       {
         "key": "",
         "name": "UltimoSaldoDeclarado",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Último balance de declaración"
       },
       {
         "key": "",
         "name": "ValorExtraAplicar",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Valor de lo extraído para aplicar"
       },
       {
         "key": "",
         "name": "MontoLimiteDiarioCajero",
-        "type": "decimal(11,2)",
+        "type": "DECIMAL(11,2)",
         "note": "Límite de retiro diario en efectivo disp."
       },
       {
         "key": "",
         "name": "MontoRetiroDiarioCajero",
-        "type": "decimal(11,2)",
+        "type": "DECIMAL(11,2)",
         "note": "Efectivo disponible. diario retirado"
       },
       {
         "key": "",
         "name": "MontoLimiteMensualCajero",
-        "type": "decimal(11,2)",
+        "type": "DECIMAL(11,2)",
         "note": "Efectivo disponible. límite mensual"
       },
       {
         "key": "",
         "name": "MontoRetiroMensualCajero",
-        "type": "decimal(11,2)",
+        "type": "DECIMAL(11,2)",
         "note": "Efectivo disponible. retirado mensualmente"
       },
       {
         "key": "",
         "name": "LimiteActualCuenta",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Límite actual de la cuenta"
       },
       {
         "key": "",
         "name": "SaldoCuenta",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Saldo retirado"
       },
       {
         "key": "",
         "name": "SaldoPromedioAnio",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Saldo promedio en el año"
       },
       {
         "key": "",
         "name": "MontoTotalIncumplido",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Cantidad total incumplida"
       },
       {
         "key": "",
         "name": "MontoRetenido",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Retención"
       },
       {
         "key": "",
         "name": "MontoDepositoNoContabilizado",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto depositado temprano no contado."
       },
       {
         "key": "",
         "name": "MontoLibre1",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "SaldoPromedioTransferido",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Saldo promedio transferido"
       },
       {
         "key": "",
         "name": "MontoSaldoRetenidoPrestamos",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto de saldo retenido por préstamos"
       },
       {
         "key": "",
         "name": "MontoLibre4",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre5",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
@@ -6551,841 +6551,841 @@
       {
         "key": "",
         "name": "SecuenciaRenovacionCuenta",
-        "type": "decimal(5,0)",
+        "type": "DECIMAL(5,0)",
         "note": "Número secuencial de renovación"
       },
       {
         "key": "",
         "name": "AnaliticoTransaccion",
-        "type": "string",
+        "type": "STRING",
         "note": "Propósito analítico de transacción"
       },
       {
         "key": "",
         "name": "Area",
-        "type": "string",
+        "type": "STRING",
         "note": "Lugar geográfico"
       },
       {
         "key": "",
         "name": "CanalUtilizadoAbrirCuenta",
-        "type": "string",
+        "type": "STRING",
         "note": "Canal utilizado para abrir la cuenta"
       },
       {
         "key": "",
         "name": "Cargo",
-        "type": "string",
+        "type": "STRING",
         "note": "2 cargas"
       },
       {
         "key": "",
         "name": "CentroMonetario",
-        "type": "string",
+        "type": "STRING",
         "note": "Centro de cuentas"
       },
       {
         "key": "",
         "name": "CentroOrigen",
-        "type": "string",
+        "type": "STRING",
         "note": "Política centro de propiedad original original"
       },
       {
         "key": "",
         "name": "CentroPrincipal",
-        "type": "string",
+        "type": "STRING",
         "note": "Centro de cuentas"
       },
       {
         "key": "",
         "name": "CentroUltimaActualizacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Último centro de modificación"
       },
       {
         "key": "",
         "name": "ClaveCoeficienteNegativo",
-        "type": "string",
+        "type": "STRING",
         "note": "Clave de coeficiente sobre el que varía"
       },
       {
         "key": "",
         "name": "ClaveCoeficiente",
-        "type": "string",
+        "type": "STRING",
         "note": "Clave de coeficiente sobre el que varía"
       },
       {
         "key": "",
         "name": "ClaveCoeficienteVariable",
-        "type": "string",
+        "type": "STRING",
         "note": "Clave de coeficiente sobre el que varía"
       },
       {
         "key": "",
         "name": "ClaveOperacionInterbancaria",
-        "type": "string",
+        "type": "STRING",
         "note": "Cuenta de transferencia de servicios"
       },
       {
         "key": "",
         "name": "CodigoFondo",
-        "type": "string",
+        "type": "STRING",
         "note": "Código  de fondos"
       },
       {
         "key": "",
         "name": "ComisionPorcentaje",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Comisión %"
       },
       {
         "key": "",
         "name": "ConsecutivoLiquidacion",
-        "type": "decimal(17,0)",
+        "type": "DECIMAL(17,0)",
         "note": "Número de referencia de liquidación"
       },
       {
         "key": "",
         "name": "CuentaMonetaria",
-        "type": "string",
+        "type": "STRING",
         "note": "Número de cuenta"
       },
       {
         "key": "",
         "name": "CuentaPrincipal",
-        "type": "string",
+        "type": "STRING",
         "note": "Número de cuenta principal"
       },
       {
         "key": "",
         "name": "DigitoVerificador1",
-        "type": "string",
+        "type": "STRING",
         "note": "Código de cuenta del cliente dígito 1"
       },
       {
         "key": "",
         "name": "DigitoVerificador2",
-        "type": "string",
+        "type": "STRING",
         "note": "Código de cuenta del cliente dígito 2"
       },
       {
         "key": "",
         "name": "EntidadMonetaria",
-        "type": "string",
+        "type": "STRING",
         "note": "Clave de entidad según el banco de españa"
       },
       {
         "key": "",
         "name": "EntidadOrigen",
-        "type": "string",
+        "type": "STRING",
         "note": "Política entidad patentada original"
       },
       {
         "key": "",
         "name": "EntidadPrincipal",
-        "type": "string",
+        "type": "STRING",
         "note": "Clave de entidad según el banco de españa"
       },
       {
         "key": "",
         "name": "EntidadUltimaActualizacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Última entidad de modificación"
       },
       {
         "key": "",
         "name": "EstadoCuentaSucursalDestino",
-        "type": "string",
+        "type": "STRING",
         "note": "Rama de destino de estado de la cuenta"
       },
       {
         "key": "",
         "name": "FechaPreApertura",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha original de preapertura"
       },
       {
         "key": "",
         "name": "FechaBloqueoConsejero",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de bloqueo del departamento de asesoramiento"
       },
       {
         "key": "",
         "name": "FechaCancelacion",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de cancelación"
       },
       {
         "key": "",
         "name": "FechaCorteSiguiente",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de estado de la cuenta siguiente"
       },
       {
         "key": "",
         "name": "FechaInmovilizadora",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Entrada en fecha inmovilizada"
       },
       {
         "key": "",
         "name": "FechaLimiteVariacion",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de variación de siguiente límite"
       },
       {
         "key": "",
         "name": "FechaOrigen",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Primera fecha de activación de la política"
       },
       {
         "key": "",
         "name": "FechaPago",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de entrada predeterminada más antigua"
       },
       {
         "key": "",
         "name": "FechaParametroUltimaOperacion",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto de la comisión (a 0 si % o 0)"
       },
       {
         "key": "",
         "name": "FechaPeriodoAjustado",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de ajuste del período"
       },
       {
         "key": "",
         "name": "FechaPrecancelacion",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de precancelación"
       },
       {
         "key": "",
         "name": "FechaRegistro",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de apertura"
       },
       {
         "key": "",
         "name": "FechaRenovacion",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de renovación"
       },
       {
         "key": "",
         "name": "FechaRequisitoSolicitud",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Entrada en la fecha de requisito"
       },
       {
         "key": "",
         "name": "FechaUltimaOperacion",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de comunicación de las últimas transacciones"
       },
       {
         "key": "",
         "name": "FechaUltimoAgregado",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de los próximos agregados"
       },
       {
         "key": "",
         "name": "FechaVencimiento",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de vencimiento"
       },
       {
         "key": "",
         "name": "MetodoLiquidacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Muestra el método de liquidación"
       },
       {
         "key": "",
         "name": "MotivoCancelacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Razon de cancelacion"
       },
       {
         "key": "",
         "name": "NumeroCheque",
-        "type": "decimal(7,0)",
+        "type": "DECIMAL(7,0)",
         "note": "Número de cheques solicitados"
       },
       {
         "key": "",
         "name": "NumeroEstadoCuenta",
-        "type": "decimal(7,0)",
+        "type": "DECIMAL(7,0)",
         "note": "Número de estado de la cuenta solicitado"
       },
       {
         "key": "",
         "name": "NumeroUltimoComunicado",
-        "type": "decimal(19,0)",
+        "type": "DECIMAL(19,0)",
         "note": "Movimiento comunicado último número"
       },
       {
         "key": "",
         "name": "NumeroUltimoComunicadoAnual",
-        "type": "decimal(7,0)",
+        "type": "DECIMAL(7,0)",
         "note": "Último número de páginas comunicadas en el año"
       },
       {
         "key": "",
         "name": "OperacionComision",
-        "type": "decimal(7,0)",
+        "type": "DECIMAL(7,0)",
         "note": "Límites de movimientos para la comisión"
       },
       {
         "key": "",
         "name": "PeriodoDevengado",
-        "type": "string",
+        "type": "STRING",
         "note": "Período de acumulación"
       },
       {
         "key": "",
         "name": "PeriodoLimiteVariable",
-        "type": "string",
+        "type": "STRING",
         "note": "Período: cada '12', '6', '3', '2,' 1 'meses. - variación mensual. - variación dos veces al mes. - variación trimestral. - variación semestral. - variación anual"
       },
       {
         "key": "",
         "name": "PeriodoLiquidacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Período de liquidación: d, w, q, m, b, t, s, a, v -mensual. <'b'>-dos veces al año. <'t'>-trimestralmente. <'s'>-medio año. <'a'>-anual. <'v'>-al vencimiento"
       },
       {
         "key": "",
         "name": "PeriodoVariacionTasa",
-        "type": "string",
+        "type": "STRING",
         "note": "Período de variación de 9 tasas (a, s t, b, m): <'m'> - monthly. <'b'> - dos veces al mes. <'t'> - trimestralmente. <'s'> - medio año . <'a'> - anual"
       },
       {
         "key": "",
         "name": "PeriodoVencimiento",
-        "type": "string",
+        "type": "STRING",
         "note": "Período de madurez expresado en meses"
       },
       {
         "key": "",
         "name": "PlanComision",
-        "type": "string",
+        "type": "STRING",
         "note": "Plan de comisión"
       },
       {
         "key": "",
         "name": "PorcentajeAtraso",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Detraso de los valores de retraso %"
       },
       {
         "key": "",
         "name": "PorcentajeGasto",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Varios gastos. % (negoc., estudio y managm.)"
       },
       {
         "key": "",
         "name": "PorcentajeLibre1",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Porcentaje libre"
       },
       {
         "key": "",
         "name": "PorcentajeLibre2",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Porcentaje libre"
       },
       {
         "key": "",
         "name": "PorcentajeLibre3",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Porcentaje libre"
       },
       {
         "key": "",
         "name": "PorcentajeLibre4",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Porcentaje libre"
       },
       {
         "key": "",
         "name": "PorcentajeLibre5",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Porcentaje libre"
       },
       {
         "key": "",
         "name": "PorcentajeLibre6",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Porcentaje libre"
       },
       {
         "key": "",
         "name": "PorcentajeLibre7",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Porcentaje libre"
       },
       {
         "key": "",
         "name": "PorcentajeVariacion",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Variación % (a 0 si cantidad)"
       },
       {
         "key": "",
         "name": "ProximaFechaLiquidacion",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Siguiente fecha de liquidación"
       },
       {
         "key": "",
         "name": "ReferenciaContratoApertura",
-        "type": "string",
+        "type": "STRING",
         "note": "Número de referencia de contrato o escritura"
       },
       {
         "key": "",
         "name": "SecuenciaUltimaLlaveAplicada",
-        "type": "string",
+        "type": "STRING",
         "note": "Último número de clave predeterminado creado"
       },
       {
         "key": "",
         "name": "Segmento",
-        "type": "string",
+        "type": "STRING",
         "note": "Segmento de clientes"
       },
       {
         "key": "",
         "name": "SuministroTotalObjetivo",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Provisión de objetivos totales"
       },
       {
         "key": "",
         "name": "SuministroTotalSubjetivo",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Provisión subjetiva total"
       },
       {
         "key": "",
         "name": "TasaiIncremental",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "11-incremental para la tasa de interés"
       },
       {
         "key": "",
         "name": "TasaInteresNegativa",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Tasa de interés efectiva negativa"
       },
       {
         "key": "",
         "name": "TasaInteresSobregirada",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Tasa de interés sobregirada"
       },
       {
         "key": "",
         "name": "TerminalUltimaActualizacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Última terminal de modificación"
       },
       {
         "key": "",
         "name": "TerminoTipoLiquidacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Tipo liquidación"
       },
       {
         "key": "",
         "name": "TipoGarantia",
-        "type": "string",
+        "type": "STRING",
         "note": "Tipo de garantía"
       },
       {
         "key": "",
         "name": "TipoInteresNegativo",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Tasa de interés de 4 negaciones"
       },
       {
         "key": "",
         "name": "TipoInteresPositivo",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Tasa de interés 3 positiva"
       },
       {
         "key": "",
         "name": "TipoLiquidacionProducto",
-        "type": "decimal(7,2)",
+        "type": "DECIMAL(7,2)",
         "note": "Comisión % (a 0 si cantidad o 0)"
       },
       {
         "key": "",
         "name": "TipoLiquidacionTasa",
-        "type": "string",
+        "type": "STRING",
         "note": "Tipo liquidación tasa"
       },
       {
         "key": "",
         "name": "UltimaActualizacionSistema",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Última fecha y hora de modificación"
       },
       {
         "key": "",
         "name": "UltimaFechaCambioInducido",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Estado inducido fecha de cambio de último cambio"
       },
       {
         "key": "",
         "name": "UltimaFechaCambioObjetivo",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Estado objetivo de último cambio fecha de cambio"
       },
       {
         "key": "",
         "name": "UltimaFechaCambioSubjetivo",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Estado subjetivo fecha de cambio de último cambio"
       },
       {
         "key": "",
         "name": "UltimaFechaEmision",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Contrato última fecha de emisión"
       },
       {
         "key": "",
         "name": "UltimaFechaLiquidacion",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Última fecha de liquidación"
       },
       {
         "key": "",
         "name": "UltimaFechaProrroga",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Última fecha de prorrogación (pasar a retrasar)"
       },
       {
         "key": "",
         "name": "UltimaFechaVariacionTasa",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de variación de 10 tasas"
       },
       {
         "key": "",
         "name": "UsuarioUltimaActualizacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Último usuario de modificación"
       },
       {
         "key": "",
         "name": "DigitoVerificador1_2",
-        "type": "string",
+        "type": "STRING",
         "note": "Código de cuenta del cliente dígito 1"
       },
       {
         "key": "",
         "name": "DigitoVerificador2_2",
-        "type": "string",
+        "type": "STRING",
         "note": "Código de cuenta del cliente dígito 2"
       },
       {
         "key": "",
         "name": "ProductoCuenta",
-        "type": "string",
+        "type": "STRING",
         "note": "Código de producto"
       },
       {
         "key": "",
         "name": "SubproductoCuenta",
-        "type": "string",
+        "type": "STRING",
         "note": "Subproducto"
       },
       {
         "key": "",
         "name": "EntidadContableCuenta",
-        "type": "string",
+        "type": "STRING",
         "note": "Entidad contable de cuenta"
       },
       {
         "key": "",
         "name": "CentroContableCuenta",
-        "type": "string",
+        "type": "STRING",
         "note": "Centro de contabilidad"
       },
       {
         "key": "",
         "name": "CodigoNombreSujeto",
-        "type": "string",
+        "type": "STRING",
         "note": "Código de nombre de sujeto"
       },
       {
         "key": "",
         "name": "NumeroUltimoMovimientoCuenta",
-        "type": "int",
+        "type": "INT",
         "note": "Movimiento de la cuenta último número"
       },
       {
         "key": "",
         "name": "NumeroMovimientoDiferente",
-        "type": "int",
+        "type": "INT",
         "note": "Cuenta dif. movimiento último número"
       },
       {
         "key": "",
         "name": "NumeroUltimaRetencion",
-        "type": "int",
+        "type": "INT",
         "note": "Creación de último número de retención"
       },
       {
         "key": "",
         "name": "NumeroUltimoDeposito",
-        "type": "int",
+        "type": "INT",
         "note": "Último número de deposito"
       },
       {
         "key": "",
         "name": "ConfidencialidadCuenta",
-        "type": "string",
+        "type": "STRING",
         "note": "Cuenta nivel de confidencialidad 0-9"
       },
       {
         "key": "",
         "name": "BalanceActualizacionLibreta",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Última actualización en el saldo de la libreta"
       },
       {
         "key": "",
         "name": "NumeroMovimientoActualizado",
-        "type": "int",
+        "type": "INT",
         "note": "Último número de movimiento actualizado"
       },
       {
         "key": "",
         "name": "TerminalLibretaActualizada",
-        "type": "string",
+        "type": "STRING",
         "note": "Libreta última terminal de actualización"
       },
       {
         "key": "",
         "name": "TransaccionLibretaActualizada",
-        "type": "int",
+        "type": "INT",
         "note": "Libreta última transacción de actualización"
       },
       {
         "key": "",
         "name": "FechaLibretaActualizada",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de actualización de libreta"
       },
       {
         "key": "",
         "name": "HoraUltimaActualizacionLibreta",
-        "type": "string",
+        "type": "STRING",
         "note": "Libreta último tiempo de actualización"
       },
       {
         "key": "",
         "name": "NumeroProximaLineaLibreta",
-        "type": "string",
+        "type": "STRING",
         "note": "Libreta siguiente número de línea"
       },
       {
         "key": "",
         "name": "NumeroPaginaLibreta",
-        "type": "string",
+        "type": "STRING",
         "note": "Número de página de libreta"
       },
       {
         "key": "",
         "name": "LimiteManualRetiro",
-        "type": "string",
+        "type": "STRING",
         "note": "Limité de retiro manual"
       },
       {
         "key": "",
         "name": "PinCompensacionLibreta",
-        "type": "string",
+        "type": "STRING",
         "note": "Pin de libreta compensada"
       },
       {
         "key": "",
         "name": "FechaUltimoRetiroCajero",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Efectivo disponible. última fecha de retiro"
       },
       {
         "key": "",
         "name": "FechaUltimaTransaccion",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Cualquier tipo de última fecha de transacción"
       },
       {
         "key": "",
         "name": "FechaUltimaTransaccionInmovil",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de la última transacción considerada inmovili."
       },
       {
         "key": "",
         "name": "FechaSobregiroCuenta",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de entrada excedida/sobregiro"
       },
       {
         "key": "",
         "name": "CodigoPaisConvertibleDivisa",
-        "type": "string",
+        "type": "STRING",
         "note": "Código de país para moneda base convertible"
       },
       {
         "key": "",
         "name": "CodigoDivisaExtranjera",
-        "type": "string",
+        "type": "STRING",
         "note": "Código de moneda extranjera"
       },
       {
         "key": "",
         "name": "FactorMultiplicativoDivisa",
-        "type": "decimal(7,3)",
+        "type": "DECIMAL(7,3)",
         "note": "Factor multiplicativo de moneda"
       },
       {
         "key": "",
         "name": "EntidadCuentaAsociada",
-        "type": "string",
+        "type": "STRING",
         "note": "Clave de entidad según el banco de españa"
       },
       {
         "key": "",
         "name": "CentroCuentaAsociada",
-        "type": "string",
+        "type": "STRING",
         "note": "Centro"
       },
       {
         "key": "",
         "name": "NumeroCuentaAsociada",
-        "type": "string",
+        "type": "STRING",
         "note": "Número de cuenta"
       },
       {
         "key": "",
         "name": "NumeroAccionFondo",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Número de acciones en el fondo"
       },
       {
         "key": "",
         "name": "CapitalDefaultInteresCuenta",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Capital parte predeterminada en res. cuentas"
       },
       {
         "key": "",
         "name": "ExcedidoDefaultInteresCuenta",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Excedió la parte predeterminada en res. cuentas"
       },
       {
         "key": "",
         "name": "MaximoSobregiro",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Excedido/sobregiro total máx. cantidad"
       },
       {
         "key": "",
         "name": "MaximoSobregiroVentana",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Excedido/sobregiro máx. cantidad por ventana"
       },
       {
         "key": "",
         "name": "MaximoSobregiroDeuda",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Excedido/sobregiro máx. cantidad por deber directo"
       },
       {
         "key": "",
         "name": "MaximoSobregiroCajero",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Excedido/sobregiro máx. monto por efectivo disp."
       },
       {
         "key": "",
         "name": "MaximoSobregiroAdquisicion",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Excedido/sobregiro máx. cantidad por adquisición."
       },
       {
         "key": "",
         "name": "EstatusCuenta",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de estado: <'a'>-active. <'p'>-precancelled. <'c'>-cancelado. <'r'>-cancelado y renovado"
       },
       {
         "key": "",
         "name": "PorcentajeProvisionMinimo",
-        "type": "decimal(5,2)",
+        "type": "DECIMAL(5,2)",
         "note": "Porcentaje mínimo de provisión"
       },
       {
         "key": "",
         "name": "FechaUltimaColectaSalario",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Última fecha de recolección de salario"
       },
       {
         "key": "",
         "name": "FechaLiquidacionPrecancelacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Fecha antes de precancelear"
       },
       {
         "key": "",
         "name": "IntervaloUltimaCancelacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Último intervalo de movimientos de actualización"
       },
       {
         "key": "",
         "name": "EntidadUltimaModificacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Última entidad de modificación"
       },
       {
         "key": "",
         "name": "CentroUltimaModificacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Último centro de modificación"
       },
       {
         "key": "",
         "name": "UsuarioUltimaModificacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Último usuario de modificación"
       },
       {
         "key": "",
         "name": "TerminalUltimaModificacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Última terminal de modificación"
       },
       {
         "key": "",
         "name": "UltimaModificacionFechaHora",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Última fecha y hora de modificación"
       },
       {
@@ -9710,79 +9710,79 @@
       {
         "key": "",
         "name": "NumeroContrato",
-        "type": "string",
+        "type": "STRING",
         "note": "Numero de contrato"
       },
       {
         "key": "",
         "name": "ClaveEntidadBanco",
-        "type": "string",
+        "type": "STRING",
         "note": "Clave entidad banco"
       },
       {
         "key": "",
         "name": "ClaveParticipacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Clave de participación"
       },
       {
         "key": "",
         "name": "SecuenciaParticipante",
-        "type": "string",
+        "type": "STRING",
         "note": "Secuencia de participante"
       },
       {
         "key": "",
         "name": "FechaRegistroRelacion",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de registro de la relacion o participación"
       },
       {
         "key": "",
         "name": "FechaRegistro",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de registro de la cuenta"
       },
       {
         "key": "",
         "name": "FechaAnulacionContrato",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de anulacion del contrato"
       },
       {
         "key": "",
         "name": "BanderaEstatus",
-        "type": "string",
+        "type": "STRING",
         "note": "Estatus"
       },
       {
         "key": "",
         "name": "BanderaNotificacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de notificación"
       },
       {
         "key": "",
         "name": "MarcaTiempo",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha - hora auditoria del registro"
       },
       {
         "key": "",
         "name": "BanderaLibre",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera libre"
       },
       {
         "key": "",
         "name": "PorcentajeParticipacion",
-        "type": "decimal(5,2)",
+        "type": "DECIMAL(5,2)",
         "note": "Inidcador porcentaje de participación"
       },
       {
         "key": "",
         "name": "BanderaAutorizacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de autorización"
       },
       {
@@ -10745,229 +10745,229 @@
       {
         "key": "",
         "name": "SecuenciaRenovacionCuenta",
-        "type": "decimal(5,0)",
+        "type": "DECIMAL(5,0)",
         "note": "Numero de renovación"
       },
       {
         "key": "",
         "name": "ActualizacionAtm",
-        "type": "string",
+        "type": "STRING",
         "note": "Cajero automático"
       },
       {
         "key": "",
         "name": "CentroActualizacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Centro"
       },
       {
         "key": "",
         "name": "CentroContableCuenta",
-        "type": "string",
+        "type": "STRING",
         "note": "Centro de contabilidad"
       },
       {
         "key": "",
         "name": "Cheque",
-        "type": "decimal(10,0)",
+        "type": "DECIMAL(10,0)",
         "note": "Verificación de número"
       },
       {
         "key": "",
         "name": "CodigoOperacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Código de operación (entrada)"
       },
       {
         "key": "",
         "name": "Divisa",
-        "type": "string",
+        "type": "STRING",
         "note": "Moneda extranjera"
       },
       {
         "key": "",
         "name": "EntidadActualizacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Entidad"
       },
       {
         "key": "",
         "name": "EntidadContable",
-        "type": "string",
+        "type": "STRING",
         "note": "Entidad contable de cuenta"
       },
       {
         "key": "",
         "name": "FechaContable",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de contabilidad"
       },
       {
         "key": "",
         "name": "FechaOperacion",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de operación"
       },
       {
         "key": "",
         "name": "FechaValor",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de valor de operación"
       },
       {
         "key": "",
         "name": "HoraOperacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Hora de operación"
       },
       {
         "key": "",
         "name": "IndicadorActualizacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de operación actualizada: <'n'>-no upd. <'s' 'f' 'm' 't'>-upd. <'s'>-en línea upd. (sin características). <'f' > -off-line upd. terminal financiero. <'m'>-manual en passbook upd. <'t'>-última descarga de passbook upp."
       },
       {
         "key": "",
         "name": "IndicadorAnulacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de entrada anulada (y/n)"
       },
       {
         "key": "",
         "name": "IndicadorAutomaticoManual",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de operación automática/manual: <'a'> - automatic (lote). <'m'> - manual (en línea). <'f'> - off -line (fuera de línea)"
       },
       {
         "key": "",
         "name": "IndicadorCheque",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera varios usos: <'a'> - bandera no residente"
       },
       {
         "key": "",
         "name": "IndicadorCreditoDebito",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de crédito/débito (d/h): <'d'> - débito. <'h'> - crédito"
       },
       {
         "key": "",
         "name": "IndicadorLibre1",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera libre"
       },
       {
         "key": "",
         "name": "IndicadorLibre2A",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de operación de moneda extranjera ('d')"
       },
       {
         "key": "",
         "name": "IndicadorLibre2B",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera libre"
       },
       {
         "key": "",
         "name": "IndicadorLibre3",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera libre"
       },
       {
         "key": "",
         "name": "IndicadorModificacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de entrada modificada (y/n)"
       },
       {
         "key": "",
         "name": "Moneda",
-        "type": "string",
+        "type": "STRING",
         "note": "Moneda extranjera"
       },
       {
         "key": "",
         "name": "MontoAutorizado",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Saldo autorizado"
       },
       {
         "key": "",
         "name": "MontoLibre1",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre2",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre3",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoOperacion",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Cantidad"
       },
       {
         "key": "",
         "name": "MontoOriginal",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Cantidad en origen en moneda extranjera"
       },
       {
         "key": "",
         "name": "Observacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Comentario"
       },
       {
         "key": "",
         "name": "Producto",
-        "type": "string",
+        "type": "STRING",
         "note": "Producto"
       },
       {
         "key": "",
         "name": "ReferenciaInterna",
-        "type": "string",
+        "type": "STRING",
         "note": "Referencia de entrada interna"
       },
       {
         "key": "",
         "name": "Subproducto",
-        "type": "string",
+        "type": "STRING",
         "note": "Subproducto"
       },
       {
         "key": "",
         "name": "TerminalActualizacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Terminal"
       },
       {
         "key": "",
         "name": "MarcaTiempo",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Marca de tiempo de fecha"
       },
       {
         "key": "",
         "name": "TipoCuentaContable",
-        "type": "string",
+        "type": "STRING",
         "note": "Contabilidad de tipo de entrada"
       },
       {
         "key": "",
         "name": "UsuarioActualizacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Usuario"
       },
       {
@@ -11046,229 +11046,229 @@
       {
         "key": "",
         "name": "SecuenciaRenovacionCuenta",
-        "type": "decimal(5,0)",
+        "type": "DECIMAL(5,0)",
         "note": "Numero de renovación"
       },
       {
         "key": "",
         "name": "ActualizacionAtm",
-        "type": "string",
+        "type": "STRING",
         "note": "Cajero automático"
       },
       {
         "key": "",
         "name": "CentroActualizacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Centro"
       },
       {
         "key": "",
         "name": "CentroContableCuenta",
-        "type": "string",
+        "type": "STRING",
         "note": "Centro de contabilidad"
       },
       {
         "key": "",
         "name": "Cheque",
-        "type": "decimal(10,0)",
+        "type": "DECIMAL(10,0)",
         "note": "Verificación de número"
       },
       {
         "key": "",
         "name": "CodigoOperacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Código de operación (entrada)"
       },
       {
         "key": "",
         "name": "Divisa",
-        "type": "string",
+        "type": "STRING",
         "note": "Moneda extranjera"
       },
       {
         "key": "",
         "name": "EntidadActualizacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Entidad"
       },
       {
         "key": "",
         "name": "EntidadContable",
-        "type": "string",
+        "type": "STRING",
         "note": "Entidad contable de cuenta"
       },
       {
         "key": "",
         "name": "FechaContable",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de contabilidad"
       },
       {
         "key": "",
         "name": "FechaOperacion",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de operación"
       },
       {
         "key": "",
         "name": "FechaValor",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha de valor de operación"
       },
       {
         "key": "",
         "name": "HoraOperacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Hora de operación"
       },
       {
         "key": "",
         "name": "IndicadorActualizacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de operación actualizada: <'n'>-no upd. <'s' 'f' 'm' 't'>-upd. <'s'>-en línea upd. (sin características). <'f' > -off-line upd. terminal financiero. <'m'>-manual en passbook upd. <'t'>-última descarga de passbook upp."
       },
       {
         "key": "",
         "name": "IndicadorAnulacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de entrada anulada (y/n)"
       },
       {
         "key": "",
         "name": "IndicadorAutomaticoManual",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de operación automática/manual: <'a'> - automatic (lote). <'m'> - manual (en línea). <'f'> - off -line (fuera de línea)"
       },
       {
         "key": "",
         "name": "IndicadorCheque",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera varios usos: <'a'> - bandera no residente"
       },
       {
         "key": "",
         "name": "IndicadorCreditoDebito",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de crédito/débito (d/h): <'d'> - débito. <'h'> - crédito"
       },
       {
         "key": "",
         "name": "IndicadorLibre1",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera libre"
       },
       {
         "key": "",
         "name": "IndicadorLibre2A",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de operación de moneda extranjera ('d')"
       },
       {
         "key": "",
         "name": "IndicadorLibre2B",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera libre"
       },
       {
         "key": "",
         "name": "IndicadorLibre3",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera libre"
       },
       {
         "key": "",
         "name": "IndicadorModificacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera de entrada modificada (y/n)"
       },
       {
         "key": "",
         "name": "Moneda",
-        "type": "string",
+        "type": "STRING",
         "note": "Moneda extranjera"
       },
       {
         "key": "",
         "name": "MontoAutorizado",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Saldo autorizado"
       },
       {
         "key": "",
         "name": "MontoLibre1",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre2",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre3",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoOperacion",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Cantidad"
       },
       {
         "key": "",
         "name": "MontoOriginal",
-        "type": "decimal(20,2)",
+        "type": "DECIMAL(20,2)",
         "note": "Cantidad en origen en moneda extranjera"
       },
       {
         "key": "",
         "name": "Observacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Comentario"
       },
       {
         "key": "",
         "name": "Producto",
-        "type": "string",
+        "type": "STRING",
         "note": "Producto"
       },
       {
         "key": "",
         "name": "ReferenciaInterna",
-        "type": "string",
+        "type": "STRING",
         "note": "Referencia de entrada interna"
       },
       {
         "key": "",
         "name": "Subproducto",
-        "type": "string",
+        "type": "STRING",
         "note": "Subproducto"
       },
       {
         "key": "",
         "name": "TerminalActualizacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Terminal"
       },
       {
         "key": "",
         "name": "MarcaTiempo",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Marca de tiempo de fecha"
       },
       {
         "key": "",
         "name": "TipoCuentaContable",
-        "type": "string",
+        "type": "STRING",
         "note": "Contabilidad de tipo de entrada"
       },
       {
         "key": "",
         "name": "UsuarioActualizacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Usuario"
       },
       {
@@ -12258,109 +12258,109 @@
       {
         "key": "",
         "name": "ReferenciaCuentaAbono",
-        "type": "string",
+        "type": "STRING",
         "note": "Referencia para cuenta de abono"
       },
       {
         "key": "",
         "name": "ReferenciaCuentaCargo",
-        "type": "string",
+        "type": "STRING",
         "note": "Referencia para cuenta de cargo"
       },
       {
         "key": "",
         "name": "CuentaAbono",
-        "type": "string",
+        "type": "STRING",
         "note": "Cuenta a la que se le aplico el abono"
       },
       {
         "key": "",
         "name": "CuentaCargo",
-        "type": "string",
+        "type": "STRING",
         "note": "Cuenta a la que se le aplico el cargo"
       },
       {
         "key": "",
         "name": "NumeroMovimientoCuenta",
-        "type": "decimal(9,0)",
+        "type": "DECIMAL(9,0)",
         "note": "Numero de movimiento de la cuenta de abono"
       },
       {
         "key": "",
         "name": "NumeroMovimientoCargo",
-        "type": "decimal(9,0)",
+        "type": "DECIMAL(9,0)",
         "note": "Numero de movimiento de la cuenta de cargo"
       },
       {
         "key": "",
         "name": "Monto",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto de la operación"
       },
       {
         "key": "",
         "name": "EstatusMovimiento",
-        "type": "string",
+        "type": "STRING",
         "note": "Status del movimiento, ok - movimiento aplicado exitosamente, rv - movimiento reversado"
       },
       {
         "key": "",
         "name": "Divisa",
-        "type": "string",
+        "type": "STRING",
         "note": "Moneda"
       },
       {
         "key": "",
         "name": "Centro",
-        "type": "string",
+        "type": "STRING",
         "note": "Centro"
       },
       {
         "key": "",
         "name": "BanderaLibre1",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera libre"
       },
       {
         "key": "",
         "name": "BanderaLibre2",
-        "type": "string",
+        "type": "STRING",
         "note": "Bandera libre"
       },
       {
         "key": "",
         "name": "MontoLibre1",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "MontoLibre2",
-        "type": "decimal(15,2)",
+        "type": "DECIMAL(15,2)",
         "note": "Monto libre"
       },
       {
         "key": "",
         "name": "FechaLibre",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha libre"
       },
       {
         "key": "",
         "name": "TextoLibre",
-        "type": "string",
+        "type": "STRING",
         "note": "Texto libre"
       },
       {
         "key": "",
         "name": "UsuarioUltimaModificacion",
-        "type": "string",
+        "type": "STRING",
         "note": "Usuario de ultima modificacion"
       },
       {
         "key": "",
         "name": "MarcaTiempo",
-        "type": "bigint",
+        "type": "BIGINT",
         "note": "Fecha y hora de ultima modificacion"
       },
       {
@@ -12391,6 +12391,85 @@
         "childField": "CaptacionMovimientosCuentasTraspasoLnkHashKey",
         "parentId": "l_baz_captacion_movimientos_cuentas_traspaso",
         "parentField": "CaptacionMovimientosCuentasTraspasoLnkHashKey",
+        "source": "dbml",
+        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+      }
+    ],
+    "dbmlRelationCount": 1
+  },
+  {
+    "id": "l_baz_captacion_cliente_finacle",
+    "title": "l_baz_captacion_cliente_finacle",
+    "tag": "link",
+    "description": "SAME-AS LINK | l_baz_captacion_cliente_finacle. Establece la equivalencia entre el Cliente Captacion (fiid_cliente_unico) y el Cliente Finacle (fccliente_cif). HashKey: sha2(concat_ws('-', fiid_cliente_unico, fccliente_cif), 512). RAW: rd_baz_bdclientes.rd_tacuctefinacle",
+    "relations": [
+      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
+    ],
+    "fields": [
+      {
+        "key": "PK",
+        "name": "CaptacionClienteFinacleLnkHashKey",
+        "type": "string",
+        "note": "Llave Hash del Same-As Link (equivalencia Cliente Captacion = Cliente Finacle)"
+      },
+      {
+        "key": "",
+        "name": "LoadDate",
+        "type": "bigint",
+        "note": "Fecha y hora en la que el registro fue cargado en DV"
+      },
+      {
+        "key": "",
+        "name": "RecordSource",
+        "type": "string",
+        "note": "Identificador de la fuente original de los datos"
+      },
+      {
+        "key": "",
+        "name": "SystemSource",
+        "type": "string",
+        "note": "Sistema fuente tecnico que genero o entrego el registro"
+      },
+      {
+        "key": "FK",
+        "name": "CaptacionClienteHashKey",
+        "type": "string",
+        "note": "FK al Hub Cliente Captacion"
+      },
+      {
+        "key": "",
+        "name": "ClienteFinacleCif",
+        "type": "string",
+        "note": "BK: Identificador del Cliente Finacle (CIF)"
+      },
+      {
+        "key": "",
+        "name": "FcUsuarioCreacion",
+        "type": "string",
+        "note": "Usuario que proceso la ingesta del registro"
+      },
+      {
+        "key": "",
+        "name": "FdFechaCreacion",
+        "type": "bigint",
+        "note": "Fecha en la que se proceso la ingesta del registro"
+      },
+      {
+        "key": "",
+        "name": "FiFecha",
+        "type": "int",
+        "note": "Particion diaria YYYYMMDD"
+      }
+    ],
+    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
+    "dbmlProject": "captacion_dv",
+    "modelRelations": [
+      {
+        "id": "l_baz_captacion_cliente_finacle.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
+        "childId": "l_baz_captacion_cliente_finacle",
+        "childField": "CaptacionClienteHashKey",
+        "parentId": "h_baz_captacion_cliente",
+        "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
