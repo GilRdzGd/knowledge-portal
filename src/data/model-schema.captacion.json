@@ -76,10 +76,7 @@
     "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
     "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0,
-    "headerColor": "#2169F3",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 0
   },
   {
     "id": "h_baz_captacion_cuenta",
@@ -158,10 +155,7 @@
     "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
     "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0,
-    "headerColor": "#2169F3",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 0
   },
   {
     "id": "h_baz_captacion_cuenta_sac",
@@ -228,10 +222,7 @@
     "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
     "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0,
-    "headerColor": "#2169F3",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 0
   },
   {
     "id": "h_baz_captacion_garantia",
@@ -298,8 +289,7 @@
     "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
     "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0,
-    "headerColor": "#2169F3"
+    "dbmlRelationCount": 0
   },
   {
     "id": "h_baz_captacion_movimientos",
@@ -366,10 +356,7 @@
     "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
     "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0,
-    "headerColor": "#2169F3",
-    "dbmlGroup": "Movimiento",
-    "dbmlGroupColor": "#F59E0B"
+    "dbmlRelationCount": 0
   },
   {
     "id": "h_baz_captacion_transaccion_fin",
@@ -442,192 +429,7 @@
     "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
     "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0,
-    "headerColor": "#2169F3",
-    "dbmlGroup": "Transaccion",
-    "dbmlGroupColor": "#8B5CF6"
-  },
-  {
-    "id": "l_baz_captacion_cliente_clientefinacle",
-    "title": "l_baz_captacion_cliente_clientefinacle",
-    "tag": "link",
-    "description": "LINK | l_baz_captacion_cliente_clientefinacle. HashKey: sha2(concat_ws('-', fiid_cliente_unico, fccliente_cif), 512). RAW: rd_baz_bdclientes.rd_tacuctefinacle",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
-    "fields": [
-      {
-        "key": "PK",
-        "name": "CaptacionClienteFinacleLnkHashKey",
-        "type": "string",
-        "note": "Llave Hash que identifica la relacion"
-      },
-      {
-        "key": "",
-        "name": "LoadDate",
-        "type": "bigint",
-        "note": "Fecha y hora en la que el registro fue cargado en DV"
-      },
-      {
-        "key": "",
-        "name": "RecordSource",
-        "type": "string",
-        "note": "Identificador de la fuente original de los datos"
-      },
-      {
-        "key": "",
-        "name": "SystemSource",
-        "type": "string",
-        "note": "Sistema fuente tecnico que genero o entrego el registro"
-      },
-      {
-        "key": "FK",
-        "name": "CaptacionClienteHashKey",
-        "type": "string",
-        "note": "FK al Hub Cliente (via fiid_cliente_unico)"
-      },
-      {
-        "key": "",
-        "name": "ClienteFinacleCif",
-        "type": "string",
-        "note": "BK: Identificador del Cliente Finacle (BK del otro extremo)"
-      },
-      {
-        "key": "",
-        "name": "FcUsuarioCreacion",
-        "type": "string",
-        "note": "Usuario que proceso la ingesta del registro"
-      },
-      {
-        "key": "",
-        "name": "FdFechaCreacion",
-        "type": "bigint",
-        "note": "Fecha en la que se proceso la ingesta del registro"
-      },
-      {
-        "key": "",
-        "name": "FiFecha",
-        "type": "int",
-        "note": "Particion diaria YYYYMMDD"
-      }
-    ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
-    "modelRelations": [
-      {
-        "id": "l_baz_captacion_cliente_clientefinacle.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
-        "childId": "l_baz_captacion_cliente_clientefinacle",
-        "childField": "CaptacionClienteHashKey",
-        "parentId": "h_baz_captacion_cliente",
-        "parentField": "CaptacionClienteHashKey",
-        "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
-      }
-    ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#F54337",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
-  },
-  {
-    "id": "l_baz_captacion_cliente_conversion_cu",
-    "title": "l_baz_captacion_cliente_conversion_cu",
-    "tag": "link",
-    "description": "LINK | l_baz_captacion_cliente_conversion_cu. HashKey: sha2(concat_ws('-', fiid_cliente_unico, fipais, ficanal, fisucursal, fifolio), 512). RAW: rd_baz_bdclientes.rd_cenconversion_clienteunico",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
-    "fields": [
-      {
-        "key": "PK",
-        "name": "CaptacionClienteConversionCuLnkHashKey",
-        "type": "string",
-        "note": "Llave Hash que identifica la relacion de conversion"
-      },
-      {
-        "key": "",
-        "name": "LoadDate",
-        "type": "bigint",
-        "note": "Fecha y hora en la que el registro fue cargado en DV"
-      },
-      {
-        "key": "",
-        "name": "RecordSource",
-        "type": "string",
-        "note": "Identificador de la fuente original de los datos"
-      },
-      {
-        "key": "",
-        "name": "SystemSource",
-        "type": "string",
-        "note": "Sistema fuente tecnico que genero o entrego el registro"
-      },
-      {
-        "key": "FK",
-        "name": "CaptacionClienteHashKey",
-        "type": "string",
-        "note": "FK al Hub Cliente Captacion (via fiid_cliente_unico)"
-      },
-      {
-        "key": "",
-        "name": "Pais",
-        "type": "int",
-        "note": "BK: Pais del cliente credito (BK credito)"
-      },
-      {
-        "key": "",
-        "name": "Canal",
-        "type": "int",
-        "note": "BK: Canal del cliente credito (BK credito)"
-      },
-      {
-        "key": "",
-        "name": "Sucursal",
-        "type": "int",
-        "note": "BK: Sucursal del cliente credito (BK credito)"
-      },
-      {
-        "key": "",
-        "name": "Folio",
-        "type": "int",
-        "note": "BK: Folio del cliente credito (BK credito)"
-      },
-      {
-        "key": "",
-        "name": "FcUsuarioCreacion",
-        "type": "string",
-        "note": "Usuario que proceso la ingesta del registro"
-      },
-      {
-        "key": "",
-        "name": "FdFechaCreacion",
-        "type": "bigint",
-        "note": "Fecha en la que se proceso la ingesta del registro"
-      },
-      {
-        "key": "",
-        "name": "FiFecha",
-        "type": "int",
-        "note": "Particion diaria YYYYMMDD"
-      }
-    ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
-    "modelRelations": [
-      {
-        "id": "l_baz_captacion_cliente_conversion_cu.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
-        "childId": "l_baz_captacion_cliente_conversion_cu",
-        "childField": "CaptacionClienteHashKey",
-        "parentId": "h_baz_captacion_cliente",
-        "parentField": "CaptacionClienteHashKey",
-        "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
-      }
-    ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#F54337",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 0
   },
   {
     "id": "l_baz_captacion_cliente_credito_cliente",
@@ -706,10 +508,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#F54337",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   },
   {
     "id": "l_baz_captacion_cliente_cuenta",
@@ -798,10 +597,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 2,
-    "headerColor": "#F54337",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 2
   },
   {
     "id": "l_baz_captacion_cuenta_garantia",
@@ -890,10 +686,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 2,
-    "headerColor": "#F54337",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 2
   },
   {
     "id": "l_baz_captacion_cuenta_movimiento",
@@ -982,10 +775,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 2,
-    "headerColor": "#F54337",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 2
   },
   {
     "id": "l_baz_captacion_cuenta_transaccion_fin",
@@ -1098,10 +888,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 2,
-    "headerColor": "#F54337",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 2
   },
   {
     "id": "l_baz_captacion_movimientos_cuentas_traspaso",
@@ -1180,10 +967,7 @@
     "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
     "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0,
-    "headerColor": "#F54337",
-    "dbmlGroup": "Movimiento",
-    "dbmlGroupColor": "#F59E0B"
+    "dbmlRelationCount": 0
   },
   {
     "id": "ref_baz_captacion_codigos_persona",
@@ -1455,10 +1239,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_datos_contacto",
@@ -1693,10 +1474,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_datos_control",
@@ -1931,10 +1709,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_datos_cuenta",
@@ -2151,10 +1926,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_datos_identificacion",
@@ -2383,10 +2155,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_contacto",
@@ -2471,10 +2240,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_direccion_detalle",
@@ -2601,10 +2367,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_encabezado_trans",
@@ -2719,10 +2482,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_fiscal",
@@ -2843,10 +2603,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_ident_detalle",
@@ -2931,10 +2688,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_ine_detalle",
@@ -3037,10 +2791,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_persona",
@@ -3173,10 +2924,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_telefono_detalle",
@@ -3267,10 +3015,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pm_contacto",
@@ -3499,10 +3244,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pm_empresa",
@@ -3629,10 +3371,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pm_encabezado_trans",
@@ -3765,10 +3504,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pm_fiscal",
@@ -3865,10 +3601,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_bandera",
@@ -4277,10 +4010,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_beneficiarios_contacto",
@@ -4383,10 +4113,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_beneficiarios_identificacion",
@@ -4561,10 +4288,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_beneficiarios_ubicacion",
@@ -4745,10 +4469,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_bloqueo",
@@ -4875,10 +4596,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_fin_beneficiarios_detalle",
@@ -5053,10 +4771,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_fin_beneficiarios_encabezado",
@@ -5171,10 +4886,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_fin_saldos_pf_descriptivo",
@@ -5361,10 +5073,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_fin_saldos_pf_encabezado",
@@ -5479,10 +5188,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_fin_saldos_pf_transaccional",
@@ -5819,10 +5525,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_lavado_dinero",
@@ -6039,10 +5742,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_monto",
@@ -6631,10 +6331,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_propiedades",
@@ -7547,10 +7244,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_saldos_diarios",
@@ -7641,10 +7335,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_saldos_diarios_prop",
@@ -7783,10 +7474,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_garantia_detalle",
@@ -8099,8 +7787,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_garantia_extendida",
@@ -8413,8 +8100,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_ca_pf_encabezado",
@@ -8529,10 +8215,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Transaccion",
-    "dbmlGroupColor": "#8B5CF6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_conciliada_anexo",
@@ -8665,10 +8348,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Transaccion",
-    "dbmlGroupColor": "#8B5CF6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_conciliada_cheque",
@@ -8777,10 +8457,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Transaccion",
-    "dbmlGroupColor": "#8B5CF6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_conciliada_detalle",
@@ -8961,10 +8638,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Transaccion",
-    "dbmlGroupColor": "#8B5CF6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_conciliada_encabezado",
@@ -9097,10 +8771,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Transaccion",
-    "dbmlGroupColor": "#8B5CF6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_conciliada_spei",
@@ -9209,10 +8880,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Transaccion",
-    "dbmlGroupColor": "#8B5CF6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_conciliada_transfer",
@@ -9303,18 +8971,15 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Transaccion",
-    "dbmlGroupColor": "#8B5CF6"
+    "dbmlRelationCount": 1
   },
   {
-    "id": "s_l_baz_captacion_cliente_clientefinacle_segmentacion",
-    "title": "s_l_baz_captacion_cliente_clientefinacle_segmentacion",
+    "id": "s_l_baz_captacion_cliente_finacle_segmentacion",
+    "title": "s_l_baz_captacion_cliente_finacle_segmentacion",
     "tag": "satelite",
-    "description": "SAT | s_l_baz_captacion_cliente_clientefinacle_segmentacion. RAW: rd_baz_bdclientes.rd_tacuctefinacle",
+    "description": "SAT | s_l_baz_captacion_cliente_finacle_segmentacion. RAW: rd_baz_bdclientes.rd_tacuctefinacle",
     "relations": [
-      "FK a `l_baz_captacion_cliente_clientefinacle`.`CaptacionClienteFinacleLnkHashKey` mediante `CaptacionClienteFinacleLnkHashKey`"
+      "FK a `l_baz_captacion_cliente_finacle`.`CaptacionClienteFinacleLnkHashKey` mediante `CaptacionClienteFinacleLnkHashKey`"
     ],
     "fields": [
       {
@@ -9436,19 +9101,16 @@
     "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
-        "id": "s_l_baz_captacion_cliente_clientefinacle_segmentacion.CaptacionClienteFinacleLnkHashKey__l_baz_captacion_cliente_clientefinacle.CaptacionClienteFinacleLnkHashKey",
-        "childId": "s_l_baz_captacion_cliente_clientefinacle_segmentacion",
+        "id": "s_l_baz_captacion_cliente_finacle_segmentacion.CaptacionClienteFinacleLnkHashKey__l_baz_captacion_cliente_finacle.CaptacionClienteFinacleLnkHashKey",
+        "childId": "s_l_baz_captacion_cliente_finacle_segmentacion",
         "childField": "CaptacionClienteFinacleLnkHashKey",
-        "parentId": "l_baz_captacion_cliente_clientefinacle",
+        "parentId": "l_baz_captacion_cliente_finacle",
         "parentField": "CaptacionClienteFinacleLnkHashKey",
         "source": "dbml",
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_l_baz_captacion_cuenta_fin_detalle",
@@ -9713,10 +9375,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_l_baz_captacion_cuenta_fin_encabezado",
@@ -9831,10 +9490,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_l_baz_captacion_cuenta_vinculacion_cliente",
@@ -9985,10 +9641,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_nh_h_baz_captacion_cuenta_sac_movimiento",
@@ -10439,10 +10092,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_nh_h_baz_captacion_cuenta_sac_transaccion",
@@ -10875,10 +10525,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_nh_h_baz_captacion_movimientos_abonos",
@@ -11179,10 +10826,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Movimiento",
-    "dbmlGroupColor": "#F59E0B"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_nh_h_baz_captacion_movimientos_cargos",
@@ -11483,10 +11127,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Movimiento",
-    "dbmlGroupColor": "#F59E0B"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_nh_h_baz_captacion_movimientos_transacciones",
@@ -11679,10 +11320,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Movimiento",
-    "dbmlGroupColor": "#F59E0B"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_nh_l_baz_captacion_transaccion_fin_ca_pf_operacion",
@@ -11947,10 +11585,7 @@
     "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
     "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Transaccion",
-    "dbmlGroupColor": "#8B5CF6"
+    "dbmlRelationCount": 0
   },
   {
     "id": "s_nh_l_baz_captacion_transaccion_fin_conciliada_operacion",
@@ -12239,92 +11874,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Transaccion",
-    "dbmlGroupColor": "#8B5CF6"
-  },
-  {
-    "id": "s_st_l_baz_captacion_cliente_conversion_cu_estatus",
-    "title": "s_st_l_baz_captacion_cliente_conversion_cu_estatus",
-    "tag": "satelite",
-    "description": "SAT | s_st_l_baz_captacion_cliente_conversion_cu_estatus. RAW: rd_baz_bdclientes.rd_cenconversion_clienteunico",
-    "relations": [
-      "FK a `l_baz_captacion_cliente_conversion_cu`.`CaptacionClienteConversionCuLnkHashKey` mediante `CaptacionClienteConversionCuLnkHashKey`"
-    ],
-    "fields": [
-      {
-        "key": "PK",
-        "name": "CaptacionClienteConversionCuLnkHashKey",
-        "type": "string",
-        "note": "FK al Link padre"
-      },
-      {
-        "key": "PK",
-        "name": "LoadDate",
-        "type": "bigint",
-        "note": "Fecha y hora en la que el registro fue cargado en DV"
-      },
-      {
-        "key": "",
-        "name": "RecordSource",
-        "type": "string",
-        "note": "Identificador de la fuente original de los datos"
-      },
-      {
-        "key": "",
-        "name": "SystemSource",
-        "type": "string",
-        "note": "Sistema fuente tecnico que genero o entrego el registro"
-      },
-      {
-        "key": "",
-        "name": "HashDiff",
-        "type": "string",
-        "note": "Hash de atributos descriptivos para deteccion de cambios (CDC)"
-      },
-      {
-        "key": "",
-        "name": "EstatusConversion",
-        "type": "int",
-        "note": "Estatus de la conversion del cliente"
-      },
-      {
-        "key": "",
-        "name": "FcUsuarioCreacion",
-        "type": "string",
-        "note": "Usuario que proceso la ingesta del registro"
-      },
-      {
-        "key": "",
-        "name": "FdFechaCreacion",
-        "type": "bigint",
-        "note": "Fecha en la que se proceso la ingesta del registro"
-      },
-      {
-        "key": "",
-        "name": "FiFecha",
-        "type": "int",
-        "note": "Particion diaria YYYYMMDD"
-      }
-    ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
-    "modelRelations": [
-      {
-        "id": "s_st_l_baz_captacion_cliente_conversion_cu_estatus.CaptacionClienteConversionCuLnkHashKey__l_baz_captacion_cliente_conversion_cu.CaptacionClienteConversionCuLnkHashKey",
-        "childId": "s_st_l_baz_captacion_cliente_conversion_cu_estatus",
-        "childField": "CaptacionClienteConversionCuLnkHashKey",
-        "parentId": "l_baz_captacion_cliente_conversion_cu",
-        "parentField": "CaptacionClienteConversionCuLnkHashKey",
-        "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
-      }
-    ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_st_l_baz_captacion_cuenta_fin_estatus",
@@ -12409,10 +11959,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#00A6A6"
+    "dbmlRelationCount": 1
   },
   {
     "id": "s_nh_l_baz_captacion_traspaso",
@@ -12593,8 +12140,7 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#FEC107"
+    "dbmlRelationCount": 1
   },
   {
     "id": "l_baz_captacion_cliente_finacle",
@@ -12679,9 +12225,6 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1,
-    "headerColor": "#F54337",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2169F3"
+    "dbmlRelationCount": 1
   }
 ]
