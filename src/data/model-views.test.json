@@ -1,0 +1,49 @@
+{
+  "positions": {
+    "captacion-dim-tiempo": {
+      "left": 80,
+      "top": 120
+    },
+    "captacion-dim-cliente": {
+      "left": 1360,
+      "top": 120
+    },
+    "captacion-dim-cuenta": {
+      "left": 80,
+      "top": 802
+    },
+    "captacion-dim-producto-familia": {
+      "left": 1360,
+      "top": 718
+    },
+    "captacion-dim-operacion-canal": {
+      "left": 80,
+      "top": 924
+    },
+    "captacion-fact-movimiento-cap": {
+      "left": 720,
+      "top": 120
+    },
+    "captacion-fact-cuenta-cap-periodo": {
+      "left": 720,
+      "top": 852
+    },
+    "captacion-fact-cliente-cap-periodo": {
+      "left": 720,
+      "top": 1584
+    }
+  },
+  "colors": {},
+  "customRelationships": [],
+  "deletedRelationIds": [],
+  "relationRoutes": {},
+  "groups": [],
+  "schemaGroups": [
+    {
+      "id": "schema-group-grupo-1",
+      "collapsed": false,
+      "collapsedBounds": null
+    }
+  ],
+  "zoom": 0.5
+}

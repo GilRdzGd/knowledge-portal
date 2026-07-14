@@ -44,8 +44,13 @@ function objectIcon(object) {
   return "▧";
 }
 
-function groupName(entry, table) {
-  return label(table.dbmlProject || table.dbmlGroup || entry.name || entry.id, "Objetos");
+function viewName(entry) {
+  return label(entry.name || entry.id, "Vista");
+}
+
+function cssColor(value, fallback = "#2563eb") {
+  const color = String(value || "").trim();
+  return /^#[0-9a-f]{3,8}$/i.test(color) ? color : fallback;
 }
 
 function objectSearchText(object) {
@@ -53,7 +58,8 @@ function objectSearchText(object) {
     object.title,
     object.tag,
     object.description,
-    object.groupName,
+    object.viewName,
+    object.domainName,
     ...(object.fields || []).flatMap((field) => [field.name, field.type, field.note, field.key]),
   ]
     .join(" ")
@@ -77,19 +83,22 @@ async function loadDocumentation() {
 
   const groups = new Map();
   loaded.forEach(({ entry, tables }) => {
+    const name = viewName(entry);
+    const id = entry.id || slug(name) || "vista";
+    if (!groups.has(id)) {
+      groups.set(id, { id, name, color: "#2563eb", open: false, objects: [] });
+    }
     (tables || []).forEach((table, index) => {
-      const name = groupName(entry, table);
-      const id = slug(name) || entry.id || "objetos";
       const object = {
         ...table,
         key: `${entry.id}:${table.id || index}`,
         schemaEntry: entry,
         groupId: id,
-        groupName: name,
+        viewName: name,
+        domainName: label(table.dbmlGroup, ""),
+        groupColor: cssColor(table.dbmlGroupColor, "#2563eb"),
+        objectColor: cssColor(table.headerColor, table.dbmlGroupColor || "#2563eb"),
       };
-      if (!groups.has(id)) {
-        groups.set(id, { id, name, open: false, objects: [] });
-      }
       groups.get(id).objects.push(object);
     });
   });
@@ -138,12 +147,16 @@ function renderIndex() {
           .map(
             (group) => `
               <details class="doc-group" data-group-id="${escapeHtml(group.id)}" ${group.open ? "open" : ""}>
-                <summary>${escapeHtml(group.name)} <span>${group.objects.length}</span></summary>
+                <summary style="--doc-group-color:${escapeHtml(group.color)}">
+                  <i class="doc-group-color" aria-hidden="true"></i>
+                  <strong>${escapeHtml(group.name)}</strong>
+                  <span>${group.objects.length}</span>
+                </summary>
                 <div class="doc-object-list">
                   ${group.objects
                     .map(
                       (object) => `
-                        <button class="doc-object ${object.key === state.selectedKey ? "is-active" : ""}" type="button" data-object-key="${escapeHtml(object.key)}">
+                        <button class="doc-object ${object.key === state.selectedKey ? "is-active" : ""}" type="button" data-object-key="${escapeHtml(object.key)}" style="--doc-object-color:${escapeHtml(object.objectColor)}">
                           <span class="doc-object-icon" aria-hidden="true">${objectIcon(object)}</span>
                           <span>${escapeHtml(object.title)}</span>
                         </button>`
@@ -170,7 +183,9 @@ function renderOverview(object) {
       }
       <div class="doc-meta-grid">
         ${metaItem("Tipo", objectType(object))}
-        ${metaItem("Esquema", object.groupName)}
+        ${metaItem("Vista", object.viewName)}
+        ${metaItem("Dominio", object.domainName)}
+        ${metaItem("Color", object.headerColor)}
         ${metaItem("Columnas", fieldCount)}
         ${metaItem("Relaciones", relationCount)}
       </div>
@@ -254,7 +269,9 @@ function objectMarkdown(object) {
     markdownTableRow(["Campo", "Valor"]),
     markdownTableRow(["---", "---"]),
     markdownTableRow(["Tipo", objectType(object)]),
-    markdownTableRow(["Esquema", object.groupName]),
+    markdownTableRow(["Vista", object.viewName]),
+    markdownTableRow(["Dominio", object.domainName || "-"]),
+    markdownTableRow(["Color", object.headerColor || "-"]),
     markdownTableRow(["Columnas", fields.length]),
     markdownTableRow(["Relaciones", object.relations?.length || 0]),
     "",

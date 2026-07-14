@@ -28,7 +28,7 @@ export function createLineagePage({ catalog, shell, viewer }) {
     if (!item) return;
     currentItem = item;
     shell.setActive("linaje");
-    shell.pageTitle.textContent = "Linaje de datos global";
+    shell.pageTitle.textContent = "Linaje de Datos";
     shell.targetLabel.textContent = "Actualizado: 3 de julio de 2026";
     shell.relMode.textContent = `Vista linaje: ${item.key}`;
     shell.input.value = item.key;
@@ -39,7 +39,7 @@ export function createLineagePage({ catalog, shell, viewer }) {
   async function showAll() {
     currentItem = null;
     shell.setActive("linaje");
-    shell.pageTitle.textContent = "Linaje de datos global";
+    shell.pageTitle.textContent = "Linaje de Datos";
     shell.targetLabel.textContent = "Actualizado: 3 de julio de 2026";
     shell.relMode.textContent = "Vista global tabla-a-tabla";
     shell.input.value = "";
