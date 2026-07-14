@@ -116,9 +116,9 @@
 
 .doc-group summary {
   min-height: 34px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
   gap: 10px;
   padding: 0 8px;
   color: #1e293b;
@@ -126,6 +126,19 @@
   font-size: 12px;
   font-weight: 850;
   list-style: none;
+}
+
+.doc-group summary strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.doc-group-color {
+  width: 8px;
+  height: 18px;
+  display: block;
+  background: var(--doc-group-color, var(--blue));
 }
 
 .doc-group summary::-webkit-details-marker {
@@ -168,14 +181,14 @@
 }
 
 .doc-object-icon {
-  color: var(--blue);
+  color: var(--doc-object-color, var(--blue));
   text-align: center;
 }
 
 .doc-object.is-active {
-  border-color: rgba(37, 99, 235, 0.24);
-  background: rgba(37, 99, 235, 0.08);
-  color: #0b55d9;
+  border-color: color-mix(in srgb, var(--doc-object-color, var(--blue)) 28%, transparent);
+  background: color-mix(in srgb, var(--doc-object-color, var(--blue)) 10%, #ffffff);
+  color: #0f172a;
 }
 
 .doc-main {

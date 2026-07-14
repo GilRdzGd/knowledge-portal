@@ -5,8 +5,8 @@ export function createShell(root) {
         <div class="brand"><div class="mark" aria-hidden="true"><span class="data-cube"><i></i><i></i><i></i></span></div><span class="brand-name">Plataforma de Datos</span></div>
         <nav class="nav" aria-label="Navegacion principal">
           <a class="active" href="#" data-view="inicio"><span class="nav-icon">⌂</span><span>Inicio</span></a>
-          <a href="#" data-view="modelo"><span class="nav-icon">▣</span><span>Modelo de datos</span></a>
-          <a href="#" data-view="linaje"><span class="nav-icon">⌘</span><span>Relaciones</span></a>
+          <a href="#" data-view="modelo"><span class="nav-icon">▣</span><span>Modelo de Datos</span></a>
+          <a href="#" data-view="linaje"><span class="nav-icon">⌘</span><span>Linaje de Datos</span></a>
           <a href="#" data-view="documentacion"><span class="nav-icon">▤</span><span>Documentacion</span></a>
           <a href="#" data-view="chat"><span class="nav-icon">✦</span><span>Asistente</span></a>
         </nav>
@@ -17,7 +17,7 @@ export function createShell(root) {
       <main class="content">
         <header class="header">
           <div>
-            <h1 id="pageTitle">Linaje de datos global</h1>
+            <h1 id="pageTitle">Linaje de Datos</h1>
             <p class="subtitle" id="targetLabel">Actualizado: 3 de julio de 2026</p>
           </div>
         </header>

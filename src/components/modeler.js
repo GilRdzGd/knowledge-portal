@@ -39,6 +39,11 @@ const groupTablesButton = document.querySelector("#group-tables-button");
 const deleteGroupButton = document.querySelector("#delete-group-button");
 const relationControls = document.querySelector(".relation-controls");
 const deleteRelationButton = document.querySelector("#delete-relation-button");
+const dbmlEditorCollapseButton = document.querySelector("#dbml-editor-collapse");
+const dbmlEditorInput = document.querySelector("#dbml-editor-input");
+const dbmlEditorHighlight = document.querySelector("#dbml-highlight");
+const dbmlLineNumbers = document.querySelector("#dbml-line-numbers");
+const dbmlRunButton = document.querySelector("#dbml-run-button");
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 
@@ -60,6 +65,32 @@ const STUB = 26; // horizontal length of the connector stub leaving a table
 const CORNER = 9; // radius of the rounded elbows
 const STORAGE_KEY = "data-modeler-state-v8";
 const DEFAULT_VIEW_ID = "default";
+const SAVE_ICON_MARKUP = `
+  <svg class="save-button-icon" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+    <path d="M51 53.48H10.52V13A2.48 2.48 0 0 1 13 10.52h33.07l7.41 6.4V51A2.48 2.48 0 0 1 51 53.48Z"/>
+    <rect x="21.5" y="10.52" width="21.01" height="15.5"/>
+    <rect x="17.86" y="36.46" width="28.28" height="17.02"/>
+  </svg>
+`;
+const RELATION_ICON_MARKUP = `
+  <svg class="relation-button-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M10.0464 14C8.54044 12.4882 8.67609 9.90087 10.3494 8.22108L15.197 3.35462C16.8703 1.67483 19.4476 1.53865 20.9536 3.05046C22.4596 4.56228 22.3239 7.14956 20.6506 8.82935L18.2268 11.2626"/>
+    <path d="M13.9536 10C15.4596 11.5118 15.3239 14.0991 13.6506 15.7789L11.2268 18.2121L8.80299 20.6454C7.12969 22.3252 4.55237 22.4613 3.0464 20.9495C1.54043 19.4377 1.67609 16.8504 3.34939 15.1706L5.77323 12.7373"/>
+  </svg>
+`;
+const ASPECT_ICON_MARKUP = `
+  <svg class="aspect-button-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+    <path fill-rule="evenodd" d="M1.667563 14.999001H3.509521C3.784943 14.999001 4 15.222859 4 15.499001C4 15.767068 3.780405 15.999001 3.509521 15.999001H.490479C.354351 15.999001.232969 15.944316.145011 15.855661C.056625 15.763694 0 15.642369 0 15.508523V12.48948C0 12.214059.223858 11.999001.5 11.999001C.768066 11.999001 1 12.218596 1 12.48948V14.252351L5.779724 9.472627C5.975228 9.277123 6.284966 9.283968 6.480228 9.47923C6.66978 9.668781 6.678447 9.988118 6.486831 10.179734L1.667563 14.999001ZM14.330152 14.999001H12.488194C12.212773 14.999001 11.997715 15.222859 11.997715 15.499001C11.997715 15.767068 12.21731 15.999001 12.488194 15.999001H15.507237C15.643364 15.999001 15.764746 15.944316 15.852704 15.855661C15.94109 15.763694 15.997715 15.642369 15.997715 15.508523V12.48948C15.997715 12.214059 15.773858 11.999001 15.497715 11.999001C15.229649 11.999001 14.997715 12.218596 14.997715 12.48948V14.252351L10.217991 9.472627C10.022487 9.277123 9.712749 9.283968 9.517487 9.47923C9.327935 9.668781 9.319269 9.988118 9.510884 10.179734L14.330152 14.999001ZM1.667563 1H3.509521C3.784943 1 4 .776142 4 .5C4 .231934 3.780405 0 3.509521 0H.490479C.354351 0 .232969.054685.145011.14334C.056625.235308 0 .356632 0 .490479V3.509521C0 3.784943.223858 4 .5 4C.768066 4 1 3.780405 1 3.509521V1.74665L5.779724 6.526374C5.975228 6.721878 6.284966 6.715034 6.480228 6.519772C6.66978 6.33022 6.678447 6.010883 6.486831 5.819268L1.667563 1ZM14.251065 1H12.488194C12.212773 1 11.997715.776142 11.997715.5C11.997715.231934 12.21731 0 12.488194 0H15.507237C15.643364 0 15.764746.054685 15.852704.14334C15.94109.235308 15.997715.356632 15.997715.490479V3.509521C15.997715 3.784943 15.773858 4 15.497715 4C15.229649 4 14.997715 3.780405 14.997715 3.509521V1.667563L10.178448 6.486831C9.982944 6.682335 9.673206 6.67549 9.477943 6.480228C9.288392 6.290677 9.279725 5.97134 9.471341 5.779724L14.251065 1Z"/>
+  </svg>
+`;
+const COLOR_ICON_MARKUP = `
+  <svg class="color-button-icon" viewBox="0 0 21 21" aria-hidden="true" focusable="false">
+    <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" transform="translate(3 3)">
+      <path d="m14 1c.8284271.82842712.8284271 2.17157288 0 3l-9.5 9.5-4 1 1-3.9436508 9.5038371-9.55252193c.7829896-.78700064 2.0312313-.82943964 2.864366-.12506788z"/>
+      <path d="m12.5 3.5 1 1"/>
+    </g>
+  </svg>
+`;
 // Cada archivo assets/data/model-schema*.json es una vista. El build genera un
 // manifiesto (model-schemas.json) listando los esquemas disponibles y, por
 // convencion, su archivo de configuracion/posiciones model-views*.json.
@@ -127,6 +158,7 @@ let viewPositions = {};
 let modelViews = FALLBACK_SCHEMAS.map((view) => ({ ...view }));
 let activeViewId = DEFAULT_VIEW_ID;
 let viewportCentered = false;
+let modelPersistTimer = 0;
 // Desplazamiento de la escena para centrar el contenido cuando cabe en el
 // viewport (el scroll por sí solo no puede centrar contenido más chico).
 let sceneOffsetX = 0;
@@ -148,12 +180,398 @@ function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
 
+function dbmlIdentifier(value) {
+  const text = String(value || "").trim();
+  return /^[A-Za-z_][A-Za-z0-9_]*$/.test(text) ? text : `"${text.replace(/"/g, '\\"')}"`;
+}
+
+function dbmlString(value) {
+  return String(value || "").replace(/\\/g, "\\\\").replace(/'/g, "\\'").replace(/\n/g, "\\n");
+}
+
+function unquoteDbml(value) {
+  const text = String(value || "").trim();
+  if ((text.startsWith("'") && text.endsWith("'")) || (text.startsWith('"') && text.endsWith('"'))) {
+    return text.slice(1, -1).replace(/\\n/g, "\n").replace(/\\'/g, "'").replace(/\\"/g, '"').replace(/\\\\/g, "\\");
+  }
+  return text;
+}
+
+function stripInlineComment(line) {
+  let quote = "";
+  for (let index = 0; index < line.length - 1; index += 1) {
+    const char = line[index];
+    if ((char === "'" || char === '"') && line[index - 1] !== "\\") {
+      quote = quote === char ? "" : quote || char;
+    }
+    if (!quote && char === "/" && line[index + 1] === "/") {
+      return line.slice(0, index);
+    }
+  }
+  return line;
+}
+
+function parseSettings(settingsText) {
+  const settings = {};
+  const text = String(settingsText || "").trim().replace(/^\[/, "").replace(/\]$/, "");
+  const parts = [];
+  let current = "";
+  let quote = "";
+  for (const char of text) {
+    if ((char === "'" || char === '"') && current.at(-1) !== "\\") {
+      quote = quote === char ? "" : quote || char;
+    }
+    if (char === "," && !quote) {
+      parts.push(current.trim());
+      current = "";
+    } else {
+      current += char;
+    }
+  }
+  if (current.trim()) parts.push(current.trim());
+  parts.forEach((part) => {
+    const [rawKey, ...rest] = part.split(":");
+    const key = rawKey.trim().toLowerCase();
+    if (!rest.length) {
+      settings[key] = true;
+      return;
+    }
+    settings[key] = unquoteDbml(rest.join(":").trim());
+  });
+  return settings;
+}
+
+function dbmlTokenClass(token) {
+  if (/^\/\//.test(token)) return "token-comment";
+  if (/^["']/.test(token)) return "token-string";
+  if (/^(Table|TableGroup|Ref|Enum|Project|Note|Indexes|indexes|pk|unique|note|headerColor|color)$/i.test(token)) {
+    return "token-keyword";
+  }
+  if (/^(bigint|int|integer|varchar|string|text|date|datetime|timestamp|decimal|numeric|float|boolean|bool|uuid|json)$/i.test(token)) {
+    return "token-type";
+  }
+  if (/^#[0-9a-f]{3,8}$/i.test(token)) return "token-color";
+  if (/^[<>\-[\]{}():,.]+$/.test(token)) return "token-symbol";
+  return "";
+}
+
+function highlightDbmlLine(line) {
+  const pattern = /(\/\/.*|#[0-9a-f]{3,8}|"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|\b(?:Table|TableGroup|Ref|Enum|Project|Note|Indexes|indexes|pk|unique|note|headerColor|color)\b|\b(?:bigint|int|integer|varchar|string|text|date|datetime|timestamp|decimal|numeric|float|boolean|bool|uuid|json)\b|[<>\-[\]{}():,.]+)/gi;
+  let output = "";
+  let cursor = 0;
+  for (const match of line.matchAll(pattern)) {
+    output += escapeHtml(line.slice(cursor, match.index));
+    const token = match[0];
+    const cls = dbmlTokenClass(token);
+    output += cls ? `<span class="${cls}">${escapeHtml(token)}</span>` : escapeHtml(token);
+    cursor = match.index + token.length;
+    if (/^\/\//.test(token)) break;
+  }
+  output += escapeHtml(line.slice(cursor));
+  return output || " ";
+}
+
+function syncDbmlEditor() {
+  if (!dbmlEditorInput || !dbmlEditorHighlight || !dbmlLineNumbers) return;
+  const lines = (dbmlEditorInput.value || "").split("\n");
+  dbmlLineNumbers.innerHTML = lines.map((_, index) => `<span>${index + 1}</span>`).join("");
+  dbmlEditorHighlight.innerHTML = lines.map(highlightDbmlLine).join("\n");
+}
+
+function fieldDbmlSettings(field) {
+  const settings = [];
+  const key = String(field.key || "").toUpperCase();
+  if (key.includes("PK")) settings.push("pk");
+  if (key.includes("UK")) settings.push("unique");
+  if (field.note) settings.push(`note: '${dbmlString(field.note)}'`);
+  return settings.length ? ` [${settings.join(", ")}]` : "";
+}
+
+function tableToDbml(table) {
+  const lines = [`Table ${dbmlIdentifier(table.title)} [headerColor: ${table.headerColor || tableAccentColor(table.id)}] {`];
+  (table.fields || []).forEach((field) => {
+    lines.push(`  ${dbmlIdentifier(field.name)} ${field.type || "varchar"}${fieldDbmlSettings(field)}`);
+  });
+  if (table.description) {
+    lines.push("");
+    lines.push(`  Note: '${dbmlString(table.description)}'`);
+  }
+  lines.push("}");
+  return lines.join("\n");
+}
+
+function splitDbmlHeader(line) {
+  const match = /^(TableGroup|Table)\s+((?:"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|[A-Za-z_][A-Za-z0-9_]*))(?:\s+(\[[^\]]*\]))?\s*\{\s*$/i.exec(line.trim());
+  if (!match) return null;
+  return {
+    kind: match[1].toLowerCase(),
+    name: unquoteDbml(match[2].trim()),
+    settings: parseSettings(match[3] || ""),
+  };
+}
+
+function parseDbml(dbml) {
+  const parsedTables = [];
+  const tableColors = {};
+  const refs = [];
+  const tableGroups = [];
+  const existingByName = new Map(schemaTables.map((table) => [String(table.title || "").toLowerCase(), table]));
+  let current = null;
+
+  String(dbml || "").split(/\r?\n/).forEach((rawLine) => {
+    const line = stripInlineComment(rawLine).trim();
+    if (!line) return;
+
+    const header = splitDbmlHeader(line);
+    if (header) {
+      current = { ...header, fields: [], members: [], note: "", existing: null };
+      if (header.kind === "table") {
+        const existing = existingByName.get(header.name.toLowerCase());
+        current.existing = existing || null;
+        current.id = existing?.id || fieldSlug(header.name);
+        current.tag = existing?.tag || (String(header.name).startsWith("fact_") ? "fact" : String(header.name).startsWith("dim_") ? "dimension" : "tabla");
+        current.headerColor = header.settings.headercolor || existing?.headerColor || "";
+        if (current.headerColor) tableColors[current.id] = current.headerColor;
+      }
+      return;
+    }
+
+    if (line === "}") {
+      if (current?.kind === "table") {
+        const existing = current.existing || {};
+        parsedTables.push({
+          ...existing,
+          id: current.id,
+          title: current.name,
+          tag: current.tag,
+          description: current.note || existing.description || "",
+          relations: Array.isArray(existing.relations) ? existing.relations : [],
+          fields: current.fields,
+          modelRelations: [],
+          dbmlGroup: "",
+          dbmlGroupColor: "",
+          headerColor: current.headerColor || "",
+        });
+      } else if (current?.kind === "tablegroup") {
+        tableGroups.push({
+          name: current.name,
+          color: current.settings.color || schemaGroupColor(tableGroups.length),
+          note: current.settings.note || current.note || "",
+          members: current.members,
+        });
+      }
+      current = null;
+      return;
+    }
+
+    const refMatch = /^Ref\s*:\s*([A-Za-z0-9_".]+)\.([A-Za-z0-9_".]+)\s*>\s*([A-Za-z0-9_".]+)\.([A-Za-z0-9_".]+)/i.exec(line);
+    if (refMatch) {
+      refs.push({
+        childTable: unquoteDbml(refMatch[1]),
+        childField: unquoteDbml(refMatch[2]),
+        parentTable: unquoteDbml(refMatch[3]),
+        parentField: unquoteDbml(refMatch[4]),
+      });
+      return;
+    }
+
+    if (!current) return;
+    const noteMatch = /^Note\s*:\s*(.+)$/i.exec(line);
+    if (noteMatch) {
+      current.note = unquoteDbml(noteMatch[1].trim());
+      return;
+    }
+    if (current.kind === "tablegroup") {
+      const member = unquoteDbml(line.replace(/,$/, "").trim());
+      if (member && !/[{}[\]]/.test(member)) {
+        current.members.push(member);
+      }
+      return;
+    }
+    if (current.kind === "table") {
+      const fieldMatch = /^("[^"]+"|'[^']+'|[A-Za-z_][A-Za-z0-9_]*)\s+([^\[\s]+(?:\([^\)]*\))?)\s*(\[[^\]]*\])?/.exec(line);
+      if (!fieldMatch) return;
+      const settings = parseSettings(fieldMatch[3] || "");
+      const key = settings.pk ? "PK" : settings.unique ? "UK" : "";
+      current.fields.push({
+        key,
+        name: unquoteDbml(fieldMatch[1]),
+        type: fieldMatch[2],
+        note: settings.note || "",
+      });
+    }
+  });
+
+  const byTitle = new Map(parsedTables.map((table) => [table.title.toLowerCase(), table]));
+  tableGroups.forEach((group) => {
+    group.members.forEach((name) => {
+      const table = byTitle.get(String(name).toLowerCase());
+      if (table) {
+        table.dbmlGroup = group.name;
+        table.dbmlGroupColor = group.color;
+      }
+    });
+  });
+  refs.forEach((ref) => {
+    const child = byTitle.get(ref.childTable.toLowerCase());
+    const parent = byTitle.get(ref.parentTable.toLowerCase());
+    if (!child || !parent) return;
+    child.modelRelations.push({
+      id: `${child.id}.${ref.childField}__${parent.id}.${ref.parentField}`,
+      childId: child.id,
+      childField: ref.childField,
+      parentId: parent.id,
+      parentField: ref.parentField,
+      source: "dbml-editor",
+      dbmlGroup: child.dbmlGroup || "",
+    });
+  });
+
+  return { tables: parsedTables, colors: tableColors };
+}
+
+function relationshipToDbml(rel) {
+  const child = tableById[rel.childId];
+  const parent = tableById[rel.parentId];
+  if (!child || !parent || !rel.childField || !rel.parentField) return "";
+  return `Ref: ${dbmlIdentifier(child.title)}.${dbmlIdentifier(rel.childField)} > ${dbmlIdentifier(parent.title)}.${dbmlIdentifier(rel.parentField)}`;
+}
+
+function tableGroupToDbml(group, options = {}) {
+  const tableNames = (group.cardIds || [])
+    .map((id) => tableById[id]?.title)
+    .filter(Boolean)
+    .map((name) => `  ${dbmlIdentifier(name)}`);
+  if (!tableNames.length) return "";
+  const color = group.color || options.color || schemaGroupColor(0);
+  const note = options.note || `Grupo ${group.name}`;
+  return [
+    `TableGroup ${dbmlIdentifier(group.name || "grupo")} [color: ${color}, note: '${dbmlString(note)}'] {`,
+    ...tableNames,
+    "}",
+  ].join("\n");
+}
+
+function activeTableGroupsDbml() {
+  const blocks = [];
+  if (isDefaultView()) {
+    schemaGroups.forEach((group) => {
+      const block = tableGroupToDbml(group, { note: `Grupo generado desde ${group.name}` });
+      if (block) blocks.push(block);
+    });
+  }
+  groups
+    .filter((group) => (group.viewId || DEFAULT_VIEW_ID) === activeViewId)
+    .forEach((group) => {
+      const block = tableGroupToDbml(group);
+      if (block) blocks.push(block);
+    });
+  return blocks;
+}
+
+function updateDbmlEditorFromView() {
+  if (!dbmlEditorInput) return;
+  try {
+    const relationLines = currentRelationships().map(relationshipToDbml).filter(Boolean);
+    const groupBlocks = activeTableGroupsDbml();
+    dbmlEditorInput.value = [
+      `// Vista: ${currentView()?.name || activeViewId}`,
+      "",
+      ...schemaTables.map(tableToDbml),
+      groupBlocks.length ? "\n// Grupos" : "",
+      ...groupBlocks,
+      relationLines.length ? "\n// Relaciones" : "",
+      ...relationLines,
+    ].filter((line) => line !== "").join("\n\n");
+    syncDbmlEditor();
+  } catch (error) {
+    console.warn("No se pudo generar DBML para la vista activa", error);
+  }
+}
+
+async function persistActiveModelFiles() {
+  if (!isLocalHost()) return;
+  const view = currentView();
+  const payload = {
+    schemaFile: view.file,
+    viewsFile: view.viewsFile || `model-views.${view.id}.json`,
+    schema: schemaTablesForSave(),
+    views: currentViewConfig(),
+  };
+  const response = await fetch("save-view", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+}
+
+function scheduleModelFilePersist() {
+  if (!isLocalHost()) return;
+  window.clearTimeout(modelPersistTimer);
+  modelPersistTimer = window.setTimeout(() => {
+    captureCurrentPositions();
+    persistActiveModelFiles().catch((error) => {
+      console.warn("No se pudo sincronizar model-schema desde la UI", error);
+    });
+  }, 300);
+}
+
+async function applyDbmlEditor() {
+  if (!dbmlEditorInput || !dbmlRunButton) return;
+  dbmlRunButton.classList.add("is-running");
+  dbmlRunButton.disabled = true;
+  const original = dbmlRunButton.textContent;
+  try {
+    const parsed = parseDbml(dbmlEditorInput.value);
+    if (!parsed.tables.length) {
+      throw new Error("No se encontraron tablas DBML validas.");
+    }
+    captureCurrentPositions();
+    schemaTables = parsed.tables;
+    rebuildSchemaLookups();
+    Object.keys(cardColors).forEach((key) => delete cardColors[key]);
+    Object.assign(cardColors, parsed.colors);
+    const nextState = {
+      ...currentViewConfig(),
+      positions: sanitizePositions(viewPositions[activeViewId]),
+      colors: { ...cardColors },
+      customRelationships: [],
+      deletedRelationIds: [],
+      relationRoutes: {},
+      groups: [],
+      schemaGroups: [],
+      zoom,
+    };
+    renderViewSelect();
+    renderActiveSchema(nextState);
+    saveState();
+    await persistActiveModelFiles();
+    dbmlRunButton.textContent = "Ejecutado";
+  } catch (error) {
+    console.error("No se pudo aplicar DBML", error);
+    dbmlRunButton.textContent = "Error";
+  } finally {
+    setTimeout(() => {
+      dbmlRunButton.classList.remove("is-running");
+      dbmlRunButton.disabled = false;
+      dbmlRunButton.textContent = original || "Ejecutar";
+    }, 1200);
+  }
+}
+
 function fieldSlug(name) {
   return String(name)
     .trim()
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+}
+
+function viewFileSlug(name) {
+  return fieldSlug(name).replace(/-/g, "_") || `vista_${Date.now()}`;
 }
 
 function createSvg(tag) {
@@ -252,9 +670,12 @@ function buildSchemaGroups() {
         id: `schema-group-${fieldSlug(table.dbmlGroup)}`,
         name: table.dbmlGroup,
         cardIds: [],
-        color: schemaGroupColor(grouped.size),
+        color: table.dbmlGroupColor || schemaGroupColor(grouped.size),
         locked: true,
       });
+    }
+    if (table.dbmlGroupColor) {
+      grouped.get(table.dbmlGroup).color = table.dbmlGroupColor;
     }
     grouped.get(table.dbmlGroup).cardIds.push(table.id);
   });
@@ -396,34 +817,51 @@ function computeLayout(savedPositions) {
   });
 
   const positions = {};
-  if (schemaGroups.length) {
-    let groupTop = COLUMN_TOP;
-    schemaGroups.forEach((group) => {
-      groupTop = layoutStarGroup(group, groupTop, positions);
-    });
-  } else {
+  const placeTablesInColumns = (tables, startTop = COLUMN_TOP) => {
     const columns = { 0: [], 1: [], 2: [], 3: [] };
-    schemaTables.forEach((table) => {
+    tables.forEach((table) => {
       columns[computeColumn(table, satelliteParentTag)].push(table);
     });
 
     Object.keys(columns).forEach((key) => {
       const column = Number(key);
-      let y = COLUMN_TOP;
+      let y = startTop;
       columns[column].forEach((table) => {
         positions[table.id] = { left: COLUMN_X[column], top: y };
         y += estimateHeight(table) + CARD_GAP;
       });
     });
+  };
+
+  if (schemaGroups.length) {
+    let groupTop = COLUMN_TOP;
+    schemaGroups.forEach((group) => {
+      groupTop = layoutStarGroup(group, groupTop, positions);
+    });
+    const ungroupedTables = schemaTables.filter((table) => !positions[table.id]);
+    if (ungroupedTables.length) {
+      placeTablesInColumns(ungroupedTables, groupTop);
+    }
+  } else {
+    placeTablesInColumns(schemaTables);
   }
 
   if (savedPositions) {
     Object.entries(savedPositions).forEach(([id, pos]) => {
-      if (positions[id] && pos && typeof pos.left === "number" && typeof pos.top === "number") {
+      if (tableById[id] && pos && typeof pos.left === "number" && typeof pos.top === "number") {
         positions[id] = { left: pos.left, top: pos.top };
       }
     });
   }
+
+  schemaTables.forEach((table, index) => {
+    if (!positions[table.id]) {
+      positions[table.id] = {
+        left: COLUMN_X[index % COLUMN_X.length],
+        top: COLUMN_TOP + Math.floor(index / COLUMN_X.length) * (estimateHeight(table) + CARD_GAP),
+      };
+    }
+  });
 
   return positions;
 }
@@ -579,7 +1017,7 @@ function renderViewControls() {
   renderViewSelect();
   closeViewTableMenu();
   if (newViewButton) {
-    newViewButton.hidden = true;
+    newViewButton.hidden = !(editModeEnabled && isLocalHost());
   }
   if (viewTableControls) {
     viewTableControls.hidden = true;
@@ -588,6 +1026,58 @@ function renderViewControls() {
   // los archivos model-schema/model-views de la vista).
   if (saveViewButton) {
     saveViewButton.hidden = !(editModeEnabled && isLocalHost());
+  }
+}
+
+async function createNewModelView() {
+  if (!isLocalHost()) {
+    return;
+  }
+  const name = window.prompt("Nombre de la nueva vista", "Nueva vista");
+  if (name === null) {
+    return;
+  }
+  const trimmed = name.trim();
+  if (!trimmed) {
+    return;
+  }
+  const existingIds = new Set(modelViews.map((view) => view.id));
+  const baseId = viewFileSlug(trimmed);
+  let id = baseId;
+  let index = 2;
+  while (existingIds.has(id)) {
+    id = `${baseId}_${index}`;
+    index += 1;
+  }
+
+  const view = {
+    id,
+    name: trimmed,
+    file: `model-schema.${id}.json`,
+    viewsFile: `model-views.${id}.json`,
+  };
+  modelViews.push(view);
+  activeViewId = id;
+  schemaTables = [];
+  rebuildSchemaLookups();
+  viewPositions[activeViewId] = {};
+  viewSeeds[activeViewId] = {
+    positions: {},
+    colors: {},
+    customRelationships: [],
+    deletedRelationIds: [],
+    relationRoutes: {},
+    groups: [],
+    schemaGroups: [],
+    zoom,
+  };
+  renderViewSelect();
+  renderActiveSchema(viewSeeds[activeViewId]);
+  saveState();
+  try {
+    await persistActiveModelFiles();
+  } catch (error) {
+    console.error("No se pudo crear la nueva vista", error);
   }
 }
 
@@ -668,6 +1158,7 @@ function renderActiveSchema(state) {
   applyColors(state?.colors);
   createFieldConnectors();
   rebuildRelationships();
+  updateDbmlEditorFromView();
   bindCards();
   bindCommentTooltips();
   restoreSchemaGroups(state?.schemaGroups);
@@ -826,7 +1317,7 @@ function buildMarkerPath(child, childSide, parent, parentSide) {
 }
 
 function scopedRelationshipId(baseId) {
-  return activeViewId === DEFAULT_VIEW_ID ? baseId : `${activeViewId}::${baseId}`;
+  return isDefaultView() ? baseId : `${activeViewId}::${baseId}`;
 }
 
 function relationViewId(rel) {
@@ -838,6 +1329,9 @@ function tableAccentColor(tableId) {
     return cardColors[tableId];
   }
   const table = tableById[tableId];
+  if (table?.headerColor) {
+    return table.headerColor;
+  }
   if (tableKind(table) === "fact") {
     return "#7c3aed";
   }
@@ -871,6 +1365,56 @@ function currentRelationships() {
     out.push(rel);
   });
   return out;
+}
+
+function relationshipStableId(rel) {
+  return rel?.id || `${rel?.childId}.${rel?.childField}__${rel?.parentId}.${rel?.parentField}`;
+}
+
+function schemaTablesForSave() {
+  return schemaTables.map((table) => ({
+    ...table,
+    headerColor: cardColors[table.id] || table.headerColor,
+    modelRelations: (table.modelRelations || []).filter((rel) => !deletedRelationIds.has(relationshipStableId(rel))),
+  }));
+}
+
+function syncSchemaRelationshipsFromTables() {
+  schemaRelationships = deriveRelationships();
+}
+
+function removeSchemaRelationship(relationId) {
+  let removed = false;
+  schemaTables.forEach((table) => {
+    const before = table.modelRelations || [];
+    const after = before.filter((rel) => relationshipStableId(rel) !== relationId);
+    if (after.length !== before.length) {
+      table.modelRelations = after;
+      removed = true;
+    }
+  });
+  return removed;
+}
+
+function addSchemaRelationship(rel) {
+  const child = tableById[rel.childId];
+  if (!child) {
+    return false;
+  }
+  child.modelRelations = Array.isArray(child.modelRelations) ? child.modelRelations : [];
+  if (child.modelRelations.some((item) => relationshipStableId(item) === rel.id)) {
+    return false;
+  }
+  child.modelRelations.push({
+    id: rel.id,
+    childId: rel.childId,
+    childField: rel.childField,
+    parentId: rel.parentId,
+    parentField: rel.parentField,
+    source: "ui",
+    dbmlGroup: child.dbmlGroup || "",
+  });
+  return true;
 }
 
 function rebuildRelationships() {
@@ -1210,7 +1754,7 @@ function createCustomRelationship(sourceConnector, targetConnector) {
 
   const exists = currentRelationships().some((rel) => rel.id === id);
   if (!exists) {
-    customRelationships.push({
+    const rel = {
       id,
       viewId: activeViewId,
       childId: child.id,
@@ -1218,11 +1762,19 @@ function createCustomRelationship(sourceConnector, targetConnector) {
       parentId: parent.id,
       parentField: parentField.name,
       custom: true,
-    });
+    };
+    if (isDefaultView()) {
+      addSchemaRelationship(rel);
+      syncSchemaRelationshipsFromTables();
+    } else {
+      customRelationships.push(rel);
+    }
   }
 
   rebuildRelationships();
+  updateDbmlEditorFromView();
   saveState();
+  scheduleModelFilePersist();
 }
 
 function selectRelation(relationId) {
@@ -1239,14 +1791,21 @@ function deleteSelectedRelation() {
   }
   deletedRelationIds.add(selectedRelationId);
   delete relationRoutes[selectedRelationId];
+  const removedFromSchema = removeSchemaRelationship(selectedRelationId);
   const index = customRelationships.findIndex((rel) => rel.id === selectedRelationId);
   if (index !== -1) {
     customRelationships.splice(index, 1);
   }
+  if (removedFromSchema) {
+    deletedRelationIds.delete(selectedRelationId);
+    syncSchemaRelationshipsFromTables();
+  }
   selectedRelationId = null;
   rebuildRelationships();
+  updateDbmlEditorFromView();
   refreshSelectionStyles();
   saveState();
+  scheduleModelFilePersist();
 }
 
 function updateRelationButtons() {
@@ -1317,7 +1876,10 @@ function setRelationHighlightMode(enabled) {
   relationHighlightEnabled = enabled;
   relationHighlightButton?.setAttribute("aria-pressed", enabled ? "true" : "false");
   if (relationHighlightButton) {
-    relationHighlightButton.textContent = enabled ? "Ocultar relaciones" : "Relaciones";
+    const label = enabled ? "Ocultar relaciones" : "Resaltar relaciones";
+    relationHighlightButton.innerHTML = RELATION_ICON_MARKUP;
+    relationHighlightButton.setAttribute("aria-label", label);
+    relationHighlightButton.setAttribute("title", label);
   }
   if (!enabled) {
     diagramPanel?.classList.remove("is-relation-highlight-mode", "is-focused");
@@ -1590,9 +2152,10 @@ function setDiagramExpanded(expanded) {
   document.body.classList.toggle("diagram-expanded-mode", expanded);
   window.parent?.postMessage({ type: "model-expand", expanded }, "*");
   if (expandDiagramButton) {
-    expandDiagramButton.textContent = expanded ? "×" : "⛶";
-    expandDiagramButton.title = expanded ? "Cerrar expansion" : "Expandir modelo";
-    expandDiagramButton.setAttribute("aria-label", expanded ? "Cerrar expansion del modelo" : "Expandir modelo");
+    const label = expanded ? "Cerrar expansion del modelo" : "Expandir modelo";
+    expandDiagramButton.innerHTML = ASPECT_ICON_MARKUP;
+    expandDiagramButton.title = label;
+    expandDiagramButton.setAttribute("aria-label", label);
   }
   viewportCentered = false;
   requestAnimationFrame(() => {
@@ -1610,6 +2173,12 @@ function refreshSelectionStyles() {
   });
   groupEls.forEach((el) => {
     el.classList.toggle("is-selected", el.dataset.groupId === selectedGroupId);
+  });
+  schemaGroupEls.forEach((el) => {
+    el.classList.toggle("is-selected", el.dataset.schemaGroupId === selectedGroupId);
+  });
+  schemaGroupHeaderEls.forEach((el) => {
+    el.classList.toggle("is-selected", el.dataset.schemaGroupId === selectedGroupId);
   });
   relationEls.forEach(({ rel, group }) => {
     group.classList.toggle("is-selected", rel.id === selectedRelationId);
@@ -1654,8 +2223,11 @@ function clearSelection() {
 function applyColors(saved) {
   if (saved) {
     Object.entries(saved).forEach(([id, color]) => {
-      if (color) {
+      if (color && !tableById[id]?.headerColor) {
         cardColors[id] = color;
+        if (tableById[id]) {
+          tableById[id].headerColor = color;
+        }
       }
     });
   }
@@ -1664,7 +2236,7 @@ function applyColors(saved) {
 
 function paintCards() {
   erCards.forEach((card) => {
-    const color = cardColors[card.dataset.erCard];
+    const color = cardColors[card.dataset.erCard] || tableById[card.dataset.erCard]?.headerColor;
     card.classList.toggle("is-colored", Boolean(color));
     if (color) {
       card.style.setProperty("--card-color", color);
@@ -1682,10 +2254,10 @@ function normalizeHex(value) {
 
 function activeColorTarget() {
   if (selectedCardId) {
-    return { kind: "card", color: cardColors[selectedCardId] || "#ff3b0a" };
+    return { kind: "card", color: cardColors[selectedCardId] || tableById[selectedCardId]?.headerColor || "#ff3b0a" };
   }
   if (selectedGroupId) {
-    const group = groups.find((g) => g.id === selectedGroupId);
+    const group = schemaGroups.find((g) => g.id === selectedGroupId) || groups.find((g) => g.id === selectedGroupId);
     return group ? { kind: "group", color: group.color || "#ff5736" } : null;
   }
   return null;
@@ -1694,31 +2266,65 @@ function activeColorTarget() {
 function applyColor(color) {
   if (selectedCardId) {
     cardColors[selectedCardId] = color;
+    if (tableById[selectedCardId]) {
+      tableById[selectedCardId].headerColor = color;
+    }
     paintCards();
     rebuildRelationships();
   } else if (selectedGroupId) {
-    const group = groups.find((g) => g.id === selectedGroupId);
+    const group = schemaGroups.find((g) => g.id === selectedGroupId);
     if (group) {
       group.color = color;
-      renderGroups();
+      group.cardIds.forEach((id) => {
+        const table = tableById[id];
+        if (table) {
+          table.dbmlGroupColor = color;
+        }
+      });
+      renderSchemaGroups();
+    } else {
+      const customGroup = groups.find((g) => g.id === selectedGroupId);
+      if (customGroup) {
+        customGroup.color = color;
+        renderGroups();
+      }
     }
   }
+  updateDbmlEditorFromView();
   saveState();
+  scheduleModelFilePersist();
 }
 
 function clearColor() {
   if (selectedCardId) {
     delete cardColors[selectedCardId];
+    if (tableById[selectedCardId]) {
+      delete tableById[selectedCardId].headerColor;
+    }
     paintCards();
     rebuildRelationships();
   } else if (selectedGroupId) {
-    const group = groups.find((g) => g.id === selectedGroupId);
+    const group = schemaGroups.find((g) => g.id === selectedGroupId);
     if (group) {
-      delete group.color;
-      renderGroups();
+      group.cardIds.forEach((id) => {
+        const table = tableById[id];
+        if (table) {
+          delete table.dbmlGroupColor;
+        }
+      });
+      buildSchemaGroups();
+      renderSchemaGroups();
+    } else {
+      const customGroup = groups.find((g) => g.id === selectedGroupId);
+      if (customGroup) {
+        delete customGroup.color;
+        renderGroups();
+      }
     }
   }
+  updateDbmlEditorFromView();
   saveState();
+  scheduleModelFilePersist();
 }
 
 function updateColorButton() {
@@ -1726,9 +2332,11 @@ function updateColorButton() {
     return;
   }
   const target = activeColorTarget();
-  tableColorButton.style.background = target ? target.color : "#ffffff";
-  tableColorButton.style.color = target ? "#ffffff" : "var(--text)";
-  tableColorButton.textContent = "Color";
+  tableColorButton.style.background = "";
+  tableColorButton.style.color = "";
+  tableColorButton.innerHTML = COLOR_ICON_MARKUP;
+  tableColorButton.setAttribute("aria-label", target ? `Color ${target.color}` : "Color");
+  tableColorButton.setAttribute("title", target ? `Color ${target.color}` : "Color");
   if (tableColorHexInput) {
     tableColorHexInput.value = target ? target.color : "";
   }
@@ -1818,7 +2426,9 @@ function toggleGroupCollapsed(group) {
   updateGroups();
   resizeScene();
   updateRelationships();
+  updateDbmlEditorFromView();
   saveState();
+  scheduleModelFilePersist();
 }
 
 function bindGroupCollapseButton(group, header) {
@@ -1861,6 +2471,19 @@ function renderSchemaGroups() {
     schemaGroupHeaderEls.push(header);
     enableGroupDrag(group, header);
     bindGroupCollapseButton(group, header);
+    header.addEventListener("click", (event) => {
+      event.stopPropagation();
+      selectGroup(group.id);
+    });
+    header.addEventListener("dblclick", (event) => {
+      event.stopPropagation();
+      if (!editModeEnabled || header.dataset.dragMoved === "true") {
+        return;
+      }
+      event.preventDefault();
+      selectGroup(group.id);
+      renameGroup(group);
+    });
   });
 
   updateCollapsedCards();
@@ -2057,6 +2680,10 @@ function selectGroup(groupId) {
   refreshSelectionStyles();
 }
 
+function selectedSchemaGroup() {
+  return schemaGroups.find((group) => group.id === selectedGroupId) || null;
+}
+
 function renameGroup(group) {
   const nextName = window.prompt("Nombre del grupo", group.name || "Grupo");
   if (nextName === null) {
@@ -2066,62 +2693,89 @@ function renameGroup(group) {
   if (!trimmed || trimmed === group.name) {
     return;
   }
+  const isSchemaGroup = schemaGroups.some((item) => item.id === group.id);
+  const previousName = group.name;
   group.name = trimmed;
-  renderGroups();
-  selectGroup(group.id);
+  if (isSchemaGroup) {
+    group.cardIds.forEach((id) => {
+      const table = tableById[id];
+      if (table?.dbmlGroup === previousName) {
+        table.dbmlGroup = trimmed;
+      }
+    });
+    buildSchemaGroups();
+    const nextGroup = schemaGroups.find((item) => item.name === trimmed);
+    renderSchemaGroups();
+    if (nextGroup) {
+      selectGroup(nextGroup.id);
+    }
+  } else {
+    renderGroups();
+    selectGroup(group.id);
+  }
+  updateDbmlEditorFromView();
   saveState();
+  scheduleModelFilePersist();
 }
 
 function createGroupFromSelection() {
   if (selectedCardIds.size < 1) {
     return;
   }
-  const group = {
-    id: `group-${Date.now()}`,
-    name: "Grupo",
-    cardIds: Array.from(selectedCardIds),
-    color: "#ff5736",
-    viewId: activeViewId,
-  };
-  groups.push(group);
+  const groupName = `Grupo ${schemaGroups.length + 1}`;
+  const groupColor = schemaGroupColor(schemaGroups.length);
+  Array.from(selectedCardIds).forEach((id) => {
+    const table = tableById[id];
+    if (table) {
+      table.dbmlGroup = groupName;
+      table.dbmlGroupColor = groupColor;
+    }
+  });
   clearSelection();
-  renderGroups();
-  selectGroup(group.id);
+  buildSchemaGroups();
+  renderSchemaGroups();
+  const group = schemaGroups.find((item) => item.name === groupName);
+  if (group) {
+    selectGroup(group.id);
+  }
+  updateDbmlEditorFromView();
   saveState();
+  scheduleModelFilePersist();
 }
 
 function deleteSelectedGroup() {
   if (!selectedGroupId) {
     return;
   }
-  const index = groups.findIndex((g) => g.id === selectedGroupId && (g.viewId || DEFAULT_VIEW_ID) === activeViewId);
-  if (index !== -1) {
-    groups.splice(index, 1);
+  const schemaGroup = selectedSchemaGroup();
+  if (schemaGroup) {
+    schemaGroup.cardIds.forEach((id) => {
+      const table = tableById[id];
+      if (table) {
+        delete table.dbmlGroup;
+        delete table.dbmlGroupColor;
+      }
+    });
+    buildSchemaGroups();
+    renderSchemaGroups();
+  } else {
+    const index = groups.findIndex((g) => g.id === selectedGroupId && (g.viewId || DEFAULT_VIEW_ID) === activeViewId);
+    if (index !== -1) {
+      groups.splice(index, 1);
+    }
+    renderGroups();
   }
   selectedGroupId = null;
-  renderGroups();
   refreshSelectionStyles();
+  updateDbmlEditorFromView();
   saveState();
+  scheduleModelFilePersist();
 }
 
 function restoreGroups(saved) {
-  if (!Array.isArray(saved)) {
-    return;
-  }
-  saved.forEach((group) => {
-    const cardIds = (group.cardIds || []).filter((id) => tableById[id]);
-    if (cardIds.length) {
-      groups.push({
-        id: group.id || `group-${Date.now()}-${Math.random()}`,
-        name: group.name || "Grupo",
-        cardIds,
-        color: group.color || "#ff5736",
-        viewId: activeViewId,
-        collapsed: Boolean(group.collapsed),
-        collapsedBounds: group.collapsedBounds || null,
-      });
-    }
-  });
+  // Los TableGroup se leen desde model-schema (dbmlGroup/dbmlGroupColor).
+  // Se ignoran grupos visuales heredados de model-views para evitar doble fuente de verdad.
+  void saved;
   updateCollapsedCards();
   renderGroups();
 }
@@ -2153,6 +2807,11 @@ function updateGroupButtons() {
 // ----------------------------------------------------------------- edit mode
 function updateEditModeUi() {
   editModeButton?.setAttribute("aria-pressed", editModeEnabled ? "true" : "false");
+  if (editModeButton) {
+    const label = editModeEnabled ? "Desactivar edicion" : "Activar edicion";
+    editModeButton.setAttribute("aria-label", label);
+    editModeButton.setAttribute("title", label);
+  }
   if (colorControls) {
     colorControls.hidden = !editModeEnabled;
   }
@@ -2296,8 +2955,8 @@ function effectiveViewState(viewId, seed, blob) {
   return {
     positions: pick("positions", {}) || {},
     colors: pick("colors", {}) || {},
-    customRelationships: Array.isArray(pick("customRelationships", [])) ? pick("customRelationships", []) : [],
-    deletedRelationIds: Array.isArray(pick("deletedRelationIds", [])) ? pick("deletedRelationIds", []) : [],
+    customRelationships: [],
+    deletedRelationIds: [],
     relationRoutes: pick("relationRoutes", {}) || {},
     groups: Array.isArray(pick("groups", [])) ? pick("groups", []) : [],
     schemaGroups: Array.isArray(pick("schemaGroups", [])) ? pick("schemaGroups", []) : [],
@@ -2311,28 +2970,11 @@ function effectiveViewState(viewId, seed, blob) {
 function currentViewConfig() {
   return {
     positions: viewPositions[activeViewId] || {},
-    colors: { ...cardColors },
-    customRelationships: customRelationships.map((rel) => ({
-      id: rel.id,
-      viewId: activeViewId,
-      childId: rel.childId,
-      childField: rel.childField,
-      parentId: rel.parentId,
-      parentField: rel.parentField,
-      custom: true,
-    })),
-    deletedRelationIds: Array.from(deletedRelationIds),
+    colors: {},
+    customRelationships: [],
+    deletedRelationIds: [],
     relationRoutes: { ...relationRoutes },
-    groups: groups
-      .filter((group) => (group.viewId || DEFAULT_VIEW_ID) === activeViewId)
-      .map((group) => ({
-        id: group.id,
-        name: group.name,
-        cardIds: group.cardIds,
-        color: group.color,
-        collapsed: Boolean(group.collapsed),
-        collapsedBounds: group.collapsedBounds || null,
-      })),
+    groups: [],
     schemaGroups: schemaGroups.map((group) => ({
       id: group.id,
       collapsed: Boolean(group.collapsed),
@@ -2363,10 +3005,10 @@ async function saveViewToFiles() {
   const payload = {
     schemaFile: view.file,
     viewsFile: view.viewsFile || `model-views.${view.id}.json`,
-    schema: schemaTables,
+    schema: schemaTablesForSave(),
     views: currentViewConfig(),
   };
-  const original = saveViewButton.textContent;
+  const original = saveViewButton.innerHTML;
   saveViewButton.disabled = true;
   try {
     const response = await fetch("save-view", {
@@ -2378,13 +3020,13 @@ async function saveViewToFiles() {
       throw new Error(`HTTP ${response.status}`);
     }
     saveState();
-    saveViewButton.textContent = "Guardado ✓";
+    saveViewButton.textContent = "✓";
   } catch (error) {
     console.error("No se pudo guardar la vista en archivos", error);
-    saveViewButton.textContent = "Error al guardar";
+    saveViewButton.textContent = "!";
   } finally {
     setTimeout(() => {
-      saveViewButton.textContent = original || "Guardar";
+      saveViewButton.innerHTML = original || SAVE_ICON_MARKUP;
       saveViewButton.disabled = false;
     }, 2000);
   }
@@ -2693,6 +3335,28 @@ function bindToolbar() {
     clearHighlight();
   });
 
+  dbmlEditorCollapseButton?.addEventListener("click", () => {
+    const collapsed = !diagramPanel?.classList.contains("dbml-editor-collapsed");
+    diagramPanel?.classList.toggle("dbml-editor-collapsed", collapsed);
+    dbmlEditorCollapseButton.textContent = collapsed ? "‹" : "›";
+    dbmlEditorCollapseButton.setAttribute("aria-label", collapsed ? "Expandir editor" : "Contraer editor");
+    dbmlEditorCollapseButton.title = collapsed ? "Expandir editor" : "Contraer editor";
+    setTimeout(() => {
+      updateRelationships();
+      updateConnectorPositions();
+      centerViewport({ force: true });
+    }, 180);
+  });
+  dbmlEditorInput?.addEventListener("input", syncDbmlEditor);
+  dbmlEditorInput?.addEventListener("scroll", () => {
+    if (dbmlEditorHighlight) {
+      dbmlEditorHighlight.scrollTop = dbmlEditorInput.scrollTop;
+      dbmlEditorHighlight.scrollLeft = dbmlEditorInput.scrollLeft;
+    }
+    if (dbmlLineNumbers) dbmlLineNumbers.scrollTop = dbmlEditorInput.scrollTop;
+  });
+  dbmlRunButton?.addEventListener("click", applyDbmlEditor);
+
   modelViewSelect?.addEventListener("change", async () => {
     captureCurrentPositions();
     saveState();
@@ -2702,6 +3366,7 @@ function bindToolbar() {
   });
 
   resetViewLayoutButton?.addEventListener("click", resetCurrentViewLayout);
+  newViewButton?.addEventListener("click", createNewModelView);
   saveViewButton?.addEventListener("click", saveViewToFiles);
   exportPngButton?.addEventListener("click", exportDiagramPng);
 
@@ -2842,7 +3507,7 @@ document.addEventListener("click", (event) => {
     return;
   }
 
-  if (!target.closest(".er-card") && !target.closest(".table-group") && !target.closest(".diagram-toolbar")) {
+  if (!target.closest(".er-card") && !target.closest(".table-group") && !target.closest(".diagram-toolbar") && !target.closest(".dbml-editor-panel")) {
     clearSelection();
   }
 
