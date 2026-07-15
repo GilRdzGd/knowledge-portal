@@ -11,22 +11,19 @@
 // ------------------------------------------------------------------ DOM refs
 const diagramPanel = document.querySelector(".diagram-panel");
 const diagramViewport = document.querySelector(".diagram-viewport");
+const diagramToolbarRight = document.querySelector(".diagram-toolbar-right");
 const diagramScene = document.querySelector(".diagram-scene");
 const zoomButtons = Array.from(document.querySelectorAll("[data-zoom-action]"));
 const zoomReadout = document.querySelector(".zoom-readout");
 const expandDiagramButton = document.querySelector("#expand-diagram-button");
 const editModeButton = document.querySelector("#edit-mode-button");
 const relationHighlightButton = document.querySelector("#relation-highlight-button");
-const viewControls = document.querySelector(".view-controls");
 const modelViewSelect = document.querySelector("#model-view-select");
 const newViewButton = document.querySelector("#new-view-button");
+const renameViewButton = document.querySelector("#rename-view-button");
 const resetViewLayoutButton = document.querySelector("#reset-view-layout-button");
 const saveViewButton = document.querySelector("#save-view-button");
 const exportPngButton = document.querySelector("#export-png-button");
-const viewTableControls = document.querySelector(".view-table-controls");
-const viewTableButton = document.querySelector("#view-table-button");
-const viewTableMenu = document.querySelector("#view-table-menu");
-const viewTableOptions = document.querySelector("#view-table-options");
 const colorControls = document.querySelector(".color-controls");
 const tableColorButton = document.querySelector("#table-color-button");
 const tableColorMenu = document.querySelector("#table-color-menu");
@@ -37,6 +34,8 @@ const tableColorApplyButton = document.querySelector("#table-color-apply");
 const groupControls = document.querySelector(".group-controls");
 const groupTablesButton = document.querySelector("#group-tables-button");
 const deleteGroupButton = document.querySelector("#delete-group-button");
+const removeTablesFromGroupButton = document.querySelector("#remove-tables-from-group-button");
+const addTablesToGroupButton = document.querySelector("#add-tables-to-group-button");
 const relationControls = document.querySelector(".relation-controls");
 const deleteRelationButton = document.querySelector("#delete-relation-button");
 const dbmlEditorCollapseButton = document.querySelector("#dbml-editor-collapse");
@@ -44,6 +43,17 @@ const dbmlEditorInput = document.querySelector("#dbml-editor-input");
 const dbmlEditorHighlight = document.querySelector("#dbml-highlight");
 const dbmlLineNumbers = document.querySelector("#dbml-line-numbers");
 const dbmlRunButton = document.querySelector("#dbml-run-button");
+
+diagramToolbarRight?.addEventListener("wheel", (event) => {
+  const hasHorizontalOverflow = diagramToolbarRight.scrollWidth > diagramToolbarRight.clientWidth;
+  if (!hasHorizontalOverflow) return;
+
+  const delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+  if (!delta) return;
+
+  event.preventDefault();
+  diagramToolbarRight.scrollLeft += delta;
+}, { passive: false });
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 
@@ -84,12 +94,7 @@ const ASPECT_ICON_MARKUP = `
   </svg>
 `;
 const COLOR_ICON_MARKUP = `
-  <svg class="color-button-icon" viewBox="0 0 21 21" aria-hidden="true" focusable="false">
-    <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" transform="translate(3 3)">
-      <path d="m14 1c.8284271.82842712.8284271 2.17157288 0 3l-9.5 9.5-4 1 1-3.9436508 9.5038371-9.55252193c.7829896-.78700064 2.0312313-.82943964 2.864366-.12506788z"/>
-      <path d="m12.5 3.5 1 1"/>
-    </g>
-  </svg>
+  <span class="toolbar-icon color-button-icon" aria-hidden="true"></span>
 `;
 // Cada archivo assets/data/model-schema*.json es una vista. El build genera un
 // manifiesto (model-schemas.json) listando los esquemas disponibles y, por
@@ -122,9 +127,22 @@ function rebuildSchemaLookups() {
   });
 }
 
+function normalizeSchemaTable(table) {
+  const normalized = { ...table };
+  normalized.group = normalized.group || "";
+  normalized.groupColor = normalized.groupColor || "#6b7280";
+  normalized.modelRelations = (normalized.modelRelations || []).map((rel) => {
+    const next = { ...rel };
+    next.group = next.group || normalized.group || "";
+    return next;
+  });
+  normalized.relationCount = normalized.modelRelations.length;
+  return normalized;
+}
+
 async function loadSchemaFile(file) {
   const data = await fetchModelJson(`assets/data/${file}`);
-  schemaTables = Array.isArray(data) ? data : [];
+  schemaTables = Array.isArray(data) ? data.map(normalizeSchemaTable) : [];
   rebuildSchemaLookups();
 }
 
@@ -135,7 +153,6 @@ let editModeEnabled = false;
 let svg = null;
 let relationships = [];
 let schemaRelationships = [];
-let customRelationships = [];
 const deletedRelationIds = new Set();
 let relationEls = [];
 const fieldConnectors = [];
@@ -187,6 +204,10 @@ function dbmlIdentifier(value) {
 
 function dbmlString(value) {
   return String(value || "").replace(/\\/g, "\\\\").replace(/'/g, "\\'").replace(/\n/g, "\\n");
+}
+
+function dbmlDoubleString(value) {
+  return String(value || "").replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\n/g, "\\n");
 }
 
 function unquoteDbml(value) {
@@ -244,7 +265,7 @@ function parseSettings(settingsText) {
 function dbmlTokenClass(token) {
   if (/^\/\//.test(token)) return "token-comment";
   if (/^["']/.test(token)) return "token-string";
-  if (/^(Table|TableGroup|Ref|Enum|Project|Note|Indexes|indexes|pk|unique|note|headerColor|color)$/i.test(token)) {
+  if (/^(Table|TableGroup|Ref|Enum|Project|Note|Indexes|indexes|pk|unique|note|headerColor|tag|color)$/i.test(token)) {
     return "token-keyword";
   }
   if (/^(bigint|int|integer|varchar|string|text|date|datetime|timestamp|decimal|numeric|float|boolean|bool|uuid|json)$/i.test(token)) {
@@ -256,7 +277,7 @@ function dbmlTokenClass(token) {
 }
 
 function highlightDbmlLine(line) {
-  const pattern = /(\/\/.*|#[0-9a-f]{3,8}|"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|\b(?:Table|TableGroup|Ref|Enum|Project|Note|Indexes|indexes|pk|unique|note|headerColor|color)\b|\b(?:bigint|int|integer|varchar|string|text|date|datetime|timestamp|decimal|numeric|float|boolean|bool|uuid|json)\b|[<>\-[\]{}():,.]+)/gi;
+  const pattern = /(\/\/.*|#[0-9a-f]{3,8}|"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|\b(?:Table|TableGroup|Ref|Enum|Project|Note|Indexes|indexes|pk|unique|note|headerColor|tag|color)\b|\b(?:bigint|int|integer|varchar|string|text|date|datetime|timestamp|decimal|numeric|float|boolean|bool|uuid|json)\b|[<>\-[\]{}():,.]+)/gi;
   let output = "";
   let cursor = 0;
   for (const match of line.matchAll(pattern)) {
@@ -288,7 +309,11 @@ function fieldDbmlSettings(field) {
 }
 
 function tableToDbml(table) {
-  const lines = [`Table ${dbmlIdentifier(table.title)} [headerColor: ${table.headerColor || tableAccentColor(table.id)}] {`];
+  const settings = [`headerColor: ${table.headerColor || tableAccentColor(table.id)}`];
+  if (String(table.tag || "").trim()) {
+    settings.push(`tag: "${dbmlDoubleString(table.tag)}"`);
+  }
+  const lines = [`Table ${dbmlIdentifier(table.title)} [${settings.join(", ")}] {`];
   (table.fields || []).forEach((field) => {
     lines.push(`  ${dbmlIdentifier(field.name)} ${field.type || "varchar"}${fieldDbmlSettings(field)}`);
   });
@@ -329,7 +354,14 @@ function parseDbml(dbml) {
         const existing = existingByName.get(header.name.toLowerCase());
         current.existing = existing || null;
         current.id = existing?.id || fieldSlug(header.name);
-        current.tag = existing?.tag || (String(header.name).startsWith("fact_") ? "fact" : String(header.name).startsWith("dim_") ? "dimension" : "tabla");
+        const inferredTag = String(header.name).startsWith("fact_")
+          ? "fact"
+          : String(header.name).startsWith("dim_")
+            ? "dimension"
+            : "tabla";
+        current.tag = header.settings.tag !== undefined
+          ? String(header.settings.tag)
+          : existing?.tag || inferredTag;
         current.headerColor = header.settings.headercolor || existing?.headerColor || "";
         if (current.headerColor) tableColors[current.id] = current.headerColor;
       }
@@ -345,11 +377,11 @@ function parseDbml(dbml) {
           title: current.name,
           tag: current.tag,
           description: current.note || existing.description || "",
-          relations: Array.isArray(existing.relations) ? existing.relations : [],
           fields: current.fields,
           modelRelations: [],
-          dbmlGroup: "",
-          dbmlGroupColor: "",
+          relationCount: 0,
+          group: "",
+          groupColor: "",
           headerColor: current.headerColor || "",
         });
       } else if (current?.kind === "tablegroup") {
@@ -407,8 +439,8 @@ function parseDbml(dbml) {
     group.members.forEach((name) => {
       const table = byTitle.get(String(name).toLowerCase());
       if (table) {
-        table.dbmlGroup = group.name;
-        table.dbmlGroupColor = group.color;
+        table.group = group.name;
+        table.groupColor = group.color;
       }
     });
   });
@@ -423,8 +455,11 @@ function parseDbml(dbml) {
       parentId: parent.id,
       parentField: ref.parentField,
       source: "dbml-editor",
-      dbmlGroup: child.dbmlGroup || "",
+      group: child.group || "",
     });
+  });
+  parsedTables.forEach((table) => {
+    table.relationCount = (table.modelRelations || []).length;
   });
 
   return { tables: parsedTables, colors: tableColors };
@@ -454,18 +489,10 @@ function tableGroupToDbml(group, options = {}) {
 
 function activeTableGroupsDbml() {
   const blocks = [];
-  if (isDefaultView()) {
-    schemaGroups.forEach((group) => {
-      const block = tableGroupToDbml(group, { note: `Grupo generado desde ${group.name}` });
-      if (block) blocks.push(block);
-    });
-  }
-  groups
-    .filter((group) => (group.viewId || DEFAULT_VIEW_ID) === activeViewId)
-    .forEach((group) => {
-      const block = tableGroupToDbml(group);
-      if (block) blocks.push(block);
-    });
+  schemaGroups.forEach((group) => {
+    const block = tableGroupToDbml(group, { note: `Grupo generado desde ${group.name}` });
+    if (block) blocks.push(block);
+  });
   return blocks;
 }
 
@@ -538,7 +565,6 @@ async function applyDbmlEditor() {
       ...currentViewConfig(),
       positions: sanitizePositions(viewPositions[activeViewId]),
       colors: { ...cardColors },
-      customRelationships: [],
       deletedRelationIds: [],
       relationRoutes: {},
       groups: [],
@@ -662,22 +688,22 @@ function metrics(card) {
 function buildSchemaGroups() {
   const grouped = new Map();
   schemaTables.forEach((table) => {
-    if (!table.dbmlGroup) {
+    if (!table.group) {
       return;
     }
-    if (!grouped.has(table.dbmlGroup)) {
-      grouped.set(table.dbmlGroup, {
-        id: `schema-group-${fieldSlug(table.dbmlGroup)}`,
-        name: table.dbmlGroup,
+    if (!grouped.has(table.group)) {
+      grouped.set(table.group, {
+        id: `schema-group-${fieldSlug(table.group)}`,
+        name: table.group,
         cardIds: [],
-        color: table.dbmlGroupColor || schemaGroupColor(grouped.size),
+        color: table.groupColor || schemaGroupColor(grouped.size),
         locked: true,
       });
     }
-    if (table.dbmlGroupColor) {
-      grouped.get(table.dbmlGroup).color = table.dbmlGroupColor;
+    if (table.groupColor) {
+      grouped.get(table.group).color = table.groupColor;
     }
-    grouped.get(table.dbmlGroup).cardIds.push(table.id);
+    grouped.get(table.group).cardIds.push(table.id);
   });
   schemaGroups.splice(0, schemaGroups.length, ...grouped.values());
 }
@@ -687,8 +713,6 @@ function schemaGroupColor(index) {
   return colors[index % colors.length];
 }
 
-// Relationships can come from DBML-enriched modelRelations or, as fallback,
-// from field notes that mention "FK a <table>.<column>".
 function deriveRelationships() {
   const result = [];
   const seen = new Set();
@@ -710,37 +734,7 @@ function deriveRelationships() {
         parentId: rel.parentId,
         parentField: rel.parentField,
         source: rel.source || "schema",
-        dbmlGroup: rel.dbmlGroup || child.dbmlGroup || "",
-      });
-    });
-
-    if (child.modelRelations?.length) {
-      return;
-    }
-
-    (child.fields || []).forEach((field) => {
-      const match = /FK a\s+([A-Za-z0-9_]+)\.([A-Za-z0-9_]+)/i.exec(field.note || "");
-      if (!match) {
-        return;
-      }
-
-      const parent = tableByName[match[1].trim().toLowerCase()];
-      if (!parent || parent.id === child.id) {
-        return;
-      }
-
-      const id = `${child.id}.${field.name}__${parent.id}.${match[2]}`;
-      if (seen.has(id)) {
-        return;
-      }
-      seen.add(id);
-
-      result.push({
-        id,
-        childId: child.id,
-        childField: field.name,
-        parentId: parent.id,
-        parentField: match[2],
+        group: rel.group || child.group || "",
       });
     });
   });
@@ -975,12 +969,6 @@ function currentView() {
   return modelViews.find((view) => view.id === activeViewId) || modelViews[0];
 }
 
-// Con vistas basadas en archivo, cada vista es un esquema completo, por lo que
-// siempre se muestran las relaciones y grupos derivados del esquema activo.
-function isDefaultView() {
-  return true;
-}
-
 function sanitizePositions(positions) {
   const out = {};
   if (!positions || typeof positions !== "object") {
@@ -1004,28 +992,55 @@ function renderViewSelect() {
   modelViewSelect.value = activeViewId;
 }
 
-function closeViewTableMenu() {
-  if (viewTableMenu) {
-    viewTableMenu.hidden = true;
-    viewTableButton?.setAttribute("aria-expanded", "false");
-  }
-}
-
 // Las vistas ahora provienen de archivos model-schema*.json; los controles para
 // componer vistas por subconjunto de tablas ya no aplican y quedan ocultos.
 function renderViewControls() {
   renderViewSelect();
-  closeViewTableMenu();
+  if (modelViewSelect) {
+    modelViewSelect.setAttribute("aria-disabled", editModeEnabled ? "true" : "false");
+    modelViewSelect.title = editModeEnabled ? "Desactiva la edicion para cambiar de vista" : "Cambiar vista";
+  }
   if (newViewButton) {
     newViewButton.hidden = !(editModeEnabled && isLocalHost());
   }
-  if (viewTableControls) {
-    viewTableControls.hidden = true;
+  if (renameViewButton) {
+    renameViewButton.hidden = !(editModeEnabled && isLocalHost());
   }
   // "Guardar" solo en modo edicion y cuando se sirve en local (puede escribir
   // los archivos model-schema/model-views de la vista).
   if (saveViewButton) {
     saveViewButton.hidden = !(editModeEnabled && isLocalHost());
+  }
+}
+
+async function renameActiveView() {
+  if (!editModeEnabled || !isLocalHost()) {
+    return;
+  }
+  const view = currentView();
+  if (!view) {
+    return;
+  }
+  const nextName = window.prompt("Nombre de la vista", view.name || view.id);
+  if (nextName === null) {
+    return;
+  }
+  const trimmed = nextName.trim();
+  if (!trimmed || trimmed === view.name) {
+    return;
+  }
+  const duplicate = modelViews.some((item) => item.id !== view.id && item.name.trim().toLowerCase() === trimmed.toLowerCase());
+  if (duplicate) {
+    window.alert("Ya existe una vista con ese nombre.");
+    return;
+  }
+  view.name = trimmed;
+  renderViewSelect();
+  saveState();
+  try {
+    await persistActiveModelFiles();
+  } catch (error) {
+    console.error("No se pudo guardar el nombre de la vista", error);
   }
 }
 
@@ -1064,7 +1079,6 @@ async function createNewModelView() {
   viewSeeds[activeViewId] = {
     positions: {},
     colors: {},
-    customRelationships: [],
     deletedRelationIds: [],
     relationRoutes: {},
     groups: [],
@@ -1082,7 +1096,11 @@ async function createNewModelView() {
 }
 
 function resetCurrentViewLayout() {
-  viewPositions[activeViewId] = {};
+  // Restablecer significa volver a la semilla persistida en model-views.
+  // Las tablas que no tengan coordenadas en el archivo reciben el layout
+  // automático como fallback dentro de computeLayout().
+  const seed = viewSeeds[activeViewId];
+  viewPositions[activeViewId] = sanitizePositions(seed?.positions || {});
   applyCurrentViewPositions();
   updateCollapsedCards();
   updateGroups();
@@ -1102,7 +1120,7 @@ async function loadSchemaManifest() {
         .filter((entry) => entry && entry.id && entry.file)
         .map((entry) => ({
           id: String(entry.id),
-          name: String(entry.name || entry.id),
+          name: String(entry.name),
           file: String(entry.file),
           viewsFile: entry.viewsFile ? String(entry.viewsFile) : null,
         }))
@@ -1120,7 +1138,6 @@ async function loadSchemaManifest() {
 function renderActiveSchema(state) {
   relationships = [];
   schemaRelationships = deriveRelationships();
-  customRelationships = [];
   deletedRelationIds.clear();
   Object.keys(relationRoutes).forEach((key) => delete relationRoutes[key]);
   groups.length = 0;
@@ -1138,11 +1155,6 @@ function renderActiveSchema(state) {
     zoom = clamp(state.zoom, MIN_ZOOM, MAX_ZOOM);
   }
 
-  if (Array.isArray(state?.customRelationships)) {
-    customRelationships = state.customRelationships
-      .filter((rel) => rel && tableById[rel.childId] && tableById[rel.parentId])
-      .map((rel) => ({ ...rel, viewId: activeViewId }));
-  }
   if (Array.isArray(state?.deletedRelationIds)) {
     state.deletedRelationIds.forEach((id) => deletedRelationIds.add(id));
   }
@@ -1316,14 +1328,6 @@ function buildMarkerPath(child, childSide, parent, parentSide) {
   return d;
 }
 
-function scopedRelationshipId(baseId) {
-  return isDefaultView() ? baseId : `${activeViewId}::${baseId}`;
-}
-
-function relationViewId(rel) {
-  return rel.viewId || DEFAULT_VIEW_ID;
-}
-
 function tableAccentColor(tableId) {
   if (cardColors[tableId]) {
     return cardColors[tableId];
@@ -1350,14 +1354,10 @@ function tableAccentColor(tableId) {
   return "#64748b";
 }
 
-// Merge relationships for the active view. Default keeps schema-derived
-// relationships; custom views start empty and only show view-local custom ones.
 function currentRelationships() {
-  const activeCustomRelationships = customRelationships.filter((rel) => relationViewId(rel) === activeViewId);
-  const merged = isDefaultView() ? [...schemaRelationships, ...activeCustomRelationships] : activeCustomRelationships;
   const seen = new Set();
   const out = [];
-  merged.forEach((rel) => {
+  schemaRelationships.forEach((rel) => {
     if (seen.has(rel.id) || deletedRelationIds.has(rel.id)) {
       return;
     }
@@ -1372,11 +1372,15 @@ function relationshipStableId(rel) {
 }
 
 function schemaTablesForSave() {
-  return schemaTables.map((table) => ({
-    ...table,
-    headerColor: cardColors[table.id] || table.headerColor,
-    modelRelations: (table.modelRelations || []).filter((rel) => !deletedRelationIds.has(relationshipStableId(rel))),
-  }));
+  return schemaTables.map((table) => {
+    const modelRelations = (table.modelRelations || []).filter((rel) => !deletedRelationIds.has(relationshipStableId(rel)));
+    return {
+      ...table,
+      headerColor: cardColors[table.id] || table.headerColor,
+      modelRelations,
+      relationCount: modelRelations.length,
+    };
+  });
 }
 
 function syncSchemaRelationshipsFromTables() {
@@ -1390,6 +1394,7 @@ function removeSchemaRelationship(relationId) {
     const after = before.filter((rel) => relationshipStableId(rel) !== relationId);
     if (after.length !== before.length) {
       table.modelRelations = after;
+      table.relationCount = after.length;
       removed = true;
     }
   });
@@ -1412,8 +1417,9 @@ function addSchemaRelationship(rel) {
     parentId: rel.parentId,
     parentField: rel.parentField,
     source: "ui",
-    dbmlGroup: child.dbmlGroup || "",
+    group: child.group || "",
   });
+  child.relationCount = child.modelRelations.length;
   return true;
 }
 
@@ -1749,7 +1755,7 @@ function createCustomRelationship(sourceConnector, targetConnector) {
   }
 
   const baseId = `${child.id}.${childField.name}__${parent.id}.${parentField.name}`;
-  const id = scopedRelationshipId(baseId);
+  const id = baseId;
   deletedRelationIds.delete(id);
 
   const exists = currentRelationships().some((rel) => rel.id === id);
@@ -1763,12 +1769,8 @@ function createCustomRelationship(sourceConnector, targetConnector) {
       parentField: parentField.name,
       custom: true,
     };
-    if (isDefaultView()) {
-      addSchemaRelationship(rel);
-      syncSchemaRelationshipsFromTables();
-    } else {
-      customRelationships.push(rel);
-    }
+    addSchemaRelationship(rel);
+    syncSchemaRelationshipsFromTables();
   }
 
   rebuildRelationships();
@@ -1792,10 +1794,6 @@ function deleteSelectedRelation() {
   deletedRelationIds.add(selectedRelationId);
   delete relationRoutes[selectedRelationId];
   const removedFromSchema = removeSchemaRelationship(selectedRelationId);
-  const index = customRelationships.findIndex((rel) => rel.id === selectedRelationId);
-  if (index !== -1) {
-    customRelationships.splice(index, 1);
-  }
   if (removedFromSchema) {
     deletedRelationIds.delete(selectedRelationId);
     syncSchemaRelationshipsFromTables();
@@ -1831,29 +1829,6 @@ function clearHighlight() {
   if (relationHighlightEnabled) {
     applyRelationHighlightMode();
   }
-}
-
-function highlightRelation(rel) {
-  diagramPanel?.classList.remove("is-relation-highlight-mode");
-  clearHighlight();
-  diagramPanel?.classList.add("is-focused");
-  const target = relationEls.find((item) => item.rel.id === rel.id);
-  target?.group.classList.add("is-active");
-  cardEl(rel.childId)?.classList.add("is-active");
-  cardEl(rel.parentId)?.classList.add("is-active");
-  markRow(rel.childId, rel.childField, true);
-  markRow(rel.parentId, rel.parentField, true);
-}
-
-// Al pasar el cursor por una tabla solo se afecta a sus relaciones (brillo +
-// grosor + flujo de puntos). Las tablas NO se difuminan ni cambian de estilo.
-function highlightTable(tableId) {
-  clearHighlight();
-  relationEls.forEach(({ rel, group }) => {
-    if (rel.childId === tableId || rel.parentId === tableId) {
-      group.classList.add("is-active", "is-flowing");
-    }
-  });
 }
 
 function applyRelationHighlightMode() {
@@ -2013,18 +1988,6 @@ function bindCards() {
       } else {
         selectCard(tableId);
       }
-    });
-
-    // Hover sobre cualquier parte de la tabla: resalta y anima el flujo de
-    // puntos sobre sus relaciones (respetando la direccion FK -> PK).
-    card.addEventListener("mouseenter", () => {
-      if (card.classList.contains("is-dragging")) {
-        return;
-      }
-      highlightTable(tableId);
-    });
-    card.addEventListener("mouseleave", () => {
-      clearHighlight();
     });
 
     const fields = card.querySelector(".er-card-fields.is-field-capped");
@@ -2278,7 +2241,7 @@ function applyColor(color) {
       group.cardIds.forEach((id) => {
         const table = tableById[id];
         if (table) {
-          table.dbmlGroupColor = color;
+          table.groupColor = color;
         }
       });
       renderSchemaGroups();
@@ -2309,7 +2272,7 @@ function clearColor() {
       group.cardIds.forEach((id) => {
         const table = tableById[id];
         if (table) {
-          delete table.dbmlGroupColor;
+          delete table.groupColor;
         }
       });
       buildSchemaGroups();
@@ -2394,9 +2357,7 @@ function collapsedGroupWidth(group) {
 
 function updateCollapsedCards() {
   const collapsedCardIds = new Set();
-  const activeGroups = groups.filter((group) => (group.viewId || DEFAULT_VIEW_ID) === activeViewId);
-  const collapsibleGroups = isDefaultView() ? [...schemaGroups, ...activeGroups] : activeGroups;
-  collapsibleGroups.forEach((group) => {
+  schemaGroups.forEach((group) => {
     if (!group.collapsed) {
       return;
     }
@@ -2473,7 +2434,7 @@ function renderSchemaGroups() {
     bindGroupCollapseButton(group, header);
     header.addEventListener("click", (event) => {
       event.stopPropagation();
-      selectGroup(group.id);
+      selectGroup(group.id, { preserveCards: editModeEnabled && selectedCardIds.size > 0 });
     });
     header.addEventListener("dblclick", (event) => {
       event.stopPropagation();
@@ -2494,13 +2455,6 @@ function updateSchemaGroups() {
   schemaGroupEls.forEach((el) => {
     const group = schemaGroups.find((g) => g.id === el.dataset.schemaGroupId);
     const header = schemaGroupHeaderEls.find((item) => item.dataset.schemaGroupId === el.dataset.schemaGroupId);
-    if (!isDefaultView()) {
-      el.style.display = "none";
-      if (header) {
-        header.style.display = "none";
-      }
-      return;
-    }
     const bounds = group && groupBounds(group);
     if (!bounds) {
       el.style.display = "none";
@@ -2567,7 +2521,7 @@ function renderGroups() {
     });
     el.addEventListener("click", (event) => {
       event.stopPropagation();
-      selectGroup(group.id);
+      selectGroup(group.id, { preserveCards: editModeEnabled && selectedCardIds.size > 0 });
     });
   });
 
@@ -2672,10 +2626,12 @@ function enableGroupDrag(group, header) {
   header.addEventListener("pointercancel", stop);
 }
 
-function selectGroup(groupId) {
+function selectGroup(groupId, { preserveCards = false } = {}) {
   selectedGroupId = groupId;
   selectedCardId = null;
-  selectedCardIds.clear();
+  if (!preserveCards) {
+    selectedCardIds.clear();
+  }
   selectedRelationId = null;
   refreshSelectionStyles();
 }
@@ -2699,8 +2655,8 @@ function renameGroup(group) {
   if (isSchemaGroup) {
     group.cardIds.forEach((id) => {
       const table = tableById[id];
-      if (table?.dbmlGroup === previousName) {
-        table.dbmlGroup = trimmed;
+      if (table?.group === previousName) {
+        table.group = trimmed;
       }
     });
     buildSchemaGroups();
@@ -2727,8 +2683,8 @@ function createGroupFromSelection() {
   Array.from(selectedCardIds).forEach((id) => {
     const table = tableById[id];
     if (table) {
-      table.dbmlGroup = groupName;
-      table.dbmlGroupColor = groupColor;
+      table.group = groupName;
+      table.groupColor = groupColor;
     }
   });
   clearSelection();
@@ -2743,6 +2699,59 @@ function createGroupFromSelection() {
   scheduleModelFilePersist();
 }
 
+function removeSelectedTablesFromGroup() {
+  if (!selectedCardIds.size) {
+    return;
+  }
+  const selectedGroup = selectedSchemaGroup();
+  const groupName = selectedGroup?.name || null;
+  let changed = false;
+
+  selectedCardIds.forEach((id) => {
+    const table = tableById[id];
+    if (!table?.group || (groupName && table.group !== groupName)) {
+      return;
+    }
+    delete table.group;
+    delete table.groupColor;
+    changed = true;
+  });
+
+  if (!changed) {
+    return;
+  }
+  clearSelection();
+  buildSchemaGroups();
+  renderSchemaGroups();
+  updateDbmlEditorFromView();
+  saveState();
+  scheduleModelFilePersist();
+}
+
+function addSelectedTablesToGroup() {
+  const group = selectedSchemaGroup();
+  if (!group || !selectedCardIds.size) {
+    return;
+  }
+
+  selectedCardIds.forEach((id) => {
+    const table = tableById[id];
+    if (table) {
+      table.group = group.name;
+      table.groupColor = group.color;
+    }
+  });
+
+  const groupId = group.id;
+  clearSelection();
+  buildSchemaGroups();
+  renderSchemaGroups();
+  selectGroup(groupId);
+  updateDbmlEditorFromView();
+  saveState();
+  scheduleModelFilePersist();
+}
+
 function deleteSelectedGroup() {
   if (!selectedGroupId) {
     return;
@@ -2752,8 +2761,8 @@ function deleteSelectedGroup() {
     schemaGroup.cardIds.forEach((id) => {
       const table = tableById[id];
       if (table) {
-        delete table.dbmlGroup;
-        delete table.dbmlGroupColor;
+        delete table.group;
+        delete table.groupColor;
       }
     });
     buildSchemaGroups();
@@ -2773,7 +2782,7 @@ function deleteSelectedGroup() {
 }
 
 function restoreGroups(saved) {
-  // Los TableGroup se leen desde model-schema (dbmlGroup/dbmlGroupColor).
+  // Los TableGroup se leen desde model-schema (group/groupColor).
   // Se ignoran grupos visuales heredados de model-views para evitar doble fuente de verdad.
   void saved;
   updateCollapsedCards();
@@ -2796,11 +2805,22 @@ function restoreSchemaGroups(saved) {
 }
 
 function updateGroupButtons() {
+  const selectedGroup = selectedSchemaGroup();
+  const selectedTables = Array.from(selectedCardIds)
+    .map((id) => tableById[id])
+    .filter(Boolean);
+  const canRemoveTables = selectedTables.some((table) => table.group && (!selectedGroup || table.group === selectedGroup.name));
   if (groupTablesButton) {
     groupTablesButton.disabled = !editModeEnabled || selectedCardIds.size < 1;
   }
   if (deleteGroupButton) {
     deleteGroupButton.disabled = !editModeEnabled || !selectedGroupId;
+  }
+  if (removeTablesFromGroupButton) {
+    removeTablesFromGroupButton.disabled = !editModeEnabled || !canRemoveTables;
+  }
+  if (addTablesToGroupButton) {
+    addTablesToGroupButton.disabled = !editModeEnabled || !selectedGroup || selectedCardIds.size < 1;
   }
 }
 
@@ -2823,7 +2843,6 @@ function updateEditModeUi() {
   }
   if (!editModeEnabled) {
     closeColorMenu();
-    closeViewTableMenu();
     clearSelection();
     setPendingConnector(null);
   }
@@ -2955,7 +2974,6 @@ function effectiveViewState(viewId, seed, blob) {
   return {
     positions: pick("positions", {}) || {},
     colors: pick("colors", {}) || {},
-    customRelationships: [],
     deletedRelationIds: [],
     relationRoutes: pick("relationRoutes", {}) || {},
     groups: Array.isArray(pick("groups", [])) ? pick("groups", []) : [],
@@ -2969,9 +2987,9 @@ function effectiveViewState(viewId, seed, blob) {
 // el archivo model-views.<vista>.json al usar "Guardar".
 function currentViewConfig() {
   return {
+    name: currentView()?.name || activeViewId,
     positions: viewPositions[activeViewId] || {},
     colors: {},
-    customRelationships: [],
     deletedRelationIds: [],
     relationRoutes: { ...relationRoutes },
     groups: [],
@@ -3358,15 +3376,19 @@ function bindToolbar() {
   dbmlRunButton?.addEventListener("click", applyDbmlEditor);
 
   modelViewSelect?.addEventListener("change", async () => {
+    if (editModeEnabled) {
+      renderViewSelect();
+      return;
+    }
     captureCurrentPositions();
     saveState();
-    closeViewTableMenu();
     await activateView(modelViewSelect.value || DEFAULT_VIEW_ID);
     saveState();
   });
 
   resetViewLayoutButton?.addEventListener("click", resetCurrentViewLayout);
   newViewButton?.addEventListener("click", createNewModelView);
+  renameViewButton?.addEventListener("click", renameActiveView);
   saveViewButton?.addEventListener("click", saveViewToFiles);
   exportPngButton?.addEventListener("click", exportDiagramPng);
 
@@ -3436,15 +3458,10 @@ function bindToolbar() {
     }
   });
 
-  document.addEventListener("click", (event) => {
-    const target = event.target;
-    if (viewTableMenu && !viewTableMenu.contains(target) && !viewTableButton?.contains(target)) {
-      closeViewTableMenu();
-    }
-  });
-
   groupTablesButton?.addEventListener("click", createGroupFromSelection);
   deleteGroupButton?.addEventListener("click", deleteSelectedGroup);
+  removeTablesFromGroupButton?.addEventListener("click", removeSelectedTablesFromGroup);
+  addTablesToGroupButton?.addEventListener("click", addSelectedTablesToGroup);
   deleteRelationButton?.addEventListener("click", deleteSelectedRelation);
   relationHighlightButton?.addEventListener("click", () => {
     setRelationHighlightMode(!relationHighlightEnabled);

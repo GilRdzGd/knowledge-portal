@@ -17,15 +17,6 @@ export function createModelDocument() {
               <span>Vista</span>
               <select id="model-view-select"></select>
             </label>
-            <div class="view-table-controls">
-              <button class="zoom-button view-table-button" id="view-table-button" type="button" aria-haspopup="true" aria-expanded="false">
-                Tablas
-              </button>
-              <div class="view-table-menu" id="view-table-menu" hidden>
-                <div class="view-table-menu-head">Tablas de la vista</div>
-                <div class="view-table-options" id="view-table-options"></div>
-              </div>
-            </div>
           </div>
           <button class="zoom-button view-reset-button" id="reset-view-layout-button" type="button" aria-label="Restablecer layout" title="Restablecer layout">
             <svg class="layout-button-icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
@@ -72,23 +63,14 @@ export function createModelDocument() {
           </button>
           <span class="toolbar-separator edit-toolbar-separator" aria-hidden="true"></span>
           <button class="zoom-button view-new-button" id="new-view-button" type="button" aria-label="Nueva vista" title="Nueva vista">
-            <svg class="new-view-button-icon" viewBox="0 0 21 21" aria-hidden="true" focusable="false">
-              <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" transform="translate(2 2)">
-                <path d="m16.5 5.5v-3c0-1.1045695-.8954305-2-2-2h-3"/>
-                <path d="m8.5 10.5v-4"/>
-                <path d="m6.5 8.5h4"/>
-                <path d="m16.5 11.5v3c0 1.1045695-.8954305 2-2 2h-3m-6-16h-3c-1.1045695 0-2 .8954305-2 2v3m5 11h-3c-1.1045695 0-2-.8954305-2-2v-3"/>
-              </g>
-            </svg>
+            <span class="toolbar-icon new-view-button-icon" aria-hidden="true"></span>
+          </button>
+          <button class="zoom-button view-rename-button" id="rename-view-button" type="button" aria-label="Renombrar vista" title="Renombrar vista">
+            <span class="toolbar-icon rename-view-button-icon" aria-hidden="true"></span>
           </button>
           <div class="color-controls" aria-label="Table color controls">
             <button class="zoom-button color-button" id="table-color-button" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Color" title="Color">
-              <svg class="color-button-icon" viewBox="0 0 21 21" aria-hidden="true" focusable="false">
-                <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" transform="translate(3 3)">
-                  <path d="m14 1c.8284271.82842712.8284271 2.17157288 0 3l-9.5 9.5-4 1 1-3.9436508 9.5038371-9.55252193c.7829896-.78700064 2.0312313-.82943964 2.864366-.12506788z"/>
-                  <path d="m12.5 3.5 1 1"/>
-                </g>
-              </svg>
+              <span class="toolbar-icon color-button-icon" aria-hidden="true"></span>
             </button>
             <div class="color-menu" id="table-color-menu" hidden>
               <button class="color-swatch" type="button" data-color-value="#ff3b0a" style="--swatch:#ff3b0a" aria-label="Red"></button>
@@ -109,34 +91,21 @@ export function createModelDocument() {
           </div>
           <div class="relation-controls" aria-label="Relation controls">
             <button class="zoom-button relation-delete-button" id="delete-relation-button" type="button" disabled aria-label="Eliminar relacion" title="Eliminar relacion">
-              <svg class="broken-link-button-icon" viewBox="0 0 21 21" aria-hidden="true" focusable="false">
-                <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" transform="translate(2 2)">
-                  <path d="m7.5 5.32842712 1-1c1.1045695-1.10456949 2.8954305-1.10456949 4 0 1.1045695 1.1045695 1.1045695 2.89543051 0 4l-1 1m-3.17157288 3.17157288-1 1c-1.10456949 1.1045695-2.8954305 1.1045695-4 0-1.10456949-1.1045695-1.10456949-2.8954305 0-4l1-1"/>
-                  <path d="m5.5 3.5v-3"/>
-                  <path d="m.5 5.5h3"/>
-                  <path d="m11.5 16.5v-3"/>
-                  <path d="m13.5 11.5h3"/>
-                </g>
-              </svg>
+              <span class="toolbar-icon broken-link-button-icon" aria-hidden="true"></span>
             </button>
           </div>
           <div class="group-controls" aria-label="Group controls">
             <button class="zoom-button group-button" id="group-tables-button" type="button" disabled aria-label="Agrupar" title="Agrupar">
-              <svg class="group-button-icon" viewBox="0 0 21 21" aria-hidden="true" focusable="false">
-                <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" transform="translate(3.5 3.5)">
-                  <path d="m6.00772212.56701593-5 2.85714286c-.62314999.35608571-1.00772212 1.01877259-1.00772212 1.73648628v6.83935493c0 1.1045695.8954305 2 2 2h10c1.1045695 0 2-.8954305 2-2v-6.83935493c0-.71771369-.3845721-1.38040057-1.0077221-1.73648628l-5.00000002-2.85714286c-.61486534-.35135162-1.36969042-.35135162-1.98455576 0z"/>
-                  <path d="m7 5v6"/>
-                  <path d="m4 8h6"/>
-                </g>
-              </svg>
+              <span class="toolbar-icon group-button-icon" aria-hidden="true"></span>
             </button>
             <button class="zoom-button group-button" id="delete-group-button" type="button" disabled aria-label="Eliminar grupo" title="Eliminar grupo">
-              <svg class="mail-remove-button-icon" viewBox="0 0 21 21" aria-hidden="true" focusable="false">
-                <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" transform="translate(3.5 3.5)">
-                  <path d="m6.00772212.56701593-5 2.85714286c-.62314999.35608571-1.00772212 1.01877259-1.00772212 1.73648628v6.83935493c0 1.1045695.8954305 2 2 2h10c1.1045695 0 2-.8954305 2-2v-6.83935493c0-.71771369-.3845721-1.38040057-1.0077221-1.73648628l-5.00000002-2.85714286c-.61486534-.35135162-1.36969042-.35135162-1.98455576 0z"/>
-                  <path d="m4 8h6"/>
-                </g>
-              </svg>
+              <span class="toolbar-icon delete-group-button-icon" aria-hidden="true"></span>
+            </button>
+            <button class="zoom-button group-button" id="remove-tables-from-group-button" type="button" disabled aria-label="Quitar tablas del grupo" title="Quitar tablas del grupo">
+              <span class="toolbar-icon remove-tables-button-icon" aria-hidden="true"></span>
+            </button>
+            <button class="zoom-button group-button" id="add-tables-to-group-button" type="button" disabled aria-label="Agregar tablas al grupo" title="Agregar tablas al grupo">
+              <span class="toolbar-icon add-tables-button-icon" aria-hidden="true"></span>
             </button>
           </div>
         </div>

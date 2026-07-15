@@ -1,4 +1,5 @@
 {
+  "name": "Test",
   "positions": {
     "captacion-dim-tiempo": {
       "left": 80,
@@ -14,14 +15,14 @@
     },
     "captacion-dim-producto-familia": {
       "left": 1360,
-      "top": 718
+      "top": 1142
     },
     "captacion-dim-operacion-canal": {
-      "left": 80,
-      "top": 924
+      "left": 87.3333,
+      "top": 1562
     },
     "captacion-fact-movimiento-cap": {
-      "left": 720,
+      "left": 768,
       "top": 120
     },
     "captacion-fact-cuenta-cap-periodo": {
@@ -34,7 +35,6 @@
     }
   },
   "colors": {},
-  "customRelationships": [],
   "deletedRelationIds": [],
   "relationRoutes": {},
   "groups": [],
@@ -45,5 +45,5 @@
       "collapsedBounds": null
     }
   ],
-  "zoom": 0.5
+  "zoom": 0.65
 }

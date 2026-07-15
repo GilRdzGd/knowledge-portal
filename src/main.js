@@ -40,7 +40,12 @@ async function boot() {
   const modelPage = createModelPage({ catalog, shell, viewer, appMeta });
   const documentationPage = createDocumentationPage({ shell, viewer });
   const chat = createLineageChat({ catalog });
-  const chatPage = createChatPage({ shell, viewer, chat });
+  const chatPage = createChatPage({ shell, chat });
+
+  function isViewerMessage(event) {
+    const allowedOrigin = event.origin === window.location.origin || event.origin === "null";
+    return event.source === shell.viewer.contentWindow && allowedOrigin && event.data && typeof event.data.type === "string";
+  }
 
   const routes = {
     inicio: () => {
@@ -66,13 +71,9 @@ async function boot() {
   };
 
   window.addEventListener("message", (event) => {
+    if (!isViewerMessage(event)) return;
     if (event.data?.type === "model-expand") {
       shell.setModelExpanded(Boolean(event.data.expanded));
-    }
-    if (event.data?.type === "chat-question") {
-      chat.ask(event.data.question).then((answer) => {
-        shell.viewer.contentWindow?.postMessage({ type: "chat-answer", id: event.data.id, answer }, "*");
-      });
     }
   });
 

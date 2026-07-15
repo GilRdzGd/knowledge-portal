@@ -48,11 +48,12 @@ export function createShell(root) {
                 </section>
               </div>
             </div>
-            <div class="frame-wrap" id="frameWrap"><iframe id="viewer" title="Vista seleccionada"></iframe></div>
+            <div class="frame-wrap" id="frameWrap"><iframe id="viewer" title="Vista seleccionada" allow="webgpu"></iframe></div>
           </div>
         </section>
         <div class="home-mount" id="homeMount" hidden></div>
         <div class="documentation-mount" id="documentationMount" hidden></div>
+        <div class="chat-mount" id="chatMount" hidden></div>
       </main>
     </div>`;
 
@@ -72,6 +73,7 @@ export function createShell(root) {
     homeMount: root.querySelector("#homeMount"),
     frameWrap: root.querySelector("#frameWrap"),
     documentationMount: root.querySelector("#documentationMount"),
+    chatMount: root.querySelector("#chatMount"),
     viewer: root.querySelector("#viewer"),
     scrollArea: root.querySelector("#scrollArea"),
     navLinks: Array.from(root.querySelectorAll(".nav a[data-view]")),
@@ -97,10 +99,11 @@ export function createShell(root) {
       elements.app.classList.toggle("mode-documentation", view === "documentacion");
       elements.app.classList.toggle("mode-home", view === "inicio");
       elements.app.classList.toggle("mode-chat", view === "chat");
-      elements.workspace.hidden = view === "documentacion" || view === "inicio";
-      elements.scrollArea.hidden = view === "documentacion" || view === "inicio";
+      elements.workspace.hidden = view === "documentacion" || view === "inicio" || view === "chat";
+      elements.scrollArea.hidden = view === "documentacion" || view === "inicio" || view === "chat";
       elements.homeMount.hidden = view !== "inicio";
       elements.documentationMount.hidden = view !== "documentacion";
+      elements.chatMount.hidden = view !== "chat";
       if (view !== "modelo") {
         elements.app.classList.remove("model-expanded");
       }

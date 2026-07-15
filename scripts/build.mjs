@@ -17,6 +17,7 @@ await cp(path.join(root, "src/index.html"), path.join(dist, "index.html"));
 await cp(path.join(root, "src/main.js"), path.join(dist, "assets/js/main.js"));
 await cp(path.join(root, "src/components"), path.join(dist, "assets/js/components"), { recursive: true });
 await cp(path.join(root, "src/pages"), path.join(dist, "assets/js/pages"), { recursive: true });
+await cp(path.join(root, "src/services"), path.join(dist, "assets/js/services"), { recursive: true });
 await cp(path.join(root, "src/styles"), path.join(dist, "assets/css"), { recursive: true });
 await cp(path.join(root, "src/data"), path.join(dist, "assets/data"), { recursive: true });
 await cp(path.join(root, "public/assets"), path.join(dist, "assets"), { recursive: true });

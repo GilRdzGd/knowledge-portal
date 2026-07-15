@@ -95,9 +95,9 @@ async function loadDocumentation() {
         schemaEntry: entry,
         groupId: id,
         viewName: name,
-        domainName: label(table.dbmlGroup, ""),
-        groupColor: cssColor(table.dbmlGroupColor, "#2563eb"),
-        objectColor: cssColor(table.headerColor, table.dbmlGroupColor || "#2563eb"),
+        domainName: label(table.group, ""),
+        groupColor: cssColor(table.groupColor, "#2563eb"),
+        objectColor: cssColor(table.headerColor, table.groupColor || "#2563eb"),
       };
       groups.get(id).objects.push(object);
     });
@@ -172,7 +172,7 @@ function renderIndex() {
 
 function renderOverview(object) {
   const fieldCount = object.fields?.length || 0;
-  const relationCount = object.relations?.length || 0;
+  const relationCount = object.modelRelations?.length || 0;
   return `
     <section class="doc-panel doc-overview">
       <h2>${escapeHtml(object.title)}</h2>
@@ -273,7 +273,7 @@ function objectMarkdown(object) {
     markdownTableRow(["Dominio", object.domainName || "-"]),
     markdownTableRow(["Color", object.headerColor || "-"]),
     markdownTableRow(["Columnas", fields.length]),
-    markdownTableRow(["Relaciones", object.relations?.length || 0]),
+    markdownTableRow(["Relaciones", object.modelRelations?.length || 0]),
     "",
     "## Estructura",
     "",

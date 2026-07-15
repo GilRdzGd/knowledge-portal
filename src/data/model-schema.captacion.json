@@ -4,7 +4,6 @@
     "title": "h_baz_captacion_cliente",
     "tag": "hub",
     "description": "HUB | h_baz_captacion_cliente. HashKey: sha2(num_cus,512). RAW: rd_baz_bdclientes.rd_fin_clientepf, rd_baz_bdclientes.rd_pedt001_cifrada, rd_baz_bdclientes.rd_pedt002_cifrada, rd_baz_bdclientes.rd_pedt054_cifrada",
-    "relations": [],
     "fields": [
       {
         "key": "PK",
@@ -73,20 +72,17 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0,
     "headerColor": "#2169F3",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Cliente",
+    "groupColor": "#2563eb",
+    "relationCount": 0
   },
   {
     "id": "h_baz_captacion_cuenta",
     "title": "h_baz_captacion_cuenta",
     "tag": "hub",
     "description": "HUB | h_baz_captacion_cuenta. HashKey: sha2(CaptacionCuentaHashkey, 512). RAW: rd_baz_bdclientes.rd_bgdt006, rd_baz_bdclientes.rd_bldt001_cifrada, rd_baz_bdclientes.rd_fin_990pf, rd_baz_bdclientes.rd_fin_autorizado, rd_baz_bdclientes.rd_fin_beneficiario (+5 más)",
-    "relations": [],
     "fields": [
       {
         "key": "PK",
@@ -155,20 +151,17 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0,
     "headerColor": "#2169F3",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#dc2626"
+    "group": "Cuenta",
+    "groupColor": "#dc2626",
+    "relationCount": 0
   },
   {
     "id": "h_baz_captacion_cuenta_sac",
     "title": "h_baz_captacion_cuenta_sac",
     "tag": "hub",
     "description": "HUB | h_baz_captacion_cuenta_sac. HashKey: sha2(concat_ws('-', tarjeta, banco_emisor), 512). RAW: rd_baz_bdclientes.rd_sac325",
-    "relations": [],
     "fields": [
       {
         "key": "PK",
@@ -225,20 +218,17 @@
         "note": "BK: Banco emisor de la cuenta SAC"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0,
     "headerColor": "#2169F3",
-    "dbmlGroup": "Cuenta SAC",
-    "dbmlGroupColor": "#16a34a"
+    "group": "Cuenta SAC",
+    "groupColor": "#16a34a",
+    "relationCount": 0
   },
   {
     "id": "h_baz_captacion_garantia",
     "title": "h_baz_captacion_garantia",
     "tag": "hub",
     "description": "HUB | h_baz_captacion_garantia. HashKey: sha2(concat_ws('-', t031_ent, t031_num_operation), 512). RAW: rd_baz_bdclientes.rd_gadt031",
-    "relations": [],
     "fields": [
       {
         "key": "PK",
@@ -295,20 +285,17 @@
         "note": "BK: Numero de operacion de garantia"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0,
     "headerColor": "#2169F3",
-    "dbmlGroup": "Garantia",
-    "dbmlGroupColor": "#ca8a04"
+    "group": "Garantia",
+    "groupColor": "#ca8a04",
+    "relationCount": 0
   },
   {
     "id": "h_baz_captacion_movimientos",
     "title": "h_baz_captacion_movimientos",
     "tag": "hub",
     "description": "HUB | h_baz_captacion_movimientos. HashKey: sha2(concat_ws('-',NumCuentaId,cuentaID,cast(MovimientoID as String)),512). RAW: rd_baz_bdclientes.rd_bgdt071_cifrada, rd_baz_bdclientes.rd_bgdt607, rd_baz_bdclientes.rd_bgdt710_cifrada, rd_baz_bdclientes.rd_bgdt746, rd_baz_bdclientes.rd_bgdt747 (+8 más)",
-    "relations": [],
     "fields": [
       {
         "key": "PK",
@@ -365,20 +352,17 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0,
     "headerColor": "#2169F3",
-    "dbmlGroup": "Movimiento",
-    "dbmlGroupColor": "#9333ea"
+    "group": "Movimiento",
+    "groupColor": "#9333ea",
+    "relationCount": 0
   },
   {
     "id": "h_baz_captacion_transaccion_fin",
     "title": "h_baz_captacion_transaccion_fin",
     "tag": "hub",
     "description": "HUB | h_baz_captacion_transaccion_fin. HashKey: sha2(CaptacionTransaccionFinHashKey, 512). RAW: rd_baz_bdclientes.rd_fin_990pf, rd_baz_bdclientes.rd_fin_opfin_general_conciliada",
-    "relations": [],
     "fields": [
       {
         "key": "PK",
@@ -441,22 +425,17 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0,
     "headerColor": "#2169F3",
-    "dbmlGroup": "Transaccion",
-    "dbmlGroupColor": "#ea580c"
+    "group": "Transaccion",
+    "groupColor": "#ea580c",
+    "relationCount": 0
   },
   {
     "id": "l_baz_captacion_cliente_credito_cliente",
     "title": "l_baz_captacion_cliente_credito_cliente",
     "tag": "link",
     "description": "LINK | l_baz_captacion_cliente_credito_cliente. RAW: rd_baz_bdclientes.rd_pedt065",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -513,8 +492,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "l_baz_captacion_cliente_credito_cliente.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
@@ -523,23 +500,19 @@
         "parentId": "h_baz_captacion_cliente",
         "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": ""
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#f54337",
-    "dbmlGroup": "",
-    "dbmlGroupColor": "#6b7280"
+    "group": "",
+    "groupColor": "#6b7280",
+    "relationCount": 1
   },
   {
     "id": "l_baz_captacion_cliente_cuenta",
     "title": "l_baz_captacion_cliente_cuenta",
     "tag": "link",
     "description": "LINK | l_baz_captacion_cliente_cuenta. HashKey: sha2(ClienteCaptacionCuentaLnkHashKey, 512). RAW: rd_baz_bdclientes.rd_fin_cuentav2, rd_baz_bdclientes.rd_pedt008",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`",
-      "FK a `h_baz_captacion_cuenta`.`CaptacionCuentaHashKey` mediante `CaptacionCuentaHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -596,8 +569,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "l_baz_captacion_cliente_cuenta.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
@@ -606,7 +577,7 @@
         "parentId": "h_baz_captacion_cliente",
         "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": ""
       },
       {
         "id": "l_baz_captacion_cliente_cuenta.CaptacionCuentaHashKey__h_baz_captacion_cuenta.CaptacionCuentaHashKey",
@@ -615,23 +586,19 @@
         "parentId": "h_baz_captacion_cuenta",
         "parentField": "CaptacionCuentaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": ""
       }
     ],
-    "dbmlRelationCount": 2,
     "headerColor": "#f54337",
-    "dbmlGroup": "",
-    "dbmlGroupColor": "#6b7280"
+    "group": "",
+    "groupColor": "#6b7280",
+    "relationCount": 2
   },
   {
     "id": "l_baz_captacion_cuenta_garantia",
     "title": "l_baz_captacion_cuenta_garantia",
     "tag": "link",
     "description": "LINK | l_baz_captacion_cuenta_garantia. RAW: rd_baz_bdclientes.rd_gadt031",
-    "relations": [
-      "FK a `h_baz_captacion_cuenta`.`CaptacionCuentaHashKey` mediante `CaptacionCuentaHashKey`",
-      "FK a `h_baz_captacion_garantia`.`CaptacionGarantiaHashKey` mediante `CaptacionGarantiaHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -688,8 +655,6 @@
         "note": "FK al Hub Garantia"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "l_baz_captacion_cuenta_garantia.CaptacionCuentaHashKey__h_baz_captacion_cuenta.CaptacionCuentaHashKey",
@@ -698,7 +663,7 @@
         "parentId": "h_baz_captacion_cuenta",
         "parentField": "CaptacionCuentaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": ""
       },
       {
         "id": "l_baz_captacion_cuenta_garantia.CaptacionGarantiaHashKey__h_baz_captacion_garantia.CaptacionGarantiaHashKey",
@@ -707,23 +672,19 @@
         "parentId": "h_baz_captacion_garantia",
         "parentField": "CaptacionGarantiaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": ""
       }
     ],
-    "dbmlRelationCount": 2,
     "headerColor": "#f54337",
-    "dbmlGroup": "",
-    "dbmlGroupColor": "#6b7280"
+    "group": "",
+    "groupColor": "#6b7280",
+    "relationCount": 2
   },
   {
     "id": "l_baz_captacion_cuenta_movimiento",
     "title": "l_baz_captacion_cuenta_movimiento",
     "tag": "link",
     "description": "LINK | l_baz_captacion_cuenta_movimiento. HashKey: sha2(concat_ws('-',NumCuentaId,cuentaID,NumCuentaId,cuentaID,cast(MovimientoID as String)),512). RAW: rd_baz_bdclientes.rd_bgdt071_cifrada, rd_baz_bdclientes.rd_bgdt607, rd_baz_bdclientes.rd_bgdt710_cifrada, rd_baz_bdclientes.rd_bgdt746, rd_baz_bdclientes.rd_bgdt747 (+8 más)",
-    "relations": [
-      "FK a `h_baz_captacion_cuenta`.`CaptacionCuentaHashKey` mediante `CaptacionCuentaHashKey`",
-      "FK a `h_baz_captacion_movimientos`.`CaptacionMovimientosHashKey` mediante `CaptacionMovimientosHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -780,8 +741,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "l_baz_captacion_cuenta_movimiento.CaptacionCuentaHashKey__h_baz_captacion_cuenta.CaptacionCuentaHashKey",
@@ -790,7 +749,7 @@
         "parentId": "h_baz_captacion_cuenta",
         "parentField": "CaptacionCuentaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": ""
       },
       {
         "id": "l_baz_captacion_cuenta_movimiento.CaptacionMovimientosHashKey__h_baz_captacion_movimientos.CaptacionMovimientosHashKey",
@@ -799,23 +758,19 @@
         "parentId": "h_baz_captacion_movimientos",
         "parentField": "CaptacionMovimientosHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": ""
       }
     ],
-    "dbmlRelationCount": 2,
     "headerColor": "#f54337",
-    "dbmlGroup": "",
-    "dbmlGroupColor": "#6b7280"
+    "group": "",
+    "groupColor": "#6b7280",
+    "relationCount": 2
   },
   {
     "id": "l_baz_captacion_cuenta_transaccion_fin",
     "title": "l_baz_captacion_cuenta_transaccion_fin",
     "tag": "link",
     "description": "LINK | l_baz_captacion_cuenta_transaccion_fin. RAW: rd_baz_bdclientes.rd_fin_opfin_general_conciliada",
-    "relations": [
-      "FK a `h_baz_captacion_cuenta`.`CaptacionCuentaHashKey` mediante `CaptacionCuentaHashKey`",
-      "FK a `h_baz_captacion_transaccion_fin`.`CaptacionTransaccionFinHashKey` mediante `CaptacionTransaccionFinHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -896,8 +851,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "l_baz_captacion_cuenta_transaccion_fin.CaptacionCuentaHashKey__h_baz_captacion_cuenta.CaptacionCuentaHashKey",
@@ -906,7 +859,7 @@
         "parentId": "h_baz_captacion_cuenta",
         "parentField": "CaptacionCuentaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": ""
       },
       {
         "id": "l_baz_captacion_cuenta_transaccion_fin.CaptacionTransaccionFinHashKey__h_baz_captacion_transaccion_fin.CaptacionTransaccionFinHashKey",
@@ -915,20 +868,19 @@
         "parentId": "h_baz_captacion_transaccion_fin",
         "parentField": "CaptacionTransaccionFinHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": ""
       }
     ],
-    "dbmlRelationCount": 2,
     "headerColor": "#f54337",
-    "dbmlGroup": "",
-    "dbmlGroupColor": "#6b7280"
+    "group": "",
+    "groupColor": "#6b7280",
+    "relationCount": 2
   },
   {
     "id": "l_baz_captacion_movimientos_cuentas_traspaso",
     "title": "l_baz_captacion_movimientos_cuentas_traspaso",
     "tag": "link",
     "description": "LINK | l_baz_captacion_movimientos_cuentas_traspaso. HashKey: sha2(concat_ws('-',cuentaID_credit,cuentaID_debit,T111_MOV_CREDIT ,T111_MOV_DEBIT ),512). RAW: rd_baz_bdclientes.rd_bgdt111_cifrada, rd_baz_bdclientes.rd_bgdt900_cifrada",
-    "relations": [],
     "fields": [
       {
         "key": "PK",
@@ -997,20 +949,17 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0,
     "headerColor": "#f54337",
-    "dbmlGroup": "",
-    "dbmlGroupColor": "#6b7280"
+    "group": "",
+    "groupColor": "#6b7280",
+    "relationCount": 0
   },
   {
     "id": "ref_baz_captacion_codigos_persona",
     "title": "ref_baz_captacion_codigos_persona",
     "tag": "satelite",
     "description": "SAT | ref_baz_captacion_codigos_persona. HashKey: sha2(concat_ws('-', t003_cod_entity, t003_cod_product, t003_code), 512). RAW: rd_baz_bdclientes.rd_wpdt003",
-    "relations": [],
     "fields": [
       {
         "key": "PK",
@@ -1133,22 +1082,17 @@
         "note": ""
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Cliente",
+    "groupColor": "#2563eb",
+    "relationCount": 0
   },
   {
     "id": "s_h_baz_captacion_cliente_centro_contable_alta",
     "title": "s_h_baz_captacion_cliente_centro_contable_alta",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cliente_centro_contable_alta. RAW: rd_baz_bdclientes.rd_bgdt347",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -1265,8 +1209,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cliente_centro_contable_alta.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
@@ -1275,22 +1217,19 @@
         "parentId": "h_baz_captacion_cliente",
         "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cliente"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Cliente",
+    "groupColor": "#2563eb",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_datos_contacto",
     "title": "s_h_baz_captacion_cliente_datos_contacto",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cliente_datos_contacto. RAW: rd_baz_bdclientes.rd_pedt001_cifrada, rd_baz_bdclientes.rd_pedt002_cifrada, rd_baz_bdclientes.rd_pedt054_cifrada",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -1503,8 +1442,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cliente_datos_contacto.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
@@ -1513,22 +1450,19 @@
         "parentId": "h_baz_captacion_cliente",
         "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cliente"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Cliente",
+    "groupColor": "#2563eb",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_datos_control",
     "title": "s_h_baz_captacion_cliente_datos_control",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cliente_datos_control. RAW: rd_baz_bdclientes.rd_pedt001_cifrada, rd_baz_bdclientes.rd_pedt002_cifrada, rd_baz_bdclientes.rd_pedt054_cifrada",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -1741,8 +1675,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cliente_datos_control.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
@@ -1751,22 +1683,19 @@
         "parentId": "h_baz_captacion_cliente",
         "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cliente"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Cliente",
+    "groupColor": "#2563eb",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_datos_cuenta",
     "title": "s_h_baz_captacion_cliente_datos_cuenta",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cliente_datos_cuenta. RAW: rd_baz_bdclientes.rd_pedt001_cifrada",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -1961,8 +1890,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cliente_datos_cuenta.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
@@ -1971,22 +1898,19 @@
         "parentId": "h_baz_captacion_cliente",
         "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cliente"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Cliente",
+    "groupColor": "#2563eb",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_datos_identificacion",
     "title": "s_h_baz_captacion_cliente_datos_identificacion",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cliente_datos_identificacion. RAW: rd_baz_bdclientes.rd_pedt001_cifrada, rd_baz_bdclientes.rd_pedt002_cifrada, rd_baz_bdclientes.rd_pedt054_cifrada",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -2193,8 +2117,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cliente_datos_identificacion.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
@@ -2203,22 +2125,19 @@
         "parentId": "h_baz_captacion_cliente",
         "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cliente"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Cliente",
+    "groupColor": "#2563eb",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_contacto",
     "title": "s_h_baz_captacion_cliente_fin_pf_contacto",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cliente_fin_pf_contacto. HashKey: sha2(idCliente, 512). RAW: rd_baz_bdclientes.rd_fin_clientepf",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -2281,8 +2200,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cliente_fin_pf_contacto.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
@@ -2291,22 +2208,19 @@
         "parentId": "h_baz_captacion_cliente",
         "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cliente"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Cliente",
+    "groupColor": "#2563eb",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_direccion_detalle",
     "title": "s_h_baz_captacion_cliente_fin_pf_direccion_detalle",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cliente_fin_pf_direccion_detalle. HashKey: sha2(idCliente, 512). RAW: rd_baz_bdclientes.rd_fin_clientepf",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -2411,8 +2325,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cliente_fin_pf_direccion_detalle.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
@@ -2421,22 +2333,19 @@
         "parentId": "h_baz_captacion_cliente",
         "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cliente"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Cliente",
+    "groupColor": "#2563eb",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_encabezado_trans",
     "title": "s_h_baz_captacion_cliente_fin_pf_encabezado_trans",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cliente_fin_pf_encabezado_trans. HashKey: sha2(idCliente, 512). RAW: rd_baz_bdclientes.rd_fin_clientepf",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -2529,8 +2438,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cliente_fin_pf_encabezado_trans.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
@@ -2539,22 +2446,19 @@
         "parentId": "h_baz_captacion_cliente",
         "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cliente"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Cliente",
+    "groupColor": "#2563eb",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_fiscal",
     "title": "s_h_baz_captacion_cliente_fin_pf_fiscal",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cliente_fin_pf_fiscal. HashKey: sha2(idCliente, 512). RAW: rd_baz_bdclientes.rd_fin_clientepf",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -2653,8 +2557,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cliente_fin_pf_fiscal.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
@@ -2663,22 +2565,19 @@
         "parentId": "h_baz_captacion_cliente",
         "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cliente"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Cliente",
+    "groupColor": "#2563eb",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_ident_detalle",
     "title": "s_h_baz_captacion_cliente_fin_pf_ident_detalle",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cliente_fin_pf_ident_detalle. HashKey: sha2(idCliente, 512). RAW: rd_baz_bdclientes.rd_fin_clientepf",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -2741,8 +2640,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cliente_fin_pf_ident_detalle.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
@@ -2751,22 +2648,19 @@
         "parentId": "h_baz_captacion_cliente",
         "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cliente"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Cliente",
+    "groupColor": "#2563eb",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_ine_detalle",
     "title": "s_h_baz_captacion_cliente_fin_pf_ine_detalle",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cliente_fin_pf_ine_detalle. HashKey: sha2(idCliente, 512). RAW: rd_baz_bdclientes.rd_fin_clientepf",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -2847,8 +2741,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cliente_fin_pf_ine_detalle.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
@@ -2857,22 +2749,19 @@
         "parentId": "h_baz_captacion_cliente",
         "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cliente"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Cliente",
+    "groupColor": "#2563eb",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_persona",
     "title": "s_h_baz_captacion_cliente_fin_pf_persona",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cliente_fin_pf_persona. HashKey: sha2(idCliente, 512). RAW: rd_baz_bdclientes.rd_fin_clientepf",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -2983,8 +2872,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cliente_fin_pf_persona.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
@@ -2993,22 +2880,19 @@
         "parentId": "h_baz_captacion_cliente",
         "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cliente"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Cliente",
+    "groupColor": "#2563eb",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_telefono_detalle",
     "title": "s_h_baz_captacion_cliente_fin_pf_telefono_detalle",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cliente_fin_pf_telefono_detalle. HashKey: sha2(idCliente, 512). RAW: rd_baz_bdclientes.rd_fin_clientepf",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -3077,8 +2961,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cliente_fin_pf_telefono_detalle.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
@@ -3087,22 +2969,19 @@
         "parentId": "h_baz_captacion_cliente",
         "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cliente"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Cliente",
+    "groupColor": "#2563eb",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pm_contacto",
     "title": "s_h_baz_captacion_cliente_fin_pm_contacto",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cliente_fin_pm_contacto. HashKey: sha2(idcliente, 512). RAW: rd_baz_bdclientes.rd_fin_clientepm",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -3309,8 +3188,6 @@
         "note": "Monto"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cliente_fin_pm_contacto.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
@@ -3319,22 +3196,19 @@
         "parentId": "h_baz_captacion_cliente",
         "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cliente"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Cliente",
+    "groupColor": "#2563eb",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pm_empresa",
     "title": "s_h_baz_captacion_cliente_fin_pm_empresa",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cliente_fin_pm_empresa. HashKey: sha2(idcliente, 512). RAW: rd_baz_bdclientes.rd_fin_clientepm",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -3439,8 +3313,6 @@
         "note": "Nombre comercial"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cliente_fin_pm_empresa.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
@@ -3449,22 +3321,19 @@
         "parentId": "h_baz_captacion_cliente",
         "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cliente"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Cliente",
+    "groupColor": "#2563eb",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pm_encabezado_trans",
     "title": "s_h_baz_captacion_cliente_fin_pm_encabezado_trans",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cliente_fin_pm_encabezado_trans. HashKey: sha2(idcliente, 512). RAW: rd_baz_bdclientes.rd_fin_clientepm",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -3575,8 +3444,6 @@
         "note": "Referencia unica"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cliente_fin_pm_encabezado_trans.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
@@ -3585,22 +3452,19 @@
         "parentId": "h_baz_captacion_cliente",
         "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cliente"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Cliente",
+    "groupColor": "#2563eb",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pm_fiscal",
     "title": "s_h_baz_captacion_cliente_fin_pm_fiscal",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cliente_fin_pm_fiscal. HashKey: sha2(idcliente, 512). RAW: rd_baz_bdclientes.rd_fin_clientepm",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -3675,8 +3539,6 @@
         "note": "RFC CNBV"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cliente_fin_pm_fiscal.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
@@ -3685,22 +3547,19 @@
         "parentId": "h_baz_captacion_cliente",
         "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cliente"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Cliente",
+    "groupColor": "#2563eb",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_bandera",
     "title": "s_h_baz_captacion_cuenta_bandera",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cuenta_bandera. HashKey: sha2(CaptacionCuentaHashKey,512). RAW: rd_baz_bdclientes.rd_bgdt006_cifrada, rd_baz_bdclientes.rd_bgdt041_cifrada",
-    "relations": [
-      "FK a `h_baz_captacion_cuenta`.`CaptacionCuentaHashKey` mediante `CaptacionCuentaHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -4087,8 +3946,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cuenta_bandera.CaptacionCuentaHashKey__h_baz_captacion_cuenta.CaptacionCuentaHashKey",
@@ -4097,22 +3954,19 @@
         "parentId": "h_baz_captacion_cuenta",
         "parentField": "CaptacionCuentaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#dc2626"
+    "group": "Cuenta",
+    "groupColor": "#dc2626",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_beneficiarios_contacto",
     "title": "s_h_baz_captacion_cuenta_beneficiarios_contacto",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cuenta_beneficiarios_contacto. HashKey: sha2(CaptacionCuentaHashKey,512). RAW: rd_baz_bdclientes.rd_pedt001_cifrada, rd_baz_bdclientes.rd_pedt041_cifrada",
-    "relations": [
-      "FK a `h_baz_captacion_cuenta`.`CaptacionCuentaHashKey` mediante `CaptacionCuentaHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -4193,8 +4047,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cuenta_beneficiarios_contacto.CaptacionCuentaHashKey__h_baz_captacion_cuenta.CaptacionCuentaHashKey",
@@ -4203,22 +4055,19 @@
         "parentId": "h_baz_captacion_cuenta",
         "parentField": "CaptacionCuentaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#dc2626"
+    "group": "Cuenta",
+    "groupColor": "#dc2626",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_beneficiarios_identificacion",
     "title": "s_h_baz_captacion_cuenta_beneficiarios_identificacion",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cuenta_beneficiarios_identificacion. HashKey: sha2(A.CaptacionCuentaHashKey,512). RAW: rd_baz_bdclientes.rd_pedt001_cifrada, rd_baz_bdclientes.rd_pedt041_cifrada",
-    "relations": [
-      "FK a `h_baz_captacion_cuenta`.`CaptacionCuentaHashKey` mediante `CaptacionCuentaHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -4371,8 +4220,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cuenta_beneficiarios_identificacion.CaptacionCuentaHashKey__h_baz_captacion_cuenta.CaptacionCuentaHashKey",
@@ -4381,22 +4228,19 @@
         "parentId": "h_baz_captacion_cuenta",
         "parentField": "CaptacionCuentaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#dc2626"
+    "group": "Cuenta",
+    "groupColor": "#dc2626",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_beneficiarios_ubicacion",
     "title": "s_h_baz_captacion_cuenta_beneficiarios_ubicacion",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cuenta_beneficiarios_ubicacion. HashKey: sha2(CaptacionCuentaHashKey,512). RAW: rd_baz_bdclientes.rd_pedt001_cifrada, rd_baz_bdclientes.rd_pedt041_cifrada",
-    "relations": [
-      "FK a `h_baz_captacion_cuenta`.`CaptacionCuentaHashKey` mediante `CaptacionCuentaHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -4555,8 +4399,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cuenta_beneficiarios_ubicacion.CaptacionCuentaHashKey__h_baz_captacion_cuenta.CaptacionCuentaHashKey",
@@ -4565,22 +4407,19 @@
         "parentId": "h_baz_captacion_cuenta",
         "parentField": "CaptacionCuentaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#dc2626"
+    "group": "Cuenta",
+    "groupColor": "#dc2626",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_bloqueo",
     "title": "s_h_baz_captacion_cuenta_bloqueo",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cuenta_bloqueo. HashKey: sha2(CaptacionCuentaHashKey,512). RAW: rd_baz_bdclientes.rd_bldt001_cifrada",
-    "relations": [
-      "FK a `h_baz_captacion_cuenta`.`CaptacionCuentaHashKey` mediante `CaptacionCuentaHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -4685,8 +4524,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cuenta_bloqueo.CaptacionCuentaHashKey__h_baz_captacion_cuenta.CaptacionCuentaHashKey",
@@ -4695,22 +4532,19 @@
         "parentId": "h_baz_captacion_cuenta",
         "parentField": "CaptacionCuentaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#dc2626"
+    "group": "Cuenta",
+    "groupColor": "#dc2626",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_fin_beneficiarios_detalle",
     "title": "s_h_baz_captacion_cuenta_fin_beneficiarios_detalle",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cuenta_fin_beneficiarios_detalle. RAW: rd_baz_bdclientes.rd_fin_beneficiario",
-    "relations": [
-      "FK a `h_baz_captacion_cuenta`.`CaptacionCuentaHashKey` mediante `CaptacionCuentaHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -4863,8 +4697,6 @@
         "note": "Estatus actual del beneficiario respecto a la cuenta"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cuenta_fin_beneficiarios_detalle.CaptacionCuentaHashKey__h_baz_captacion_cuenta.CaptacionCuentaHashKey",
@@ -4873,22 +4705,19 @@
         "parentId": "h_baz_captacion_cuenta",
         "parentField": "CaptacionCuentaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#dc2626"
+    "group": "Cuenta",
+    "groupColor": "#dc2626",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_fin_beneficiarios_encabezado",
     "title": "s_h_baz_captacion_cuenta_fin_beneficiarios_encabezado",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cuenta_fin_beneficiarios_encabezado. RAW: rd_baz_bdclientes.rd_fin_beneficiario",
-    "relations": [
-      "FK a `h_baz_captacion_cuenta`.`CaptacionCuentaHashKey` mediante `CaptacionCuentaHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -4981,8 +4810,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cuenta_fin_beneficiarios_encabezado.CaptacionCuentaHashKey__h_baz_captacion_cuenta.CaptacionCuentaHashKey",
@@ -4991,22 +4818,19 @@
         "parentId": "h_baz_captacion_cuenta",
         "parentField": "CaptacionCuentaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#dc2626"
+    "group": "Cuenta",
+    "groupColor": "#dc2626",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_fin_saldos_pf_descriptivo",
     "title": "s_h_baz_captacion_cuenta_fin_saldos_pf_descriptivo",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cuenta_fin_saldos_pf_descriptivo. HashKey: sha2(cuenta, 512). RAW: rd_baz_bdclientes.rd_fin_maestrosaldos",
-    "relations": [
-      "FK a `h_baz_captacion_cuenta`.`CaptacionCuentaHashKey` mediante `CaptacionCuentaHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -5171,8 +4995,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cuenta_fin_saldos_pf_descriptivo.CaptacionCuentaHashKey__h_baz_captacion_cuenta.CaptacionCuentaHashKey",
@@ -5181,22 +5003,19 @@
         "parentId": "h_baz_captacion_cuenta",
         "parentField": "CaptacionCuentaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#dc2626"
+    "group": "Cuenta",
+    "groupColor": "#dc2626",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_fin_saldos_pf_encabezado",
     "title": "s_h_baz_captacion_cuenta_fin_saldos_pf_encabezado",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cuenta_fin_saldos_pf_encabezado. HashKey: sha2(cuenta, 512). RAW: rd_baz_bdclientes.rd_fin_maestrosaldos",
-    "relations": [
-      "FK a `h_baz_captacion_cuenta`.`CaptacionCuentaHashKey` mediante `CaptacionCuentaHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -5289,8 +5108,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cuenta_fin_saldos_pf_encabezado.CaptacionCuentaHashKey__h_baz_captacion_cuenta.CaptacionCuentaHashKey",
@@ -5299,22 +5116,19 @@
         "parentId": "h_baz_captacion_cuenta",
         "parentField": "CaptacionCuentaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#dc2626"
+    "group": "Cuenta",
+    "groupColor": "#dc2626",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_fin_saldos_pf_transaccional",
     "title": "s_h_baz_captacion_cuenta_fin_saldos_pf_transaccional",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cuenta_fin_saldos_pf_transaccional. HashKey: sha2(cuenta, 512). RAW: rd_baz_bdclientes.rd_fin_maestrosaldos",
-    "relations": [
-      "FK a `h_baz_captacion_cuenta`.`CaptacionCuentaHashKey` mediante `CaptacionCuentaHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -5629,8 +5443,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cuenta_fin_saldos_pf_transaccional.CaptacionCuentaHashKey__h_baz_captacion_cuenta.CaptacionCuentaHashKey",
@@ -5639,22 +5451,19 @@
         "parentId": "h_baz_captacion_cuenta",
         "parentField": "CaptacionCuentaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#dc2626"
+    "group": "Cuenta",
+    "groupColor": "#dc2626",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_lavado_dinero",
     "title": "s_h_baz_captacion_cuenta_lavado_dinero",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cuenta_lavado_dinero. HashKey: sha2(CaptacionCuentaHashKey,512). RAW: rd_baz_bdclientes.rd_bgdt118_cifrada",
-    "relations": [
-      "FK a `h_baz_captacion_cuenta`.`CaptacionCuentaHashKey` mediante `CaptacionCuentaHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -5849,8 +5658,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cuenta_lavado_dinero.CaptacionCuentaHashKey__h_baz_captacion_cuenta.CaptacionCuentaHashKey",
@@ -5859,22 +5666,19 @@
         "parentId": "h_baz_captacion_cuenta",
         "parentField": "CaptacionCuentaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#dc2626"
+    "group": "Cuenta",
+    "groupColor": "#dc2626",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_monto",
     "title": "s_h_baz_captacion_cuenta_monto",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cuenta_monto. HashKey: sha2(CaptacionCuentaHashKey,512). RAW: rd_baz_bdclientes.rd_bgdt006_cifrada, rd_baz_bdclientes.rd_bgdt041_cifrada",
-    "relations": [
-      "FK a `h_baz_captacion_cuenta`.`CaptacionCuentaHashKey` mediante `CaptacionCuentaHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -6441,8 +6245,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cuenta_monto.CaptacionCuentaHashKey__h_baz_captacion_cuenta.CaptacionCuentaHashKey",
@@ -6451,22 +6253,19 @@
         "parentId": "h_baz_captacion_cuenta",
         "parentField": "CaptacionCuentaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#dc2626"
+    "group": "Cuenta",
+    "groupColor": "#dc2626",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_propiedades",
     "title": "s_h_baz_captacion_cuenta_propiedades",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cuenta_propiedades. HashKey: sha2(CaptacionCuentaHashKey,512). RAW: rd_baz_bdclientes.rd_bgdt006_cifrada, rd_baz_bdclientes.rd_bgdt041_cifrada",
-    "relations": [
-      "FK a `h_baz_captacion_cuenta`.`CaptacionCuentaHashKey` mediante `CaptacionCuentaHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -7357,8 +7156,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cuenta_propiedades.CaptacionCuentaHashKey__h_baz_captacion_cuenta.CaptacionCuentaHashKey",
@@ -7367,22 +7164,19 @@
         "parentId": "h_baz_captacion_cuenta",
         "parentField": "CaptacionCuentaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#dc2626"
+    "group": "Cuenta",
+    "groupColor": "#dc2626",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_saldos_diarios",
     "title": "s_h_baz_captacion_cuenta_saldos_diarios",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cuenta_saldos_diarios. RAW: rd_baz_bdclientes.rd_bgdt503_cifrada, rd_baz_bdclientes.rd_bgdt504_cifrada",
-    "relations": [
-      "FK a `h_baz_captacion_cuenta`.`CaptacionCuentaHashKey` mediante `CaptacionCuentaHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -7451,8 +7245,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cuenta_saldos_diarios.CaptacionCuentaHashKey__h_baz_captacion_cuenta.CaptacionCuentaHashKey",
@@ -7461,22 +7253,19 @@
         "parentId": "h_baz_captacion_cuenta",
         "parentField": "CaptacionCuentaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#dc2626"
+    "group": "Cuenta",
+    "groupColor": "#dc2626",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_cuenta_saldos_diarios_prop",
     "title": "s_h_baz_captacion_cuenta_saldos_diarios_prop",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_cuenta_saldos_diarios_prop. HashKey: sha2(concat_ws('-',NumCuentaId,cuentaID),512). RAW: rd_baz_bdclientes.rd_bgdt503_cifrada",
-    "relations": [
-      "FK a `h_baz_captacion_cuenta`.`CaptacionCuentaHashKey` mediante `CaptacionCuentaHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -7593,8 +7382,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_cuenta_saldos_diarios_prop.CaptacionCuentaHashKey__h_baz_captacion_cuenta.CaptacionCuentaHashKey",
@@ -7603,22 +7390,19 @@
         "parentId": "h_baz_captacion_cuenta",
         "parentField": "CaptacionCuentaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#dc2626"
+    "group": "Cuenta",
+    "groupColor": "#dc2626",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_garantia_detalle",
     "title": "s_h_baz_captacion_garantia_detalle",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_garantia_detalle. RAW: rd_baz_bdclientes.rd_gadt031",
-    "relations": [
-      "FK a `h_baz_captacion_garantia`.`CaptacionGarantiaHashKey` mediante `CaptacionGarantiaHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -7909,8 +7693,6 @@
         "note": ""
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_garantia_detalle.CaptacionGarantiaHashKey__h_baz_captacion_garantia.CaptacionGarantiaHashKey",
@@ -7919,22 +7701,19 @@
         "parentId": "h_baz_captacion_garantia",
         "parentField": "CaptacionGarantiaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Garantia"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Garantia",
-    "dbmlGroupColor": "#ca8a04"
+    "group": "Garantia",
+    "groupColor": "#ca8a04",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_garantia_extendida",
     "title": "s_h_baz_captacion_garantia_extendida",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_garantia_extendida. RAW: rd_baz_bdclientes.rd_gadt310",
-    "relations": [
-      "FK a `h_baz_captacion_garantia`.`CaptacionGarantiaHashKey` mediante `CaptacionGarantiaHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -8225,8 +8004,6 @@
         "note": ""
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_garantia_extendida.CaptacionGarantiaHashKey__h_baz_captacion_garantia.CaptacionGarantiaHashKey",
@@ -8235,22 +8012,19 @@
         "parentId": "h_baz_captacion_garantia",
         "parentField": "CaptacionGarantiaHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Garantia"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Garantia",
-    "dbmlGroupColor": "#ca8a04"
+    "group": "Garantia",
+    "groupColor": "#ca8a04",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_ca_pf_encabezado",
     "title": "s_h_baz_captacion_transaccion_fin_ca_pf_encabezado",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_transaccion_fin_ca_pf_encabezado. HashKey: sha2(CaptacionTransaccionFinHashKey, 512). RAW: rd_baz_bdclientes.rd_fin_990pf",
-    "relations": [
-      "FK a `h_baz_captacion_transaccion_fin`.`CaptacionTransaccionFinHashKey` mediante `CaptacionTransaccionFinHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -8343,8 +8117,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_transaccion_fin_ca_pf_encabezado.CaptacionTransaccionFinHashKey__h_baz_captacion_transaccion_fin.CaptacionTransaccionFinHashKey",
@@ -8353,22 +8125,19 @@
         "parentId": "h_baz_captacion_transaccion_fin",
         "parentField": "CaptacionTransaccionFinHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Transaccion"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Transaccion",
-    "dbmlGroupColor": "#ea580c"
+    "group": "Transaccion",
+    "groupColor": "#ea580c",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_conciliada_anexo",
     "title": "s_h_baz_captacion_transaccion_fin_conciliada_anexo",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_transaccion_fin_conciliada_anexo. HashKey: sha2(CaptacionTransaccionFinHashKey, 512). RAW: rd_baz_bdclientes.rd_fin_opfin_general_conciliada",
-    "relations": [
-      "FK a `h_baz_captacion_transaccion_fin`.`CaptacionTransaccionFinHashKey` mediante `CaptacionTransaccionFinHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -8479,8 +8248,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_transaccion_fin_conciliada_anexo.CaptacionTransaccionFinHashKey__h_baz_captacion_transaccion_fin.CaptacionTransaccionFinHashKey",
@@ -8489,22 +8256,19 @@
         "parentId": "h_baz_captacion_transaccion_fin",
         "parentField": "CaptacionTransaccionFinHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Transaccion"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Transaccion",
-    "dbmlGroupColor": "#ea580c"
+    "group": "Transaccion",
+    "groupColor": "#ea580c",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_conciliada_cheque",
     "title": "s_h_baz_captacion_transaccion_fin_conciliada_cheque",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_transaccion_fin_conciliada_cheque. HashKey: sha2(CaptacionTransaccionFinHashKey, 512). RAW: rd_baz_bdclientes.rd_fin_opfin_general_conciliada",
-    "relations": [
-      "FK a `h_baz_captacion_transaccion_fin`.`CaptacionTransaccionFinHashKey` mediante `CaptacionTransaccionFinHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -8591,8 +8355,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_transaccion_fin_conciliada_cheque.CaptacionTransaccionFinHashKey__h_baz_captacion_transaccion_fin.CaptacionTransaccionFinHashKey",
@@ -8601,22 +8363,19 @@
         "parentId": "h_baz_captacion_transaccion_fin",
         "parentField": "CaptacionTransaccionFinHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Transaccion"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Transaccion",
-    "dbmlGroupColor": "#ea580c"
+    "group": "Transaccion",
+    "groupColor": "#ea580c",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_conciliada_detalle",
     "title": "s_h_baz_captacion_transaccion_fin_conciliada_detalle",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_transaccion_fin_conciliada_detalle. HashKey: sha2(CaptacionTransaccionFinHashKey, 512). RAW: rd_baz_bdclientes.rd_fin_opfin_general_conciliada",
-    "relations": [
-      "FK a `h_baz_captacion_transaccion_fin`.`CaptacionTransaccionFinHashKey` mediante `CaptacionTransaccionFinHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -8775,8 +8534,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_transaccion_fin_conciliada_detalle.CaptacionTransaccionFinHashKey__h_baz_captacion_transaccion_fin.CaptacionTransaccionFinHashKey",
@@ -8785,22 +8542,19 @@
         "parentId": "h_baz_captacion_transaccion_fin",
         "parentField": "CaptacionTransaccionFinHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Transaccion"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Transaccion",
-    "dbmlGroupColor": "#ea580c"
+    "group": "Transaccion",
+    "groupColor": "#ea580c",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_conciliada_encabezado",
     "title": "s_h_baz_captacion_transaccion_fin_conciliada_encabezado",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_transaccion_fin_conciliada_encabezado. HashKey: sha2(CaptacionTransaccionFinHashKey, 512). RAW: rd_baz_bdclientes.rd_fin_opfin_general_conciliada",
-    "relations": [
-      "FK a `h_baz_captacion_transaccion_fin`.`CaptacionTransaccionFinHashKey` mediante `CaptacionTransaccionFinHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -8911,8 +8665,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_transaccion_fin_conciliada_encabezado.CaptacionTransaccionFinHashKey__h_baz_captacion_transaccion_fin.CaptacionTransaccionFinHashKey",
@@ -8921,22 +8673,19 @@
         "parentId": "h_baz_captacion_transaccion_fin",
         "parentField": "CaptacionTransaccionFinHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Transaccion"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Transaccion",
-    "dbmlGroupColor": "#ea580c"
+    "group": "Transaccion",
+    "groupColor": "#ea580c",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_conciliada_spei",
     "title": "s_h_baz_captacion_transaccion_fin_conciliada_spei",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_transaccion_fin_conciliada_spei. HashKey: sha2(CaptacionTransaccionFinHashKey, 512). RAW: rd_baz_bdclientes.rd_fin_opfin_general_conciliada",
-    "relations": [
-      "FK a `h_baz_captacion_transaccion_fin`.`CaptacionTransaccionFinHashKey` mediante `CaptacionTransaccionFinHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -9023,8 +8772,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_transaccion_fin_conciliada_spei.CaptacionTransaccionFinHashKey__h_baz_captacion_transaccion_fin.CaptacionTransaccionFinHashKey",
@@ -9033,22 +8780,19 @@
         "parentId": "h_baz_captacion_transaccion_fin",
         "parentField": "CaptacionTransaccionFinHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Transaccion"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Transaccion",
-    "dbmlGroupColor": "#ea580c"
+    "group": "Transaccion",
+    "groupColor": "#ea580c",
+    "relationCount": 1
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_conciliada_transfer",
     "title": "s_h_baz_captacion_transaccion_fin_conciliada_transfer",
     "tag": "satelite",
     "description": "SAT | s_h_baz_captacion_transaccion_fin_conciliada_transfer. HashKey: sha2(CaptacionTransaccionFinHashKey, 512). RAW: rd_baz_bdclientes.rd_fin_opfin_general_conciliada",
-    "relations": [
-      "FK a `h_baz_captacion_transaccion_fin`.`CaptacionTransaccionFinHashKey` mediante `CaptacionTransaccionFinHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -9117,8 +8861,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_h_baz_captacion_transaccion_fin_conciliada_transfer.CaptacionTransaccionFinHashKey__h_baz_captacion_transaccion_fin.CaptacionTransaccionFinHashKey",
@@ -9127,22 +8869,19 @@
         "parentId": "h_baz_captacion_transaccion_fin",
         "parentField": "CaptacionTransaccionFinHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Transaccion"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Transaccion",
-    "dbmlGroupColor": "#ea580c"
+    "group": "Transaccion",
+    "groupColor": "#ea580c",
+    "relationCount": 1
   },
   {
     "id": "s_l_baz_captacion_cliente_finacle_segmentacion",
     "title": "s_l_baz_captacion_cliente_finacle_segmentacion",
     "tag": "satelite",
     "description": "SAT | s_l_baz_captacion_cliente_finacle_segmentacion. RAW: rd_baz_bdclientes.rd_tacuctefinacle",
-    "relations": [
-      "FK a `l_baz_captacion_cliente_finacle`.`CaptacionClienteFinacleLnkHashKey` mediante `CaptacionClienteFinacleLnkHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -9259,8 +8998,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_l_baz_captacion_cliente_finacle_segmentacion.CaptacionClienteFinacleLnkHashKey__l_baz_captacion_cliente_finacle.CaptacionClienteFinacleLnkHashKey",
@@ -9269,22 +9006,19 @@
         "parentId": "l_baz_captacion_cliente_finacle",
         "parentField": "CaptacionClienteFinacleLnkHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cliente"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cliente",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Cliente",
+    "groupColor": "#2563eb",
+    "relationCount": 1
   },
   {
     "id": "s_l_baz_captacion_cuenta_fin_detalle",
     "title": "s_l_baz_captacion_cuenta_fin_detalle",
     "tag": "satelite",
     "description": "SAT | s_l_baz_captacion_cuenta_fin_detalle. HashKey: sha2(ClienteCaptacionCuentaLnkHashKey, 512). RAW: rd_baz_bdclientes.rd_fin_cuentav2",
-    "relations": [
-      "FK a `l_baz_captacion_cliente_cuenta`.`ClienteCaptacionCuentaLnkHashKey` mediante `ClienteCaptacionCuentaLnkHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -9527,8 +9261,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_l_baz_captacion_cuenta_fin_detalle.ClienteCaptacionCuentaLnkHashKey__l_baz_captacion_cliente_cuenta.ClienteCaptacionCuentaLnkHashKey",
@@ -9537,22 +9269,19 @@
         "parentId": "l_baz_captacion_cliente_cuenta",
         "parentField": "ClienteCaptacionCuentaLnkHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#dc2626"
+    "group": "Cuenta",
+    "groupColor": "#dc2626",
+    "relationCount": 1
   },
   {
     "id": "s_l_baz_captacion_cuenta_fin_encabezado",
     "title": "s_l_baz_captacion_cuenta_fin_encabezado",
     "tag": "satelite",
     "description": "SAT | s_l_baz_captacion_cuenta_fin_encabezado. HashKey: sha2(ClienteCaptacionCuentaLnkHashKey, 512). RAW: rd_baz_bdclientes.rd_fin_cuentav2",
-    "relations": [
-      "FK a `l_baz_captacion_cliente_cuenta`.`ClienteCaptacionCuentaLnkHashKey` mediante `ClienteCaptacionCuentaLnkHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -9645,8 +9374,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_l_baz_captacion_cuenta_fin_encabezado.ClienteCaptacionCuentaLnkHashKey__l_baz_captacion_cliente_cuenta.ClienteCaptacionCuentaLnkHashKey",
@@ -9655,22 +9382,19 @@
         "parentId": "l_baz_captacion_cliente_cuenta",
         "parentField": "ClienteCaptacionCuentaLnkHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#dc2626"
+    "group": "Cuenta",
+    "groupColor": "#dc2626",
+    "relationCount": 1
   },
   {
     "id": "s_l_baz_captacion_cuenta_vinculacion_cliente",
     "title": "s_l_baz_captacion_cuenta_vinculacion_cliente",
     "tag": "satelite",
     "description": "SAT | s_l_baz_captacion_cuenta_vinculacion_cliente. HashKey: sha2(ClienteCaptacionCuentaLnkHashKey,512). RAW: rd_baz_bdclientes.rd_pedt008",
-    "relations": [
-      "FK a `l_baz_captacion_cliente_cuenta`.`ClienteCaptacionCuentaLnkHashKey` mediante `ClienteCaptacionCuentaLnkHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -9799,8 +9523,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_l_baz_captacion_cuenta_vinculacion_cliente.ClienteCaptacionCuentaLnkHashKey__l_baz_captacion_cliente_cuenta.ClienteCaptacionCuentaLnkHashKey",
@@ -9809,22 +9531,19 @@
         "parentId": "l_baz_captacion_cliente_cuenta",
         "parentField": "ClienteCaptacionCuentaLnkHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#dc2626"
+    "group": "Cuenta",
+    "groupColor": "#dc2626",
+    "relationCount": 1
   },
   {
     "id": "s_nh_h_baz_captacion_cuenta_sac_movimiento",
     "title": "s_nh_h_baz_captacion_cuenta_sac_movimiento",
     "tag": "satelite",
     "description": "SAT | s_nh_h_baz_captacion_cuenta_sac_movimiento. RAW: rd_baz_bdclientes.rd_sac510",
-    "relations": [
-      "FK a `h_baz_captacion_cuenta_sac`.`CaptacionCuentaSacHashKey` mediante `CaptacionCuentaSacHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -10253,8 +9972,6 @@
         "note": ""
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_nh_h_baz_captacion_cuenta_sac_movimiento.CaptacionCuentaSacHashKey__h_baz_captacion_cuenta_sac.CaptacionCuentaSacHashKey",
@@ -10263,22 +9980,19 @@
         "parentId": "h_baz_captacion_cuenta_sac",
         "parentField": "CaptacionCuentaSacHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta SAC"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta SAC",
-    "dbmlGroupColor": "#16a34a"
+    "group": "Cuenta SAC",
+    "groupColor": "#16a34a",
+    "relationCount": 1
   },
   {
     "id": "s_nh_h_baz_captacion_cuenta_sac_transaccion",
     "title": "s_nh_h_baz_captacion_cuenta_sac_transaccion",
     "tag": "satelite",
     "description": "SAT | s_nh_h_baz_captacion_cuenta_sac_transaccion. RAW: rd_baz_bdclientes.rd_sac325",
-    "relations": [
-      "FK a `h_baz_captacion_cuenta_sac`.`CaptacionCuentaSacHashKey` mediante `CaptacionCuentaSacHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -10689,8 +10403,6 @@
         "note": ""
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_nh_h_baz_captacion_cuenta_sac_transaccion.CaptacionCuentaSacHashKey__h_baz_captacion_cuenta_sac.CaptacionCuentaSacHashKey",
@@ -10699,22 +10411,19 @@
         "parentId": "h_baz_captacion_cuenta_sac",
         "parentField": "CaptacionCuentaSacHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta SAC"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta SAC",
-    "dbmlGroupColor": "#16a34a"
+    "group": "Cuenta SAC",
+    "groupColor": "#16a34a",
+    "relationCount": 1
   },
   {
     "id": "s_nh_h_baz_captacion_movimientos_abonos",
     "title": "s_nh_h_baz_captacion_movimientos_abonos",
     "tag": "satelite",
     "description": "SAT | s_nh_h_baz_captacion_movimientos_abonos. HashKey: sha2(concat_ws('-',NumCuentaId,cuentaID,cast(MovimientoID as String)),512). RAW: rd_baz_bdclientes.rd_bgdt071_cifrada, rd_baz_bdclientes.rd_bgdt710_cifrada, rd_baz_bdclientes.rd_bgdt746, rd_baz_bdclientes.rd_bgdt747, rd_baz_bdclientes.rd_bgdt748 (+7 más)",
-    "relations": [
-      "FK a `h_baz_captacion_movimientos`.`CaptacionMovimientosHashKey` mediante `CaptacionMovimientosHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -10993,8 +10702,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_nh_h_baz_captacion_movimientos_abonos.CaptacionMovimientosHashKey__h_baz_captacion_movimientos.CaptacionMovimientosHashKey",
@@ -11003,22 +10710,19 @@
         "parentId": "h_baz_captacion_movimientos",
         "parentField": "CaptacionMovimientosHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Movimiento"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Movimiento",
-    "dbmlGroupColor": "#9333ea"
+    "group": "Movimiento",
+    "groupColor": "#9333ea",
+    "relationCount": 1
   },
   {
     "id": "s_nh_h_baz_captacion_movimientos_cargos",
     "title": "s_nh_h_baz_captacion_movimientos_cargos",
     "tag": "satelite",
     "description": "SAT | s_nh_h_baz_captacion_movimientos_cargos. HashKey: sha2(concat_ws('-',NumCuentaId,cuentaID,cast(MovimientoID as String)),512). RAW: rd_baz_bdclientes.rd_bgdt071_cifrada, rd_baz_bdclientes.rd_bgdt710_cifrada, rd_baz_bdclientes.rd_bgdt746, rd_baz_bdclientes.rd_bgdt747, rd_baz_bdclientes.rd_bgdt748 (+7 más)",
-    "relations": [
-      "FK a `h_baz_captacion_movimientos`.`CaptacionMovimientosHashKey` mediante `CaptacionMovimientosHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -11297,8 +11001,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_nh_h_baz_captacion_movimientos_cargos.CaptacionMovimientosHashKey__h_baz_captacion_movimientos.CaptacionMovimientosHashKey",
@@ -11307,22 +11009,19 @@
         "parentId": "h_baz_captacion_movimientos",
         "parentField": "CaptacionMovimientosHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Movimiento"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Movimiento",
-    "dbmlGroupColor": "#9333ea"
+    "group": "Movimiento",
+    "groupColor": "#9333ea",
+    "relationCount": 1
   },
   {
     "id": "s_nh_h_baz_captacion_movimientos_transacciones",
     "title": "s_nh_h_baz_captacion_movimientos_transacciones",
     "tag": "satelite",
     "description": "SAT | s_nh_h_baz_captacion_movimientos_transacciones. HashKey: sha2(concat_ws('-',NumCuentaId,cuentaID,cast(MovimientoID as String)),512). RAW: rd_baz_bdclientes.rd_bgdt607",
-    "relations": [
-      "FK a `h_baz_captacion_movimientos`.`CaptacionMovimientosHashKey` mediante `CaptacionMovimientosHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -11493,8 +11192,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_nh_h_baz_captacion_movimientos_transacciones.CaptacionMovimientosHashKey__h_baz_captacion_movimientos.CaptacionMovimientosHashKey",
@@ -11503,20 +11200,19 @@
         "parentId": "h_baz_captacion_movimientos",
         "parentField": "CaptacionMovimientosHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Movimiento"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Movimiento",
-    "dbmlGroupColor": "#9333ea"
+    "group": "Movimiento",
+    "groupColor": "#9333ea",
+    "relationCount": 1
   },
   {
     "id": "s_nh_l_baz_captacion_transaccion_fin_ca_pf_operacion",
     "title": "s_nh_l_baz_captacion_transaccion_fin_ca_pf_operacion",
     "tag": "satelite",
     "description": "SAT | s_nh_l_baz_captacion_transaccion_fin_ca_pf_operacion. HashKey: sha2(CaptacionCuentaTransLnkHashKey, 512). RAW: rd_baz_bdclientes.rd_fin_990pf",
-    "relations": [],
     "fields": [
       {
         "key": "PK",
@@ -11771,22 +11467,17 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Transaccion",
-    "dbmlGroupColor": "#ea580c"
+    "group": "Transaccion",
+    "groupColor": "#ea580c",
+    "relationCount": 0
   },
   {
     "id": "s_nh_l_baz_captacion_transaccion_fin_conciliada_operacion",
     "title": "s_nh_l_baz_captacion_transaccion_fin_conciliada_operacion",
     "tag": "satelite",
     "description": "SAT | s_nh_l_baz_captacion_transaccion_fin_conciliada_operacion. RAW: rd_baz_bdclientes.rd_fin_opfin_general_conciliada",
-    "relations": [
-      "FK a `l_baz_captacion_cuenta_transaccion_fin`.`CaptacionCuentaTransaccionFinLnkHashKey` mediante `CaptacionCuentaTransaccionFinLnkHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -12053,8 +11744,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_nh_l_baz_captacion_transaccion_fin_conciliada_operacion.CaptacionCuentaTransaccionFinLnkHashKey__l_baz_captacion_cuenta_transaccion_fin.CaptacionCuentaTransaccionFinLnkHashKey",
@@ -12063,22 +11752,19 @@
         "parentId": "l_baz_captacion_cuenta_transaccion_fin",
         "parentField": "CaptacionCuentaTransaccionFinLnkHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Transaccion"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Transaccion",
-    "dbmlGroupColor": "#ea580c"
+    "group": "Transaccion",
+    "groupColor": "#ea580c",
+    "relationCount": 1
   },
   {
     "id": "s_st_l_baz_captacion_cuenta_fin_estatus",
     "title": "s_st_l_baz_captacion_cuenta_fin_estatus",
     "tag": "satelite",
     "description": "SAT | s_st_l_baz_captacion_cuenta_fin_estatus. HashKey: sha2(ClienteCaptacionCuentaLnkHashKey, 512). RAW: rd_baz_bdclientes.rd_fin_cuentav2",
-    "relations": [
-      "FK a `l_baz_captacion_cliente_cuenta`.`ClienteCaptacionCuentaLnkHashKey` mediante `ClienteCaptacionCuentaLnkHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -12141,8 +11827,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_st_l_baz_captacion_cuenta_fin_estatus.ClienteCaptacionCuentaLnkHashKey__l_baz_captacion_cliente_cuenta.ClienteCaptacionCuentaLnkHashKey",
@@ -12151,22 +11835,19 @@
         "parentId": "l_baz_captacion_cliente_cuenta",
         "parentField": "ClienteCaptacionCuentaLnkHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Cuenta"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Cuenta",
-    "dbmlGroupColor": "#dc2626"
+    "group": "Cuenta",
+    "groupColor": "#dc2626",
+    "relationCount": 1
   },
   {
     "id": "s_nh_l_baz_captacion_traspaso",
     "title": "s_nh_l_baz_captacion_traspaso",
     "tag": "satelite",
     "description": "SAT-LINK | s_nh_l_baz_captacion_traspaso. HashKey: sha2(concat_ws('-',cuentaID_credit,cuentaID_debit,T111_MOV_CREDIT ,T111_MOV_DEBIT ),512). RAW: rd_baz_bdclientes.rd_bgdt111_cifrada, rd_baz_bdclientes.rd_bgdt900_cifrada",
-    "relations": [
-      "FK a `l_baz_captacion_movimientos_cuentas_traspaso`.`CaptacionMovimientosCuentasTraspasoLnkHashKey` mediante `CaptacionMovimientosCuentasTraspasoLnkHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -12325,8 +12006,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "s_nh_l_baz_captacion_traspaso.CaptacionMovimientosCuentasTraspasoLnkHashKey__l_baz_captacion_movimientos_cuentas_traspaso.CaptacionMovimientosCuentasTraspasoLnkHashKey",
@@ -12335,22 +12014,19 @@
         "parentId": "l_baz_captacion_movimientos_cuentas_traspaso",
         "parentField": "CaptacionMovimientosCuentasTraspasoLnkHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": "Movimiento"
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#FEC107",
-    "dbmlGroup": "Movimiento",
-    "dbmlGroupColor": "#9333ea"
+    "group": "Movimiento",
+    "groupColor": "#9333ea",
+    "relationCount": 1
   },
   {
     "id": "l_baz_captacion_cliente_finacle",
     "title": "l_baz_captacion_cliente_finacle",
     "tag": "link",
     "description": "SAME-AS LINK | l_baz_captacion_cliente_finacle. Establece la equivalencia entre el Cliente Captacion (fiid_cliente_unico) y el Cliente Finacle (fccliente_cif). HashKey: sha2(concat_ws('-', fiid_cliente_unico, fccliente_cif), 512). RAW: rd_baz_bdclientes.rd_tacuctefinacle",
-    "relations": [
-      "FK a `h_baz_captacion_cliente`.`CaptacionClienteHashKey` mediante `CaptacionClienteHashKey`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -12413,8 +12089,6 @@
         "note": "Particion diaria YYYYMMDD"
       }
     ],
-    "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
-    "dbmlProject": "captacion_dv",
     "modelRelations": [
       {
         "id": "l_baz_captacion_cliente_finacle.CaptacionClienteHashKey__h_baz_captacion_cliente.CaptacionClienteHashKey",
@@ -12423,12 +12097,12 @@
         "parentId": "h_baz_captacion_cliente",
         "parentField": "CaptacionClienteHashKey",
         "source": "dbml",
-        "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
+        "group": ""
       }
     ],
-    "dbmlRelationCount": 1,
     "headerColor": "#f54337",
-    "dbmlGroup": "",
-    "dbmlGroupColor": "#6b7280"
+    "group": "",
+    "groupColor": "#6b7280",
+    "relationCount": 1
   }
 ]
