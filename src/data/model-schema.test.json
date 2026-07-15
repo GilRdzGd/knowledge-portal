@@ -4,11 +4,6 @@
     "title": "dim_tiempo",
     "tag": "dimension",
     "description": "Dominio captacion. Calendario corporativo conformado. SCD estático. Reutilizado por todos los hechos.",
-    "relations": [
-      "Referenciado por `captacion.fact_movimiento_cap` mediante `sk_tiempo` → `sk_tiempo`",
-      "Referenciado por `captacion.fact_cuenta_cap_periodo` mediante `sk_tiempo` → `sk_tiempo`",
-      "Referenciado por `captacion.fact_cliente_cap_periodo` mediante `sk_tiempo` → `sk_tiempo`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -89,23 +84,17 @@
         "note": "Días del periodo"
       }
     ],
-    "dbmlFile": "CAPTACION.dbml",
-    "dbmlProject": "captacion",
     "modelRelations": [],
     "headerColor": "#2563eb",
-    "dbmlGroup": "Grupo 1",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Grupo 1",
+    "groupColor": "#2563eb",
+    "relationCount": 0
   },
   {
     "id": "captacion-dim-cliente",
     "title": "dim_cliente",
     "tag": "dimension",
     "description": "Dominio captacion. Cliente único conformado (golden record). SCD tipo 2. Ancla del bus dimensional. PII con ACL.",
-    "relations": [
-      "Referenciado por `captacion.fact_movimiento_cap` mediante `sk_cliente` → `sk_cliente`",
-      "Referenciado por `captacion.fact_cuenta_cap_periodo` mediante `sk_cliente` → `sk_cliente`",
-      "Referenciado por `captacion.fact_cliente_cap_periodo` mediante `sk_cliente` → `sk_cliente`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -270,22 +259,17 @@
         "note": "SCD2: 1 si es la versión vigente"
       }
     ],
-    "dbmlFile": "CAPTACION.dbml",
-    "dbmlProject": "captacion",
     "modelRelations": [],
     "headerColor": "#1db954",
-    "dbmlGroup": "Grupo 1",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Grupo 1",
+    "groupColor": "#2563eb",
+    "relationCount": 0
   },
   {
     "id": "captacion-dim-cuenta",
     "title": "dim_cuenta",
     "tag": "dimension",
     "description": "Dominio captacion. Maestro/dimensión de cuenta de captación. SCD tipo 2. CLABE enmascarada.",
-    "relations": [
-      "Referenciado por `captacion.fact_movimiento_cap` mediante `sk_cuenta` → `sk_cuenta`",
-      "Referenciado por `captacion.fact_cuenta_cap_periodo` mediante `sk_cuenta` → `sk_cuenta`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -402,21 +386,17 @@
         "note": "SCD2: 1 si es la versión vigente"
       }
     ],
-    "dbmlFile": "CAPTACION.dbml",
-    "dbmlProject": "captacion",
     "modelRelations": [],
     "headerColor": "#2563eb",
-    "dbmlGroup": "Grupo 1",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Grupo 1",
+    "groupColor": "#2563eb",
+    "relationCount": 0
   },
   {
     "id": "captacion-dim-producto-familia",
     "title": "dim_producto_familia",
     "tag": "dimension",
     "description": "Dominio captacion. Catálogo maestro de familias/productos de captación (329 refs). Reference data con vigencias.",
-    "relations": [
-      "Referenciado por `captacion.fact_cuenta_cap_periodo` mediante `sk_producto_familia` → `sk_producto_familia`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -516,20 +496,16 @@
       }
     ],
     "modelRelations": [],
-    "dbmlGroup": "Grupo 1",
-    "dbmlGroupColor": "#2563eb",
     "headerColor": "#2563eb",
-    "dbmlFile": "CAPTACION.dbml",
-    "dbmlProject": "captacion"
+    "group": "Grupo 1",
+    "groupColor": "#2563eb",
+    "relationCount": 0
   },
   {
     "id": "captacion-dim-operacion-canal",
     "title": "dim_operacion_canal",
     "tag": "dimension",
     "description": "Dominio captacion. Catálogo de clasificación de operación y canal. Decodifica los movimientos.",
-    "relations": [
-      "Referenciado por `captacion.fact_movimiento_cap` mediante `sk_operacion_canal` → `sk_operacion_canal`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -586,28 +562,17 @@
         "note": "Estatus del registro de catálogo"
       }
     ],
-    "dbmlFile": "CAPTACION.dbml",
-    "dbmlProject": "captacion",
     "modelRelations": [],
     "headerColor": "#2563eb",
-    "dbmlGroup": "Grupo 1",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Grupo 1",
+    "groupColor": "#2563eb",
+    "relationCount": 0
   },
   {
     "id": "captacion-fact-movimiento-cap",
     "title": "fact_movimiento_cap",
     "tag": "hecho",
     "description": "Dominio captacion. Hecho atómico de movimientos de captación (~20B filas). Servido particionado + agregados materializados.",
-    "relations": [
-      "Referencia a `captacion.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
-      "Referencia a `captacion.dim_cuenta` mediante `sk_cuenta` → `sk_cuenta`",
-      "Referencia a `captacion.dim_operacion_canal` mediante `sk_operacion_canal` → `sk_operacion_canal`",
-      "Referencia a `captacion.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`",
-      "FK a `captacion.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
-      "FK a `captacion.dim_cuenta` mediante `sk_cuenta` → `sk_cuenta`",
-      "FK a `captacion.dim_operacion_canal` mediante `sk_operacion_canal` → `sk_operacion_canal`",
-      "FK a `captacion.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -760,39 +725,36 @@
         "note": "Partición: periodo mensual AAAAMM"
       }
     ],
-    "dbmlFile": "CAPTACION.dbml",
-    "dbmlProject": "captacion",
     "modelRelations": [
       {
-        "id": "captacion-fact-movimiento-cap.sk_tiempos__captacion-dim-tiempo.sk_tiempos",
+        "id": "captacion-fact-movimiento-cap.sk_tiempo__captacion-dim-tiempo.sk_tiempos",
         "childId": "captacion-fact-movimiento-cap",
-        "childField": "sk_tiempos",
+        "childField": "sk_tiempo",
         "parentId": "captacion-dim-tiempo",
         "parentField": "sk_tiempos",
         "source": "dbml-editor",
-        "dbmlGroup": ""
+        "group": "Grupo 1"
+      },
+      {
+        "id": "captacion-fact-movimiento-cap.sk_cliente__captacion-dim-cliente.sk_cliente",
+        "childId": "captacion-fact-movimiento-cap",
+        "childField": "sk_cliente",
+        "parentId": "captacion-dim-cliente",
+        "parentField": "sk_cliente",
+        "source": "dbml-editor",
+        "group": "Grupo 1"
       }
     ],
-    "dbmlRelationCount": 4,
     "headerColor": "#1db954",
-    "dbmlGroup": "Grupo 1",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Grupo 1",
+    "groupColor": "#2563eb",
+    "relationCount": 2
   },
   {
     "id": "captacion-fact-cuenta-cap-periodo",
     "title": "fact_cuenta_cap_periodo",
     "tag": "hecho",
     "description": "Dominio captacion. Instantánea periódica por cuenta. Consolida cuenta_hist/_hist_sem/_mes (4 tablas -> 1 particionada). Paquetes: saldos, canal, tipo de operación (patrón mto_/num_ en el origen, ~120 col).",
-    "relations": [
-      "Referencia a `captacion.dim_cuenta` mediante `sk_cuenta` → `sk_cuenta`",
-      "Referencia a `captacion.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
-      "Referencia a `captacion.dim_producto_familia` mediante `sk_producto_familia` → `sk_producto_familia`",
-      "Referencia a `captacion.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`",
-      "FK a `captacion.dim_cuenta` mediante `sk_cuenta` → `sk_cuenta`",
-      "FK a `captacion.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
-      "FK a `captacion.dim_producto_familia` mediante `sk_producto_familia` → `sk_producto_familia`",
-      "FK a `captacion.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -969,8 +931,6 @@
         "note": "Monto de retiros en efectivo"
       }
     ],
-    "dbmlFile": "CAPTACION.dbml",
-    "dbmlProject": "captacion",
     "modelRelations": [
       {
         "id": "captacion-fact-cuenta-cap-periodo.sk_cuenta__captacion-dim-cuenta.sk_cuenta",
@@ -979,7 +939,7 @@
         "parentId": "captacion-dim-cuenta",
         "parentField": "sk_cuenta",
         "source": "dbml-editor",
-        "dbmlGroup": ""
+        "group": "Grupo 1"
       },
       {
         "id": "captacion-fact-cuenta-cap-periodo.sk_cliente__captacion-dim-cliente.sk_cliente",
@@ -988,16 +948,16 @@
         "parentId": "captacion-dim-cliente",
         "parentField": "sk_cliente",
         "source": "dbml-editor",
-        "dbmlGroup": ""
+        "group": "Grupo 1"
       },
       {
-        "id": "captacion-fact-cuenta-cap-periodo.sk_tiempos__captacion-dim-tiempo.sk_tiempos",
+        "id": "captacion-fact-cuenta-cap-periodo.sk_tiempo__captacion-dim-tiempo.sk_tiempos",
         "childId": "captacion-fact-cuenta-cap-periodo",
-        "childField": "sk_tiempos",
+        "childField": "sk_tiempo",
         "parentId": "captacion-dim-tiempo",
         "parentField": "sk_tiempos",
         "source": "dbml-editor",
-        "dbmlGroup": ""
+        "group": "Grupo 1"
       },
       {
         "id": "captacion-fact-cuenta-cap-periodo.sk_producto_familia__captacion-dim-producto-familia.sk_producto_familia",
@@ -1006,25 +966,19 @@
         "parentId": "captacion-dim-producto-familia",
         "parentField": "sk_producto_familia",
         "source": "dbml-editor",
-        "dbmlGroup": ""
+        "group": "Grupo 1"
       }
     ],
-    "dbmlRelationCount": 4,
     "headerColor": "#7c3aed",
-    "dbmlGroup": "Grupo 1",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Grupo 1",
+    "groupColor": "#2563eb",
+    "relationCount": 4
   },
   {
     "id": "captacion-fact-cliente-cap-periodo",
     "title": "fact_cliente_cap_periodo",
     "tag": "hecho",
     "description": "Dominio captacion. DP-CAP-1 Captación Cliente 360. Instantánea periódica agregada a cliente. Modularizado (evita el monolito de 245 col). Por cada familia de producto se repite el patrón {num_|sld_|mto_txn_|num_txn_|mto_dep_|num_dep_|mto_ret_|num_ret_}_<producto> (int / decimal(20,4)).",
-    "relations": [
-      "Referencia a `captacion.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
-      "Referencia a `captacion.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`",
-      "FK a `captacion.dim_cliente` mediante `sk_cliente` → `sk_cliente`",
-      "FK a `captacion.dim_tiempo` mediante `sk_tiempo` → `sk_tiempo`"
-    ],
     "fields": [
       {
         "key": "PK",
@@ -1195,8 +1149,6 @@
         "note": "Saldo en cuenta socio plus"
       }
     ],
-    "dbmlFile": "CAPTACION.dbml",
-    "dbmlProject": "captacion",
     "modelRelations": [
       {
         "id": "captacion-fact-cliente-cap-periodo.sk_cliente__captacion-dim-cliente.sk_cliente",
@@ -1205,21 +1157,21 @@
         "parentId": "captacion-dim-cliente",
         "parentField": "sk_cliente",
         "source": "dbml-editor",
-        "dbmlGroup": ""
+        "group": "Grupo 1"
       },
       {
-        "id": "captacion-fact-cliente-cap-periodo.sk_tiempos__captacion-dim-tiempo.sk_tiempos",
+        "id": "captacion-fact-cliente-cap-periodo.sk_tiempo__captacion-dim-tiempo.sk_tiempos",
         "childId": "captacion-fact-cliente-cap-periodo",
-        "childField": "sk_tiempos",
+        "childField": "sk_tiempo",
         "parentId": "captacion-dim-tiempo",
         "parentField": "sk_tiempos",
         "source": "dbml-editor",
-        "dbmlGroup": ""
+        "group": "Grupo 1"
       }
     ],
-    "dbmlRelationCount": 2,
     "headerColor": "#7c3aed",
-    "dbmlGroup": "Grupo 1",
-    "dbmlGroupColor": "#2563eb"
+    "group": "Grupo 1",
+    "groupColor": "#2563eb",
+    "relationCount": 2
   }
 ]

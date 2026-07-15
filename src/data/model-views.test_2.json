@@ -1,0 +1,38 @@
+{
+  "name": "Cliente Canonico",
+  "positions": {
+    "cd-dim-cliente": {
+      "left": 526.857,
+      "top": 154.286
+    },
+    "cd-br-cliente-fuente": {
+      "left": 1051.69,
+      "top": 109.538
+    },
+    "cd-dim-contacto": {
+      "left": 1050.46,
+      "top": 938.462
+    },
+    "cd-dim-geografia": {
+      "left": 531.077,
+      "top": 1096
+    }
+  },
+  "colors": {},
+  "deletedRelationIds": [],
+  "relationRoutes": {},
+  "groups": [],
+  "schemaGroups": [
+    {
+      "id": "schema-group-test",
+      "collapsed": false,
+      "collapsedBounds": null
+    },
+    {
+      "id": "schema-group-contacto",
+      "collapsed": false,
+      "collapsedBounds": null
+    }
+  ],
+  "zoom": 0.65
+}

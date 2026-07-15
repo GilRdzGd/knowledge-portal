@@ -400,6 +400,115 @@ body {
   display: none;
 }
 
+.local-ai-card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid #dce5ef;
+  border-left: 3px solid #2563eb;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.055);
+}
+
+.local-ai-card strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #111827;
+  font-size: 13px;
+  font-weight: 860;
+}
+
+.local-ai-card p {
+  margin: 0;
+  color: #475569;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.local-ai-card .local-ai-note {
+  margin-top: 4px;
+  color: #64748b;
+}
+
+.local-ai-actions {
+  display: grid;
+  justify-items: end;
+  gap: 7px;
+  min-width: 180px;
+}
+
+.local-ai-actions button {
+  height: 34px;
+  padding: 0 12px;
+  border: 1px solid #2563eb;
+  border-radius: 7px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 820;
+  cursor: pointer;
+}
+
+.local-ai-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+.local-ai-actions #stopAi {
+  border-color: #dc2626;
+  background: #dc2626;
+}
+
+.local-ai-actions span {
+  max-width: 240px;
+  color: #64748b;
+  font-size: 11px;
+  line-height: 1.35;
+  text-align: right;
+}
+
+.evidence-panel {
+  margin-left: 48px;
+  padding: 10px 12px;
+  border: 1px solid #dce5ef;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.evidence-panel summary {
+  color: #0b55d9;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 820;
+}
+
+.evidence-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.evidence-item {
+  padding-top: 8px;
+  border-top: 1px solid #edf2f7;
+}
+
+.evidence-item strong {
+  display: block;
+  color: #111827;
+  font-size: 12px;
+}
+
+.evidence-item p {
+  margin: 3px 0 0;
+  color: #475569;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
 .prompt-grid button {
   min-height: 54px;
   border-radius: 8px;
@@ -462,4 +571,8 @@ body {
   .home-copy h1 { font-size: 34px; }
   .prompt-grid { grid-template-columns: 1fr; }
   .chat-thread { padding-top: 28px; }
+  .local-ai-card { grid-template-columns: 1fr; }
+  .local-ai-actions { justify-items: stretch; }
+  .local-ai-actions span { text-align: left; }
+  .evidence-panel { margin-left: 0; }
 }

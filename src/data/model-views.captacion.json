@@ -1,295 +1,314 @@
 {
+  "name": "Captacion",
   "positions": {
     "h_baz_captacion_cliente": {
-      "left": 1600,
-      "top": 750
-    },
-    "l_baz_captacion_cliente_clientefinacle": {
-      "left": 1600,
-      "top": 1224
-    },
-    "l_baz_captacion_cliente_conversion_cu": {
-      "left": 1600,
-      "top": 1642
-    },
-    "l_baz_captacion_cliente_credito_cliente": {
-      "left": 1600,
-      "top": 2144
-    },
-    "l_baz_captacion_cliente_cuenta": {
-      "left": 1600,
-      "top": 2562
-    },
-    "s_h_baz_captacion_cliente_centro_contable_alta": {
-      "left": 1240,
-      "top": 168
-    },
-    "s_h_baz_captacion_cliente_datos_contacto": {
-      "left": 880,
-      "top": 168
-    },
-    "s_h_baz_captacion_cliente_datos_control": {
-      "left": 1240,
-      "top": 884
-    },
-    "s_h_baz_captacion_cliente_datos_cuenta": {
-      "left": 880,
-      "top": 884
-    },
-    "s_h_baz_captacion_cliente_datos_identificacion": {
-      "left": 1240,
-      "top": 1600
-    },
-    "s_h_baz_captacion_cliente_fin_pf_contacto": {
-      "left": 880,
-      "top": 1600
-    },
-    "s_h_baz_captacion_cliente_fin_pf_direccion_detalle": {
-      "left": 1240,
-      "top": 2316
-    },
-    "s_h_baz_captacion_cliente_fin_pf_encabezado_trans": {
-      "left": 880,
-      "top": 2316
-    },
-    "s_h_baz_captacion_cliente_fin_pf_fiscal": {
-      "left": 1240,
-      "top": 2948
-    },
-    "s_h_baz_captacion_cliente_fin_pf_ident_detalle": {
-      "left": 880,
-      "top": 2948
-    },
-    "s_h_baz_captacion_cliente_fin_pf_ine_detalle": {
-      "left": 1960,
-      "top": 140
-    },
-    "s_h_baz_captacion_cliente_fin_pf_persona": {
-      "left": 2320,
-      "top": 140
-    },
-    "s_h_baz_captacion_cliente_fin_pf_telefono_detalle": {
-      "left": 1960,
-      "top": 800
-    },
-    "s_h_baz_captacion_cliente_fin_pm_contacto": {
-      "left": 2320,
-      "top": 800
-    },
-    "s_h_baz_captacion_cliente_fin_pm_empresa": {
-      "left": 1960,
-      "top": 1516
-    },
-    "s_h_baz_captacion_cliente_fin_pm_encabezado_trans": {
-      "left": 2320,
-      "top": 1516
-    },
-    "s_h_baz_captacion_cliente_fin_pm_fiscal": {
-      "left": 1960,
-      "top": 2176
-    },
-    "s_l_baz_captacion_cliente_clientefinacle_segmentacion": {
-      "left": 2320,
-      "top": 2176
-    },
-    "s_st_l_baz_captacion_cliente_conversion_cu_estatus": {
-      "left": 1960,
-      "top": 2864
-    },
-    "ref_baz_captacion_codigos_persona": {
-      "left": 2320,
-      "top": 2864
-    },
-    "l_baz_captacion_cliente_finacle": {
-      "left": 2680,
-      "top": 2864
+      "left": 3160.3,
+      "top": 1703.03
     },
     "h_baz_captacion_cuenta": {
-      "left": 1600,
-      "top": 5298
-    },
-    "s_h_baz_captacion_cuenta_bandera": {
-      "left": 1240,
-      "top": 3740
-    },
-    "s_h_baz_captacion_cuenta_beneficiarios_contacto": {
-      "left": 880,
-      "top": 3740
-    },
-    "s_h_baz_captacion_cuenta_beneficiarios_identificacion": {
-      "left": 1240,
-      "top": 4456
-    },
-    "s_h_baz_captacion_cuenta_beneficiarios_ubicacion": {
-      "left": 880,
-      "top": 4456
-    },
-    "s_h_baz_captacion_cuenta_bloqueo": {
-      "left": 1240,
-      "top": 5172
-    },
-    "s_h_baz_captacion_cuenta_fin_beneficiarios_detalle": {
-      "left": 880,
-      "top": 5172
-    },
-    "s_h_baz_captacion_cuenta_fin_beneficiarios_encabezado": {
-      "left": 1240,
-      "top": 5888
-    },
-    "s_h_baz_captacion_cuenta_fin_saldos_pf_descriptivo": {
-      "left": 880,
-      "top": 5888
-    },
-    "s_h_baz_captacion_cuenta_fin_saldos_pf_encabezado": {
-      "left": 1240,
-      "top": 6604
-    },
-    "s_h_baz_captacion_cuenta_fin_saldos_pf_transaccional": {
-      "left": 880,
-      "top": 6604
-    },
-    "s_h_baz_captacion_cuenta_lavado_dinero": {
-      "left": 1960,
-      "top": 3880
-    },
-    "s_h_baz_captacion_cuenta_monto": {
-      "left": 2320,
-      "top": 3880
-    },
-    "s_h_baz_captacion_cuenta_propiedades": {
-      "left": 1960,
-      "top": 4596
-    },
-    "s_h_baz_captacion_cuenta_saldos_diarios": {
-      "left": 2320,
-      "top": 4596
-    },
-    "s_h_baz_captacion_cuenta_saldos_diarios_prop": {
-      "left": 1960,
-      "top": 5312
-    },
-    "s_l_baz_captacion_cuenta_fin_detalle": {
-      "left": 2320,
-      "top": 5312
-    },
-    "s_l_baz_captacion_cuenta_fin_encabezado": {
-      "left": 1960,
-      "top": 6028
-    },
-    "s_l_baz_captacion_cuenta_vinculacion_cliente": {
-      "left": 2320,
-      "top": 6028
-    },
-    "s_st_l_baz_captacion_cuenta_fin_estatus": {
-      "left": 1960,
-      "top": 6744
+      "left": 7170,
+      "top": 4840
     },
     "h_baz_captacion_cuenta_sac": {
-      "left": 1600,
-      "top": 7634
-    },
-    "s_nh_h_baz_captacion_cuenta_sac_movimiento": {
-      "left": 1240,
-      "top": 7480
-    },
-    "s_nh_h_baz_captacion_cuenta_sac_transaccion": {
-      "left": 1960,
-      "top": 7480
+      "left": 13307.8,
+      "top": 1033.33
     },
     "h_baz_captacion_garantia": {
-      "left": 1600,
-      "top": 8356
-    },
-    "l_baz_captacion_cuenta_garantia": {
-      "left": 1600,
-      "top": 8774
-    },
-    "s_h_baz_captacion_garantia_detalle": {
-      "left": 1240,
-      "top": 8411
-    },
-    "s_h_baz_captacion_garantia_extendida": {
-      "left": 1960,
-      "top": 8411
+      "left": 2800,
+      "top": 8150
     },
     "h_baz_captacion_movimientos": {
-      "left": 1600,
-      "top": 9342
-    },
-    "l_baz_captacion_cuenta_movimiento": {
-      "left": 1600,
-      "top": 9760
-    },
-    "l_baz_captacion_movimientos_cuentas_traspaso": {
-      "left": 1600,
-      "top": 10178
-    },
-    "s_nh_h_baz_captacion_movimientos_abonos": {
-      "left": 1240,
-      "top": 9634
-    },
-    "s_nh_h_baz_captacion_movimientos_cargos": {
-      "left": 880,
-      "top": 9634
-    },
-    "s_nh_h_baz_captacion_movimientos_transacciones": {
-      "left": 1960,
-      "top": 9634
-    },
-    "s_nh_l_baz_captacion_traspaso": {
-      "left": 2320,
-      "top": 9634
+      "left": 9900,
+      "top": 1680
     },
     "h_baz_captacion_transaccion_fin": {
-      "left": 1600,
-      "top": 11337
+      "left": 11890,
+      "top": 8370
+    },
+    "l_baz_captacion_cliente_credito_cliente": {
+      "left": 1417.75,
+      "top": 1620.8
+    },
+    "l_baz_captacion_cliente_cuenta": {
+      "left": 5775.75,
+      "top": 1561.71
+    },
+    "l_baz_captacion_cuenta_garantia": {
+      "left": 4650,
+      "top": 6339.34
+    },
+    "l_baz_captacion_cuenta_movimiento": {
+      "left": 7827.78,
+      "top": 1538.44
     },
     "l_baz_captacion_cuenta_transaccion_fin": {
-      "left": 1600,
-      "top": 11783
+      "left": 10112.5,
+      "top": 6355.02
+    },
+    "l_baz_captacion_movimientos_cuentas_traspaso": {
+      "left": 9791.9,
+      "top": 2423.42
+    },
+    "ref_baz_captacion_codigos_persona": {
+      "left": 672.3,
+      "top": 250.53
+    },
+    "s_h_baz_captacion_cliente_centro_contable_alta": {
+      "left": 1891.3,
+      "top": 643.03
+    },
+    "s_h_baz_captacion_cliente_datos_contacto": {
+      "left": 2243.3,
+      "top": 541.03
+    },
+    "s_h_baz_captacion_cliente_datos_control": {
+      "left": 2636.3,
+      "top": 647.03
+    },
+    "s_h_baz_captacion_cliente_datos_cuenta": {
+      "left": 3956.3,
+      "top": 355.03
+    },
+    "s_h_baz_captacion_cliente_datos_identificacion": {
+      "left": 3095.3,
+      "top": 704.03
+    },
+    "s_h_baz_captacion_cliente_fin_pf_contacto": {
+      "left": 3502.3,
+      "top": 868.03
+    },
+    "s_h_baz_captacion_cliente_fin_pf_direccion_detalle": {
+      "left": 4383.3,
+      "top": 669.03
+    },
+    "s_h_baz_captacion_cliente_fin_pf_encabezado_trans": {
+      "left": 4545.3,
+      "top": 1482.03
+    },
+    "s_h_baz_captacion_cliente_fin_pf_fiscal": {
+      "left": 4030.3,
+      "top": 1383.03
+    },
+    "s_h_baz_captacion_cliente_fin_pf_ident_detalle": {
+      "left": 4515.3,
+      "top": 2264.03
+    },
+    "s_h_baz_captacion_cliente_fin_pf_ine_detalle": {
+      "left": 4513.3,
+      "top": 2847.03
+    },
+    "s_h_baz_captacion_cliente_fin_pf_persona": {
+      "left": 4092.3,
+      "top": 2178.03
+    },
+    "s_h_baz_captacion_cliente_fin_pf_telefono_detalle": {
+      "left": 4015.3,
+      "top": 3272.03
+    },
+    "s_h_baz_captacion_cliente_fin_pm_contacto": {
+      "left": 3546.3,
+      "top": 3121.03
+    },
+    "s_h_baz_captacion_cliente_fin_pm_empresa": {
+      "left": 3066.3,
+      "top": 2499.03
+    },
+    "s_h_baz_captacion_cliente_fin_pm_encabezado_trans": {
+      "left": 2643.3,
+      "top": 2725.03
+    },
+    "s_h_baz_captacion_cliente_fin_pm_fiscal": {
+      "left": 2186.3,
+      "top": 2753.03
+    },
+    "s_h_baz_captacion_cuenta_bandera": {
+      "left": 6442,
+      "top": 4370
+    },
+    "s_h_baz_captacion_cuenta_beneficiarios_contacto": {
+      "left": 6616,
+      "top": 4210
+    },
+    "s_h_baz_captacion_cuenta_beneficiarios_identificacion": {
+      "left": 6833,
+      "top": 4098
+    },
+    "s_h_baz_captacion_cuenta_beneficiarios_ubicacion": {
+      "left": 7076,
+      "top": 4044
+    },
+    "s_h_baz_captacion_cuenta_bloqueo": {
+      "left": 7326,
+      "top": 4052
+    },
+    "s_h_baz_captacion_cuenta_fin_beneficiarios_detalle": {
+      "left": 7565,
+      "top": 4121
+    },
+    "s_h_baz_captacion_cuenta_fin_beneficiarios_encabezado": {
+      "left": 7772,
+      "top": 4245
+    },
+    "s_h_baz_captacion_cuenta_fin_saldos_pf_descriptivo": {
+      "left": 7933,
+      "top": 4416
+    },
+    "s_h_baz_captacion_cuenta_fin_saldos_pf_encabezado": {
+      "left": 8035,
+      "top": 4619
+    },
+    "s_h_baz_captacion_cuenta_fin_saldos_pf_transaccional": {
+      "left": 8070,
+      "top": 4840
+    },
+    "s_h_baz_captacion_cuenta_lavado_dinero": {
+      "left": 8035,
+      "top": 5061
+    },
+    "s_h_baz_captacion_cuenta_monto": {
+      "left": 7933,
+      "top": 5264
+    },
+    "s_h_baz_captacion_cuenta_propiedades": {
+      "left": 7772,
+      "top": 5435
+    },
+    "s_h_baz_captacion_cuenta_saldos_diarios": {
+      "left": 7565,
+      "top": 5559
+    },
+    "s_h_baz_captacion_cuenta_saldos_diarios_prop": {
+      "left": 7326,
+      "top": 5628
+    },
+    "s_h_baz_captacion_garantia_detalle": {
+      "left": 2072,
+      "top": 7680
+    },
+    "s_h_baz_captacion_garantia_extendida": {
+      "left": 2072,
+      "top": 8620
     },
     "s_h_baz_captacion_transaccion_fin_ca_pf_encabezado": {
-      "left": 1240,
-      "top": 10802
+      "left": 11162,
+      "top": 7900
     },
     "s_h_baz_captacion_transaccion_fin_conciliada_anexo": {
-      "left": 880,
-      "top": 10802
+      "left": 11612,
+      "top": 7609
     },
     "s_h_baz_captacion_transaccion_fin_conciliada_cheque": {
-      "left": 1240,
-      "top": 11462
+      "left": 12168,
+      "top": 7609
     },
     "s_h_baz_captacion_transaccion_fin_conciliada_detalle": {
-      "left": 880,
-      "top": 11462
+      "left": 12618,
+      "top": 7900
     },
     "s_h_baz_captacion_transaccion_fin_conciliada_encabezado": {
-      "left": 1240,
-      "top": 12178
+      "left": 12790,
+      "top": 8370
     },
     "s_h_baz_captacion_transaccion_fin_conciliada_spei": {
-      "left": 1960,
-      "top": 11188
+      "left": 12618,
+      "top": 8840
     },
     "s_h_baz_captacion_transaccion_fin_conciliada_transfer": {
-      "left": 2320,
-      "top": 11188
+      "left": 12168,
+      "top": 9131
+    },
+    "s_l_baz_captacion_cliente_finacle_segmentacion": {
+      "left": 1197.3,
+      "top": 2815.53
+    },
+    "s_l_baz_captacion_cuenta_fin_detalle": {
+      "left": 7076,
+      "top": 5636
+    },
+    "s_l_baz_captacion_cuenta_fin_encabezado": {
+      "left": 6833,
+      "top": 5582
+    },
+    "s_l_baz_captacion_cuenta_vinculacion_cliente": {
+      "left": 6616,
+      "top": 5470
+    },
+    "s_nh_h_baz_captacion_cuenta_sac_movimiento": {
+      "left": 12579.8,
+      "top": 563.33
+    },
+    "s_nh_h_baz_captacion_cuenta_sac_transaccion": {
+      "left": 12579.8,
+      "top": 1503.33
+    },
+    "s_nh_h_baz_captacion_movimientos_abonos": {
+      "left": 9172,
+      "top": 1210
+    },
+    "s_nh_h_baz_captacion_movimientos_cargos": {
+      "left": 10502,
+      "top": 1085
+    },
+    "s_nh_h_baz_captacion_movimientos_transacciones": {
+      "left": 10502,
+      "top": 2275
     },
     "s_nh_l_baz_captacion_transaccion_fin_ca_pf_operacion": {
-      "left": 1960,
-      "top": 11736
+      "left": 11612,
+      "top": 9131
     },
     "s_nh_l_baz_captacion_transaccion_fin_conciliada_operacion": {
-      "left": 2320,
-      "top": 11736
+      "left": 11162,
+      "top": 8840
+    },
+    "s_st_l_baz_captacion_cuenta_fin_estatus": {
+      "left": 6442,
+      "top": 5310
+    },
+    "s_nh_l_baz_captacion_traspaso": {
+      "left": 9172,
+      "top": 2150
+    },
+    "l_baz_captacion_cliente_finacle": {
+      "left": 1202.74,
+      "top": 2274.19
     }
   },
   "colors": {},
-  "customRelationships": [],
   "deletedRelationIds": [],
   "relationRoutes": {},
   "groups": [],
-  "schemaGroups": [],
-  "zoom": 0.28
+  "schemaGroups": [
+    {
+      "id": "schema-group-cliente",
+      "collapsed": false,
+      "collapsedBounds": null
+    },
+    {
+      "id": "schema-group-cuenta",
+      "collapsed": false,
+      "collapsedBounds": null
+    },
+    {
+      "id": "schema-group-cuenta-sac",
+      "collapsed": false,
+      "collapsedBounds": null
+    },
+    {
+      "id": "schema-group-garantia",
+      "collapsed": false,
+      "collapsedBounds": null
+    },
+    {
+      "id": "schema-group-movimiento",
+      "collapsed": false,
+      "collapsedBounds": null
+    },
+    {
+      "id": "schema-group-transaccion",
+      "collapsed": false,
+      "collapsedBounds": null
+    }
+  ],
+  "zoom": 0.1
 }
