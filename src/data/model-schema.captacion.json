@@ -76,7 +76,10 @@
     "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
     "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0
+    "dbmlRelationCount": 0,
+    "headerColor": "#2169F3",
+    "dbmlGroup": "Cliente",
+    "dbmlGroupColor": "#2563eb"
   },
   {
     "id": "h_baz_captacion_cuenta",
@@ -155,7 +158,10 @@
     "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
     "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0
+    "dbmlRelationCount": 0,
+    "headerColor": "#2169F3",
+    "dbmlGroup": "Cuenta",
+    "dbmlGroupColor": "#dc2626"
   },
   {
     "id": "h_baz_captacion_cuenta_sac",
@@ -222,7 +228,10 @@
     "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
     "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0
+    "dbmlRelationCount": 0,
+    "headerColor": "#2169F3",
+    "dbmlGroup": "Cuenta SAC",
+    "dbmlGroupColor": "#16a34a"
   },
   {
     "id": "h_baz_captacion_garantia",
@@ -289,7 +298,10 @@
     "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
     "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0
+    "dbmlRelationCount": 0,
+    "headerColor": "#2169F3",
+    "dbmlGroup": "Garantia",
+    "dbmlGroupColor": "#ca8a04"
   },
   {
     "id": "h_baz_captacion_movimientos",
@@ -356,7 +368,10 @@
     "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
     "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0
+    "dbmlRelationCount": 0,
+    "headerColor": "#2169F3",
+    "dbmlGroup": "Movimiento",
+    "dbmlGroupColor": "#9333ea"
   },
   {
     "id": "h_baz_captacion_transaccion_fin",
@@ -429,7 +444,10 @@
     "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
     "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0
+    "dbmlRelationCount": 0,
+    "headerColor": "#2169F3",
+    "dbmlGroup": "Transaccion",
+    "dbmlGroupColor": "#ea580c"
   },
   {
     "id": "l_baz_captacion_cliente_credito_cliente",
@@ -508,7 +526,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#f54337",
+    "dbmlGroup": "",
+    "dbmlGroupColor": "#6b7280"
   },
   {
     "id": "l_baz_captacion_cliente_cuenta",
@@ -597,7 +618,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 2
+    "dbmlRelationCount": 2,
+    "headerColor": "#f54337",
+    "dbmlGroup": "",
+    "dbmlGroupColor": "#6b7280"
   },
   {
     "id": "l_baz_captacion_cuenta_garantia",
@@ -686,7 +710,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 2
+    "dbmlRelationCount": 2,
+    "headerColor": "#f54337",
+    "dbmlGroup": "",
+    "dbmlGroupColor": "#6b7280"
   },
   {
     "id": "l_baz_captacion_cuenta_movimiento",
@@ -775,7 +802,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 2
+    "dbmlRelationCount": 2,
+    "headerColor": "#f54337",
+    "dbmlGroup": "",
+    "dbmlGroupColor": "#6b7280"
   },
   {
     "id": "l_baz_captacion_cuenta_transaccion_fin",
@@ -888,7 +918,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 2
+    "dbmlRelationCount": 2,
+    "headerColor": "#f54337",
+    "dbmlGroup": "",
+    "dbmlGroupColor": "#6b7280"
   },
   {
     "id": "l_baz_captacion_movimientos_cuentas_traspaso",
@@ -967,7 +1000,10 @@
     "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
     "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0
+    "dbmlRelationCount": 0,
+    "headerColor": "#f54337",
+    "dbmlGroup": "",
+    "dbmlGroupColor": "#6b7280"
   },
   {
     "id": "ref_baz_captacion_codigos_persona",
@@ -1100,7 +1136,10 @@
     "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
     "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0
+    "dbmlRelationCount": 0,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cliente",
+    "dbmlGroupColor": "#2563eb"
   },
   {
     "id": "s_h_baz_captacion_cliente_centro_contable_alta",
@@ -1239,7 +1278,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cliente",
+    "dbmlGroupColor": "#2563eb"
   },
   {
     "id": "s_h_baz_captacion_cliente_datos_contacto",
@@ -1474,7 +1516,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cliente",
+    "dbmlGroupColor": "#2563eb"
   },
   {
     "id": "s_h_baz_captacion_cliente_datos_control",
@@ -1709,7 +1754,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cliente",
+    "dbmlGroupColor": "#2563eb"
   },
   {
     "id": "s_h_baz_captacion_cliente_datos_cuenta",
@@ -1926,7 +1974,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cliente",
+    "dbmlGroupColor": "#2563eb"
   },
   {
     "id": "s_h_baz_captacion_cliente_datos_identificacion",
@@ -2155,7 +2206,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cliente",
+    "dbmlGroupColor": "#2563eb"
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_contacto",
@@ -2240,7 +2294,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cliente",
+    "dbmlGroupColor": "#2563eb"
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_direccion_detalle",
@@ -2367,7 +2424,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cliente",
+    "dbmlGroupColor": "#2563eb"
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_encabezado_trans",
@@ -2482,7 +2542,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cliente",
+    "dbmlGroupColor": "#2563eb"
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_fiscal",
@@ -2603,7 +2666,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cliente",
+    "dbmlGroupColor": "#2563eb"
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_ident_detalle",
@@ -2688,7 +2754,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cliente",
+    "dbmlGroupColor": "#2563eb"
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_ine_detalle",
@@ -2791,7 +2860,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cliente",
+    "dbmlGroupColor": "#2563eb"
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_persona",
@@ -2924,7 +2996,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cliente",
+    "dbmlGroupColor": "#2563eb"
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pf_telefono_detalle",
@@ -3015,7 +3090,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cliente",
+    "dbmlGroupColor": "#2563eb"
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pm_contacto",
@@ -3244,7 +3322,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cliente",
+    "dbmlGroupColor": "#2563eb"
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pm_empresa",
@@ -3371,7 +3452,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cliente",
+    "dbmlGroupColor": "#2563eb"
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pm_encabezado_trans",
@@ -3504,7 +3588,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cliente",
+    "dbmlGroupColor": "#2563eb"
   },
   {
     "id": "s_h_baz_captacion_cliente_fin_pm_fiscal",
@@ -3601,7 +3688,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cliente",
+    "dbmlGroupColor": "#2563eb"
   },
   {
     "id": "s_h_baz_captacion_cuenta_bandera",
@@ -4010,7 +4100,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta",
+    "dbmlGroupColor": "#dc2626"
   },
   {
     "id": "s_h_baz_captacion_cuenta_beneficiarios_contacto",
@@ -4113,7 +4206,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta",
+    "dbmlGroupColor": "#dc2626"
   },
   {
     "id": "s_h_baz_captacion_cuenta_beneficiarios_identificacion",
@@ -4288,7 +4384,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta",
+    "dbmlGroupColor": "#dc2626"
   },
   {
     "id": "s_h_baz_captacion_cuenta_beneficiarios_ubicacion",
@@ -4469,7 +4568,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta",
+    "dbmlGroupColor": "#dc2626"
   },
   {
     "id": "s_h_baz_captacion_cuenta_bloqueo",
@@ -4596,7 +4698,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta",
+    "dbmlGroupColor": "#dc2626"
   },
   {
     "id": "s_h_baz_captacion_cuenta_fin_beneficiarios_detalle",
@@ -4771,7 +4876,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta",
+    "dbmlGroupColor": "#dc2626"
   },
   {
     "id": "s_h_baz_captacion_cuenta_fin_beneficiarios_encabezado",
@@ -4886,7 +4994,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta",
+    "dbmlGroupColor": "#dc2626"
   },
   {
     "id": "s_h_baz_captacion_cuenta_fin_saldos_pf_descriptivo",
@@ -5073,7 +5184,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta",
+    "dbmlGroupColor": "#dc2626"
   },
   {
     "id": "s_h_baz_captacion_cuenta_fin_saldos_pf_encabezado",
@@ -5188,7 +5302,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta",
+    "dbmlGroupColor": "#dc2626"
   },
   {
     "id": "s_h_baz_captacion_cuenta_fin_saldos_pf_transaccional",
@@ -5525,7 +5642,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta",
+    "dbmlGroupColor": "#dc2626"
   },
   {
     "id": "s_h_baz_captacion_cuenta_lavado_dinero",
@@ -5742,7 +5862,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta",
+    "dbmlGroupColor": "#dc2626"
   },
   {
     "id": "s_h_baz_captacion_cuenta_monto",
@@ -6331,7 +6454,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta",
+    "dbmlGroupColor": "#dc2626"
   },
   {
     "id": "s_h_baz_captacion_cuenta_propiedades",
@@ -7244,7 +7370,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta",
+    "dbmlGroupColor": "#dc2626"
   },
   {
     "id": "s_h_baz_captacion_cuenta_saldos_diarios",
@@ -7335,7 +7464,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta",
+    "dbmlGroupColor": "#dc2626"
   },
   {
     "id": "s_h_baz_captacion_cuenta_saldos_diarios_prop",
@@ -7474,7 +7606,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta",
+    "dbmlGroupColor": "#dc2626"
   },
   {
     "id": "s_h_baz_captacion_garantia_detalle",
@@ -7787,7 +7922,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Garantia",
+    "dbmlGroupColor": "#ca8a04"
   },
   {
     "id": "s_h_baz_captacion_garantia_extendida",
@@ -8100,7 +8238,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Garantia",
+    "dbmlGroupColor": "#ca8a04"
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_ca_pf_encabezado",
@@ -8215,7 +8356,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Transaccion",
+    "dbmlGroupColor": "#ea580c"
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_conciliada_anexo",
@@ -8348,7 +8492,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Transaccion",
+    "dbmlGroupColor": "#ea580c"
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_conciliada_cheque",
@@ -8457,7 +8604,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Transaccion",
+    "dbmlGroupColor": "#ea580c"
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_conciliada_detalle",
@@ -8638,7 +8788,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Transaccion",
+    "dbmlGroupColor": "#ea580c"
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_conciliada_encabezado",
@@ -8771,7 +8924,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Transaccion",
+    "dbmlGroupColor": "#ea580c"
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_conciliada_spei",
@@ -8880,7 +9036,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Transaccion",
+    "dbmlGroupColor": "#ea580c"
   },
   {
     "id": "s_h_baz_captacion_transaccion_fin_conciliada_transfer",
@@ -8971,7 +9130,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Transaccion",
+    "dbmlGroupColor": "#ea580c"
   },
   {
     "id": "s_l_baz_captacion_cliente_finacle_segmentacion",
@@ -9110,7 +9272,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cliente",
+    "dbmlGroupColor": "#2563eb"
   },
   {
     "id": "s_l_baz_captacion_cuenta_fin_detalle",
@@ -9375,7 +9540,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta",
+    "dbmlGroupColor": "#dc2626"
   },
   {
     "id": "s_l_baz_captacion_cuenta_fin_encabezado",
@@ -9490,7 +9658,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta",
+    "dbmlGroupColor": "#dc2626"
   },
   {
     "id": "s_l_baz_captacion_cuenta_vinculacion_cliente",
@@ -9641,7 +9812,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta",
+    "dbmlGroupColor": "#dc2626"
   },
   {
     "id": "s_nh_h_baz_captacion_cuenta_sac_movimiento",
@@ -10092,7 +10266,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta SAC",
+    "dbmlGroupColor": "#16a34a"
   },
   {
     "id": "s_nh_h_baz_captacion_cuenta_sac_transaccion",
@@ -10525,7 +10702,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta SAC",
+    "dbmlGroupColor": "#16a34a"
   },
   {
     "id": "s_nh_h_baz_captacion_movimientos_abonos",
@@ -10826,7 +11006,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Movimiento",
+    "dbmlGroupColor": "#9333ea"
   },
   {
     "id": "s_nh_h_baz_captacion_movimientos_cargos",
@@ -11127,7 +11310,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Movimiento",
+    "dbmlGroupColor": "#9333ea"
   },
   {
     "id": "s_nh_h_baz_captacion_movimientos_transacciones",
@@ -11320,7 +11506,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Movimiento",
+    "dbmlGroupColor": "#9333ea"
   },
   {
     "id": "s_nh_l_baz_captacion_transaccion_fin_ca_pf_operacion",
@@ -11585,7 +11774,10 @@
     "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml",
     "dbmlProject": "captacion_dv",
     "modelRelations": [],
-    "dbmlRelationCount": 0
+    "dbmlRelationCount": 0,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Transaccion",
+    "dbmlGroupColor": "#ea580c"
   },
   {
     "id": "s_nh_l_baz_captacion_transaccion_fin_conciliada_operacion",
@@ -11874,7 +12066,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Transaccion",
+    "dbmlGroupColor": "#ea580c"
   },
   {
     "id": "s_st_l_baz_captacion_cuenta_fin_estatus",
@@ -11959,7 +12154,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Cuenta",
+    "dbmlGroupColor": "#dc2626"
   },
   {
     "id": "s_nh_l_baz_captacion_traspaso",
@@ -12140,7 +12338,10 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#FEC107",
+    "dbmlGroup": "Movimiento",
+    "dbmlGroupColor": "#9333ea"
   },
   {
     "id": "l_baz_captacion_cliente_finacle",
@@ -12225,6 +12426,9 @@
         "dbmlFile": "dv_captacion_bdbaz_estandarizado.dbml"
       }
     ],
-    "dbmlRelationCount": 1
+    "dbmlRelationCount": 1,
+    "headerColor": "#f54337",
+    "dbmlGroup": "",
+    "dbmlGroupColor": "#6b7280"
   }
 ]
