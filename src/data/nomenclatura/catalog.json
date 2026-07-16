@@ -1,0 +1,241 @@
+{
+  "version": 1,
+  "company": "baz",
+  "companyLabel": "Banco Azteca",
+  "start": "entorno",
+  "steps": {
+    "entorno": {
+      "title": "Entorno",
+      "question": "¿Dónde vive el objeto de datos?",
+      "options": [
+        { "value": "onprem", "label": "On-Premise", "hint": "Cloudera", "next": "zona_onprem" },
+        { "value": "cloud", "label": "Nube (AWS)", "hint": "Próximamente", "disabled": true }
+      ]
+    },
+    "zona_onprem": {
+      "title": "Zona / Capa",
+      "question": "¿A qué capa pertenece?",
+      "options": [
+        { "value": "curada", "label": "Zona Curada", "hint": "Data Vault 2.0", "next": "subzona_curada" },
+        { "value": "staging", "label": "Staging", "hint": "Próximamente", "disabled": true },
+        { "value": "raw", "label": "Raw", "hint": "Próximamente", "disabled": true },
+        { "value": "semantica", "label": "Semántica", "hint": "Próximamente", "disabled": true }
+      ]
+    },
+    "subzona_curada": {
+      "title": "Sub-zona",
+      "question": "¿Qué parte del curado?",
+      "options": [
+        { "value": "rawvault", "label": "Raw Vault", "hint": "Hubs, Links, Satellites", "next": "obj_rawvault" },
+        { "value": "businessvault", "label": "Business Vault", "hint": "PIT, Bridge, Computed", "next": "obj_bv" },
+        { "value": "crystal", "label": "Crystal", "hint": "Dimensional", "next": "obj_crystal" }
+      ]
+    },
+    "obj_rawvault": {
+      "title": "Tipo de objeto",
+      "question": "¿Qué objeto del Raw Vault?",
+      "options": [
+        { "value": "hub", "label": "Hub", "template": "rv_hub" },
+        { "value": "link", "label": "Link", "template": "rv_link" },
+        { "value": "sat", "label": "Satélite estándar (SAT)", "template": "rv_sat" },
+        { "value": "sat_ma", "label": "Multi-Active (MAS)", "template": "rv_sat_ma" },
+        { "value": "sat_nh", "label": "Non-Historized (NHS)", "template": "rv_sat_nh" },
+        { "value": "sat_st", "label": "Status Tracking (ST)", "template": "rv_sat_st" },
+        { "value": "sat_rt", "label": "Record Tracking (RT)", "template": "rv_sat_rt" },
+        { "value": "sat_link", "label": "Satélite de Link", "template": "rv_sat_link" }
+      ]
+    },
+    "obj_bv": {
+      "title": "Tipo de objeto",
+      "question": "¿Qué objeto del Business Vault?",
+      "options": [
+        { "value": "pit", "label": "Point-In-Time (PIT)", "template": "bv_pit" },
+        { "value": "bridge", "label": "Bridge", "template": "bv_bridge" },
+        { "value": "computed", "label": "Computed Satellite (CS)", "template": "bv_cs" },
+        { "value": "reference", "label": "Referencia", "template": "bv_ref" }
+      ]
+    },
+    "obj_crystal": {
+      "title": "Tipo de objeto",
+      "question": "¿Qué objeto de Crystal?",
+      "options": [
+        { "value": "dimension", "label": "Tabla dimensional", "template": "crystal_tabla" },
+        { "value": "fact", "label": "Tabla de hechos", "template": "crystal_tabla" }
+      ]
+    }
+  },
+  "templates": {
+    "rv_hub": {
+      "label": "Hub",
+      "name": "h_{company}_{dominio}_{entidad}",
+      "fields": [
+        { "id": "dominio", "label": "Dominio / unidad de negocio", "placeholder": "credito", "required": true },
+        { "id": "entidad", "label": "Entidad de negocio", "placeholder": "cliente", "required": true }
+      ],
+      "outputs": [
+        { "label": "Objeto / Tabla", "pattern": "{name}" },
+        { "label": "Esquema", "pattern": "raw_{company}_{dominio}", "proposed": true },
+        { "label": "Ruta", "pattern": "/app/bancoazteca/raw_vault/{name}", "proposed": true }
+      ]
+    },
+    "rv_link": {
+      "label": "Link",
+      "name": "l_{company}_{dominio}_{entidad}_{entidad2}",
+      "fields": [
+        { "id": "dominio", "label": "Dominio / unidad de negocio", "placeholder": "credito", "required": true },
+        { "id": "entidad", "label": "Primera entidad", "placeholder": "cliente", "required": true },
+        { "id": "entidad2", "label": "Segunda entidad", "placeholder": "pedido", "required": true }
+      ],
+      "outputs": [
+        { "label": "Objeto / Tabla", "pattern": "{name}" },
+        { "label": "Esquema", "pattern": "raw_{company}_{dominio}", "proposed": true },
+        { "label": "Ruta", "pattern": "/app/bancoazteca/raw_vault/{name}", "proposed": true }
+      ]
+    },
+    "rv_sat": {
+      "label": "Satélite estándar (SAT)",
+      "name": "s_h_{company}_{dominio}_{entidad}_{aspecto}",
+      "fields": [
+        { "id": "dominio", "label": "Dominio / unidad de negocio", "placeholder": "credito", "required": true },
+        { "id": "entidad", "label": "Entidad (Hub padre)", "placeholder": "cliente", "required": true },
+        { "id": "aspecto", "label": "Aspecto / descripción", "placeholder": "datos_pers", "required": true }
+      ],
+      "outputs": [
+        { "label": "Objeto / Tabla", "pattern": "{name}" },
+        { "label": "Esquema", "pattern": "raw_{company}_{dominio}", "proposed": true },
+        { "label": "Ruta", "pattern": "/app/bancoazteca/raw_vault/{name}", "proposed": true }
+      ]
+    },
+    "rv_sat_ma": {
+      "label": "Multi-Active (MAS)",
+      "name": "s_ma_h_{company}_{dominio}_{entidad}_{aspecto}",
+      "fields": [
+        { "id": "dominio", "label": "Dominio / unidad de negocio", "placeholder": "credito", "required": true },
+        { "id": "entidad", "label": "Entidad (Hub padre)", "placeholder": "visita", "required": true },
+        { "id": "aspecto", "label": "Aspecto / descripción", "placeholder": "resultado", "required": true }
+      ],
+      "outputs": [
+        { "label": "Objeto / Tabla", "pattern": "{name}" },
+        { "label": "Esquema", "pattern": "raw_{company}_{dominio}", "proposed": true }
+      ]
+    },
+    "rv_sat_nh": {
+      "label": "Non-Historized (NHS)",
+      "name": "s_nh_h_{company}_{dominio}_{entidad}_{aspecto}",
+      "fields": [
+        { "id": "dominio", "label": "Dominio / unidad de negocio", "placeholder": "credito", "required": true },
+        { "id": "entidad", "label": "Entidad (Hub padre)", "placeholder": "pedido", "required": true },
+        { "id": "aspecto", "label": "Aspecto / descripción", "placeholder": "movimiento", "required": true }
+      ],
+      "outputs": [
+        { "label": "Objeto / Tabla", "pattern": "{name}" },
+        { "label": "Esquema", "pattern": "raw_{company}_{dominio}", "proposed": true }
+      ]
+    },
+    "rv_sat_st": {
+      "label": "Status Tracking (ST)",
+      "name": "s_st_h_{company}_{dominio}_{entidad}_{aspecto}",
+      "fields": [
+        { "id": "dominio", "label": "Dominio / unidad de negocio", "placeholder": "credito", "required": true },
+        { "id": "entidad", "label": "Entidad (Hub padre)", "placeholder": "cliente", "required": true },
+        { "id": "aspecto", "label": "Aspecto / descripción", "placeholder": "congelamiento", "required": true }
+      ],
+      "outputs": [
+        { "label": "Objeto / Tabla", "pattern": "{name}" },
+        { "label": "Esquema", "pattern": "raw_{company}_{dominio}", "proposed": true }
+      ]
+    },
+    "rv_sat_rt": {
+      "label": "Record Tracking (RT)",
+      "name": "s_rt_h_{company}_{dominio}_{entidad}_{descripcion}",
+      "fields": [
+        { "id": "dominio", "label": "Dominio / unidad de negocio", "placeholder": "credito", "required": true },
+        { "id": "entidad", "label": "Hub", "placeholder": "pedido", "required": true },
+        { "id": "descripcion", "label": "Descripción", "placeholder": "pago_sostenido", "required": true }
+      ],
+      "outputs": [
+        { "label": "Objeto / Tabla", "pattern": "{name}" },
+        { "label": "Esquema", "pattern": "raw_{company}_{dominio}", "proposed": true }
+      ]
+    },
+    "rv_sat_link": {
+      "label": "Satélite de Link",
+      "name": "s_l_{company}_{dominio}_{relacion}_{aspecto}",
+      "fields": [
+        { "id": "dominio", "label": "Dominio / unidad de negocio", "placeholder": "credito", "required": true },
+        { "id": "relacion", "label": "Relación (ent1_ent2)", "placeholder": "cliente_pedido", "required": true },
+        { "id": "aspecto", "label": "Aspecto / descripción", "placeholder": "condiciones", "required": true }
+      ],
+      "outputs": [
+        { "label": "Objeto / Tabla", "pattern": "{name}" },
+        { "label": "Esquema", "pattern": "raw_{company}_{dominio}", "proposed": true }
+      ]
+    },
+    "bv_pit": {
+      "label": "Point-In-Time (PIT)",
+      "name": "pit_{company}_{dominio}_{entidad}_{cadencia}",
+      "fields": [
+        { "id": "dominio", "label": "Dominio / unidad de negocio", "placeholder": "credito", "required": true },
+        { "id": "entidad", "label": "Hub", "placeholder": "pedido", "required": true },
+        { "id": "cadencia", "label": "Cadencia", "placeholder": "diario", "required": true }
+      ],
+      "outputs": [
+        { "label": "Objeto / Tabla", "pattern": "{name}" },
+        { "label": "Esquema", "pattern": "curated_{company}_{dominio}", "proposed": true }
+      ]
+    },
+    "bv_bridge": {
+      "label": "Bridge",
+      "name": "br_{company}_{dominio}_{relacion}",
+      "fields": [
+        { "id": "dominio", "label": "Dominio / unidad de negocio", "placeholder": "credito", "required": true },
+        { "id": "relacion", "label": "Relación", "placeholder": "cliente_pedido", "required": true }
+      ],
+      "outputs": [
+        { "label": "Objeto / Tabla", "pattern": "{name}" },
+        { "label": "Esquema", "pattern": "curated_{company}_{dominio}", "proposed": true }
+      ]
+    },
+    "bv_cs": {
+      "label": "Computed Satellite (CS)",
+      "name": "s_cs_h_{company}_{dominio}_{entidad}_{aspecto}",
+      "fields": [
+        { "id": "dominio", "label": "Dominio / unidad de negocio", "placeholder": "credito", "required": true },
+        { "id": "entidad", "label": "Entidad (Hub padre)", "placeholder": "pedido", "required": true },
+        { "id": "aspecto", "label": "Aspecto calculado", "placeholder": "tasa_motor_conversion", "required": true }
+      ],
+      "outputs": [
+        { "label": "Objeto / Tabla", "pattern": "{name}" },
+        { "label": "Esquema", "pattern": "curated_{company}_{dominio}", "proposed": true }
+      ]
+    },
+    "bv_ref": {
+      "label": "Referencia",
+      "name": "ref_{company}_{dominio}_{catalogo}",
+      "fields": [
+        { "id": "dominio", "label": "Dominio / unidad de negocio", "placeholder": "credito", "required": true },
+        { "id": "catalogo", "label": "Catálogo", "placeholder": "zona", "required": true }
+      ],
+      "outputs": [
+        { "label": "Objeto / Tabla", "pattern": "{name}" },
+        { "label": "Esquema", "pattern": "curated_{company}_{dominio}", "proposed": true }
+      ]
+    },
+    "crystal_tabla": {
+      "label": "Crystal (tabla)",
+      "name": "cd_{dominio}_{descripcion}",
+      "fields": [
+        { "id": "dominio", "label": "Dominio / unidad de negocio", "placeholder": "redu", "required": true },
+        { "id": "descripcion", "label": "Descripción del objeto", "placeholder": "recomendacion_nbo_clientes", "required": true },
+        { "id": "grupo", "label": "Base de datos / grupo (esquema)", "placeholder": "bdclientes", "required": true }
+      ],
+      "outputs": [
+        { "label": "Tabla", "pattern": "{name}" },
+        { "label": "Esquema", "pattern": "cd_{company}_{grupo}" },
+        { "label": "Ruta", "pattern": "/app/bancoazteca/crystal/{name}" },
+        { "label": "Job", "pattern": "{company}-crystal-{name}-jnb" },
+        { "label": "Job AWS", "pattern": "{company}-{dominio}-aws-{name}-jnb" }
+      ]
+    }
+  }
+}
