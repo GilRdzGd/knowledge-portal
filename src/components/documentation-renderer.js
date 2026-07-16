@@ -1,8 +1,16 @@
+// Renderer de la seccion Documentacion.
+// Data-driven: lee assets/data/docs/manifest.json y arma:
+//  - pestanas por perfil (audiencia)
+//  - indice colapsable por categoria
+//  - panel de contenido con breadcrumb
+// El contenido de cada pagina es Markdown (docs/<perfil>/<pagina>.md).
+// Mientras una pagina este en "draft", se muestra un placeholder y NO se pide el .md.
+
 const state = {
-  groups: [],
-  objects: [],
-  selectedKey: "",
-  query: "",
+  manifest: null,
+  profileId: "",
+  pageId: "",
+  variant: "onprem",
 };
 
 let app = null;
@@ -15,321 +23,399 @@ function escapeHtml(value) {
     .replace(/"/g, "&quot;");
 }
 
-function slug(value) {
-  return String(value || "")
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
-function label(value, fallback = "Sin dato") {
-  return String(value ?? "").trim() || fallback;
-}
-
-function objectType(object) {
-  const tag = String(object.tag || "").toLowerCase();
-  if (tag.includes("fact")) return "Tabla de hechos";
-  if (tag.includes("dim")) return "Dimension";
-  if (tag.includes("view") || tag.includes("vista")) return "Vista";
-  return label(object.tag, "Tabla");
-}
-
-function objectIcon(object) {
-  const type = objectType(object).toLowerCase();
-  if (type.includes("vista")) return "▤";
-  if (type.includes("hechos")) return "▦";
-  if (type.includes("dimension")) return "▥";
-  return "▧";
-}
-
-function viewName(entry) {
-  return label(entry.name || entry.id, "Vista");
-}
-
-function cssColor(value, fallback = "#2563eb") {
-  const color = String(value || "").trim();
-  return /^#[0-9a-f]{3,8}$/i.test(color) ? color : fallback;
-}
-
-function objectSearchText(object) {
-  return [
-    object.title,
-    object.tag,
-    object.description,
-    object.viewName,
-    object.domainName,
-    ...(object.fields || []).flatMap((field) => [field.name, field.type, field.note, field.key]),
-  ]
-    .join(" ")
-    .toLowerCase();
-}
-
 async function fetchJson(path) {
   const response = await fetch(path);
   if (!response.ok) throw new Error(`No se pudo cargar ${path}: ${response.status}`);
   return response.json();
 }
 
-async function loadDocumentation() {
-  const manifest = await fetchJson("assets/data/model-schemas.json");
-  const loaded = await Promise.all(
-    (manifest.schemas || []).map(async (entry) => ({
-      entry,
-      tables: await fetchJson(`assets/data/${entry.file}`),
-    }))
-  );
+function currentProfile() {
+  const profiles = state.manifest?.profiles || [];
+  return profiles.find((profile) => profile.id === state.profileId) || profiles[0] || null;
+}
 
-  const groups = new Map();
-  loaded.forEach(({ entry, tables }) => {
-    const name = viewName(entry);
-    const id = entry.id || slug(name) || "vista";
-    if (!groups.has(id)) {
-      groups.set(id, { id, name, color: "#2563eb", open: false, objects: [] });
-    }
-    (tables || []).forEach((table, index) => {
-      const object = {
-        ...table,
-        key: `${entry.id}:${table.id || index}`,
-        schemaEntry: entry,
-        groupId: id,
-        viewName: name,
-        domainName: label(table.group, ""),
-        groupColor: cssColor(table.groupColor, "#2563eb"),
-        objectColor: cssColor(table.headerColor, table.groupColor || "#2563eb"),
-      };
-      groups.get(id).objects.push(object);
+// Un nodo es "pagina" si tiene archivo; si no, es un grupo contenedor.
+function isPage(node) {
+  return typeof node.file === "string";
+}
+
+// Hijos de un nodo en orden. Soporta `children` (orden mixto pagina/grupo) o
+// el par `pages` + `groups` (paginas primero, luego grupos).
+function childrenOf(node) {
+  if (Array.isArray(node.children)) return node.children;
+  return [...(node.pages || []), ...(node.groups || [])];
+}
+
+// Recorre el arbol aplanando paginas y anotando su ruta de nombres (trail) e
+// ids ancestros (idTrail) para breadcrumb y auto-apertura.
+function walkNodes(nodes, trailNames, trailIds, out) {
+  (nodes || []).forEach((node) => {
+    const names = [...trailNames, node.name];
+    const ids = [...trailIds, node.id];
+    childrenOf(node).forEach((child) => {
+      if (isPage(child)) out.push({ ...child, trail: names, idTrail: ids });
+      else walkNodes([child], names, ids, out);
     });
   });
-
-  state.groups = Array.from(groups.values()).sort((a, b) => a.name.localeCompare(b.name));
-  state.groups.forEach((group) => group.objects.sort((a, b) => label(a.title).localeCompare(label(b.title))));
-  state.objects = state.groups.flatMap((group) => group.objects);
-  state.selectedKey = new URLSearchParams(window.location.hash.slice(1)).get("object") || state.objects[0]?.key || "";
 }
 
-function selectedObject() {
-  return state.objects.find((object) => object.key === state.selectedKey) || state.objects[0] || null;
+function allPages(profile) {
+  const out = [];
+  walkNodes(profile?.categories || [], [], [], out);
+  return out;
 }
 
-function filteredGroups() {
-  const q = state.query.trim().toLowerCase();
-  if (!q) return state.groups;
-  return state.groups
-    .map((group) => ({
-      ...group,
-      objects: group.objects.filter((object) => objectSearchText(object).includes(q)),
-    }))
-    .filter((group) => group.objects.length);
+function findPage(profile, pageId) {
+  const pages = allPages(profile);
+  return pages.find((page) => page.id === pageId) || pages[0] || null;
 }
 
-function metaItem(labelText, value) {
-  if (!String(value ?? "").trim()) return "";
-  return `<div class="doc-meta-item"><span>${escapeHtml(labelText)}</span><strong>${escapeHtml(value)}</strong></div>`;
+// Cuenta recursiva de paginas bajo un nodo.
+function countPages(node) {
+  return childrenOf(node).reduce((sum, child) => sum + (isPage(child) ? 1 : countPages(child)), 0);
 }
 
-function badge(value) {
-  if (!String(value || "").trim()) return "";
-  return `<span class="doc-badge">${escapeHtml(value)}</span>`;
+function readHash() {
+  const params = new URLSearchParams(window.location.hash.slice(1));
+  return { profile: params.get("profile") || "", page: params.get("page") || "" };
 }
 
-function renderIndex() {
-  const groups = filteredGroups();
+function writeHash() {
+  const params = new URLSearchParams({ profile: state.profileId, page: state.pageId });
+  window.location.hash = params.toString();
+}
+
+// Markdown ligero: encabezados, listas (orden/desorden), tablas, bloques de
+// codigo, citas, reglas, negritas/cursivas, codigo inline y enlaces.
+function inlineMd(text) {
+  return escapeHtml(text)
+    .replace(/`([^`]+?)`/g, "<code>$1</code>")
+    .replace(/\*\*([^*]+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/(^|[^*])\*([^*]+?)\*/g, "$1<em>$2</em>")
+    .replace(/\[([^\]]+?)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+}
+
+function renderTable(rows) {
+  const cells = (line) =>
+    line
+      .replace(/^\||\|$/g, "")
+      .split("|")
+      .map((cell) => cell.trim());
+  const head = cells(rows[0]);
+  const bodyRows = rows.slice(2);
+  const thead = `<thead><tr>${head.map((cell) => `<th>${inlineMd(cell)}</th>`).join("")}</tr></thead>`;
+  const tbody = `<tbody>${bodyRows
+    .map((row) => `<tr>${cells(row).map((cell) => `<td>${inlineMd(cell)}</td>`).join("")}</tr>`)
+    .join("")}</tbody>`;
+  return `<div class="docs-table-wrap"><table class="docs-md-table">${thead}${tbody}</table></div>`;
+}
+
+function renderMarkdown(md) {
+  const lines = String(md).replace(/\r\n/g, "\n").split("\n");
+  const html = [];
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i].replace(/\s+$/, "");
+
+    // Bloque de variante On-Premise / Cloud  :::onprem ... :::  /  :::cloud ... :::
+    const variantMatch = line.match(/^:::(onprem|cloud)\s*$/);
+    if (variantMatch) {
+      const variant = variantMatch[1];
+      const buffer = [];
+      i += 1;
+      while (i < lines.length && !/^:::\s*$/.test(lines[i].trim())) {
+        buffer.push(lines[i]);
+        i += 1;
+      }
+      i += 1; // salta el ::: de cierre
+      const label = variant === "onprem" ? "On-Premise · Cloudera" : "Cloud · AWS";
+      html.push(
+        `<div class="docs-variant" data-variant="${variant}"><div class="docs-variant-label">${label}</div>${renderMarkdown(buffer.join("\n"))}</div>`
+      );
+      continue;
+    }
+
+    // Bloque de codigo cercado
+    if (/^```/.test(line)) {
+      const buffer = [];
+      i += 1;
+      while (i < lines.length && !/^```/.test(lines[i])) {
+        buffer.push(escapeHtml(lines[i]));
+        i += 1;
+      }
+      i += 1;
+      html.push(`<pre class="docs-code"><code>${buffer.join("\n")}</code></pre>`);
+      continue;
+    }
+
+    // Tabla
+    if (/^\|.*\|$/.test(line) && i + 1 < lines.length && /^\|[\s:|-]+\|$/.test(lines[i + 1].trim())) {
+      const rows = [];
+      while (i < lines.length && /^\|.*\|$/.test(lines[i].trim())) {
+        rows.push(lines[i].trim());
+        i += 1;
+      }
+      html.push(renderTable(rows));
+      continue;
+    }
+
+    // Encabezados
+    if (/^#{1,6}\s/.test(line)) {
+      const level = line.match(/^#+/)[0].length;
+      html.push(`<h${level}>${inlineMd(line.replace(/^#+\s/, ""))}</h${level}>`);
+      i += 1;
+      continue;
+    }
+
+    // Regla horizontal
+    if (/^(-{3,}|\*{3,})$/.test(line.trim())) {
+      html.push("<hr />");
+      i += 1;
+      continue;
+    }
+
+    // Cita
+    if (/^>\s?/.test(line)) {
+      const buffer = [];
+      while (i < lines.length && /^>\s?/.test(lines[i])) {
+        buffer.push(inlineMd(lines[i].replace(/^>\s?/, "")));
+        i += 1;
+      }
+      html.push(`<blockquote>${buffer.join("<br />")}</blockquote>`);
+      continue;
+    }
+
+    // Lista ordenada
+    if (/^\d+\.\s/.test(line)) {
+      const buffer = [];
+      while (i < lines.length && /^\d+\.\s/.test(lines[i])) {
+        buffer.push(`<li>${inlineMd(lines[i].replace(/^\d+\.\s/, ""))}</li>`);
+        i += 1;
+      }
+      html.push(`<ol>${buffer.join("")}</ol>`);
+      continue;
+    }
+
+    // Lista desordenada
+    if (/^[-*]\s/.test(line)) {
+      const buffer = [];
+      while (i < lines.length && /^[-*]\s/.test(lines[i])) {
+        buffer.push(`<li>${inlineMd(lines[i].replace(/^[-*]\s/, ""))}</li>`);
+        i += 1;
+      }
+      html.push(`<ul>${buffer.join("")}</ul>`);
+      continue;
+    }
+
+    // Linea en blanco
+    if (line.trim() === "") {
+      i += 1;
+      continue;
+    }
+
+    // Parrafo
+    html.push(`<p>${inlineMd(line)}</p>`);
+    i += 1;
+  }
+  return html.join("\n");
+}
+
+function renderTabs() {
   return `
-    <aside class="doc-index" aria-label="Indice de objetos">
-      <div class="doc-index-head">
-        <strong>Indice</strong>
-        <span>${state.objects.length} objetos</span>
+    <div class="docs-tabs" role="tablist" aria-label="Perfiles de documentacion">
+      ${(state.manifest.profiles || [])
+        .map(
+          (profile) => `
+            <button class="docs-tab ${profile.id === state.profileId ? "is-active" : ""}" type="button" role="tab" data-profile-id="${escapeHtml(profile.id)}">
+              <span class="docs-tab-name">${escapeHtml(profile.name)}</span>
+              <span class="docs-tab-audience">${escapeHtml(profile.audience)}</span>
+            </button>`
+        )
+        .join("")}
+    </div>`;
+}
+
+function renderPageButton(page) {
+  return `
+    <button class="docs-page ${page.id === state.pageId ? "is-active" : ""}" type="button" data-page-id="${escapeHtml(page.id)}">
+      <span>${escapeHtml(page.title)}</span>${page.draft ? '<span class="docs-draft">borrador</span>' : ""}
+    </button>`;
+}
+
+// Render de los hijos de un nodo, en orden: paginas como botones, grupos como <details>.
+function renderChildren(node, activePage, depth) {
+  return childrenOf(node)
+    .map((child) => (isPage(child) ? renderPageButton(child) : renderGroup(child, activePage, depth)))
+    .join("");
+}
+
+// Render recursivo de un grupo (o categoria) como <details> colapsable.
+function renderGroup(node, activePage, depth) {
+  const isOpen = activePage?.idTrail?.includes(node.id) || (depth === 0 && !activePage);
+  return `
+    <details class="docs-group" data-depth="${depth}" ${isOpen ? "open" : ""}>
+      <summary>
+        <span class="docs-caret" aria-hidden="true">▸</span>
+        <span class="docs-node-head">
+          <strong>${escapeHtml(node.name)}</strong>
+          ${node.description ? `<span class="docs-node-desc">${escapeHtml(node.description)}</span>` : ""}
+        </span>
+        <span class="docs-count">${countPages(node)}</span>
+      </summary>
+      <div class="docs-page-list">
+        ${renderChildren(node, activePage, depth + 1)}
       </div>
-      <div class="doc-index-groups">
-        ${groups
-          .map(
-            (group) => `
-              <details class="doc-group" data-group-id="${escapeHtml(group.id)}" ${group.open ? "open" : ""}>
-                <summary style="--doc-group-color:${escapeHtml(group.color)}">
-                  <i class="doc-group-color" aria-hidden="true"></i>
-                  <strong>${escapeHtml(group.name)}</strong>
-                  <span>${group.objects.length}</span>
-                </summary>
-                <div class="doc-object-list">
-                  ${group.objects
-                    .map(
-                      (object) => `
-                        <button class="doc-object ${object.key === state.selectedKey ? "is-active" : ""}" type="button" data-object-key="${escapeHtml(object.key)}" style="--doc-object-color:${escapeHtml(object.objectColor)}">
-                          <span class="doc-object-icon" aria-hidden="true">${objectIcon(object)}</span>
-                          <span>${escapeHtml(object.title)}</span>
-                        </button>`
-                    )
-                    .join("")}
-                </div>
-              </details>`
-          )
-          .join("")}
+    </details>`;
+}
+
+function renderIndex(profile, activePage) {
+  return `
+    <aside class="docs-index" aria-label="Indice de la documentacion">
+      <div class="docs-index-head">
+        <strong>${escapeHtml(profile.name)}</strong>
+        <span>${escapeHtml(profile.description || "")}</span>
+      </div>
+      <div class="docs-index-groups">
+        ${(profile.categories || []).map((category) => renderGroup(category, activePage, 0)).join("")}
       </div>
     </aside>`;
 }
 
-function renderOverview(object) {
-  const fieldCount = object.fields?.length || 0;
-  const relationCount = object.modelRelations?.length || 0;
-  return `
-    <section class="doc-panel doc-overview">
-      <h2>${escapeHtml(object.title)}</h2>
-      ${
-        object.description
-          ? `<p>${escapeHtml(object.description)}</p>`
-          : `<p class="doc-muted">No hay descripcion registrada para este objeto.</p>`
-      }
-      <div class="doc-meta-grid">
-        ${metaItem("Tipo", objectType(object))}
-        ${metaItem("Vista", object.viewName)}
-        ${metaItem("Dominio", object.domainName)}
-        ${metaItem("Color", object.headerColor)}
-        ${metaItem("Columnas", fieldCount)}
-        ${metaItem("Relaciones", relationCount)}
-      </div>
-    </section>`;
+function seeAlsoLinks(page) {
+  if (!page.seeAlso?.length) return "";
+  const items = page.seeAlso
+    .map((ref) => {
+      const [profileId, pageId] = String(ref).split("/");
+      const profile = (state.manifest.profiles || []).find((p) => p.id === profileId);
+      const target = profile ? findPage(profile, pageId) : null;
+      if (!profile || !target) return "";
+      return `<li><a href="#" data-goto-profile="${escapeHtml(profileId)}" data-goto-page="${escapeHtml(pageId)}">${escapeHtml(profile.name)} › ${escapeHtml(target.title)}</a></li>`;
+    })
+    .filter(Boolean)
+    .join("");
+  return items ? `<div class="docs-seealso"><h3>Ver tambien</h3><ul>${items}</ul></div>` : "";
 }
 
-function renderStructure(object) {
-  const fields = object.fields || [];
+async function renderContent(profile, page) {
+  const tags = (page.tags || []).map((tag) => `<span class="docs-tag">${escapeHtml(tag)}</span>`).join("");
+  const trailHtml = (page.trail || []).map((name) => escapeHtml(name)).join(" <span>›</span> ");
+  const breadcrumb = `${escapeHtml(profile.name)} <span>›</span> ${trailHtml} <span>›</span> ${escapeHtml(page.title)}`;
+  let body;
+  let hasVariants = false;
+  if (page.draft) {
+    body = `
+      <div class="docs-placeholder">
+        <p>Esta pagina aun no tiene contenido.</p>
+        <p class="docs-placeholder-hint">El contenido vivira en <code>${escapeHtml(page.file)}</code> (Markdown) y se mostrara aqui automaticamente.</p>
+      </div>`;
+  } else {
+    try {
+      const response = await fetch(`assets/data/${page.file}`);
+      if (!response.ok) throw new Error(String(response.status));
+      const raw = await response.text();
+      // El titulo ya se muestra en el encabezado de la pagina; quitamos el H1 inicial del Markdown para no duplicarlo.
+      const withoutTitle = raw.replace(/^\uFEFF?\s*#\s+[^\n]*\n+/, "");
+      hasVariants = /^:::(onprem|cloud)\s*$/m.test(withoutTitle);
+      body = `<div class="docs-markdown">${renderMarkdown(withoutTitle)}</div>`;
+    } catch (_) {
+      body = `<div class="docs-placeholder"><p>No se pudo cargar el contenido de <code>${escapeHtml(page.file)}</code>.</p></div>`;
+    }
+  }
   return `
-    <section class="doc-panel doc-structure">
-      <div class="doc-section-head">
-        <div>
-          <h2>Estructura del objeto</h2>
-          <span>${fields.length} columnas</span>
-        </div>
-        <button class="doc-secondary" type="button" data-export-object>Exportar MD</button>
-      </div>
-      <div class="doc-table-wrap">
-        <table class="doc-table">
-          <thead>
-            <tr>
-              <th>Columna</th>
-              <th>Tipo de dato</th>
-              <th>Clave</th>
-              <th>Descripcion</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${
-              fields.length
-                ? fields
-                    .map(
-                      (field) => `
-                        <tr>
-                          <td><strong>${escapeHtml(field.name)}</strong></td>
-                          <td>${escapeHtml(field.type || "-")}</td>
-                          <td>${badge(field.key) || '<span class="doc-muted">-</span>'}</td>
-                          <td>${escapeHtml(field.note || "-")}</td>
-                        </tr>`
-                    )
-                    .join("")
-                : `<tr><td colspan="4" class="doc-empty">No hay columnas registradas.</td></tr>`
-            }
-          </tbody>
-        </table>
-      </div>
-    </section>`;
+    <main class="docs-main">
+      <nav class="docs-breadcrumb">${breadcrumb}</nav>
+      <header class="docs-page-head">
+        <h2>${escapeHtml(page.title)}</h2>
+        ${tags ? `<div class="docs-tags">${tags}</div>` : ""}
+        ${
+          hasVariants
+            ? `<div class="docs-variant-toggle" role="group" aria-label="Entorno tecnologico">
+                 <button type="button" data-variant-btn="onprem" class="${state.variant === "onprem" ? "is-active" : ""}">On-Premise</button>
+                 <button type="button" data-variant-btn="cloud" class="${state.variant === "cloud" ? "is-active" : ""}">Cloud</button>
+               </div>`
+            : ""
+        }
+      </header>
+      ${body}
+      ${seeAlsoLinks(page)}
+    </main>`;
 }
 
-function render() {
-  const object = selectedObject();
-  if (!object) {
-    app.innerHTML = `<section class="doc-loading">No hay objetos disponibles para documentar.</section>`;
+async function render() {
+  const profile = currentProfile();
+  if (!profile) {
+    app.innerHTML = `<section class="docs-loading">No hay documentacion disponible.</section>`;
     return;
   }
-  state.selectedKey = object.key;
+  state.profileId = profile.id;
+  const page = findPage(profile, state.pageId);
+  state.pageId = page?.id || "";
+  applyVariant();
   app.innerHTML = `
-    <section class="doc-layout">
-      ${renderIndex()}
-      <main class="doc-main">
-        ${renderOverview(object)}
-        ${renderStructure(object)}
-      </main>
+    <section class="docs-shell">
+      ${renderTabs()}
+      <div class="docs-layout">
+        ${renderIndex(profile, page)}
+        ${page ? await renderContent(profile, page) : `<main class="docs-main"><div class="docs-placeholder"><p>Este perfil aun no tiene paginas.</p></div></main>`}
+      </div>
     </section>`;
-  bindEvents(object);
+  bindEvents();
 }
 
-function markdownTableRow(values) {
-  return `| ${values.map((value) => String(value ?? "-").replace(/\|/g, "\\|")).join(" | ")} |`;
+function applyVariant() {
+  if (!app) return;
+  app.classList.toggle("variant-cloud", state.variant === "cloud");
+  app.classList.toggle("variant-onprem", state.variant === "onprem");
 }
 
-function objectMarkdown(object) {
-  const fields = object.fields || [];
-  const lines = [
-    `# ${object.title}`,
-    "",
-    object.description || "No hay descripcion registrada para este objeto.",
-    "",
-    "## Resumen",
-    "",
-    markdownTableRow(["Campo", "Valor"]),
-    markdownTableRow(["---", "---"]),
-    markdownTableRow(["Tipo", objectType(object)]),
-    markdownTableRow(["Vista", object.viewName]),
-    markdownTableRow(["Dominio", object.domainName || "-"]),
-    markdownTableRow(["Color", object.headerColor || "-"]),
-    markdownTableRow(["Columnas", fields.length]),
-    markdownTableRow(["Relaciones", object.modelRelations?.length || 0]),
-    "",
-    "## Estructura",
-    "",
-    markdownTableRow(["Columna", "Tipo de dato", "Clave", "Descripcion"]),
-    markdownTableRow(["---", "---", "---", "---"]),
-    ...fields.map((field) => markdownTableRow([field.name, field.type || "-", field.key || "-", field.note || "-"])),
-    "",
-  ];
-  return `${lines.join("\n")}\n`;
+function goTo(profileId, pageId) {
+  state.profileId = profileId;
+  state.pageId = pageId || "";
+  writeHash();
+  render();
 }
 
-function exportObject(object) {
-  const blob = new Blob([objectMarkdown(object)], { type: "text/markdown;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.download = `documentacion_${slug(object.title)}.md`;
-  link.href = url;
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
-function bindEvents(object) {
-  app.querySelectorAll("[data-object-key]").forEach((button) => {
+function bindEvents() {
+  app.querySelectorAll("[data-profile-id]").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const profile = (state.manifest.profiles || []).find((p) => p.id === tab.dataset.profileId);
+      goTo(tab.dataset.profileId, allPages(profile)[0]?.id || "");
+    });
+  });
+  app.querySelectorAll("[data-page-id]").forEach((button) => {
+    button.addEventListener("click", () => goTo(state.profileId, button.dataset.pageId));
+  });
+  app.querySelectorAll("[data-goto-page]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      goTo(link.dataset.gotoProfile, link.dataset.gotoPage);
+    });
+  });
+  app.querySelectorAll("[data-variant-btn]").forEach((button) => {
     button.addEventListener("click", () => {
-      state.selectedKey = button.dataset.objectKey || "";
-      window.location.hash = new URLSearchParams({ object: state.selectedKey }).toString();
-      render();
+      state.variant = button.dataset.variantBtn;
+      applyVariant();
+      app
+        .querySelectorAll("[data-variant-btn]")
+        .forEach((b) => b.classList.toggle("is-active", b.dataset.variantBtn === state.variant));
     });
-  });
-  app.querySelectorAll(".doc-group").forEach((details) => {
-    details.addEventListener("toggle", () => {
-      const group = state.groups.find((item) => item.id === details.dataset.groupId);
-      if (group) group.open = details.open;
-    });
-  });
-  app.querySelectorAll("[data-export-object]").forEach((button) => {
-    button.addEventListener("click", () => exportObject(object));
   });
 }
 
 export async function mountDocumentation(target) {
   app = target;
-  app.classList.add("doc-app");
-  app.innerHTML = `<section class="doc-loading">Cargando documentacion...</section>`;
+  app.classList.add("docs-app");
+  app.innerHTML = `<section class="docs-loading">Cargando documentacion...</section>`;
   try {
-    await loadDocumentation();
-    render();
+    if (!state.manifest) {
+      state.manifest = await fetchJson("assets/data/docs/manifest.json");
+    }
+    const hash = readHash();
+    state.profileId = hash.profile || state.manifest.profiles?.[0]?.id || "";
+    state.pageId = hash.page || "";
+    await render();
   } catch (error) {
     console.error(error);
-    app.innerHTML = `<section class="doc-loading">No se pudo cargar la documentacion.</section>`;
+    app.innerHTML = `<section class="docs-loading">No se pudo cargar la documentacion.</section>`;
   }
-}
-
-const standaloneApp = document.querySelector("#docApp");
-if (standaloneApp) {
-  mountDocumentation(standaloneApp);
 }

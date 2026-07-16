@@ -1,0 +1,179 @@
+{
+  "version": 1,
+  "updatedAt": "16 de julio de 2026",
+  "profiles": [
+    {
+      "id": "general",
+      "name": "General",
+      "audience": "Toda la organizacion",
+      "description": "Que es la plataforma de datos, como se organiza en capas y como funciona el curado con Data Vault 2.0. Explicado de forma sencilla para cualquier perfil.",
+      "icon": "info",
+      "access": "public",
+      "categories": [
+        {
+          "id": "intro",
+          "name": "Introduccion",
+          "pages": [
+            { "id": "plataforma", "title": "Que es una plataforma de datos", "file": "docs/general/plataforma.md", "tags": ["intro"], "seeAlso": ["general/arquitectura-capas"], "draft": false }
+          ]
+        },
+        {
+          "id": "conceptos",
+          "name": "Conceptos generales",
+          "pages": [
+            { "id": "arquitectura-capas", "title": "Como se organiza el dato (capas)", "file": "docs/general/arquitectura-capas.md", "tags": ["capas", "arquitectura"], "seeAlso": ["general/recorrido-capas"], "draft": false },
+            { "id": "recorrido-capas", "title": "Recorrido por las capas", "file": "docs/general/recorrido-capas.md", "tags": ["capas"], "seeAlso": ["general/dv2-entidades"], "draft": false }
+          ]
+        },
+        {
+          "id": "capas",
+          "name": "Capas de la plataforma",
+          "children": [
+            { "id": "fuentes", "title": "1. Fuentes", "file": "docs/general/capas/fuentes.md", "tags": ["capas", "fuentes"], "seeAlso": ["general/ingesta"], "draft": false },
+            { "id": "ingesta", "title": "2. Ingesta", "file": "docs/general/capas/ingesta.md", "tags": ["capas", "ingesta"], "seeAlso": ["general/staging"], "draft": false },
+            { "id": "staging", "title": "3. Staging (STG)", "file": "docs/general/capas/staging.md", "tags": ["capas", "staging"], "seeAlso": ["general/raw"], "draft": false },
+            { "id": "raw", "title": "4. Raw (aplanamiento y auditoria)", "file": "docs/general/capas/raw.md", "tags": ["capas", "raw"], "seeAlso": ["general/dv2-que-es"], "draft": false },
+            {
+              "id": "curado",
+              "name": "5. Curado (Data Vault 2.0)",
+              "description": "La capa de curado usa Data Vault 2.0. Se divide en Raw Vault y Business Vault.",
+              "pages": [
+                { "id": "dv2-que-es", "title": "Que es Data Vault 2.0", "file": "docs/general/datavault/dv2-que-es.md", "tags": ["data-vault"], "seeAlso": ["general/dv2-arquitectura"], "draft": false },
+                { "id": "dv2-arquitectura", "title": "Arquitectura Data Vault", "file": "docs/general/datavault/dv2-arquitectura.md", "tags": ["data-vault", "capas"], "seeAlso": ["general/dv2-entidades"], "draft": false }
+              ],
+              "groups": [
+                {
+                  "id": "grp-raw-vault",
+                  "name": "Raw Vault",
+                  "description": "Integracion historizada: Hubs, Links y Satellites.",
+                  "pages": [
+                    { "id": "raw-vault", "title": "Vision general", "file": "docs/general/capas/raw-vault.md", "tags": ["data-vault"], "seeAlso": ["general/dv2-entidades"], "draft": false },
+                    { "id": "dv2-entidades", "title": "Entidades del modelo", "file": "docs/general/datavault/dv2-entidades.md", "tags": ["data-vault", "modelo"], "seeAlso": ["general/dv2-metadatos", "general/dv2-carga"], "draft": false },
+                    { "id": "dv2-metadatos", "title": "Metadatos obligatorios", "file": "docs/general/datavault/dv2-metadatos.md", "tags": ["data-vault", "metadatos"], "seeAlso": ["general/dv2-carga"], "draft": false },
+                    { "id": "dv2-carga", "title": "Metodologia de carga", "file": "docs/general/datavault/dv2-carga.md", "tags": ["data-vault", "carga"], "seeAlso": ["general/dv2-nomenclatura"], "draft": false },
+                    { "id": "dv2-nomenclatura", "title": "Estandares de nomenclatura", "file": "docs/general/datavault/dv2-nomenclatura.md", "tags": ["data-vault", "nomenclatura"], "seeAlso": ["general/dv2-antipatrones"], "draft": false }
+                  ]
+                },
+                {
+                  "id": "grp-business-vault",
+                  "name": "Business Vault",
+                  "description": "Reglas de negocio: PIT, Bridge y satelites calculados.",
+                  "pages": [
+                    { "id": "business-vault", "title": "Vision general", "file": "docs/general/capas/business-vault.md", "tags": ["data-vault"], "seeAlso": ["general/dv2-business-vault"], "draft": false },
+                    { "id": "dv2-business-vault", "title": "Entidades del Business Vault", "file": "docs/general/datavault/dv2-business-vault.md", "tags": ["data-vault", "business-vault"], "seeAlso": ["general/dv2-entidades"], "draft": false }
+                  ]
+                },
+                {
+                  "id": "grp-ref-dv",
+                  "name": "Buenas practicas y referencia",
+                  "pages": [
+                    { "id": "dv2-antipatrones", "title": "Anti-patrones", "file": "docs/general/datavault/dv2-antipatrones.md", "tags": ["data-vault"], "seeAlso": ["general/dv2-checklist"], "draft": false },
+                    { "id": "dv2-checklist", "title": "Checklist de validacion", "file": "docs/general/datavault/dv2-checklist.md", "tags": ["data-vault", "calidad"], "seeAlso": [], "draft": false },
+                    { "id": "dv2-glosario", "title": "Glosario Data Vault", "file": "docs/general/datavault/dv2-glosario.md", "tags": ["data-vault", "glosario"], "seeAlso": ["general/glosario"], "draft": false }
+                  ]
+                }
+              ]
+            },
+            { "id": "crystal-dimensional", "title": "6. Crystal Dimensional", "file": "docs/general/capas/crystal-dimensional.md", "tags": ["capas", "dimensional"], "seeAlso": ["general/semantica"], "draft": false },
+            { "id": "semantica", "title": "7. Semantica", "file": "docs/general/capas/semantica.md", "tags": ["capas", "semantica"], "seeAlso": [], "draft": false }
+          ]
+        },
+        {
+          "id": "referencia",
+          "name": "Referencia",
+          "pages": [
+            { "id": "glosario", "title": "Glosario y nomenclaturas", "file": "docs/general/glosario.md", "tags": ["glosario"], "seeAlso": [], "draft": false }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arquitectura",
+      "name": "Arquitectura de Datos",
+      "audience": "Arquitectos de datos",
+      "description": "Documentacion operativa: linaje, uso de Kiro y motor de notebooks.",
+      "icon": "doc",
+      "access": "public",
+      "categories": [
+        {
+          "id": "conceptos",
+          "name": "Conceptos",
+          "pages": [
+            { "id": "motor-datavault", "title": "Motor Data Vault (GenericDataVaultCreator)", "file": "docs/arquitectura/motor-datavault.md", "tags": ["motor", "data-vault"], "seeAlso": ["arquitectura/funciones-motor"], "draft": true }
+          ]
+        },
+        {
+          "id": "guias",
+          "name": "Guias",
+          "pages": [
+            { "id": "guia-linaje", "title": "Como generar el linaje de una tabla", "file": "docs/arquitectura/guia-linaje.md", "tags": ["linaje"], "seeAlso": [], "draft": true },
+            { "id": "kiro-consultas", "title": "Como usar Kiro para consultar (Impala / knowledge_app)", "file": "docs/arquitectura/kiro-consultas.md", "tags": ["kiro", "impala"], "seeAlso": [], "draft": true }
+          ]
+        },
+        {
+          "id": "referencia",
+          "name": "Referencia",
+          "pages": [
+            { "id": "funciones-motor", "title": "Funciones del motor de notebooks", "file": "docs/arquitectura/funciones-motor.md", "tags": ["motor", "referencia"], "seeAlso": ["arquitectura/motor-datavault"], "draft": true }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ingenieria",
+      "name": "Ingenieria de Datos",
+      "audience": "Ingenieros de datos",
+      "description": "Como desarrollar, configurar y operar las cargas.",
+      "icon": "gear",
+      "access": "public",
+      "categories": [
+        {
+          "id": "tutoriales",
+          "name": "Tutoriales",
+          "pages": [
+            { "id": "configurar-entorno", "title": "Configurar entorno (init.ipynb, run.json)", "file": "docs/ingenieria/configurar-entorno.md", "tags": ["setup"], "seeAlso": [], "draft": true }
+          ]
+        },
+        {
+          "id": "guias",
+          "name": "Guias",
+          "pages": [
+            { "id": "carga-incremental", "title": "Desarrollar una carga incremental (delta y checkpoints)", "file": "docs/ingenieria/carga-incremental.md", "tags": ["delta", "checkpoints"], "seeAlso": [], "draft": true },
+            { "id": "troubleshooting", "title": "Troubleshooting comun", "file": "docs/ingenieria/troubleshooting.md", "tags": ["soporte"], "seeAlso": [], "draft": true }
+          ]
+        },
+        {
+          "id": "referencia",
+          "name": "Referencia",
+          "pages": [
+            { "id": "convenciones-codigo", "title": "Convenciones de codigo y notebooks", "file": "docs/ingenieria/convenciones-codigo.md", "tags": ["estandares"], "seeAlso": [], "draft": true }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gobierno",
+      "name": "Gobierno de Datos",
+      "audience": "Gobierno de datos",
+      "description": "Calidad, catalogo, politicas y manejo de datos sensibles.",
+      "icon": "shield",
+      "access": "public",
+      "categories": [
+        {
+          "id": "conceptos",
+          "name": "Conceptos",
+          "pages": [
+            { "id": "linaje-negocio", "title": "Linaje a nivel negocio, calidad y catalogo", "file": "docs/gobierno/linaje-negocio.md", "tags": ["calidad", "catalogo"], "seeAlso": [], "draft": true }
+          ]
+        },
+        {
+          "id": "referencia",
+          "name": "Referencia",
+          "pages": [
+            { "id": "politicas", "title": "Politicas, seguridad y manejo de PII", "file": "docs/gobierno/politicas.md", "tags": ["seguridad", "pii"], "seeAlso": [], "draft": true }
+          ]
+        }
+      ]
+    }
+  ]
+}

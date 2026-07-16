@@ -2,7 +2,9 @@ import { createShell } from "./components/shell.js";
 import { createViewer } from "./components/viewer.js";
 import { createLineagePage } from "./pages/lineage.js";
 import { createModelPage } from "./pages/model.js";
+import { createInventoryPage } from "./pages/inventory.js";
 import { createDocumentationPage } from "./pages/documentation.js";
+import { createPlaceholderPage } from "./pages/placeholder.js";
 import { createHomePage } from "./pages/home.js";
 import { createChatPage } from "./pages/chat.js";
 import { createLineageChat } from "./components/lineage-chat.js";
@@ -38,7 +40,16 @@ async function boot() {
   const homePage = createHomePage({ shell, viewer, appMeta });
   const lineagePage = createLineagePage({ catalog, shell, viewer });
   const modelPage = createModelPage({ catalog, shell, viewer, appMeta });
-  const documentationPage = createDocumentationPage({ shell, viewer });
+  const inventoryPage = createInventoryPage({ shell, viewer });
+  const documentationPage = createDocumentationPage({ shell });
+  const nomenclaturasPage = createPlaceholderPage({
+    shell,
+    view: "nomenclaturas",
+    title: "Nomenclaturas",
+    subtitle: "Convenciones y nomenclaturas",
+    mount: shell.nomenclaturasMount,
+    description: "Aqui vivira el catalogo de nomenclaturas y convenciones de nombres."
+  });
   const chat = createLineageChat({ catalog });
   const chatPage = createChatPage({ shell, chat });
 
@@ -60,9 +71,17 @@ async function boot() {
       lineagePage.showAll();
       chat.setVisible(true);
     },
+    inventario: () => {
+      chat.setVisible(true);
+      inventoryPage.show();
+    },
     documentacion: () => {
       chat.setVisible(true);
       documentationPage.show();
+    },
+    nomenclaturas: () => {
+      chat.setVisible(true);
+      nomenclaturasPage.show();
     },
     chat: () => {
       chat.setVisible(false);
