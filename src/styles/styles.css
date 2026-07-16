@@ -1151,7 +1151,15 @@ iframe { width: 100%; height: calc(100vh - 292px); min-height: 540px; border: 0;
 }
 
 /* ===== Seccion Documentacion (navegador por perfiles) ===== */
-.docs-app { display: block; }
+/* Garantiza que el atributo hidden del shell oculte cada vista aunque el
+   renderer agregue clases con display propio (docs-app, nom-app, etc.). */
+.home-mount[hidden],
+.inventario-mount[hidden],
+.documentacion-mount[hidden],
+.nomenclaturas-mount[hidden],
+.chat-mount[hidden] {
+  display: none !important;
+}
 .docs-loading {
   padding: 40px;
   color: #64748b;
@@ -1458,7 +1466,6 @@ iframe { width: 100%; height: calc(100vh - 292px); min-height: 540px; border: 0;
 }
 
 /* ===== Generador de Nomenclatura ===== */
-.nom-app { display: block; }
 .nom-loading { padding: 40px; color: #64748b; font-size: 15px; }
 .nom-shell {
   background: #ffffff;
