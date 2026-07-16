@@ -1,0 +1,593 @@
+{
+  "name": "Cobranza Pagos y Comercio",
+  "positions": {
+    "h_baz_cdc_buro_cuenta": {
+      "left": 1770,
+      "top": 2690
+    },
+    "h_baz_cdc_cdccuenta": {
+      "left": 2330,
+      "top": 2690
+    },
+    "h_baz_cdc_emccv_envio": {
+      "left": 2890,
+      "top": 2690
+    },
+    "h_baz_cob_empleado": {
+      "left": 6010,
+      "top": 2690
+    },
+    "h_baz_cob_fraude": {
+      "left": 6570,
+      "top": 2690
+    },
+    "h_baz_cob_gestion": {
+      "left": 7130,
+      "top": 2690
+    },
+    "h_baz_cob_incidentecic": {
+      "left": 7690,
+      "top": 2690
+    },
+    "h_baz_cob_promesa": {
+      "left": 8250,
+      "top": 2690
+    },
+    "h_baz_cre_pedido": {
+      "left": 11370,
+      "top": 2690
+    },
+    "h_baz_cre_reestructura": {
+      "left": 11930,
+      "top": 2690
+    },
+    "h_baz_cre_solicitud": {
+      "left": 12490,
+      "top": 2690
+    },
+    "h_baz_cte_cliente": {
+      "left": 2050,
+      "top": 15622
+    },
+    "h_baz_cte_clientetienda": {
+      "left": 2610,
+      "top": 15622
+    },
+    "h_baz_dig_clientedigital": {
+      "left": 7130,
+      "top": 15622
+    },
+    "h_baz_div_garantia": {
+      "left": 11930,
+      "top": 15622
+    },
+    "l_baz_cdc_cliente_cdc": {
+      "left": 2330,
+      "top": 3580
+    },
+    "l_baz_cob_cliente_incidentecic": {
+      "left": 7270,
+      "top": 3580
+    },
+    "l_baz_cob_cliente_promesa": {
+      "left": 8030,
+      "top": 3580
+    },
+    "l_baz_cob_pedido_fraude": {
+      "left": 6990,
+      "top": 3580
+    },
+    "l_baz_cob_pedido_recuperacion_liq": {
+      "left": 6290,
+      "top": 4300
+    },
+    "l_baz_cob_reestructura_pedido": {
+      "left": 8030,
+      "top": 4300
+    },
+    "l_baz_cre_cliente_pedido": {
+      "left": 11030,
+      "top": 3580
+    },
+    "l_baz_cre_clientedigital": {
+      "left": 11030,
+      "top": 3580
+    },
+    "l_baz_cre_clientedigital_pedido": {
+      "left": 11790,
+      "top": 3580
+    },
+    "l_baz_cre_pedido_reasignacion": {
+      "left": 11510,
+      "top": 4300
+    },
+    "l_baz_cre_pedido_renovacion": {
+      "left": 11930,
+      "top": 4300
+    },
+    "l_baz_cre_pedido_solicitud": {
+      "left": 12350,
+      "top": 4300
+    },
+    "l_baz_cte_cliente_clientetienda": {
+      "left": 2330,
+      "top": 16512
+    },
+    "l_baz_div_cuenta_garantia": {
+      "left": 11930,
+      "top": 16512
+    },
+    "s_h_baz_cdc_buro_cuenta_atraso": {
+      "left": 300,
+      "top": 560
+    },
+    "s_h_baz_cdc_buro_cuenta_atrasos": {
+      "left": 940,
+      "top": 560
+    },
+    "s_h_baz_cdc_buro_cuenta_consultas": {
+      "left": 300,
+      "top": 1130
+    },
+    "s_h_baz_cdc_buro_cuenta_cuentas_abiertas": {
+      "left": 940,
+      "top": 1270
+    },
+    "s_h_baz_cdc_buro_cuenta_cuentas_cerradas": {
+      "left": 300,
+      "top": 1672
+    },
+    "s_h_baz_cdc_buro_cuenta_cuentas_nuevas": {
+      "left": 940,
+      "top": 1980
+    },
+    "s_h_baz_cdc_buro_cuenta_cuentas_observacion": {
+      "left": 300,
+      "top": 2382
+    },
+    "s_h_baz_cdc_buro_cuenta_cuentas_saldo": {
+      "left": 940,
+      "top": 2690
+    },
+    "s_h_baz_cdc_buro_cuenta_endeudamiento": {
+      "left": 300,
+      "top": 3092
+    },
+    "s_h_baz_cdc_buro_cuenta_identificacion": {
+      "left": 940,
+      "top": 3400
+    },
+    "s_h_baz_cdc_buro_cuenta_limites": {
+      "left": 300,
+      "top": 3802
+    },
+    "s_h_baz_cdc_buro_cuenta_maximos_saldo": {
+      "left": 940,
+      "top": 3942
+    },
+    "s_h_baz_cdc_buro_cuenta_porcentajes": {
+      "left": 300,
+      "top": 4512
+    },
+    "s_h_baz_cdc_buro_cuenta_saldos": {
+      "left": 940,
+      "top": 4652
+    },
+    "s_h_baz_cdc_buro_cuenta_saldos_totales": {
+      "left": 300,
+      "top": 5222
+    },
+    "s_h_baz_cdc_buro_cuenta_saldos_vencidos": {
+      "left": 940,
+      "top": 5250
+    },
+    "s_h_baz_cdc_buro_cuenta_score": {
+      "left": 300,
+      "top": 5932
+    },
+    "s_h_baz_cdc_buro_cuenta_temporalidad": {
+      "left": 940,
+      "top": 5960
+    },
+    "s_h_baz_cdc_cdccuenta_varcnr": {
+      "left": 3010,
+      "top": 560
+    },
+    "s_h_baz_cdc_cliente_cdc_datos": {
+      "left": 3650,
+      "top": 560
+    },
+    "s_h_baz_cdc_cliente_monitoreo_envio": {
+      "left": 300,
+      "top": 6502
+    },
+    "s_h_baz_cdc_cliente_retroalim_cdc": {
+      "left": 3010,
+      "top": 1270
+    },
+    "s_h_baz_cdc_emccv_envio_control": {
+      "left": 940,
+      "top": 6670
+    },
+    "s_rt_h_baz_cdc_cdc_varcnr": {
+      "left": 3650,
+      "top": 1270
+    },
+    "s_rt_h_baz_cdc_cdccuenta_varcnr": {
+      "left": 3650,
+      "top": 1672
+    },
+    "s_rt_h_baz_cdc_cliente_cdc_datos": {
+      "left": 3010,
+      "top": 1980
+    },
+    "pit_baz_cdc_cdccuenta_diario": {
+      "left": 1460,
+      "top": 4660
+    },
+    "s_h_baz_cob_cliente_certif_domicilio": {
+      "left": 5100,
+      "top": 560
+    },
+    "s_h_baz_cob_cliente_domicilio": {
+      "left": 7810,
+      "top": 560
+    },
+    "s_h_baz_cob_cliente_estatus_cobranza": {
+      "left": 5740,
+      "top": 560
+    },
+    "s_h_baz_cob_cliente_gestion_datos": {
+      "left": 8450,
+      "top": 560
+    },
+    "s_h_baz_cob_cliente_registro_conv": {
+      "left": 5100,
+      "top": 1270
+    },
+    "s_h_baz_cob_cliente_ubicacion_cobranza": {
+      "left": 7810,
+      "top": 1270
+    },
+    "s_h_baz_cob_cliente_ubicacion_cte": {
+      "left": 5740,
+      "top": 1270
+    },
+    "s_h_baz_cob_empleado_portafolio": {
+      "left": 5100,
+      "top": 1980
+    },
+    "s_h_baz_cob_pedido_dictaminacion": {
+      "left": 5740,
+      "top": 1980
+    },
+    "s_h_baz_cob_pedido_pago_sostenido": {
+      "left": 8450,
+      "top": 1270
+    },
+    "s_h_baz_cob_promesa_pago_completo": {
+      "left": 5100,
+      "top": 2690
+    },
+    "s_h_baz_cob_reestructura_completo": {
+      "left": 7810,
+      "top": 1980
+    },
+    "s_ma_h_baz_cob_gestion_resultado": {
+      "left": 5740,
+      "top": 2690
+    },
+    "s_ma_h_baz_cob_promesa_detalle": {
+      "left": 5100,
+      "top": 3400
+    },
+    "s_nh_h_baz_cob_cliente_visita_cobranza_completo": {
+      "left": 5740,
+      "top": 3400
+    },
+    "s_nh_h_baz_cob_cliente_visita_gps": {
+      "left": 8450,
+      "top": 1980
+    },
+    "s_nh_h_baz_cob_fraude_cargos_varios": {
+      "left": 8450,
+      "top": 2550
+    },
+    "s_nh_h_baz_cob_gestion_resultado_hist": {
+      "left": 5100,
+      "top": 4110
+    },
+    "s_nh_h_baz_cob_incidentecic_finados": {
+      "left": 7810,
+      "top": 2690
+    },
+    "s_nh_h_baz_cob_incidentecic_incidente": {
+      "left": 8450,
+      "top": 3260
+    },
+    "s_nh_h_baz_cob_pedido_cobranza_detalle": {
+      "left": 5740,
+      "top": 4110
+    },
+    "s_nh_h_baz_cob_pedido_cuotas_cobranza": {
+      "left": 7810,
+      "top": 3316
+    },
+    "s_nh_h_baz_cob_pedido_recuperacion_cuotas": {
+      "left": 5100,
+      "top": 4820
+    },
+    "s_nh_h_baz_cob_pedido_recuperacion_liq": {
+      "left": 8450,
+      "top": 3970
+    },
+    "s_st_h_baz_cob_cliente_congelamiento": {
+      "left": 5740,
+      "top": 4820
+    },
+    "s_st_h_baz_cob_cliente_estrategia": {
+      "left": 7810,
+      "top": 4026
+    },
+    "s_rt_h_baz_cob_cliente_estatus_cobranza": {
+      "left": 5100,
+      "top": 5530
+    },
+    "s_rt_h_baz_cob_pedido_pago_sostenido": {
+      "left": 8450,
+      "top": 4568
+    },
+    "s_rt_h_baz_cob_pedido_recuperacion_liq": {
+      "left": 5740,
+      "top": 5530
+    },
+    "pit_baz_cob_fraude_diario": {
+      "left": 6260,
+      "top": 4660
+    },
+    "br_baz_cob_fraude_pedido": {
+      "left": 7500,
+      "top": 4660
+    },
+    "ref_baz_cob_prioridades_cobranza": {
+      "left": 6260,
+      "top": 5062
+    },
+    "ref_baz_cob_tipo_visita": {
+      "left": 7500,
+      "top": 5174
+    },
+    "s_h_baz_cre_cliente_alta_credito": {
+      "left": 9900,
+      "top": 560
+    },
+    "s_h_baz_cre_cliente_capacidad_pago": {
+      "left": 12610,
+      "top": 560
+    },
+    "s_h_baz_cre_cliente_clientetienda_mx": {
+      "left": 10540,
+      "top": 560
+    },
+    "s_h_baz_cre_cliente_datos_personales": {
+      "left": 13250,
+      "top": 560
+    },
+    "s_h_baz_cre_cliente_dlu_graduados": {
+      "left": 9900,
+      "top": 1158
+    },
+    "s_h_baz_cre_cliente_domicilio_credito": {
+      "left": 12610,
+      "top": 1270
+    },
+    "s_h_baz_cre_cliente_persona_domicilio": {
+      "left": 10540,
+      "top": 1158
+    },
+    "s_h_baz_cre_cliente_personas": {
+      "left": 13250,
+      "top": 1270
+    },
+    "s_h_baz_cre_clientedigital_completo": {
+      "left": 10540,
+      "top": 1616
+    },
+    "s_h_baz_cre_pedido_alnova_completo": {
+      "left": 9900,
+      "top": 1784
+    },
+    "s_h_baz_cre_pedido_alnova_contrato": {
+      "left": 10540,
+      "top": 2298
+    },
+    "s_h_baz_cre_pedido_alnova_regulatorio": {
+      "left": 9900,
+      "top": 2494
+    },
+    "s_h_baz_cre_pedido_alnova_saldo": {
+      "left": 10540,
+      "top": 3008
+    },
+    "s_h_baz_cre_pedido_asegurado": {
+      "left": 9900,
+      "top": 3204
+    },
+    "s_h_baz_cre_pedido_cierre_mensual": {
+      "left": 10540,
+      "top": 3718
+    },
+    "s_h_baz_cre_pedido_credito_completo": {
+      "left": 9900,
+      "top": 3886
+    },
+    "s_h_baz_cre_pedido_maestro_semanal": {
+      "left": 10540,
+      "top": 4428
+    },
+    "s_h_baz_cre_pedido_operativo": {
+      "left": 9900,
+      "top": 4596
+    },
+    "s_h_baz_cre_pedido_refinanciamiento": {
+      "left": 10540,
+      "top": 5138
+    },
+    "s_h_baz_cre_pedido_solicitud_vsie": {
+      "left": 9900,
+      "top": 5306
+    },
+    "s_h_baz_cre_pedido_venta_gestora": {
+      "left": 10540,
+      "top": 5848
+    },
+    "s_h_baz_cre_reestructura_pedido": {
+      "left": 13250,
+      "top": 1952
+    },
+    "s_h_baz_cre_solicitud_detalle": {
+      "left": 9900,
+      "top": 6016
+    },
+    "s_l_baz_cre_cliente_pedido": {
+      "left": 12610,
+      "top": 1980
+    },
+    "s_l_baz_cre_pedido_reasignacion": {
+      "left": 10540,
+      "top": 6558
+    },
+    "s_l_baz_cre_pedido_renovacion": {
+      "left": 13250,
+      "top": 2662
+    },
+    "s_ma_h_baz_cre_pedido_detalle": {
+      "left": 9900,
+      "top": 6726
+    },
+    "s_nh_h_baz_cre_pedido_cifras_diarias": {
+      "left": 10540,
+      "top": 7268
+    },
+    "s_nh_h_baz_cre_pedido_credito_hist": {
+      "left": 9900,
+      "top": 7436
+    },
+    "s_nh_h_baz_cre_pedido_movimiento": {
+      "left": 10540,
+      "top": 7978
+    },
+    "s_nh_h_baz_cre_pedido_surtido_liquidado": {
+      "left": 9900,
+      "top": 8146
+    },
+    "s_cs_h_baz_cre_cliente_score_color": {
+      "left": 12610,
+      "top": 2690
+    },
+    "s_cs_h_baz_cre_pedido_tasa_motor_conversion": {
+      "left": 10540,
+      "top": 8604
+    },
+    "s_rt_h_baz_cre_pedido_reestructura": {
+      "left": 13250,
+      "top": 3372
+    },
+    "pit_baz_cre_pedido_diario": {
+      "left": 11060,
+      "top": 4660
+    },
+    "ref_baz_cre_geografia_sepomex": {
+      "left": 12300,
+      "top": 4660
+    },
+    "ref_baz_cre_zona": {
+      "left": 11060,
+      "top": 5174
+    },
+    "s_h_baz_cte_cliente_360": {
+      "left": 300,
+      "top": 13492
+    },
+    "s_h_baz_cte_clientetienda_cencliente": {
+      "left": 3010,
+      "top": 13492
+    },
+    "s_l_baz_cte_conversion_cu": {
+      "left": 940,
+      "top": 13492
+    },
+    "pit_baz_cte_cliente_diario": {
+      "left": 1460,
+      "top": 17592
+    },
+    "br_baz_cte_cliente_pedido": {
+      "left": 2700,
+      "top": 17592
+    },
+    "s_h_baz_dig_cliente_whitelist": {
+      "left": 5100,
+      "top": 13492
+    },
+    "ref_baz_dig_clientedigital_sucursal": {
+      "left": 6260,
+      "top": 17592
+    },
+    "s_h_baz_div_garantia_basico": {
+      "left": 9900,
+      "top": 13492
+    },
+    "s_h_baz_div_garantia_extendida": {
+      "left": 10540,
+      "top": 13492
+    },
+    "s_rt_h_baz_div_garantia_basico": {
+      "left": 9900,
+      "top": 14202
+    },
+    "pit_baz_div_garantia_diario": {
+      "left": 11060,
+      "top": 17592
+    },
+    "s_h_baz_afo_cliente_regreso_afore": {
+      "left": 300,
+      "top": 19472
+    },
+    "s_h_baz_cah_cliente_capital_humano_socios": {
+      "left": 5100,
+      "top": 19472
+    },
+    "ref_baz_cat_catalogo_unico2": {
+      "left": 11060,
+      "top": 23572
+    },
+    "ref_baz_cat_ebx_fitires_niveles": {
+      "left": 12300,
+      "top": 23572
+    },
+    "ref_baz_cat_fitires_nivel_sie": {
+      "left": 11060,
+      "top": 23918
+    },
+    "ref_baz_cat_grupo_control": {
+      "left": 12300,
+      "top": 24254
+    },
+    "ref_baz_cat_nbo_canal": {
+      "left": 11060,
+      "top": 24628
+    },
+    "ref_baz_cat_nbo_producto_canal": {
+      "left": 12300,
+      "top": 24600
+    },
+    "ref_baz_cat_nbo_productos": {
+      "left": 11060,
+      "top": 24890
+    },
+    "ref_baz_cat_persona_wpdt": {
+      "left": 12300,
+      "top": 25002
+    }
+  }
+}

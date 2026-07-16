@@ -529,8 +529,8 @@ body.diagram-expanded-mode {
 }
 
 .color-menu {
-  position: absolute;
-  top: calc(100% + 10px);
+  position: fixed;
+  top: 0;
   left: 0;
   z-index: 10;
   display: grid;
@@ -1734,6 +1734,7 @@ body {
   top: 18px;
   left: 22px;
   right: 22px;
+  z-index: 75;
   gap: 12px;
   align-items: flex-start;
 }
@@ -2036,6 +2037,7 @@ body {
   border: 1px solid #d4deea;
   background: #ffffff;
   box-shadow: 0 18px 38px rgba(15, 23, 42, 0.14);
+  z-index: 200;
 }
 
 .color-swatch {

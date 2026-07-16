@@ -44,6 +44,12 @@ const dbmlEditorHighlight = document.querySelector("#dbml-highlight");
 const dbmlLineNumbers = document.querySelector("#dbml-line-numbers");
 const dbmlRunButton = document.querySelector("#dbml-run-button");
 
+// El menu debe vivir fuera de la toolbar con scroll para no quedar recortado
+// por su overflow ni debajo del panel DBML.
+if (tableColorMenu && tableColorMenu.parentElement !== document.body) {
+  document.body.appendChild(tableColorMenu);
+}
+
 diagramToolbarRight?.addEventListener("wheel", (event) => {
   const hasHorizontalOverflow = diagramToolbarRight.scrollWidth > diagramToolbarRight.clientWidth;
   if (!hasHorizontalOverflow) return;
@@ -54,6 +60,8 @@ diagramToolbarRight?.addEventListener("wheel", (event) => {
   event.preventDefault();
   diagramToolbarRight.scrollLeft += delta;
 }, { passive: false });
+diagramToolbarRight?.addEventListener("scroll", positionColorMenu, { passive: true });
+window.addEventListener("resize", positionColorMenu);
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 
@@ -2305,9 +2313,32 @@ function updateColorButton() {
   }
 }
 
+function positionColorMenu() {
+  if (!tableColorMenu || tableColorMenu.hidden || !tableColorButton) {
+    return;
+  }
+  const buttonRect = tableColorButton.getBoundingClientRect();
+  const menuWidth = tableColorMenu.offsetWidth;
+  const menuHeight = tableColorMenu.offsetHeight;
+  const gap = 10;
+  const margin = 8;
+  const left = Math.min(
+    Math.max(margin, buttonRect.left),
+    Math.max(margin, window.innerWidth - menuWidth - margin)
+  );
+  const top = Math.min(
+    buttonRect.bottom + gap,
+    Math.max(margin, window.innerHeight - menuHeight - margin)
+  );
+  tableColorMenu.style.left = `${left}px`;
+  tableColorMenu.style.top = `${top}px`;
+}
+
 function closeColorMenu() {
   if (tableColorMenu) {
     tableColorMenu.hidden = true;
+    tableColorMenu.style.removeProperty("left");
+    tableColorMenu.style.removeProperty("top");
     tableColorButton?.setAttribute("aria-expanded", "false");
   }
 }
@@ -3408,12 +3439,16 @@ function bindToolbar() {
   expandDiagramButton?.addEventListener("click", () => setDiagramExpanded(!diagramExpanded));
 
   tableColorButton?.addEventListener("click", (event) => {
-    if (!editModeEnabled || !activeColorTarget() || !tableColorMenu) {
+    if (!editModeEnabled || !tableColorMenu) {
       return;
     }
     event.stopPropagation();
     tableColorMenu.hidden = !tableColorMenu.hidden;
     tableColorButton.setAttribute("aria-expanded", tableColorMenu.hidden ? "false" : "true");
+    if (!tableColorMenu.hidden) {
+      positionColorMenu();
+      requestAnimationFrame(positionColorMenu);
+    }
   });
 
   colorSwatches.forEach((swatch) => {
