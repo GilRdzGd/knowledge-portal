@@ -1618,3 +1618,119 @@ iframe { width: 100%; height: calc(100vh - 292px); min-height: 540px; border: 0;
 @media (max-width: 820px) {
   .nom-generator { grid-template-columns: 1fr; }
 }
+
+/* ============================================================
+   Design tokens y alineacion estetica
+   Aplica la paleta/estilo del sistema a Documentacion y Nomenclatura.
+   ============================================================ */
+:root {
+  --pd-sidebar: #081B40;
+  --pd-bg: #F8FAFD;
+  --pd-surface: #FFFFFF;
+  --pd-accent: #2563EB;
+  --pd-accent-strong: #2F6BFF;
+  --pd-text: #111827;
+  --pd-text-2: #64748B;
+  --pd-border: #E5EAF2;
+  --pd-green: #16A36A;
+  --pd-selected: #EAF1FF;
+  --pd-radius: 12px;
+  --pd-radius-sm: 9px;
+  --pd-pill: 999px;
+  --pd-shadow: 0 8px 24px rgba(16, 24, 40, 0.06);
+  --pd-font: Inter, Geist, "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Tipografia y color base de ambas vistas */
+.docs-app,
+.nom-app {
+  font-family: var(--pd-font);
+  color: var(--pd-text);
+}
+.documentacion-mount,
+.nomenclaturas-mount {
+  background: var(--pd-bg);
+}
+
+/* Superficies principales (tarjetas): radio 12, sombra suave, borde de sistema */
+.docs-index,
+.docs-main,
+.nom-shell {
+  background: var(--pd-surface);
+  border-color: var(--pd-border);
+  border-radius: var(--pd-radius);
+  box-shadow: var(--pd-shadow);
+}
+
+/* Bordes de superficies secundarias */
+.docs-tab,
+.nom-option,
+.nom-results,
+.nom-input,
+.docs-variant,
+.docs-code,
+.docs-md-table,
+.docs-md-table th,
+.docs-md-table td,
+.docs-placeholder,
+.docs-variant-toggle {
+  border-color: var(--pd-border);
+}
+.docs-section,
+.docs-seealso,
+.docs-toolbar,
+.docs-index-head span,
+.docs-group[data-depth="1"] > .docs-page-list,
+.docs-group[data-depth="2"] > .docs-page-list,
+.docs-markdown h2,
+.docs-markdown hr,
+.nom-trail {
+  border-color: var(--pd-border);
+}
+
+/* Divisores internos (mas claros) */
+.docs-group,
+.docs-seealso,
+.docs-toolbar { border-color: var(--pd-border); }
+
+/* Radios: botones 8-10, tarjetas 12 */
+.docs-tab { border-radius: var(--pd-radius-sm); }
+.nom-option { border-radius: var(--pd-radius); }
+.nom-input,
+.nom-reset,
+.nom-chip,
+.docs-variant-toggle,
+.docs-code,
+.nom-output-value { border-radius: var(--pd-radius-sm); }
+
+/* Acento y estado seleccionado */
+.docs-tab.is-active { border-color: var(--pd-accent); box-shadow: 0 6px 18px rgba(37, 99, 235, 0.14); }
+.docs-page.is-active { background: var(--pd-selected); color: var(--pd-accent); font-weight: 700; }
+.docs-group[open] > summary .docs-count { background: var(--pd-selected); color: var(--pd-accent); }
+.docs-markdown a,
+.docs-seealso a,
+.nom-chip-value { color: var(--pd-accent); }
+.docs-variant-toggle button.is-active { background: var(--pd-accent); }
+.docs-variant { border-left-color: var(--pd-accent); background: var(--pd-selected); }
+.docs-markdown blockquote { border-left-color: var(--pd-accent); background: var(--pd-selected); }
+.nom-chip { background: var(--pd-selected); border-color: #CFE0FF; }
+.nom-option:hover:not(.is-disabled) { border-color: var(--pd-accent); box-shadow: 0 8px 20px rgba(37, 99, 235, 0.12); }
+.nom-input:focus { border-color: var(--pd-accent); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }
+
+/* Badges en forma de pildora */
+.docs-tag,
+.nom-badge,
+.docs-draft,
+.docs-count { border-radius: var(--pd-pill); }
+
+/* Texto secundario coherente */
+.docs-eyebrow,
+.docs-breadcrumb,
+.docs-tab-audience,
+.docs-node-desc,
+.nom-header p,
+.nom-step-q,
+.nom-hint { color: var(--pd-text-2); }
+
+/* Verde de estado: confirmacion al copiar */
+.nom-copy.is-copied { background: var(--pd-green); color: #ffffff; }

@@ -207,17 +207,24 @@ function bindEvents() {
       updateResultsOnly();
     });
   });
-  app.querySelectorAll("[data-copy]").forEach((button) => {
-    button.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(button.dataset.copy);
-        const original = button.textContent;
-        button.textContent = "Copiado";
-        setTimeout(() => (button.textContent = original), 1200);
-      } catch (_) {
-        /* clipboard no disponible */
-      }
-    });
+  app.querySelectorAll("[data-copy]").forEach(bindCopy);
+}
+
+// Copia al portapapeles con confirmacion verde temporal.
+function bindCopy(button) {
+  button.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(button.dataset.copy);
+      const original = button.textContent;
+      button.textContent = "Copiado";
+      button.classList.add("is-copied");
+      setTimeout(() => {
+        button.textContent = original;
+        button.classList.remove("is-copied");
+      }, 1200);
+    } catch (_) {
+      /* clipboard no disponible */
+    }
   });
 }
 
@@ -251,18 +258,7 @@ function updateResultsOnly() {
             .join("")
         : `<p class="nom-hint">Completa los campos marcados con <em>*</em> para generar los nombres.</p>`
     }`;
-  container.querySelectorAll("[data-copy]").forEach((button) => {
-    button.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(button.dataset.copy);
-        const original = button.textContent;
-        button.textContent = "Copiado";
-        setTimeout(() => (button.textContent = original), 1200);
-      } catch (_) {
-        /* clipboard no disponible */
-      }
-    });
-  });
+  container.querySelectorAll("[data-copy]").forEach(bindCopy);
 }
 
 export async function mountNomenclatura(target) {
