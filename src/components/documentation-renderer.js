@@ -11,6 +11,11 @@ const state = {
   profileId: "",
   pageId: "",
   variant: "onprem",
+  unitId: "",
+  collapsed: new Set(),
+  spyId: "",
+  spyTarget: null,
+  spyHandler: null,
 };
 
 let app = null;
@@ -46,22 +51,29 @@ function childrenOf(node) {
   return [...(node.pages || []), ...(node.groups || [])];
 }
 
-// Recorre el arbol aplanando paginas y anotando su ruta de nombres (trail) e
-// ids ancestros (idTrail) para breadcrumb y auto-apertura.
-function walkNodes(nodes, trailNames, trailIds, out) {
-  (nodes || []).forEach((node) => {
-    const names = [...trailNames, node.name];
-    const ids = [...trailIds, node.id];
-    childrenOf(node).forEach((child) => {
-      if (isPage(child)) out.push({ ...child, trail: names, idTrail: ids });
-      else walkNodes([child], names, ids, out);
-    });
-  });
+// Recorre un nodo (capa) aplanando sus paginas. Cada pagina se anota con:
+//  - trail / idTrail: ruta de nombres e ids ancestros (para eyebrow y apertura)
+//  - unitId / unitName: la "unidad" (capa) a la que pertenece. Un documento
+//    continuo agrupa todas las paginas con el mismo unitId.
+function collectPages(node, trailNames, trailIds, unit, out) {
+  if (isPage(node)) {
+    out.push({ ...node, trail: trailNames, idTrail: trailIds, unitId: unit.id, unitName: unit.name });
+    return;
+  }
+  const names = [...trailNames, node.name];
+  const ids = [...trailIds, node.id];
+  childrenOf(node).forEach((child) => collectPages(child, names, ids, unit, out));
 }
 
+// El nivel "capa" (unidad de documento) = hijo directo de una categoria.
 function allPages(profile) {
   const out = [];
-  walkNodes(profile?.categories || [], [], [], out);
+  (profile?.categories || []).forEach((category) => {
+    childrenOf(category).forEach((unit) => {
+      const unitInfo = { id: unit.id, name: isPage(unit) ? unit.title : unit.name };
+      collectPages(unit, [category.name], [category.id], unitInfo, out);
+    });
+  });
   return out;
 }
 
@@ -238,7 +250,8 @@ function renderTabs() {
 function renderPageButton(page) {
   return `
     <button class="docs-page ${page.id === state.pageId ? "is-active" : ""}" type="button" data-page-id="${escapeHtml(page.id)}">
-      <span>${escapeHtml(page.title)}</span>${page.draft ? '<span class="docs-draft">borrador</span>' : ""}
+      <span class="docs-caret-slot" aria-hidden="true"></span>
+      <span class="docs-page-label">${escapeHtml(page.title)}</span>${page.draft ? '<span class="docs-draft">borrador</span>' : ""}
     </button>`;
 }
 
@@ -251,11 +264,12 @@ function renderChildren(node, activePage, depth) {
 
 // Render recursivo de un grupo (o categoria) como <details> colapsable.
 function renderGroup(node, activePage, depth) {
-  const isOpen = activePage?.idTrail?.includes(node.id) || (depth === 0 && !activePage);
+  // El estado colapsado se preserva entre navegaciones via state.collapsed.
+  const isOpen = !state.collapsed.has(node.id);
   return `
-    <details class="docs-group" data-depth="${depth}" ${isOpen ? "open" : ""}>
+    <details class="docs-group" data-depth="${depth}" data-group-id="${escapeHtml(node.id)}" ${isOpen ? "open" : ""}>
       <summary>
-        <span class="docs-caret" aria-hidden="true">▸</span>
+        <span class="docs-caret-slot"><span class="docs-caret" aria-hidden="true">▸</span></span>
         <span class="docs-node-head">
           <strong>${escapeHtml(node.name)}</strong>
           ${node.description ? `<span class="docs-node-desc">${escapeHtml(node.description)}</span>` : ""}
@@ -296,10 +310,10 @@ function seeAlsoLinks(page) {
   return items ? `<div class="docs-seealso"><h3>Ver tambien</h3><ul>${items}</ul></div>` : "";
 }
 
-async function renderContent(profile, page) {
+// Construye una <section> del documento continuo para una pagina.
+async function buildSection(page) {
   const tags = (page.tags || []).map((tag) => `<span class="docs-tag">${escapeHtml(tag)}</span>`).join("");
-  const trailHtml = (page.trail || []).map((name) => escapeHtml(name)).join(" <span>›</span> ");
-  const breadcrumb = `${escapeHtml(profile.name)} <span>›</span> ${trailHtml} <span>›</span> ${escapeHtml(page.title)}`;
+  const eyebrow = (page.trail || []).map((name) => escapeHtml(name)).join(" › ");
   let body;
   let hasVariants = false;
   if (page.draft) {
@@ -313,7 +327,7 @@ async function renderContent(profile, page) {
       const response = await fetch(`assets/data/${page.file}`);
       if (!response.ok) throw new Error(String(response.status));
       const raw = await response.text();
-      // El titulo ya se muestra en el encabezado de la pagina; quitamos el H1 inicial del Markdown para no duplicarlo.
+      // El titulo ya se muestra en el encabezado de la seccion; quitamos el H1 inicial del Markdown.
       const withoutTitle = raw.replace(/^\uFEFF?\s*#\s+[^\n]*\n+/, "");
       hasVariants = /^:::(onprem|cloud)\s*$/m.test(withoutTitle);
       body = `<div class="docs-markdown">${renderMarkdown(withoutTitle)}</div>`;
@@ -321,24 +335,15 @@ async function renderContent(profile, page) {
       body = `<div class="docs-placeholder"><p>No se pudo cargar el contenido de <code>${escapeHtml(page.file)}</code>.</p></div>`;
     }
   }
-  return `
-    <main class="docs-main">
-      <nav class="docs-breadcrumb">${breadcrumb}</nav>
-      <header class="docs-page-head">
-        <h2>${escapeHtml(page.title)}</h2>
-        ${tags ? `<div class="docs-tags">${tags}</div>` : ""}
-        ${
-          hasVariants
-            ? `<div class="docs-variant-toggle" role="group" aria-label="Entorno tecnologico">
-                 <button type="button" data-variant-btn="onprem" class="${state.variant === "onprem" ? "is-active" : ""}">On-Premise</button>
-                 <button type="button" data-variant-btn="cloud" class="${state.variant === "cloud" ? "is-active" : ""}">Cloud</button>
-               </div>`
-            : ""
-        }
-      </header>
+  const html = `
+    <section class="docs-section" id="sec-${escapeHtml(page.id)}" data-page-id="${escapeHtml(page.id)}">
+      ${eyebrow ? `<div class="docs-eyebrow">${eyebrow}</div>` : ""}
+      <h2 class="docs-section-title">${escapeHtml(page.title)}</h2>
+      ${tags ? `<div class="docs-tags">${tags}</div>` : ""}
       ${body}
       ${seeAlsoLinks(page)}
-    </main>`;
+    </section>`;
+  return { html, hasVariants };
 }
 
 async function render() {
@@ -348,18 +353,47 @@ async function render() {
     return;
   }
   state.profileId = profile.id;
-  const page = findPage(profile, state.pageId);
-  state.pageId = page?.id || "";
+  const allProfilePages = allPages(profile);
+  const activePage = findPage(profile, state.pageId);
+  state.pageId = activePage?.id || allProfilePages[0]?.id || "";
+  state.unitId = activePage?.unitId || allProfilePages[0]?.unitId || "";
+  // Asegura visible la rama de la pagina activa, preservando el resto del estado.
+  (activePage?.idTrail || []).forEach((id) => state.collapsed.delete(id));
   applyVariant();
+
   app.innerHTML = `
     <section class="docs-shell">
       ${renderTabs()}
       <div class="docs-layout">
-        ${renderIndex(profile, page)}
-        ${page ? await renderContent(profile, page) : `<main class="docs-main"><div class="docs-placeholder"><p>Este perfil aun no tiene paginas.</p></div></main>`}
+        ${renderIndex(profile, activePage)}
+        <main class="docs-main" id="docsMain"><div class="docs-loading">Cargando contenido...</div></main>
       </div>
     </section>`;
-  bindEvents();
+  bindShellEvents();
+
+  // Documento continuo por CAPA: solo las paginas de la unidad activa.
+  const pages = allProfilePages.filter((p) => p.unitId === state.unitId);
+  const built = await Promise.all(pages.map((p) => buildSection(p)));
+  const hasVariants = built.some((b) => b.hasVariants);
+  const main = app.querySelector("#docsMain");
+  if (!main) return;
+  main.innerHTML = `
+    ${
+      hasVariants
+        ? `<div class="docs-toolbar">
+             <span class="docs-toolbar-label">Entorno</span>
+             <div class="docs-variant-toggle" role="group" aria-label="Entorno tecnologico">
+               <button type="button" data-variant-btn="onprem" class="${state.variant === "onprem" ? "is-active" : ""}">On-Premise</button>
+               <button type="button" data-variant-btn="cloud" class="${state.variant === "cloud" ? "is-active" : ""}">Cloud</button>
+             </div>
+           </div>`
+        : ""
+    }
+    ${built.map((b) => b.html).join("") || `<div class="docs-placeholder"><p>Este perfil aun no tiene paginas.</p></div>`}`;
+  bindContentEvents();
+  setupScrollSpy();
+  // Posiciona en la seccion indicada por el hash (sin animacion en la carga inicial).
+  scrollToPage(state.pageId, false);
 }
 
 function applyVariant() {
@@ -375,22 +409,46 @@ function goTo(profileId, pageId) {
   render();
 }
 
-function bindEvents() {
+// Eventos del cascaron (pestanas de perfil e indice como tabla de contenidos).
+function bindShellEvents() {
   app.querySelectorAll("[data-profile-id]").forEach((tab) => {
     tab.addEventListener("click", () => {
       const profile = (state.manifest.profiles || []).find((p) => p.id === tab.dataset.profileId);
       goTo(tab.dataset.profileId, allPages(profile)[0]?.id || "");
     });
   });
-  app.querySelectorAll("[data-page-id]").forEach((button) => {
-    button.addEventListener("click", () => goTo(state.profileId, button.dataset.pageId));
+  app.querySelectorAll(".docs-index [data-page-id]").forEach((button) => {
+    button.addEventListener("click", () => goToPage(button.dataset.pageId));
   });
-  app.querySelectorAll("[data-goto-page]").forEach((link) => {
-    link.addEventListener("click", (event) => {
-      event.preventDefault();
-      goTo(link.dataset.gotoProfile, link.dataset.gotoPage);
+  // Persistencia del estado colapsado/expandido de cada grupo.
+  app.querySelectorAll(".docs-index details.docs-group").forEach((details) => {
+    details.addEventListener("toggle", () => {
+      const id = details.dataset.groupId;
+      if (!id) return;
+      if (details.open) state.collapsed.delete(id);
+      else state.collapsed.add(id);
     });
   });
+}
+
+// Navega a una pagina: si es de otra capa cambia de documento; si es de la
+// capa actual solo hace scroll a su seccion.
+function goToPage(pageId) {
+  const profile = currentProfile();
+  const page = allPages(profile).find((p) => p.id === pageId);
+  if (!page) return;
+  if (page.unitId !== state.unitId) {
+    state.pageId = pageId;
+    render();
+  } else {
+    const btn = app.querySelector(`.docs-index [data-page-id="${pageId}"]`);
+    if (btn) openAncestors(btn);
+    scrollToPage(pageId, true);
+  }
+}
+
+// Eventos del contenido (toggle de variante y enlaces "ver tambien").
+function bindContentEvents() {
   app.querySelectorAll("[data-variant-btn]").forEach((button) => {
     button.addEventListener("click", () => {
       state.variant = button.dataset.variantBtn;
@@ -400,6 +458,80 @@ function bindEvents() {
         .forEach((b) => b.classList.toggle("is-active", b.dataset.variantBtn === state.variant));
     });
   });
+  app.querySelectorAll("[data-goto-page]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      const profileId = link.dataset.gotoProfile;
+      const pageId = link.dataset.gotoPage;
+      if (profileId === state.profileId) {
+        goToPage(pageId);
+      } else {
+        goTo(profileId, pageId);
+      }
+    });
+  });
+}
+
+// Abre todos los <details> ancestros de un elemento del indice.
+function openAncestors(el) {
+  let details = el.closest("details");
+  while (details) {
+    details.open = true;
+    details = details.parentElement ? details.parentElement.closest("details") : null;
+  }
+}
+
+function setActiveNav(pageId) {
+  app
+    .querySelectorAll(".docs-index [data-page-id]")
+    .forEach((b) => b.classList.toggle("is-active", b.dataset.pageId === pageId));
+}
+
+function scrollToPage(pageId, smooth) {
+  if (!pageId) return;
+  const section = app.querySelector(`.docs-section[data-page-id="${pageId}"]`);
+  if (!section) return;
+  section.scrollIntoView({ behavior: smooth ? "smooth" : "auto", block: "start" });
+  setActiveNav(pageId);
+  state.pageId = pageId;
+  writeHash();
+}
+
+// Encuentra el ancestro con scroll; si no hay, usa la ventana.
+function getScrollParent(node) {
+  let el = node ? node.parentElement : null;
+  while (el) {
+    const overflowY = getComputedStyle(el).overflowY;
+    if ((overflowY === "auto" || overflowY === "scroll") && el.scrollHeight > el.clientHeight) return el;
+    el = el.parentElement;
+  }
+  return window;
+}
+
+// Resalta en el indice la seccion visible mas cercana al tope al desplazarse.
+function setupScrollSpy() {
+  if (state.spyTarget && state.spyHandler) {
+    state.spyTarget.removeEventListener("scroll", state.spyHandler);
+  }
+  const target = getScrollParent(app.querySelector("#docsMain"));
+  const handler = () => {
+    const sections = Array.from(app.querySelectorAll(".docs-section"));
+    if (!sections.length) return;
+    let currentId = sections[0].dataset.pageId;
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= 120) currentId = section.dataset.pageId;
+      else break;
+    }
+    if (currentId && currentId !== state.spyId) {
+      state.spyId = currentId;
+      state.pageId = currentId;
+      setActiveNav(currentId);
+    }
+  };
+  target.addEventListener("scroll", handler, { passive: true });
+  state.spyTarget = target;
+  state.spyHandler = handler;
+  handler();
 }
 
 export async function mountDocumentation(target) {
